@@ -1,0 +1,337 @@
+<?php
+$results = new ArrayIterator($results_arr);
+$rpp = 30; // "Results per page"
+
+if (($page*$rpp)-$rpp <= count($results))
+{
+
+	$i = 0;
+	foreach (new LimitIterator($results, (($page*$rpp)-$rpp), $rpp) as $resid=>$arr)
+	{
+		if ($i == $rpp) break;
+
+		// Trim 'work' or 'image' from beginning of id string
+		$id = substr($resid, -6);
+
+		// Define array of search types that yielded results for this record
+		// by combining search arrays for all terms together
+		$searches_arr = array();
+		foreach ($arr['search'] as $term_arr) {
+			$searches_arr = array_merge($searches_arr, $term_arr);
+		}
+		$searches_arr = array_unique($searches_arr); //print_r($searches_arr);
+
+		// Determine the preferred thumbnail image for this record
+		// And assign a parent Work, if available
+		if ($arr['type']=='work')
+		{
+			$short_id = ltrim($id, '0');
+			$r = isnerQ("SELECT preferred_image FROM dimli.work WHERE id = {$short_id}");
+			if (mysql_num_rows($r) >= 1) 
+			{
+				while ($work = mysql_fetch_assoc($r)) 
+				{ 
+					$img_id = create_six_digits($work['preferred_image']);
+				}
+			}
+			$parent = 'none';
+		}
+		elseif ($arr['type']=='image')
+		{
+			$img_id = create_six_digits($id);
+
+			// Find this Image's parent Work and Order Number
+			$parent = isnerQ("SELECT related_works, order_id, catalogued FROM dimli.image WHERE id = {$id}");
+			$parent = mysql_fetch_array($parent);
+			$parent = (trim($parent['related_works'] != '')) ? $parent['related_works'] : 'none';
+
+		}
+			
+		// If the image id of the preferred thumbnail is NOT blank, display a result row
+		if (!in_array($img_id, array('', '0')))
+		{
+			$src = "http://dimli.library.vanderbilt.edu/_scripts/timthumb.php?src=mdidimages/HoAC/medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
+		?>
+
+			<div class="lanternResults_list_row defaultCursor">
+
+				<div class="thumb_panel">
+
+					<img src="<?php echo $src; ?>"
+						class="list_thumb"
+						title="Click to preview"
+						data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
+						data-image="<?php echo create_six_digits($img_id); ?>">
+
+					<?php if ($_SESSION['priv_orders_read']=='1') { ?>
+
+					<span class="view_catalog pointer"
+						title="Jump to catalog record">view catalog</span>
+
+					<?php } ?>
+
+				</div>
+
+				<!-- Catalog data for this result -->
+
+				<div class="text_panel">
+
+					<!-- Title -->
+
+					<div class="highlightable"
+						style="margin-bottom: 2px; font-size: 1.1em; line-height: 1.1em;">
+
+						<?php
+						$res = mysql_query("SELECT * FROM dimli.title WHERE related_{$arr['type']}s = {$id}", $connection);
+						confirm_query($res);
+
+						$title_arr = array();
+						while ($row = mysql_fetch_assoc($res)) {
+							$title_arr[] = $row['title_text'];
+						}
+
+						// Assign a default value if title array is empty
+						$title_arr = (empty($title_arr)) ? array('Uncataloged') : $title_arr;
+
+						// Display appropriate titles
+						lantern_list_display_titles($title_arr, $searches_arr);
+						?>
+
+					</div>
+
+					<!-- Agent -->
+
+					<div class="highlightable"
+						style="margin-bottom: 1px; font-size: 0.9em;">
+
+						<?php
+						lantern_list_display_agents($arr['type'], create_six_digits($id), $searches_arr, $parent);
+						?>
+
+					</div>
+
+					<!-- Record number -->
+
+					<div style="font-size: 0.8em; color: #999; margin-bottom: 5px;">
+
+						<?php echo ucfirst($arr['type']).' '; ?>
+
+						<span class="highlightable">
+
+							<?php echo create_six_digits($id); ?>
+
+						</span>
+
+					</div>
+
+					<!-- Date -->
+
+					<div class="data_row">
+
+						<span class="mediumWeight" style="display: inline-block;">Date:&nbsp;</span>
+
+						<span class="highlightable">
+
+							<?php
+							lantern_list_display_date($arr['type'], $id, $parent);
+								// eg. func('work', '062261', 'none/000261')
+							?>
+
+						</span>
+
+					</div>
+
+					<!-- Other matched data -->
+
+					<?php
+					// For each type of search that successfully returned this record
+					foreach ($searches_arr as $search)
+					{
+
+						if (!in_array($search, array('work_id','image_id','title','agent','work_description','image_description','getty_att','getty_tgn','getty_ulan')))
+						{
+							// Define name of function to display the record's data
+							$func = 'lantern_list_display_'.$search;
+							?>
+							<div class="data_row">
+
+								<span class="mediumWeight" style="display: inline-block;">
+
+									<?php
+									echo str_replace('_',' ',ucfirst($search));
+									?>:&nbsp;
+
+								</span>
+
+								<span class="highlightable"><?php
+
+									// Call appropriate function to display this field
+									$func($arr['type'], $id); // eg. func('work', '000261')
+							
+								?></span>
+
+							</div><?php
+						}
+
+						// Search term found in DESCRIPTION
+						if (in_array($search, array('work_description','image_description')))
+						{
+							$res = mysql_query(" SELECT description FROM dimli.{$arr['type']} WHERE lpad(id,6,'0') = {$id} ", $connection);
+							confirm_query($res);
+							while ($row = mysql_fetch_assoc($res))
+							{
+								$desc = $row['description'];
+							}
+							?>
+							<div class="highlightable lantern_desc collapsed data_row" style="overflow: hidden;">
+
+								<span class="mediumWeight" style="display: inline-block;">Description:&nbsp;</span>
+
+								<?php echo $desc; ?>
+
+							</div><?php
+						}
+					}
+					?>
+
+				<!-- end text_panel -->
+				</div>
+
+				<!-- Related images frame -->
+
+				<div class="related_panel">
+
+					<div></div>
+
+					<?php if ($arr['type']=='work')
+					{
+						get_related_images($id);
+					} ?>
+
+				</div>
+
+			<?php
+			// echo '<pre>';
+			// print_r($results[$resid]);
+			// echo '</pre>';
+			?>
+
+			<p class="clear"></p>
+
+			<!-- end row -->
+			</div>
+
+		<?php
+		}
+	$i++;
+	}
+	?>
+
+	<script id="lantern_list_script">
+
+		/*
+		TOGGLE FILTER VISIBILITY
+		*/
+		$('#filter_toggle').unbind('click').click(function()
+			{
+				if (!$('#control_panel_wide').is(':visible'))
+				{
+					$('#control_panel_wide').slideDown(600);
+					$('#filter_toggle span').text('Hide Filters');
+					$(document).scrollTop($('body').offset().top);
+				}
+				else
+				{
+					$('#control_panel_wide').slideUp(600);
+					$('#filter_toggle span').text('Show Filters');
+				}
+			});
+
+
+		// DEFINE TERMS FOR HIGHLIGHT SEARCH
+
+		var terms = <?php echo json_encode($searchText_arr); ?>;
+		// console.log(JSON.stringify(terms)); // Debug
+
+
+		// HIGHLIGHT SEARCH TERMS ON MOUSEENTER
+
+		$('div.lanternResults_list_row')
+			.hover(
+				function(event)
+				{
+					event.stopPropagation();
+					var $row = $(this);
+					$.each(terms, function(index, val, row)
+						{
+							$row.find('.highlightable').highlight(val);
+						});
+				},
+				function(event)
+				{
+					event.stopPropagation();
+					$.each($(this).find('.highlightable span.glowBG'), function()
+						{
+							var $text = $(this).text();
+							$(this).replaceWith($text);
+						});
+				});
+
+
+		// GLOW ON THUMBNAIL HOVER
+
+		$('div.thumb_panel img.list_thumb, div.related_panel img')
+			.hover(
+				function()
+				{
+					$(this).addClass('glowPurple');
+				}, 
+				function()
+				{
+					$(this).removeClass('glowPurple');
+				});
+
+
+		// JUMP TO CATALOG
+
+		$('span.view_catalog')
+			.click(
+				function()
+				{
+					var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+					view_image_record(imageNum);
+					view_work_record(imageNum);
+					// console.log(imageNum+' clicked'); //Debug
+				});
+
+
+		// CLICK THUMBNAIL TO PREVIEW
+
+		$('img.list_thumb')
+			.click(
+				function()
+				{
+					var img = $(this).attr('data-image');
+					image_viewer(img);
+				});
+
+
+		// EXPAND/COLLAPSE RECORD DESCRIPTION
+
+		$('.lantern_desc').click(
+			function()
+			{
+				$(this).toggleClass('collapsed expanded');
+			});
+
+
+		// LOAD MORE RESULTS WHEN USER SCROLLS TO END OF LIST
+
+		var newPage = <?php echo $page+1; ?>;
+		scroll_to_load($('div#lantern_results_list'), 'list', newPage);
+
+	</script>
+
+<?php
+}
+?>
