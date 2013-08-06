@@ -2,5 +2,6 @@
 # 2013-08-06
 
 _php/_config/constants.inc.php
+_jquery/*
 sandbox.php
 _ppts/*
