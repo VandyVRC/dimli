@@ -2,7 +2,6 @@ DIMLI
 =====
 
 >Digital Media Management Library
-
 >Created by Matthew Isner, Vanderbilt University
 
 Project Description
