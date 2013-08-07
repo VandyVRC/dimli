@@ -8,11 +8,13 @@ confirm_logged_in();
 require_priv('priv_catalog');
 
 // Determine on which field the search was performed
-$fieldName = $_POST['json']['fieldName'];
+// $fieldName = $_POST['json']['fieldName'];
+$fieldName = $_POST['fieldName'];
 $lastDigit = substr($fieldName, -1);
 $firstChar = substr($fieldName, 0, 1);
 
-$fieldVal = $_POST['json']['fieldVal'];
+// $fieldVal = $_POST['json']['fieldVal'];
+$fieldVal = $_POST['fieldVal'];
 
 // Determine where the user is coming from
 // Used below to add a GET variable to the form action url
@@ -48,7 +50,8 @@ if (!empty($fieldVal)) {
 		$namesArray = explode(' ', $fieldVal);
 		// Explode the string into an array
 		
-		$sql = "SELECT * FROM dimli.getty_ulan 
+		$sql = "SELECT * 
+					FROM dimli.getty_ulan 
 					WHERE id != '0' ";
 		
 		if (!empty($namesArray)) {
@@ -56,14 +59,14 @@ if (!empty($fieldVal)) {
 		
 			foreach ($namesArray as $name):
 			
-				$sql.= " && (english_pref_term REGEXP '{$name}' || pref_term REGEXP '{$name}' || nonpref_term REGEXP '{$name}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$name}' OR pref_term REGEXP '{$name}' OR nonpref_term REGEXP '{$name}') ";
 				
 			endforeach;
 			
 		}
 		
 		$sql.= (!empty($type)) 
-					? " && record_type REGEXP '{$type}' " 
+					? " AND record_type REGEXP '{$type}' " 
 					: "" ;
 				
 		$sql.= " ORDER BY popularity DESC, pref_term ";
@@ -100,22 +103,23 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = "SELECT * FROM dimli.getty_aat 
-					WHERE
-						(hierarchy REGEXP 'Materials Facet' || hierarchy REGEXP 'Components' || hierarchy REGEXP 'image-making equipment')
-					";
+		$sql = "SELECT * 
+					FROM dimli.getty_aat 
+					WHERE ( hierarchy REGEXP 'Materials Facet' 
+						OR hierarchy REGEXP 'Components' 
+						OR hierarchy REGEXP 'image-making equipment' ) ";
 		
 		if (!empty($materialsArray)) {
 		
-			foreach ($materialsArray as $material):
+			foreach ($materialsArray as $material) {
 			
-				$sql.= " && (english_pref_term REGEXP '{$material}' || pref_term_text REGEXP '{$material}' || nonpref_term_text REGEXP '{$material}' || pref_term_qualifier REGEXP '{$material}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$material}' OR pref_term_text REGEXP '{$material}' OR nonpref_term_text REGEXP '{$material}' OR pref_term_qualifier REGEXP '{$material}') ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {
@@ -150,22 +154,22 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = " SELECT * FROM dimli.getty_aat WHERE 
-						hierarchy REGEXP 'Processes and Techniques' 
-					";
+		$sql = " SELECT * 
+					FROM dimli.getty_aat 
+					WHERE hierarchy REGEXP 'Processes and Techniques' ";
 		
 		if (!empty($techniqueArray)) {
 		
-			foreach ($techniqueArray as $technique):
+			foreach ($techniqueArray as $technique) {
 			
 				// $technique = preg_replace('/\([^)]+\)/', '', $technique);
-				$sql.= " && (english_pref_term REGEXP '{$technique}' || pref_term_text REGEXP '{$technique}' || nonpref_term_text REGEXP '{$technique}' || pref_term_qualifier REGEXP '{$technique}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$technique}' OR pref_term_text REGEXP '{$technique}' OR nonpref_term_text REGEXP '{$technique}' OR pref_term_qualifier REGEXP '{$technique}') ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {
@@ -200,22 +204,24 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = "SELECT * FROM dimli.getty_aat WHERE 
-						(hierarchy REGEXP 'Visual Works' ||  hierarchy REGEXP 'Built Environment' || hierarchy REGEXP 'Objects Facet')
-					";
+		$sql = "SELECT * 
+					FROM dimli.getty_aat 
+					WHERE ( hierarchy REGEXP 'Visual Works' 
+						OR  hierarchy REGEXP 'Built Environment' 
+						OR hierarchy REGEXP 'Objects Facet' ) ";
 		
 		if (!empty($workTypeArray)) {
 		
-			foreach ($workTypeArray as $workType):
+			foreach ($workTypeArray as $workType) {
 			
 				// $workType = preg_replace('/\([^)]+\)/', '', $workType);
-				$sql.= " && (english_pref_term REGEXP '{$workType}' || pref_term_text REGEXP '{$workType}' || nonpref_term_text REGEXP '{$workType}' || pref_term_qualifier REGEXP '{$workType}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$workType}' OR pref_term_text REGEXP '{$workType}' OR nonpref_term_text REGEXP '{$workType}' OR pref_term_qualifier REGEXP '{$workType}') ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {
@@ -250,26 +256,23 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = " SELECT * FROM dimli.getty_aat WHERE 
-						(
-						hierarchy REGEXP 'styles and periods by general era'
-						||
-						hierarchy REGEXP 'styles and periods by region'
-						)
-					";
+		$sql = " SELECT * 
+					FROM dimli.getty_aat 
+					WHERE ( hierarchy REGEXP 'styles and periods by general era'
+						OR hierarchy REGEXP 'styles and periods by region' ) ";
 		
 		if (!empty($cultureArray)) {
 		
-			foreach ($cultureArray as $culture):
+			foreach ($cultureArray as $culture) {
 			
 				$culture = preg_replace('/\([^)]+\)/', '', $culture);
-				$sql.= " && (english_pref_term REGEXP '{$culture}' || pref_term_text REGEXP '{$culture}' || nonpref_term_text REGEXP '{$culture}' || pref_term_qualifier REGEXP '{$culture}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$culture}' OR pref_term_text REGEXP '{$culture}' OR nonpref_term_text REGEXP '{$culture}' OR pref_term_qualifier REGEXP '{$culture}') ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {
@@ -304,27 +307,24 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = " SELECT * FROM dimli.getty_aat WHERE 
-						(
-						hierarchy REGEXP 'styles and periods by region'
-						||
-						hierarchy REGEXP 'generic styles and periods'
-						||
-						hierarchy REGEXP 'styles and periods by general era'
-						) ";
+		$sql = " SELECT * 
+					FROM dimli.getty_aat 
+					WHERE ( hierarchy REGEXP 'styles and periods by region'
+						OR hierarchy REGEXP 'generic styles and periods'
+						OR hierarchy REGEXP 'styles and periods by general era' ) ";
 		
 		if (!empty($styleArray)) {
 		
-			foreach ($styleArray as $style):
+			foreach ($styleArray as $style) {
 			
 				$style = preg_replace('/\([^)]+\)/', '', $style);
-				$sql.= " && (english_pref_term REGEXP '{$style}' || pref_term_text REGEXP '{$style}' || nonpref_term_text REGEXP '{$style}' || pref_term_qualifier REGEXP '{$style}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$style}' OR pref_term_text REGEXP '{$style}' OR nonpref_term_text REGEXP '{$style}' OR pref_term_qualifier REGEXP '{$style}') ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {
@@ -362,18 +362,21 @@ if (!empty($fieldVal)) {
 		//		QUERY GETTY TGN
 		//---------------------------
 		
-		$sql = "SELECT * FROM dimli.getty_tgn 
-					WHERE (hierarchy != 'Extraterrestrial Places') ";
+		$sql = "SELECT * 
+					FROM dimli.getty_tgn 
+					WHERE ( hierarchy != 'Extraterrestrial Places' ) ";
 		
 		if (!empty($locationArray)) {
 		
-			foreach ($locationArray as $location):
+			foreach ($locationArray as $location) {
 			
-				$sql.= " && (english_pref_term REGEXP '{$location}' || getty_pref_term REGEXP '{$location}' || nonpref_term REGEXP '{$location}' || pref_place_type REGEXP '{$location}') ";
+				$sql.= " AND (english_pref_term REGEXP '{$location}' OR getty_pref_term REGEXP '{$location}' OR nonpref_term REGEXP '{$location}' OR pref_place_type REGEXP '{$location}') ";
 				
-			endforeach;
+			}
 			
-		} reset($locationArray);
+		} 
+
+		reset($locationArray);
 		
 		$sql.= " ORDER BY popularity DESC, getty_pref_term ";
 		
@@ -385,15 +388,16 @@ if (!empty($fieldVal)) {
 		//		QUERY REPOSITORY LIST
 		//---------------------------------
 		
-		$sql = "SELECT * FROM dimli.repository 
+		$sql = "SELECT * 
+					FROM dimli.repository 
 					WHERE (id > 0) ";
 		
-		foreach ($locationArray as $location):
+		foreach ($locationArray as $location) {
 
 			$location = preg_replace('/\([^)]+\)/', '', $location);
-			$sql .= " && (museum REGEXP '{$location}' || address REGEXP '{$location}' || city REGEXP '{$location}' || state REGEXP '{$location}' || zip REGEXP '{$location}' || region REGEXP '{$location}' || country REGEXP '{$location}' || phone REGEXP '{$location}' || website REGEXP '{$location}') ";
+			$sql .= " AND (museum REGEXP '{$location}' OR address REGEXP '{$location}' OR city REGEXP '{$location}' OR state REGEXP '{$location}' OR zip REGEXP '{$location}' OR region REGEXP '{$location}' OR country REGEXP '{$location}' OR phone REGEXP '{$location}' OR website REGEXP '{$location}') ";
 
-		foreach;
+		}
 		
 		$sql.= " ORDER BY popularity DESC, museum ";
 		
@@ -405,26 +409,27 @@ if (!empty($fieldVal)) {
 		//		QUERY BUILT WORKS
 		//-----------------------------
 
-		$sql = "SELECT * FROM dimli.title 
-					WHERE (related_works != '') ";
+		$sql = "SELECT * 
+					FROM dimli.title 
+					WHERE ( related_works != '' ) ";
 
-		foreach ($locationArray as $location):
+		foreach ($locationArray as $location) {
 		
-			$sql .= " && (title_text REGEXP '{$location}') ";
+			$sql .= " AND ( title_text REGEXP '{$location}' ) ";
 		
-		endforeach;
+		}
 
 		$sql.= " ORDER BY title_text ASC ";
 		$result_builtWorkTitle = $mysqli->query($sql);
 
 		$builtWorkIds = array();
 
-		while ($row = $result_builtWorkTitle->fetch_assoc()):
+		while ($row = $result_builtWorkTitle->fetch_assoc()) {
 		
 			// Add each result to an array of ids for works with titles that match the search
 			$builtWorkIds[] = $row['related_works'];
 		
-		endwhile;
+		}
 
 		$builtWorkIds_filteredOnce = array();
 		
@@ -520,21 +525,22 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 
 		// Build SQL query
-		$sql = " SELECT * FROM dimli.getty_aat 
-						WHERE (id > 1) ";
+		$sql = " SELECT * 
+					FROM dimli.getty_aat 
+					WHERE ( id > 1 ) ";
 		
 		if (!empty($subjectArray)) {
 		
-			foreach ($subjectArray as $subject):
+			foreach ($subjectArray as $subject) {
 			
 				$subject = preg_replace('/\([^)]+\)/', '', $subject);
-				$sql.= " && (english_pref_term REGEXP '{$subject}' || pref_term_text REGEXP '{$subject}' || nonpref_term_text REGEXP '{$subject}' || pref_term_qualifier REGEXP '{$subject}') ";
+				$sql.= " AND ( english_pref_term REGEXP '{$subject}' OR pref_term_text REGEXP '{$subject}' OR nonpref_term_text REGEXP '{$subject}' OR pref_term_qualifier REGEXP '{$subject}' ) ";
 				
-			endforeach;
+			}
 			
 		}
 		
-		$sql.= " && record_type != 'Guide term' ";
+		$sql.= " AND record_type != 'Guide term' ";
 		$sql.= " ORDER BY popularity DESC, pref_term_text ";
 
 		if ($result = $mysqli->query($sql)) {

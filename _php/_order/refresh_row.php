@@ -28,11 +28,17 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 	<div class="orderView_imageList_thumb">
 
 		<?php 
-		$img_file = '../mdidimages/HoAC/thumb/'.create_six_digits($row['id']).'.jpg';
+		$img_file = IMAGE_DIR.'thumb/'.create_six_digits($row['id']).'.jpg';
 		
-		$img_file = (file_exists($img_file)) 
-			? substr($img_file, 3) 
-			: '_assets/_images/_missing.jpg'; ?>
+		if (checkRemoteFile($img_file)) {
+			$img_file = $img_file;
+		} else {
+			$img_file = '_assets/_images/_missing.jpg';
+		}
+
+		// $img_file = (file_exists($img_file))
+		// 	? substr($img_file, 3) 
+		// 	: '_assets/_images/_missing.jpg'; ?>
 		
 		<img style="vertical-align: top; height: 100%;"
 			src="<?php echo $img_file; ?>">
@@ -45,7 +51,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 
 		<div style="line-height: 16px;">
 
-			<?php require('../_php/_order/query_title.php'); ?>
+			<?php require('query_title.php'); ?>
 
 		</div>
 		
@@ -53,7 +59,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 
 			<span style="font-size: 0.8em; color: #919191;">
 
-				<?php require('../_php/_order/query_agent.php'); ?>
+				<?php require('query_agent.php'); ?>
 
 			</span>
 

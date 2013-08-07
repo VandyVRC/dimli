@@ -99,7 +99,7 @@ confirm_logged_in();
 
 						<?php 
 						echo $row['image_count'];
-						echo 'image';
+						echo ' image';
 						echo ($row['image_count'] > 1)
 							? 's'
 							: ''; ?>
@@ -164,7 +164,7 @@ confirm_logged_in();
 					</a>
 
 					<?php 
-					if (file_exists(DIR.'_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx')): ?>
+					if (file_exists(MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx')): ?>
 
 					<a href="_php/_download/download_ppt.php?order=<?php echo$order;?>"
 						class="download_ppt"

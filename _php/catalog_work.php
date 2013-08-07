@@ -1008,7 +1008,8 @@ $dependentImages_c = mysql_num_rows($dependentImages);
 							rows="2" 
 							name="Wdescription0" 
 							label="Description"
-							style="height: 140px; overflow: hidden;"><?php echo (isset($_SESSION['work']['description0'])) ? htmlspecialchars($_SESSION['work']['description0']) : ''; ?></textarea>
+							style="height: 140px; overflow: hidden;"
+							><?php echo (isset($_SESSION['work']['description0'])) ? htmlspecialchars($_SESSION['work']['description0']) : ''; ?></textarea>
 					
 					</div>
 				
@@ -1967,7 +1968,8 @@ $dependentImages_c = mysql_num_rows($dependentImages);
 	authorityIndicators();
 
 	// Add subtle fieldname to all inputs, based on the input's "label" attribute
-	$('div#work_module input[type=text], input[type=password], textarea').each(fieldLabel);
+	$('div#work_module input[type=text], input[type=password], textarea')
+		.each(fieldLabel);
 
 	$('div#work_module input.authoritySearch').keyup(debounce(function()
 	{console.log('triggered');

@@ -17,9 +17,10 @@
 				<div class="termLink mediumWeight"
 					title="<?php printAltNames($altNames_arr); ?>">
 
-					<?php echo $row['pref_term_text']; ?>
+					<?php 
+					echo $row['pref_term_text'];
 
-					<?php echo (!empty($row['pref_term_qualifier'])) 
+					echo (!empty($row['pref_term_qualifier'])) 
 								? ' (' . $row['pref_term_qualifier'] . ')' 
 								: ''; ?>
 

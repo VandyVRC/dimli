@@ -1632,13 +1632,15 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName)
 {
 	// console.log('function called'); // Debug
 
-	var json = {};
-	json['fieldName'] = fieldName;
+	// var json = {};
+	// json['fieldName'] = fieldName;
+	var fieldName = fieldName;
 
-	console.log(JSON.stringify(json));
+	// console.log(JSON.stringify(json));
 
 	var field = $('input[name='+fieldName+']');
-	json['fieldVal'] = $(field).val();
+	// json['fieldVal'] = $(field).val();
+	var fieldVal = $(field).val();
 	var fieldRow = $(field).parents('div.catRowWrapper');
 	var nearbyAuthorityField = $('input[name='+nearbyAuthorityFieldName+']');
 	var resultsWrapper = $('<div class="catRowWrapper resultsWrapper" style="height: auto;">');
@@ -1654,7 +1656,8 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName)
 
 	$.ajax({
 		type: 'POST',
-		data: { json: json },
+		// data: { json: json },
+		data: 'fieldName='+fieldName+'&fieldVal='+fieldVal,
 		url: '_php/_authority_search/perform_search.php',
 		success: function(response)
 		{
@@ -1664,7 +1667,7 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName)
 		},
 		error: function()
 		{
-
+			console.error('AJAX error - failed to load: perform_search.php');
 		}
 	});
 }

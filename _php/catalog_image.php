@@ -1368,8 +1368,8 @@ require_priv('priv_catalog'); ?>
 							rows="2" 
 							name="Idescription0" 
 							label="Description"
-							style="height: 140px; overflow: hidden;">
-							<?php echo (isset($_SESSION['image']['description0'])) 
+							style="height: 140px; overflow: hidden;"
+							><?php echo (isset($_SESSION['image']['description0'])) 
 									? htmlspecialchars($_SESSION['image']['description0']) 
 									: ''; ?></textarea>
 					
@@ -2559,20 +2559,19 @@ require_priv('priv_catalog'); ?>
 		.click(
 			function()
 			{
-				$('button#conf_button')
-					.click(
-						function()
-						{
-							$('button#conf_button').remove();
+				$('button#conf_button').click(
+					function()
+					{
+						$('button#conf_button').remove();
 
-							$('button#catSubmitButton')
-								.after('<img src="_assets/_images/loading.gif" style="margin: 0 0 -10px 10px;">');
+						$('button#catSubmitButton')
+							.after('<img src="_assets/_images/loading.gif" style="margin: 0 0 -10px 10px;">');
 
-							save_catalog_changes(
-							'<?php echo $_SESSION['workNum']; ?>', 
-							'<?php echo $_SESSION['imageNum']; ?>'
-							);
-						});
+						save_catalog_changes(
+						'<?php echo $_SESSION['workNum']; ?>', 
+						'<?php echo $_SESSION['imageNum']; ?>'
+						);
+					});
 			});
 
 	

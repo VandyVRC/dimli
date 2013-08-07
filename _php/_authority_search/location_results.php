@@ -29,9 +29,10 @@
 				<div class="termLink mediumWeight"
 					title="<?php printAltNames($altNames_arr); ?>">
 
-					<?php echo $row['getty_pref_term']; ?>
+					<?php 
+					echo $row['getty_pref_term'];
 
-					<?php echo (!empty($row['pref_place_type'])) 
+					echo (!empty($row['pref_place_type'])) 
 								? ' (' . $row['pref_place_type'] . ')' 
 								: ''; ?>
 

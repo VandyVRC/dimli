@@ -17,15 +17,16 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
     $imagesToArchive = array();
 
     // Build query to find image ids associated with the current order number
-    $sql = "SELECT * FROM dimli.image 
-                WHERE order_id = {$order}";
+    $sql = "SELECT * 
+            FROM dimli.image 
+            WHERE order_id = {$order} ";
 
     $result = db_query($mysqli, $sql);
 
     while ($row = $result->fetch_assoc()):
     
         // Build array of filepaths/names for images to archive
-        $imagesToArchive[] = DIR.'mdidimages/HoAC/'.$size.'/'.create_six_digits($row['id']).'.jpg';
+        $imagesToArchive[] = MAIN_DIR.'/mdidimages/HoAC/'.$size.'/'.create_six_digits($row['id']).'.jpg';
 
     endwhile;
 
@@ -33,7 +34,7 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
     ini_set('memory_limit', '1024M');
 
     // Define filepath/name of archive file
-    $file = DIR.'temp/'.$order.'.zip';
+    $file = MAIN_DIR.'/temp/'.$order.'.zip';
 
     // Create zip acrhive
     $archive = new PclZip($file);
@@ -67,7 +68,7 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
             ini_set('memory_limit', '128M');
 
             foreach ($imagesToArchive as $image):
-                unlink(DIR.'_php/_download/'.basename($image));
+                unlink(MAIN_DIR.'/_php/_download/'.basename($image));
             endforeach;
 
             exit;

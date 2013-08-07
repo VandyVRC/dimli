@@ -909,7 +909,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 
 	<div id="work_assocImages">
 
-		<?php while ($row = mysql_fetch_assoc($result_assocImages))
+		<?php while ($row = $result_assocImages->fetch_assoc())
 		// Iterate results from query performed in 
 		// "_php/_order/query_work.php"
 		{
