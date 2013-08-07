@@ -326,7 +326,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 		<?php if (logged_in()) {
 
-			include('.._php/_lantern/lantern_control_panel.php');
+			include('_php/_lantern/lantern_control_panel.php');
 
 		} ?>
 

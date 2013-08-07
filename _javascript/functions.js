@@ -2436,7 +2436,7 @@ function lantern_search(text, gToggle, page)
 		$.ajax({
 			type: 'POST',
 			data: 'text='+text+'&toggle='+toggle+'&page='+page,
-			url: '../_php/_lantern/lantern_search.php',
+			url: '_php/_lantern/lantern_search.php',
 			success: function(response)
 			{
 				$('script#lantern_list_script').remove();

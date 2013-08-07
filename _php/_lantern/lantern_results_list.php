@@ -26,10 +26,16 @@ if (($page*$rpp)-$rpp <= count($results))
 		if ($arr['type']=='work')
 		{
 			$short_id = ltrim($id, '0');
-			$r = isnerQ("SELECT preferred_image FROM dimli.work WHERE id = {$short_id}");
-			if (mysql_num_rows($r) >= 1) 
+
+			$sql = "SELECT preferred_image 
+						FROM dimli.work 
+						WHERE id = {$short_id} ";
+
+			$r = db_query($mysqli, $sql);
+
+			if ($r->num_rows >= 1) 
 			{
-				while ($work = mysql_fetch_assoc($r)) 
+				while ($work = $r->fetch_assoc())
 				{ 
 					$img_id = create_six_digits($work['preferred_image']);
 				}
@@ -41,9 +47,19 @@ if (($page*$rpp)-$rpp <= count($results))
 			$img_id = create_six_digits($id);
 
 			// Find this Image's parent Work and Order Number
-			$parent = isnerQ("SELECT related_works, order_id, catalogued FROM dimli.image WHERE id = {$id}");
-			$parent = mysql_fetch_array($parent);
-			$parent = (trim($parent['related_works'] != '')) ? $parent['related_works'] : 'none';
+			$sql = "SELECT related_works, 
+								order_id, 
+								catalogued 
+						FROM dimli.image 
+						WHERE id = {$id} ";
+
+			$parent = db_query($mysqli, $sql);
+
+			$parent = $parent->fetch_array();
+
+			$parent = (trim($parent['related_works'] != '')) 
+				? $parent['related_works'] 
+				: 'none';
 
 		}
 			
@@ -82,20 +98,25 @@ if (($page*$rpp)-$rpp <= count($results))
 						style="margin-bottom: 2px; font-size: 1.1em; line-height: 1.1em;">
 
 						<?php
-						$res = mysql_query("SELECT * FROM dimli.title WHERE related_{$arr['type']}s = {$id}", $connection);
-						confirm_query($res);
+						$sql = "SELECT * 
+									FROM dimli.title 
+									WHERE related_{$arr['type']}s = {$id} ";
+
+						$res = db_query($mysqli, $sql);
 
 						$title_arr = array();
-						while ($row = mysql_fetch_assoc($res)) {
+
+						while ($row = $res->fetch_assoc()) {
 							$title_arr[] = $row['title_text'];
 						}
 
 						// Assign a default value if title array is empty
-						$title_arr = (empty($title_arr)) ? array('Uncataloged') : $title_arr;
+						$title_arr = (empty($title_arr)) 
+							? array('Uncataloged') 
+							: $title_arr;
 
 						// Display appropriate titles
-						lantern_list_display_titles($title_arr, $searches_arr);
-						?>
+						lantern_list_display_titles($mysqli, $title_arr, $searches_arr); ?>
 
 					</div>
 
@@ -105,7 +126,7 @@ if (($page*$rpp)-$rpp <= count($results))
 						style="margin-bottom: 1px; font-size: 0.9em;">
 
 						<?php
-						lantern_list_display_agents($arr['type'], create_six_digits($id), $searches_arr, $parent);
+						lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent);
 						?>
 
 					</div>
@@ -133,7 +154,7 @@ if (($page*$rpp)-$rpp <= count($results))
 						<span class="highlightable">
 
 							<?php
-							lantern_list_display_date($arr['type'], $id, $parent);
+							lantern_list_display_date($mysqli, $arr['type'], $id, $parent);
 								// eg. func('work', '062261', 'none/000261')
 							?>
 
@@ -166,7 +187,8 @@ if (($page*$rpp)-$rpp <= count($results))
 								<span class="highlightable"><?php
 
 									// Call appropriate function to display this field
-									$func($arr['type'], $id); // eg. func('work', '000261')
+									$func($mysqli, $arr['type'], $id); 
+										// eg. func(mysqli connection, 'work', '000261')
 							
 								?></span>
 
@@ -176,13 +198,16 @@ if (($page*$rpp)-$rpp <= count($results))
 						// Search term found in DESCRIPTION
 						if (in_array($search, array('work_description','image_description')))
 						{
-							$res = mysql_query(" SELECT description FROM dimli.{$arr['type']} WHERE lpad(id,6,'0') = {$id} ", $connection);
-							confirm_query($res);
-							while ($row = mysql_fetch_assoc($res))
-							{
+							$sql = "SELECT description 
+										FROM dimli.{$arr['type']} 
+										WHERE lpad(id, 6, '0') = {$id} ";
+
+							$res = db_query($mysqli, $sql);
+
+							while ($row = $res->fetch_assoc()) {
 								$desc = $row['description'];
-							}
-							?>
+							} ?>
+
 							<div class="highlightable lantern_desc collapsed data_row" style="overflow: hidden;">
 
 								<span class="mediumWeight" style="display: inline-block;">Description:&nbsp;</span>
@@ -205,7 +230,7 @@ if (($page*$rpp)-$rpp <= count($results))
 
 					<?php if ($arr['type']=='work')
 					{
-						get_related_images($id);
+						get_related_images($mysqli, $id);
 					} ?>
 
 				</div>
@@ -232,7 +257,8 @@ if (($page*$rpp)-$rpp <= count($results))
 		/*
 		TOGGLE FILTER VISIBILITY
 		*/
-		$('#filter_toggle').unbind('click').click(function()
+		$('#filter_toggle').unbind('click').click(
+			function()
 			{
 				if (!$('#control_panel_wide').is(':visible'))
 				{
@@ -256,64 +282,60 @@ if (($page*$rpp)-$rpp <= count($results))
 
 		// HIGHLIGHT SEARCH TERMS ON MOUSEENTER
 
-		$('div.lanternResults_list_row')
-			.hover(
-				function(event)
-				{
-					event.stopPropagation();
-					var $row = $(this);
-					$.each(terms, function(index, val, row)
-						{
-							$row.find('.highlightable').highlight(val);
-						});
-				},
-				function(event)
-				{
-					event.stopPropagation();
-					$.each($(this).find('.highlightable span.glowBG'), function()
-						{
-							var $text = $(this).text();
-							$(this).replaceWith($text);
-						});
-				});
+		$('div.lanternResults_list_row').hover(
+			function(event)
+			{
+				event.stopPropagation();
+				var $row = $(this);
+				$.each(terms, function(index, val, row)
+					{
+						$row.find('.highlightable').highlight(val);
+					});
+			},
+			function(event)
+			{
+				event.stopPropagation();
+				$.each($(this).find('.highlightable span.glowBG'), function()
+					{
+						var $text = $(this).text();
+						$(this).replaceWith($text);
+					});
+			});
 
 
 		// GLOW ON THUMBNAIL HOVER
 
-		$('div.thumb_panel img.list_thumb, div.related_panel img')
-			.hover(
-				function()
-				{
-					$(this).addClass('glowPurple');
-				}, 
-				function()
-				{
-					$(this).removeClass('glowPurple');
-				});
+		$('div.thumb_panel img.list_thumb, div.related_panel img').hover(
+			function()
+			{
+				$(this).addClass('glowPurple');
+			}, 
+			function()
+			{
+				$(this).removeClass('glowPurple');
+			});
 
 
 		// JUMP TO CATALOG
 
-		$('span.view_catalog')
-			.click(
-				function()
-				{
-					var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
-					view_image_record(imageNum);
-					view_work_record(imageNum);
-					// console.log(imageNum+' clicked'); //Debug
-				});
+		$('span.view_catalog').click(
+			function()
+			{
+				var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+				view_image_record(imageNum);
+				view_work_record(imageNum);
+				// console.log(imageNum+' clicked'); //Debug
+			});
 
 
 		// CLICK THUMBNAIL TO PREVIEW
 
-		$('img.list_thumb')
-			.click(
-				function()
-				{
-					var img = $(this).attr('data-image');
-					image_viewer(img);
-				});
+		$('img.list_thumb').click(
+			function()
+			{
+				var img = $(this).attr('data-image');
+				image_viewer(img);
+			});
 
 
 		// EXPAND/COLLAPSE RECORD DESCRIPTION

@@ -1,9 +1,9 @@
 <?php
 $dev = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
 if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$dev);}
-require_once(MAIN_DIR.'/_includes/session.php');
-require_once(MAIN_DIR.'/_includes/connection.php');
-require_once(MAIN_DIR.'/_includes/functions.php');
+require_once(MAIN_DIR.'/_php/_config/session.php');
+require_once(MAIN_DIR.'/_php/_config/connection.php');
+require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 
 /*
@@ -240,41 +240,41 @@ foreach ($searchText_arr as $term)
 		{
 
 			// Begin building query
-			$q = " SELECT * FROM dimli.".$arr['table']." WHERE ";
+			$sql = " SELECT * FROM dimli.".$arr['table']." WHERE ";
 			
 			// Customize query for Work and Image id searches
 			if (in_array($search_name, array('image_id','work_id')))
 			{
-				$q .= " lpad(".$field.", 6, '0') LIKE '%{$term}%' ";
+				$sql .= " lpad(".$field.", 6, '0') LIKE '%{$term}%' ";
 
 				// Exclude Work records with no related Images
 				if ($search_name=='work_id')
 				{
-					$q .= " && related_images <> '' ";
+					$sql .= " && related_images <> '' ";
 				}
 			}
 			else
 			{
-				$q .= $field." LIKE '%{$term}%' ";
+				$sql .= $field." LIKE '%{$term}%' ";
 
 				// Exclude Work records with no related Images
 				if ($search_name=='work_description')
 				{
-					$q .= " && related_images <> '' ";
+					$sql .= " && related_images <> '' ";
 				}
 			}
 				
-			// echo $search_name.': '.$q.'<br>'; // Debug
+			// echo $search_name.': '.$sql.'<br>'; // Debug
 			// print_r($searchText_arr);echo '<br><br>'; // Debug
 
-			$result = mysql_query($q, $connection); confirm_query($result);
+			$result = db_query($mysqli, $sql);
 
 
 			/*
 				ADD QUERY RESULTS TO RESULT ARRAY
 			*/
 
-			while ($row = mysql_fetch_assoc($result))
+			while ($row = $result->fetch_assoc())
 			// Add results for this field search to final results array
 			{
 
@@ -319,11 +319,13 @@ foreach ($searchText_arr as $term)
 
 					foreach ($tables as $table)
 					{
-						$gq = " SELECT * FROM dimli.".$table." WHERE ".$table."_getty_id = '{$gid}' ";
-						$g_result = mysql_query($gq, $connection);
-						confirm_query($g_result);
+						$gq = "SELECT * 
+								FROM dimli.".$table." 
+								WHERE ".$table."_getty_id = '{$gid}' ";
 
-						while ($aat_row = mysql_fetch_assoc($g_result))
+						$g_result = db_query($mysqli, $gq);
+
+						while ($aat_row = $g_result->fetch_assoc())
 						{
 							if (!empty($aat_row['related_works']))
 							{
@@ -348,11 +350,13 @@ foreach ($searchText_arr as $term)
 
 					foreach ($tables as $table)
 					{
-						$gq = " SELECT * FROM dimli.".$table." WHERE ".$table."_getty_id = '{$gid}' ";
-						$g_result = mysql_query($gq, $connection);
-						confirm_query($g_result);
+						$gq = "SELECT * 
+								FROM dimli.".$table." 
+								WHERE ".$table."_getty_id = '{$gid}' ";
 
-						while ($tgn_row = mysql_fetch_assoc($g_result))
+						$g_result = db_query($mysqli, $gq);
+
+						while ($tgn_row = $g_result->fetch_assoc())
 						{
 							if (!empty($tgn_row['related_works']))
 							{
@@ -377,11 +381,13 @@ foreach ($searchText_arr as $term)
 
 					foreach ($tables as $table)
 					{
-						$gq = " SELECT * FROM dimli.".$table." WHERE ".$table."_getty_id = '{$gid}' ";
-						$g_result = mysql_query($gq, $connection);
-						confirm_query($g_result);
+						$gq = "SELECT * 
+								FROM dimli.".$table." 
+								WHERE ".$table."_getty_id = '{$gid}' ";
 
-						while ($ulan_row = mysql_fetch_assoc($g_result))
+						$g_result = db_query($mysqli, $gq);
+
+						while ($ulan_row = $g_result->fetch_assoc())
 						{
 							if (!empty($ulan_row['related_works']))
 							{
@@ -413,9 +419,14 @@ foreach ($results_arr as $id=>$arr)
 	if ($arr['type']=='work')
 	{
 		$id = substr($id, -6);
-		$q = "SELECT related_images FROM dimli.work WHERE id = {$id}";
-		$r = mysql_query($q, $connection); confirm_query($r);
-		while ($work = mysql_fetch_assoc($r))
+
+		$sql = "SELECT related_images 
+				FROM dimli.work 
+				WHERE id = {$id} ";
+
+		$r = db_query($mysqli, $sql);
+		
+		while ($work = $r->fetch_assoc())
 		{ 
 			$assocImgs = $work['related_images'];
 		}

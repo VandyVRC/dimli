@@ -71,11 +71,11 @@ function confirm_query($result_set)
 // Performs a database query using PHP's MYSQLI class
 // Returns a result object if successful
 // Else dies and displays the SQL error and the query string that failed
-function db_query($mysqli_con, $query_str) {
-	$result = $mysqli_con->query($query_str);
+function db_query($mysqli, $sql) {
+	$result = $mysqli->query($sql);
 	if (!$result) {
-		$message = "SQL error: ".$mysqli_con->errno." ".$mysqli_con->error.'<br>';
-		$message.= "Failed query: ".$query_str;
+		$message = "SQL error: ".$mysqli->errno." ".$mysqli->error.'<br>';
+		$message.= "Failed query: ".$sql;
 		die($message);
 	} else {
 		return $result;
@@ -480,7 +480,7 @@ function checkRemoteFile($url)
 	}
 }
 
-function lantern_list_display_date($recordType, $recordNum, $parent)
+function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent)
 {
 	$arr = array();
 
@@ -598,7 +598,7 @@ function lantern_list_display_date($recordType, $recordNum, $parent)
 	}
 }
 
-function lantern_list_display_material($recordType, $recordNum)
+function lantern_list_display_material($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -619,7 +619,7 @@ function lantern_list_display_material($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_technique($recordType, $recordNum)
+function lantern_list_display_technique($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -639,7 +639,7 @@ function lantern_list_display_technique($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_work_type($recordType, $recordNum)
+function lantern_list_display_work_type($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -659,7 +659,7 @@ function lantern_list_display_work_type($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_cultural_context($recordType, $recordNum)
+function lantern_list_display_cultural_context($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -679,7 +679,7 @@ function lantern_list_display_cultural_context($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_style_period($recordType, $recordNum)
+function lantern_list_display_style_period($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -699,7 +699,7 @@ function lantern_list_display_style_period($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_location($recordType, $recordNum)
+function lantern_list_display_location($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -721,7 +721,7 @@ function lantern_list_display_location($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_subject($recordType, $recordNum)
+function lantern_list_display_subject($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -742,7 +742,7 @@ function lantern_list_display_subject($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_inscription($recordType, $recordNum)
+function lantern_list_display_inscription($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -765,7 +765,7 @@ function lantern_list_display_inscription($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_rights($recordType, $recordNum)
+function lantern_list_display_rights($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -787,7 +787,7 @@ function lantern_list_display_rights($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_source($recordType, $recordNum)
+function lantern_list_display_source($mysqli, $recordType, $recordNum)
 {
 	$arr = array();
 
@@ -810,7 +810,7 @@ function lantern_list_display_source($recordType, $recordNum)
 	echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_titles($title_arr, $searches_arr)
+function lantern_list_display_titles($mysqli, $title_arr, $searches_arr)
 {
 	?><div class="highlightable" style="margin-bottom: 2px; padding-left: 15px; text-indent: -15px;"><?php
 
@@ -851,7 +851,7 @@ function lantern_list_display_titles($title_arr, $searches_arr)
 	}
 }
 
-function lantern_list_display_agents($recordType, $recordNum, $searches_arr, $parent)
+function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches_arr, $parent)
 {
 	$agent_arr = array();
 
@@ -932,7 +932,7 @@ function lantern_list_display_agents($recordType, $recordNum, $searches_arr, $pa
 	}
 }
 
-function get_related_images($workNum)
+function get_related_images($mysqli, $workNum)
 {
 	$workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
 	$rel_images = array();
