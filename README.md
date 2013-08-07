@@ -1,9 +1,9 @@
 DIMLI
 =====
 
-Digital Media Management Library
+>Digital Media Management Library
 
-Created by Matthew Isner, Vanderbilt University
+>Created by Matthew Isner, Vanderbilt University
 
 Project Description
 -------------------
@@ -17,10 +17,9 @@ DIMLI has facilitated our massive recataloging endeavor by allowing us to establ
 Technical Details
 -----------------
 
->WARNING: At this time, I do not suggest attempting to install this 
->application on your server environment. 
+>WARNING: At this time, I do not suggest attempting to install this application on your server environment. 
 
-I am in the process of phasing out several aspects of the app that tie it specifically to our server environment, as well as some soon-to-be-deprecated functions. Please check back for updates as I prepare the app for distribution; but in the meantime, feel free to poke around.
+I am in the process of phasing out several aspects of the app that tie it specifically to our server environment, as well as some soon-to-be-deprecated PHP functions. Please check back for updates as I prepare the app for distribution; but in the meantime, feel free to poke around.
 
 For More Information
 --------------------
