@@ -88,10 +88,19 @@ foreach ($works as $workNum)
 		
 
 	$workNum6 = str_pad($workNum, 6, '0', STR_PAD_LEFT);
-	$used_res = isnerQ("SELECT * FROM dimli.location WHERE location_getty_id = 'work{$workNum6}'");
-	if (mysql_num_rows($used_res) <= 0) {
+
+	$sql = "SELECT * 
+				FROM dimli.location 
+				WHERE location_getty_id = 'work{$workNum6}' ";
+
+	$used_res = db_query($mysqli, $sql);
+
+	if ($used_res->num_rows <= 0) 
+	{
 		$used = false;
-	} else {
+	} 
+	else 
+	{
 		$used = true;
 	}
 

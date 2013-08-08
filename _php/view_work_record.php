@@ -9,11 +9,15 @@ require_priv('priv_orders_read');
 
 // Use Image number passed from ajax request to find the associated work
 
-$workToLoad_r = mysql_query(" SELECT related_works FROM dimli.image WHERE id = '{$_GET['imageRecord']}' LIMIT 1 ");
+$sql = "SELECT related_works 
+			FROM dimli.image 
+			WHERE id = '{$_GET['imageRecord']}' LIMIT 1 ";
+
+$workToLoad_r = db_query($mysqli, $sql);
 
 // Set SESSION workNum, or set to "None" if field is blank
 
-while ($row = mysql_fetch_assoc($workToLoad_r))
+while ($row = $workToLoad_r->fetch_assoc())
 {
 	$_SESSION['workNum'] = 
 		(!empty($row['related_works']))
@@ -94,18 +98,32 @@ if ($_SESSION['workNum'] != 'None')
 // There IS a related work in the image record
 // Retrieve info about the work
 {
-	/* Log visit */
+	//-------------
+	//  Log visit
+	//-------------
+
 	$UnixTime = time(TRUE);
-	$log = isnerQ("INSERT INTO dimli.Activity SET UserID = '{$_SESSION['user_id']}', RecordType = 'Work', RecordNumber = {$_SESSION['workNum']}, ActivityType = 'viewed', UnixTime = '{$UnixTime}'");
+
+	$sql = "INSERT INTO dimli.Activity 
+				SET UserID = '{$_SESSION['user_id']}', 
+					RecordType = 'Work', 
+					RecordNumber = {$_SESSION['workNum']}, 
+					ActivityType = 'viewed', 
+					UnixTime = '{$UnixTime}' ";
+
+	$result = db_query($mysqli, $sql);
 
 	// -----------
 	//	Updated
 	// -----------
 	
-	$query = " SELECT * FROM dimli.work WHERE id = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.work 
+				WHERE id = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['updated'] = 'Updated: ' . date('D, M j, Y - h:i a', strtotime($row['last_update'])) . ' by '. $row['last_update_by'];
 	}
 	
@@ -113,11 +131,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Title
 	// -----------
 	
-	$query = " SELECT * FROM dimli.title WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.title 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['titleType'.$i] = $Wtitle[$i]['titleType'] = $row['title_type'];
 		$_SESSION['work']['title'.$i] = $Wtitle[$i]['title'] = $row['title_text'];
 		$_SESSION['work']['titleDisplay'.$i] = $Wtitle[$i]['titleDisplay'] = $row['display'];
@@ -128,11 +149,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Agent
 	// ----------
 	
-	$query = " SELECT * FROM dimli.agent WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.agent 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['agentAttribution'.$i] = $Wagent[$i]['agentAttribution'] = $row['agent_attribution'];
 		$_SESSION['work']['agent'.$i] = $Wagent[$i]['agent'] = $row['agent_text'];
 		$_SESSION['work']['agentType'.$i] = $Wagent[$i]['agentType'] = $row['agent_type'];
@@ -146,11 +170,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Date
 	// ----------
 	
-	$query = " SELECT * FROM dimli.date WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.date 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['dateType'.$i] = $Wdate[$i]['dateType'] = $row['date_type'];
 		$_SESSION['work']['dateRange'.$i] = $Wdate[$i]['dateRange'] = $row['date_range'];
 		$_SESSION['work']['circaDate'.$i] = $Wdate[$i]['circaDate'] = $row['date_circa'];
@@ -166,11 +193,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Material
 	// --------------
 	
-	$query = " SELECT * FROM dimli.material WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.material 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['materialType'.$i] = $Wmaterial[$i]['materialType'] = $row['material_type'];
 		$_SESSION['work']['material'.$i] = $Wmaterial[$i]['material'] = $row['material_text'];
 		$_SESSION['work']['materialId'.$i] = $Wmaterial[$i]['materialId'] = $row['material_getty_id'];
@@ -182,11 +212,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Technique
 	// ---------------
 	
-	$query = " SELECT * FROM dimli.technique WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.technique 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['technique'.$i] = $Wtechnique[$i]['technique'] = $row['technique_text'];
 		$_SESSION['work']['techniqueId'.$i] = $Wtechnique[$i]['techniqueId'] = $row['technique_getty_id'];
 		$_SESSION['work']['techniqueDisplay'.$i] = $Wtitle[$i]['techniqueDisplay'] = $row['display'];
@@ -197,11 +230,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Work Type
 	// ---------------
 	
-	$query = " SELECT * FROM dimli.work_type WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.work_type 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['workType'.$i] = $WworkType[$i]['workType'] = $row['work_type_text'];
 		$_SESSION['work']['workTypeId'.$i] = $WworkType[$i]['workTypeId'] = $row['work_type_getty_id'];
 		$_SESSION['work']['workTypeDisplay'.$i] = $Wtitle[$i]['workTypeDisplay'] = $row['display'];
@@ -212,11 +248,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Cultural Context
 	// ----------------------
 	
-	$query = " SELECT * FROM dimli.culture WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.culture 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['culturalContext'.$i] = $WculturalContext[$i]['culturalContext'] = $row['culture_text'];
 		$_SESSION['work']['culturalContextId'.$i] = $WculturalContext[$i]['culturalContextId'] = $row['culture_getty_id'];
 		$_SESSION['work']['culturalContextDisplay'.$i] = $Wtitle[$i]['culturalContextDisplay'] = $row['display'];
@@ -227,11 +266,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Style Period
 	// ------------------
 	
-	$query = " SELECT * FROM dimli.style_period WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.style_period 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['stylePeriod'.$i] = $WstylePeriod[$i]['stylePeriod'] = $row['style_period_text'];
 		$_SESSION['work']['stylePeriodId'.$i] = $WstylePeriod[$i]['stylePeriodId'] = $row['style_period_getty_id'];
 		$_SESSION['work']['stylePeriodDisplay'.$i] = $Wtitle[$i]['stylePeriodDisplay'] = $row['display'];
@@ -242,11 +284,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Location
 	// -------------
 	
-	$query = " SELECT * FROM dimli.location WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.location 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['location'.$i] = $Wlocation[$i]['location'] = $row['location_text'];
 		$_SESSION['work']['locationId'.$i] = $Wlocation[$i]['locationId'] = $row['location_getty_id'];
 		$_SESSION['work']['locationNameType'.$i] = $Wlocation[$i]['locationNameType'] = $row['location_name_type'];
@@ -259,10 +304,13 @@ if ($_SESSION['workNum'] != 'None')
 	//	Description
 	// -----------------
 	
-	$query = " SELECT * FROM dimli.work WHERE id = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.work 
+				WHERE id = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['description0'] = $Wdescription0 = $row['description'];
 	}
 	
@@ -270,11 +318,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	State/Edition
 	// -------------------
 	
-	$query = " SELECT * FROM dimli.edition WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.edition 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['stateEditionType'.$i] = $WstateEdition[$i]['stateEditionType'] = $row['edition_type'];
 		$_SESSION['work']['stateEdition'.$i] = $WstateEdition[$i]['stateEdition'] = $row['edition_text'];
 		$i ++;
@@ -284,11 +335,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Measurements
 	// -------------------
 	
-	$query = " SELECT * FROM dimli.measurements WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.measurements 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['measurementType'.$i] = $Wmeasurements[$i]['measurementType'] = $row['measurements_type'];
 		$_SESSION['work']['measurementField1_'.$i] = $Wmeasurements[$i]['measurementField1_'] = $row['measurements_text'];
 		$_SESSION['work']['commonMeasurementList1_'.$i] = $Wmeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
@@ -313,11 +367,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Subject
 	// --------------
 	
-	$query = " SELECT * FROM dimli.subject WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.subject 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['subjectType'.$i] = $Wsubject[$i]['subjectType'] = $row['subject_type'];
 		$_SESSION['work']['subject'.$i] = $Wsubject[$i]['subject'] = $row['subject_text'];
 		$_SESSION['work']['subjectId'.$i] = $Wsubject[$i]['subjectId'] = $row['subject_getty_id'];
@@ -329,11 +386,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Inscription
 	// -----------------
 	
-	$query = " SELECT * FROM dimli.inscription WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.inscription 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['inscriptionType'.$i] = $Winscription[$i]['inscriptionType'] = $row['inscription_type'];
 		$_SESSION['work']['workInscription'.$i] = $Winscription[$i]['workInscription'] = $row['inscription_text'];
 		$_SESSION['work']['workInscriptionAuthor'.$i] = $Winscription[$i]['workInscriptionAuthor'] = $row['inscription_author'];
@@ -346,11 +406,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Rights
 	// --------------
 	
-	$query = " SELECT * FROM dimli.rights WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.rights 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['rightsType'.$i] = $Wrights[$i]['rightsType'] = $row['rights_type'];
 		$_SESSION['work']['rightsHolder'.$i] = $Wrights[$i]['rightsHolder'] = $row['rights_holder'];
 		$_SESSION['work']['rightsText'.$i] = $Wrights[$i]['rightsText'] = $row['rights_text'];
@@ -361,11 +424,14 @@ if ($_SESSION['workNum'] != 'None')
 	//	Source (Work)
 	// --------------
 	
-	$query = " SELECT * FROM dimli.source WHERE related_works = '{$_SESSION['workNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.source 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['sourceNameType'.$i] = $Wsource[$i]['sourceNameType'] = $row['source_name_type'];
 		$_SESSION['work']['sourceName'.$i] = $Wsource[$i]['sourceName'] = $row['source_name_text'];
 		$_SESSION['work']['sourceType'.$i] = $Wsource[$i]['sourceType'] = $row['source_type'];
@@ -382,8 +448,7 @@ elseif ($_SESSION['workNum'] == 'None')
 
 }
 	
-include('../_php/_order/query_work.php');
-?>
+include('../_php/_order/query_work.php'); ?>
 
 <script>
 
@@ -393,10 +458,6 @@ include('../_php/_order/query_work.php');
 
 </script>
 
-<?php
-// echo 'SESSION workNum (Debug): '.$_SESSION['workNum']; // Debugging 
-?>
-
 <div class="workRecord_catalogInfo">
 						
 	<?php
@@ -404,59 +465,57 @@ include('../_php/_order/query_work.php');
 	// An associated work record DOES NOT EXIST for the current image
 	{
 		if ($_SESSION['priv_catalog']=='1')
-		{
-	?>
+		{ ?>
 
-	<div id="workAssoc_wrapper">
+			<div id="workAssoc_wrapper">
 
-		<p id="noAssocWork" 
-			class="mediumWeight" 
-			style="text-align: center; margin: 35px 0 35px 0; font-size: 1.5em; color: #CCC;"
-			>No associated work record</p>
+				<p id="noAssocWork" 
+					class="mediumWeight" 
+					style="text-align: center; margin: 35px 0 35px 0; font-size: 1.5em; color: #CCC;"
+					>No associated work record</p>
 
-		<div id="workAssoc_searchFields">
+				<div id="workAssoc_searchFields">
 
-			<p>a) Use an existing work:</p>
+					<p>a) Use an existing work:</p>
 
-			<input type="text" 
-				name="title"
-				placeholder="Title"
-				value="<?php echo $_SESSION['workAssoc_search']['title']; ?>">
+					<input type="text" 
+						name="title"
+						placeholder="Title"
+						value="<?php echo $_SESSION['workAssoc_search']['title']; ?>">
 
-			<script>$('input[name=title]').focus();</script>
+					<script>$('input[name=title]').focus();</script>
 
-			<br>
+					<br>
 
-			<input type="text" 
-				name="agent"
-				placeholder="Agent"
-				value="<?php echo $_SESSION['workAssoc_search']['title']; ?>">
+					<input type="text" 
+						name="agent"
+						placeholder="Agent"
+						value="<?php echo $_SESSION['workAssoc_search']['title']; ?>">
 
-			<br>
+					<br>
 
-			<input type="button"
-				id="workAssoc_search_submit_button"
-				value="Search">
+					<input type="button"
+						id="workAssoc_search_submit_button"
+						value="Search">
 
-		</div>
+				</div>
 
-		<div id="workAssoc_createNew">
+				<div id="workAssoc_createNew">
 
-			<p>b) Create a new work:</p>
+					<p>b) Create a new work:</p>
 
-			<input type="button"
-				id="workRecord_newCata"
-				value="Catalog">
+					<input type="button"
+						id="workRecord_newCata"
+						value="Catalog">
 
-		</div>
+				</div>
 
-	</div>
+			</div>
 
 		<?php
 		}
 		else
-		{
-		?>
+		{ ?>
 
 			<div id="workAssoc_wrapper">
 
@@ -472,8 +531,7 @@ include('../_php/_order/query_work.php');
 	} 
 	elseif ($_SESSION['workNum'] != 'None')
 	// An associated work record DOES EXIST for the current image
-	{
-	?>
+	{ ?>
 
 	<div class="record_updateInfo grey mediumWeight">
 
@@ -916,19 +974,29 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			$assocImg_id = create_six_digits($row['id']);
 			$assocImg_file = "http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_id.".jpg&amp;h=40&amp;w=53&amp;q=90";
 
-			$assocImg_order_res = mysql_query("SELECT order_id FROM dimli.image WHERE id = '{$row['id']}' ");
-			while ($order = mysql_fetch_assoc($assocImg_order_res))
+			$sql = "SELECT order_id 
+						FROM dimli.image 
+						WHERE id = '{$row['id']}' ";
+
+			$assocImg_order_res = db_query($mysqli, $sql);
+
+			while ($order = $assocImg_order_res->fetch_assoc())
 			{
 				$assocImg_order = $order['order_id'];
 			}
 
-			$assocImg_title_res = mysql_query("SELECT title_text FROM dimli.title WHERE related_images = '{$assocImg_id}' ");
+			$sql = "SELECT title_text 
+						FROM dimli.title 
+						WHERE related_images = '{$assocImg_id}' ";
+
+			$assocImg_title_res = db_query($mysqli, $sql);
+
 			$assocImg_title_arr = array();
-			while ($title = mysql_fetch_assoc($assocImg_title_res))
+
+			while ($title = $assocImg_title_res->fetch_assoc())
 			{
 				$assocImg_title_arr[] = $title['title_text'];
-			}
-			?>
+			} ?>
 
 			<div class="work_assocImage_row">
 

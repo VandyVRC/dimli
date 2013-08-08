@@ -10,15 +10,11 @@ require_priv('priv_catalog');
 $image = $_POST['image'];
 $work = $_POST['work'];
 
-$query = " UPDATE dimli.work 
-			SET 
-				preferred_image = '{$image}'
-			WHERE
-				id = '{$work}'
-		";
-$result = mysql_query($query, $connection);
-confirm_query($result);
-?>
+$sql = "UPDATE dimli.work 
+			SET preferred_image = '{$image}'
+			WHERE id = '{$work}' ";
+
+$result = db_query($mysqli, $sql); ?>
 
 <div class="workRecord_thumb defaultCursor"
 	style="position: absolute; top: 0; right: 0;">
@@ -36,12 +32,10 @@ confirm_query($result);
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-								.find('a.assocImage_open')
-								.text();
-			work_assign_preview(
-				image, 
-				'<?php echo $_SESSION['workNum'];?>'
-				);
+				.find('a.assocImage_open')
+				.text();
+
+			work_assign_preview(image, '<?php echo $_SESSION['workNum'];?>');
 			$('div.assocImage_pref').removeClass('pref');
 			$(this).addClass('pref');
 		});

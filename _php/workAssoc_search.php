@@ -35,8 +35,10 @@ if ($_POST['title'] != '') {
 	$titleArray = array_filter($titleArray, 'filterNonSearchTerms');
 	// Apply filter to omit short and general search terms
 	
-	$titleQuery = " SELECT * FROM dimli.title WHERE related_works <> '' && ( ";
 	// Begin building query
+	$titleQuery = "SELECT * 
+						FROM dimli.title 
+						WHERE related_works <> '' && ( ";
 
 	foreach ($titleArray as $term) {
 		$titleQuery .= " title_text LIKE '%{$term}%' || ";
@@ -46,8 +48,7 @@ if ($_POST['title'] != '') {
 	$titleQuery .= " title_text = '*****' ) ORDER BY title_text ";
 	// Finish the query
 
-	$titleResult = mysql_query($titleQuery, $connection); confirm_query($titleResult);
-	// Perform query
+	$titleResult = db_query($mysqli, $titleQuery);
 	
 }
 
@@ -78,11 +79,13 @@ if ($_POST['agent'] != '') {
 
 if ($_POST['title'] != '' && $_POST['agent'] != '') {
 	
-	while ($row = mysql_fetch_assoc($titleResult)) {
+	while ($row = $titleResult->fetch_assoc()) {
 	// Check each work with a matching title for matching agents
 
-		$agentQuery = " SELECT * FROM dimli.agent WHERE related_works = '{$row['related_works']}' && ( ";
 		// Begin building query
+		$agentQuery = "SELECT * 
+							FROM dimli.agent 
+							WHERE related_works = '{$row['related_works']}' && ( ";
 
 		foreach ($agentArray as $term) {
 			$agentQuery .= " agent_text LIKE '%{$term}%' || ";
@@ -92,11 +95,10 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 		$agentQuery .= " agent_text = '*****' ) ORDER BY agent_text ";
 		// Finish the query
 
-		$agentResult = mysql_query($agentQuery, $connection); confirm_query($agentResult);
-		// Perform query
+		$agentResult = db_query($mysqli, $agentQuery);
 		
 		if (isset($agentResult)) {
-			while ($row = mysql_fetch_assoc($agentResult)) {
+			while ($row = $agentResult->fetch_assoc()) {
 				$matchingWorks[] = $row['related_works'];
 			}
 		}
@@ -109,8 +111,10 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 	
 } elseif ($_POST['title'] == '' && $_POST['agent'] != '') {
 
-	$agentQuery = " SELECT * FROM dimli.agent WHERE related_works <> '' && ( ";
 	// Begin building query
+	$agentQuery = "SELECT * 
+						FROM dimli.agent 
+						WHERE related_works <> '' && ( ";
 
 	foreach ($agentArray as $term) {
 		$agentQuery .= " agent_text LIKE '%{$term}%' || ";
@@ -120,11 +124,11 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 	$agentQuery .= " agent_text = '*****' ) ORDER BY agent_text ";
 	// Finish the query
 
-	$agentResult = mysql_query($agentQuery, $connection); confirm_query($agentResult);
+	$agentResult = db_query($mysqli, $agentQuery);
 	// Perform query
 	
 	if (isset($agentResult)) {
-		while ($row = mysql_fetch_assoc($agentResult)) {
+		while ($row = $agentResult->fetch_assoc()) {
 			$matchingWorks[] = $row['related_works'];
 		}
 	}
@@ -134,7 +138,7 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 if ($_POST['title'] != '' && $_POST['agent'] == '') {
 
 	if (isset($titleResult)) {
-		while ($row = mysql_fetch_assoc($titleResult)) {
+		while ($row = $titleResult->fetch_assoc()) {
 			$matchingWorks[] = $row['related_works'];
 		}
 	}
@@ -161,11 +165,15 @@ if (!empty($matchingWorks)) {
 
 	<?php foreach ($matchingWorks as $workId) { 
 
-		$query = " SELECT id FROM dimli.image WHERE related_works = '{$workId}' ";
-		$result = mysql_query($query, $connection); confirm_query($result);
-		if (mysql_num_rows($result) > 0)
+		$query = "SELECT id 
+						FROM dimli.image 
+						WHERE related_works = '{$workId}' ";
+
+		$result = db_query($mysqli, $query);
+
+		if ($result->num_rows > 0)
 		{
-			while ($row = mysql_fetch_assoc($result))
+			while ($row = $result->fetch_assoc())
 			{
 				$imageId = $row['id'];
 			}
@@ -175,31 +183,42 @@ if (!empty($matchingWorks)) {
 			$imageId = '0';
 		}
 			
-		$work_thumb_res = mysql_query(" SELECT preferred_image FROM dimli.work WHERE id = {$workId} ");
-		while ($work_thumb = mysql_fetch_assoc($work_thumb_res))
+		$sql = "SELECT preferred_image 
+					FROM dimli.work 
+					WHERE id = {$workId} ";
+
+		$work_thumb_res = db_query($mysqli, $sql);
+
+		while ($work_thumb = $work_thumb_res->fetch_assoc())
 		{
 			$work_thumb_id = $work_thumb['preferred_image'];
 		}
 
 		$thumb_file = IMAGE_DIR.'thumb/'.create_six_digits($work_thumb_id).'.jpg';
 
-		// $thumb_file = (file_exists($thumb_file))
-		// 	? $thumb_file
-		// 	: '_assets/_images/_missing_large.png';
+		$sql = "SELECT title_text 
+					FROM dimli.title 
+					WHERE related_works = '{$workId}' ";
 
-		$query = " SELECT title_text FROM dimli.title WHERE related_works = '{$workId}' ";
-		$title_result = mysql_query($query, $connection); confirm_query($title_result);
+		$title_result = db_query($mysqli, $sql);
 
-		$query = " SELECT agent_text FROM dimli.agent WHERE related_works = '{$workId}' ";
-		$agent_result = mysql_query($query, $connection); confirm_query($agent_result);
+		$sql = "SELECT agent_text 
+					FROM dimli.agent 
+					WHERE related_works = '{$workId}' ";
 
-		$query = " SELECT * FROM dimli.date WHERE related_works = '{$workId}' LIMIT 2";
-		$date_result = mysql_query($query, $connection); confirm_query($date_result);
+		$agent_result = db_query($mysqli, $sql);
 
-		$query = " SELECT culture_text FROM dimli.culture WHERE related_works = '{$workId}' LIMIT 2";
-		$culture_result = mysql_query($query, $connection); confirm_query($culture_result);
+		$sql = "SELECT * 
+					FROM dimli.date 
+					WHERE related_works = '{$workId}' LIMIT 2 ";
 
-		?>
+		$date_result = db_query($mysqli, $sql);
+
+		$sql = "SELECT culture_text 
+					FROM dimli.culture 
+					WHERE related_works = '{$workId}' LIMIT 2 ";
+
+		$culture_result = db_query($mysqli, $sql); ?>
 
 		<div class="workAssoc_results_row">
 		
@@ -234,7 +253,7 @@ if (!empty($matchingWorks)) {
 					style="line-height: 1.2em;">
 
 					<?php
-					while ($row = mysql_fetch_assoc($title_result))
+					while ($row = $title_result->fetch_assoc())
 					{
 						echo '<span title="'.$row['title_text'].'">';
 						echo (strlen($row['title_text']) <= 46) 
@@ -253,11 +272,10 @@ if (!empty($matchingWorks)) {
 				<div class="workAssoc_results_cell">
 
 					<?php
-					while ($row = mysql_fetch_assoc($agent_result))
+					while ($row = $agent_result->fetch_assoc())
 					{
 						echo $row['agent_text'] . '<br>';
-					}
-					?>
+					} ?>
 
 				</div>
 				
@@ -268,10 +286,10 @@ if (!empty($matchingWorks)) {
 				<div class="workAssoc_results_cell"
 					style="font-size: 0.9em;">
 				
-					<?php if (mysql_num_rows($date_result) != 0) { ?>
+					<?php if ($date_result->num_rows != 0) { ?>
 					<!-- If a date exists in the database -->
 					
-						<?php while ($row = mysql_fetch_assoc($date_result)) { ?>
+						<?php while ($row = $date_result->fetch_assoc()) { ?>
 							
 							<?php echo ($row['date_circa'] == '1') ? 'ca.' : ''; ?>
 							<?php echo $row['date_text']; ?>
@@ -280,7 +298,7 @@ if (!empty($matchingWorks)) {
 							<?php echo ($row['date_range'] == '1') ? $row['enddate_text'] : ''; ?>
 							<?php echo ($row['date_range'] == '1') ? $row['enddate_era'] : ''; ?>
 							<?php echo (!empty($row['date_text'])) ? '(' . $row['date_type'] . ')' : ''; ?>
-							<?php if (mysql_num_rows($date_result) == 2) { ?><br><?php } ?>
+							<?php if ($date_result->num_rows == 2) { ?><br><?php } ?>
 							
 						<?php } ?>
 						
@@ -296,10 +314,10 @@ if (!empty($matchingWorks)) {
 					style="font-size: 0.9em;">
 				
 					<?php 
-					if (mysql_num_rows($culture_result) != 0) {
+					if ($culture_result->num_rows != 0) {
 					
 						$culture_i = 1;
-						while ($row = mysql_fetch_assoc($culture_result)) 
+						while ($row = $culture_result->fetch_assoc()) 
 						{
 							if ($culture_i == 2)
 							{
@@ -331,41 +349,45 @@ if (!empty($matchingWorks)) {
 
 <script>
 
-	$('div.workAssoc_results_row').hover(function()
-	{
-		$(this).addClass('row_highlight');
-	}, function()
-	{
-		$(this).removeClass('row_highlight');
-	});
+	$('div.workAssoc_results_row').hover(
+		function()
+		{
+			$(this).addClass('row_highlight');
+		}, 
+		function()
+		{
+			$(this).removeClass('row_highlight');
+		});
 
-	$('div.workAssoc_results_row:not(img)').click(function(event)
-	{
-		var row = $(this);
-		var workNum = $(row).find('input[name=workNum]').val();
-		var imageNum = "<?php echo $_SESSION['imageNum']; ?>";
-		var orderNum = "<?php echo $_SESSION['order']; ?>";
-		workAssoc_assoc(orderNum, workNum, imageNum);
-		
-	});
+	$('div.workAssoc_results_row:not(img)').click(
+		function(event)
+		{
+			var row = $(this);
+			var workNum = $(row).find('input[name=workNum]').val();
+			var imageNum = "<?php echo $_SESSION['imageNum']; ?>";
+			var orderNum = "<?php echo $_SESSION['order']; ?>";
+			workAssoc_assoc(orderNum, workNum, imageNum);
+		});
 
-	$('img.workAssoc_thumb').click(function(event)
-	{
-		event.stopPropagation();
+	$('img.workAssoc_thumb').click(
+		function(event)
+		{
+			event.stopPropagation();
 
-		var imageNum = 
-			$(this)
-			.parents('div.workAssoc_results_row')
-			.find('input[name=imageNum]')
-			.val();
+			var imageNum = 
+				$(this)
+				.parents('div.workAssoc_results_row')
+				.find('input[name=imageNum]')
+				.val();
 
-		image_viewer(imageNum);
-			
-	});
+			image_viewer(imageNum);
+				
+		});
 
-	$('div#workAssoc_results_header span.close').click(function()
-	{
-		$('div#workAssoc_results').remove();
-	});
+	$('div#workAssoc_results_header span.close').click(
+		function()
+		{
+			$('div#workAssoc_results').remove();
+		});
 
 </script>

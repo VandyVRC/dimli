@@ -15,38 +15,46 @@ $imageNum_trim = ltrim($imageNum, '0');
 
 if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 {
-	$query = " UPDATE dimli.image
+	$sql = "UPDATE dimli.image
 				SET related_works = ''
 				WHERE id = {$imageNum_trim} ";
-	// echo $query.'<br>';
-	$result_killWorkAssoc = mysql_query($query, $connection); confirm_query($result_killWorkAssoc);
+
+	$result_killWorkAssoc = db_query($mysqli, $sql);
 	// Remove this work number from the related_works field in the image record
 
-	$pref = mysql_result(mysql_query("SELECT preferred_image FROM dimli.work WHERE id = {$workNum_trim}", $connection), 0);
 
-	$query = " UPDATE dimli.work
-				SET 
-					related_images = REPLACE(related_images, '{$imageNum}', '')";
-	$query .= ($imageNum == $pref) ? ", preferred_image = ''" : '';
-	$query .= " WHERE id = {$workNum_trim} ";
-	// echo $query.'<br>';
-	$result_killImageAssoc = mysql_query($query, $connection); confirm_query($result_killImageAssoc);
+	$sql = "SELECT preferred_image 
+				FROM dimli.work 
+				WHERE id = {$workNum_trim} ";
+
+	$res = db_query($mysqli, $sql);
+
+	while ($row = $res->fetch_assoc()) {
+		$pref = $row['preferred_image'];
+	}
+
+
+	$sql = "UPDATE dimli.work
+				SET related_images = REPLACE(related_images, '{$imageNum}', '')";
+	$sql .= ($imageNum == $pref) ? ", preferred_image = ''" : '';
+	$sql .= " WHERE id = {$workNum_trim} ";
+
+	$result_killImageAssoc = db_query($mysqli, $sql);
 	// Remove this image number from the related_images field in the work record
 
-	$query = " UPDATE dimli.work
+	$sql = "UPDATE dimli.work
 				SET related_images = REPLACE(related_images, ',,', ',')
 				WHERE id = {$workNum_trim} ";
-	// echo $query.'<br>';
-	$result_stripDupCommas = mysql_query($query, $connection); confirm_query($result_stripDupCommas);
+
+	$result_stripDupCommas = db_query($mysqli, $sql);
 	// Remove the left over commas where image number was removed from a list
 
-	$query = " UPDATE dimli.work
+	$sql = "UPDATE dimli.work
 				SET related_images = TRIM(BOTH ',' FROM related_images)
 				WHERE id = {$workNum_trim} "; 
-	// echo $query.'<br>';
-	$result_trimLeadingComma = mysql_query($query, $connection); confirm_query($result_trimLeadingComma);
+
+	$result_trimLeadingComma = db_query($mysqli, $sql);
 	// Remove leading comma from the string, if there is one
 }
 
 $_SESSION['workNum'] = 'None';
-?>

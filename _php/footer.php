@@ -22,9 +22,13 @@
 </html>
 
 <?php
+// if (isset($connection)) {
+// 	mysql_close($connection); // Close connection
+// }
 
-if (isset($connection)) {
-	mysql_close($connection); // Close connection
+if (isset($mysqli)) {
+	// Close database connection
+	$mysqli->close();
 }
 
 // Show GLOBAL array, if username = "isnerms"
