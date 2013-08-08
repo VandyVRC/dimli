@@ -11,15 +11,33 @@ if (isset($_GET['imageRecord']))
 {
 	$_SESSION['imageNum'] = $_GET['imageRecord'];
 
-	$res = isnerQ("SELECT related_works, order_id FROM dimli.image WHERE id = {$_SESSION['imageNum']}");
-	while ($row = mysql_fetch_assoc($res)) { 
+	$sql = "SELECT related_works, 
+					order_id 
+				FROM dimli.image 
+				WHERE id = {$_SESSION['imageNum']} ";
+
+	$result = db_query($mysqli, $sql);
+
+	while ($row = $result->fetch_assoc())
+	{ 
 		$_SESSION['workNum'] = $row['related_works'];
 		$_SESSION['order'] = $row['order_id'];
 	}
 	
-	/* Log visit */
+	//-------------
+	//  Log visit
+	//-------------
+
 	$UnixTime = time(TRUE);
-	$log = isnerQ("INSERT INTO dimli.Activity SET UserID = '{$_SESSION['user_id']}', RecordType = 'Image', RecordNumber = {$_SESSION['imageNum']}, ActivityType = 'viewed', UnixTime = '{$UnixTime}'");
+
+	$sql = "INSERT INTO dimli.Activity 
+				SET UserID = '{$_SESSION['user_id']}', 
+					RecordType = 'Image', 
+					RecordNumber = {$_SESSION['imageNum']}, 
+					ActivityType = 'viewed', 
+					UnixTime = '{$UnixTime}' ";
+
+	$result = db_query($mysqli, $sql);
 
 	$_SESSION['image'] = array();
 	

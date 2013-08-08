@@ -7,11 +7,17 @@ require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_catalog');
 
+
 // Find images that are depedent upon the current work record
-$dependentImages = mysql_query(" SELECT * FROM dimli.image WHERE related_works = '{$_SESSION['workNum']}' ", $connection);
+
+$sql = "SELECT * 
+			FROM dimli.image 
+			WHERE related_works = '{$_SESSION['workNum']}' ";
+
+$dependentImages = db_query($mysqli, $sql);
 
 // Count number of images that are dependent upon the current work record
-$dependentImages_c = mysql_num_rows($dependentImages);
+$dependentImages_c = $dependentImages->fetch_assoc();
 ?>
 
 <div class="cataloguingPane" 
@@ -1971,32 +1977,42 @@ $dependentImages_c = mysql_num_rows($dependentImages);
 	$('div#work_module input[type=text], input[type=password], textarea')
 		.each(fieldLabel);
 
-	$('div#work_module input.authoritySearch').keyup(debounce(function()
-	{console.log('triggered');
-		var term = $(this).val();
-		if (term.length > 2 && $.trim(term) != '')
-		{
-			var fieldName = $(this).attr('name');
-			var nearbyAuthorityFieldName = $(this).parent('div.catRowWrapper')
-												.find('input[type=hidden]')
-												.attr('name');
-			catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
-
-			$('form#catalog_form input').not(this).focus(function()
+	$('div#work_module input.authoritySearch').keyup(
+		debounce(
+			function()
 			{
-				$('div.resultsWrapper').remove();
-			});
-		}
-	}, 1000));
+				var term = $(this).val();
+
+				if (term.length > 2 && $.trim(term) != '') 
+				{
+					var fieldName = $(this).attr('name');
+
+					var nearbyAuthorityFieldName = 
+						$(this).parent('div.catRowWrapper')
+							.find('input[type=hidden]')
+							.attr('name');
+
+					catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
+
+					$('form#catalog_form input').not(this).focus(
+						function()
+						{
+							$('div.resultsWrapper').remove();
+						});
+				}
+			}, 1000));
 
 	// Toggle date range
-	$('div#work_module input[type=checkbox][id*=dateRange]').click(function() 
-	{
-		var endDate = $(this).parents('div#work_module div.catRowWrapper')
-			.next('div.catRowWrapper')
-			.find('div[id*=dateRangeSpan]');
-		endDate.toggle();
-	});
+	$('div#work_module input[type=checkbox][id*=dateRange]').click(
+		function() 
+		{
+			var endDate = 
+				$(this).parents('div#work_module div.catRowWrapper')
+					.next('div.catRowWrapper')
+					.find('div[id*=dateRangeSpan]');
+
+			endDate.toggle();
+		});
 
 	// Show/hide date range on load
 	$('div#work_module input[type=checkbox][id*=dateRange]')
@@ -2005,10 +2021,11 @@ $dependentImages_c = mysql_num_rows($dependentImages);
 	$('div#work_module input.autoWidth').each(autoWidth);
 
 	// Adapt cataloging UI to the width of the browser window
-	$(window).resize(function()
-	{
-		$('div#work_module input.autoWidth').each(autoWidth);
-	});
+	$(window).resize(
+		function()
+		{
+			$('div#work_module input.autoWidth').each(autoWidth);
+		});
 
 	
 	// RESET ALL FIELDS

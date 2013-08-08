@@ -34,16 +34,19 @@ elseif ($recordType == 'createNewWork')
 if (!empty($recordNum) && $recordNum != '')
 {
 	// Remove old title info
-	$query = " DELETE FROM dimli.title WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$query = "DELETE FROM dimli.title 
+					WHERE related_".$field_type."s = '{$recordNum}' ";
+					
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.title VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.title VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['titleArray'][$recordType] as $key=>$value) {
 	
@@ -56,7 +59,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'title' . $i)) {
@@ -67,7 +70,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'titleDisplay' . $i)) {
 		
@@ -77,7 +80,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 		
@@ -94,15 +97,16 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.agent WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.agent VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.agent VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['agentArray'][$recordType] as $key=>$value) {
 	
@@ -115,7 +119,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'agent' . $i)) {
@@ -126,7 +130,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'agentId' . $i)) {
 		
@@ -136,7 +140,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'agentType' . $i)) {
 		
@@ -146,7 +150,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'agentRole' . $i)) {
 		
@@ -156,7 +160,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'agentDisplay' . $i)) {
 		
@@ -166,7 +170,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -183,15 +187,16 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.date WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.date VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.date VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 		
 	foreach ($_SESSION['dateArray'][$recordType] as $key=>$value) {
 	
@@ -204,7 +209,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'dateRange' . $i)) {
@@ -215,7 +220,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'circaDate' . $i)) {
 		
@@ -225,7 +230,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'startDate' . $i)) {
 		
@@ -235,7 +240,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'startDateEra' . $i)) {
 		
@@ -245,7 +250,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'endDate' . $i)) {
 		
@@ -255,7 +260,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'endDateEra' . $i)) {
 		
@@ -265,7 +270,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'dateDisplay' . $i)) {
 		
@@ -275,7 +280,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -292,15 +297,16 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.material WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.material VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.material VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['materialArray'][$recordType] as $key=>$value) {
 	
@@ -313,7 +319,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'material' . $i)) {
@@ -324,7 +330,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'materialId' . $i)) {
 		
@@ -334,7 +340,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'materialDisplay' . $i)) {
 		
@@ -344,7 +350,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -361,15 +367,16 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.technique WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.technique VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.technique VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['techniqueArray'][$recordType] as $key=>$value) {
 	
@@ -382,7 +389,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'techniqueId' . $i)) {
@@ -393,7 +400,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'techniqueDisplay' . $i)) {
 		
@@ -403,7 +410,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -420,15 +427,16 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.work_type WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.work_type VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.work_type VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['workTypeArray'][$recordType] as $key=>$value) {
 	
@@ -441,7 +449,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'workTypeId' . $i)) {
@@ -452,7 +460,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'workTypeDisplay' . $i)) {
 		
@@ -462,7 +470,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -479,15 +487,16 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.culture WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.culture VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.culture VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['culturalContextArray'][$recordType] as $key=>$value) {
 	
@@ -500,7 +509,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'culturalContextId' . $i)) {
@@ -511,7 +520,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'culturalContextDisplay' . $i)) {
 		
@@ -521,7 +530,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -538,15 +547,16 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.style_period WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.style_period VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.style_period VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['stylePeriodArray'][$recordType] as $key=>$value) {
 	
@@ -559,7 +569,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'stylePeriodId' . $i)) {
@@ -570,7 +580,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'stylePeriodDisplay' . $i)) {
 		
@@ -580,7 +590,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -597,15 +607,16 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.location WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.location VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.location VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['locationArray'][$recordType] as $key=>$value) {
 	
@@ -618,7 +629,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'locationId' . $i)) {
@@ -629,7 +640,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
 		
@@ -639,7 +650,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'locationType' . $i)) {
 		
@@ -649,7 +660,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
 		
@@ -659,7 +670,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -676,15 +687,16 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.edition WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.edition VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.edition VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['stateEditionArray'][$recordType] as $key=>$value) {
 	
@@ -697,7 +709,7 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'stateEdition' . $i)) {
@@ -708,7 +720,7 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -725,15 +737,16 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.measurements WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.measurements VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.measurements VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['measurementsArray'][$recordType] as $key=>$value) {
 	
@@ -746,7 +759,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 			
 		
@@ -758,7 +771,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'commonMeasurementList1_' . $i)) {
@@ -769,7 +782,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'measurementField2_' . $i)) {
@@ -780,7 +793,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'commonMeasurementList2_' . $i)) {
@@ -791,7 +804,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'inchesValue' . $i)) {
@@ -802,7 +815,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'areaMeasurementList' . $i)) {
@@ -813,7 +826,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'days' . $i)) {
@@ -824,7 +837,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'hours' . $i)) {
@@ -835,7 +848,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'minutes' . $i)) {
@@ -846,7 +859,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 			
 		
@@ -858,7 +871,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'fileSize' . $i)) {
@@ -869,7 +882,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'resolutionWidth' . $i)) {
@@ -880,7 +893,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'resolutionHeight' . $i)) {
@@ -891,7 +904,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'weightUnit' . $i)) {
@@ -902,7 +915,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			
 		
 		} elseif (strstr($key, $abbr.'otherMeasurementDescription' . $i)) {
@@ -913,7 +926,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'measurementDisplay' . $i)) {
 		
@@ -923,7 +936,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -940,15 +953,16 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.subject WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.subject VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.subject VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['subjectArray'][$recordType] as $key=>$value) {
 	
@@ -961,7 +975,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'subject' . $i)) {
@@ -972,7 +986,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'subjectId' . $i)) {
 		
@@ -982,7 +996,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'subjectDisplay' . $i)) {
 		
@@ -992,7 +1006,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -1009,15 +1023,16 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.inscription WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.inscription VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.inscription VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['inscriptionArray'][$recordType] as $key=>$value) {
 	
@@ -1030,7 +1045,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'workInscription' . $i)) {
@@ -1041,7 +1056,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'workInscriptionAuthor' . $i)) {
 		
@@ -1051,7 +1066,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'workInscriptionLocation' . $i)) {
 		
@@ -1061,7 +1076,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'inscriptionDisplay' . $i)) {
 		
@@ -1071,7 +1086,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -1088,15 +1103,16 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 if (!empty($recordNum) && $recordNum != '')
 {
 	$query = " DELETE FROM dimli.rights WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.rights VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.rights VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['rightsArray'][$recordType] as $key=>$value) {
 	
@@ -1109,7 +1125,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'rightsHolder' . $i)) {
@@ -1120,7 +1136,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'rightsText' . $i)) {
 		
@@ -1130,7 +1146,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	
@@ -1153,8 +1169,9 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 
-	mysql_query(" INSERT INTO dimli.source VALUES () ", $connection);
-	$currentId = mysql_insert_id();
+	$sql = "INSERT INTO dimli.source VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
 
 	foreach ($_SESSION['sourceArray'][$recordType] as $key=>$value) {
 	
@@ -1167,7 +1184,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
 		} elseif (strstr($key, $abbr.'sourceName' . $i)) {
@@ -1178,7 +1195,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'sourceType' . $i)) {
 		
@@ -1188,7 +1205,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'source' . $i)) {
 		
@@ -1198,7 +1215,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 						WHERE
 							id = '{$currentId}'
 					";
-			$result = mysql_query($query, $connection); confirm_query($result);
+			$result = db_query($mysqli, $query);
 		
 		}
 	

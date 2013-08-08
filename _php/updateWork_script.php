@@ -15,36 +15,37 @@ if ($_SESSION['workNum'] == 'None' || $_SESSION['workNum'] == '')
 // An associated work DOES NOT already EXIST
 // So CREATE NEW work record
 {
-	$query = " INSERT INTO dimli.work
-			SET
-				related_images = '{$_SESSION['imageNum']}',
+	$sql = "INSERT INTO dimli.work
+			SET related_images = '{$_SESSION['imageNum']}',
 				preferred_image = '{$_SESSION['imageNum']}',
 				description = '{$workDescription}',
 				last_update = '{$timestamp}',
 				last_update_by = '{$_SESSION['username']}',
 				created = '{$timestamp}',
-				created_by = '{$_SESSION['username']}'
-			";
-	$result = mysql_query($query, $connection); confirm_query($result);
+				created_by = '{$_SESSION['username']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	$recordNum = create_six_digits(mysql_insert_id());
-	$newWorkNum = create_six_digits(mysql_insert_id());
-	$_SESSION['workNum'] = create_six_digits(mysql_insert_id());
+	$recordNum = create_six_digits($mysqli->insert_id);
+	$newWorkNum = create_six_digits($mysqli->insert_id);
+	$_SESSION['workNum'] = create_six_digits($mysqli->insert_id);
 	$_SESSION['shortWorkNum'] = ltrim($_SESSION['workNum'], '0');
 	// Define the ID number of the new work
 
-	/*
-	LOG ACTION
-	*/
+	//--------------
+	//  Log action
+	//--------------
+
 	$ts = date('Y m d H:i:s');
-	$log = isnerQ("INSERT INTO dimli.Activity
-						SET 
-							UserID = '{$_SESSION['user_id']}',
-							RecordType = 'Work',
-							RecordNumber = {$_SESSION['shortWorkNum']},
-							ActivityType = 'created',
-							UnixTime = '{$UnixTime}'
-						");
+
+	$sql = "INSERT INTO dimli.Activity
+				SET UserID = '{$_SESSION['user_id']}',
+					RecordType = 'Work',
+					RecordNumber = {$_SESSION['shortWorkNum']},
+					ActivityType = 'created',
+					UnixTime = '{$UnixTime}' ";
+
+	$result = db_query($mysqli, $sql);
 
 }
 elseif (strlen($_SESSION['workNum']) == 6)
@@ -53,10 +54,13 @@ elseif (strlen($_SESSION['workNum']) == 6)
 {
 	$_SESSION['shortWorkNum'] = ltrim($_SESSION['workNum'], '0');
 
-	$query = " SELECT related_images FROM dimli.work WHERE id = '{$_SESSION['shortWorkNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT related_images 
+				FROM dimli.work 
+				WHERE id = '{$_SESSION['shortWorkNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = $result->fetch_assoc())
 	{
 		$existingRelatedImages = $row['related_images'];
 		// Find any images already associated with this work
@@ -75,46 +79,44 @@ elseif (strlen($_SESSION['workNum']) == 6)
 		}
 		else
 		{
-			$query = " UPDATE dimli.work 
-					SET 
-						related_images = IFNULL(CONCAT(related_images, ',{$_SESSION['imageNum']}'), '{$_SESSION['imageNum']}') 
-					WHERE 
-						id = '{$_SESSION['shortWorkNum']}'
-					";
-			$result = mysql_query($query, $connection); confirm_query($result);
 			// Add new image to list of associated images in work record
+
+			$sql = "UPDATE dimli.work 
+						SET related_images = IFNULL(CONCAT(related_images, ',{$_SESSION['imageNum']}'), '{$_SESSION['imageNum']}') 
+						WHERE id = '{$_SESSION['shortWorkNum']}' ";
+
+			$result = db_query($mysqli, $sql);
 		}
-	
 	}
 
-	$recordNum = $_SESSION['workNum'];
 	// Use existing associated work number for new insert statements
+	$recordNum = $_SESSION['workNum'];
 	
-	$query = " UPDATE dimli.work
-			SET
-				description = '{$workDescription}',
-				last_update = '{$timestamp}',
-				last_update_by = '{$_SESSION['username']}'
-			WHERE
-				id = '{$_SESSION['shortWorkNum']}'
-			";
-	$result = mysql_query($query, $connection); confirm_query($result);
-	// echo $query.'<br>'; // Debug
+	$sql = "UPDATE dimli.work
+				SET description = '{$workDescription}',
+					last_update = '{$timestamp}',
+					last_update_by = '{$_SESSION['username']}'
+				WHERE id = '{$_SESSION['shortWorkNum']}' ";
 
-	/*
-	LOG ACTION
-	*/
-	$log = isnerQ("INSERT INTO dimli.Activity
-						SET 
-							UserID = '{$_SESSION['user_id']}',
-							RecordType = 'Work',
-							RecordNumber = {$_SESSION['shortWorkNum']},
-							ActivityType = 'modified',
-							UnixTime = '{$UnixTime}'
-						");
+	$result = db_query($mysqli, $sql);
+
+	//--------------
+	//  Log action
+	//--------------
+	
+	$sql = "INSERT INTO dimli.Activity
+				SET UserID = '{$_SESSION['user_id']}',
+					RecordType = 'Work',
+					RecordNumber = {$_SESSION['shortWorkNum']},
+					ActivityType = 'modified',
+					UnixTime = '{$UnixTime}' ";
+
+	$result = db_query($mysqli, $sql);
 
 }
 
-require('../_php/update_db.php');
+//-----------------------------------
+//  Continue to update the database
+//-----------------------------------
 
-?>
+require('../_php/update_db.php');

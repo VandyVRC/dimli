@@ -14,47 +14,60 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 	$work = $_POST['workNum'];
 	$work_trim = ltrim($work, '0');
 
-	$affected_records = '';
+	//---------------------------
+	//  Delete this Work record
+	//---------------------------
+	
+	$sql = "DELETE FROM dimli.work 
+				WHERE id = {$work_trim}";
 
-	/*
-	Delete this Work record
-	*/
-	$deleted_res = isnerQ("DELETE FROM dimli.work WHERE id = {$work_trim}");
-	// $affected_records = 'Work records affected: '.mysql_affected_rows();
+	$deleted_res = db_query($mysqli, $sql);
 
 	$tables = array('agent','culture','date','edition','inscription','location','material','measurements','rights','source','style_period','subject','technique','title','work_type');
+
 	foreach ($tables as $table) {
-		$res = isnerQ("DELETE FROM dimli.{$table} WHERE related_works = {$work}");
+
+		$sql = "DELETE FROM dimli.{$table} 
+					WHERE related_works = {$work} ";
+
+		$res = db_query($mysqli, $sql);
 	}
 
-	/*
-	Free any Image record related to this Work
-	*/
-	$disassociated_res = isnerQ("UPDATE dimli.image SET related_works = '' WHERE related_works = {$work}");
-	// $affected_records .= ', Image records affected: '.mysql_affected_rows();
+	//----------------------------------------------
+	//  Free any Image record related to this Work
+	//----------------------------------------------
+	
+	$sql = "UPDATE dimli.image 
+				SET related_works = '' 
+				WHERE related_works = {$work} ";
+
+	$disassociated_res = db_query($mysqli, $sql);
 
 	if ($deleted_res && $disassociated_res)
-	{
-	?>
-	<script id="delWorRec_script">
+	{ ?>
 
-		msg(['Work <?php echo $work; ?> successfully deleted and','disassociated from any related Image records'], 'success');
+		<script id="delWorRec_script">
 
-	</script>
+			msg(['Work <?php echo $work; ?> successfully deleted and','disassociated from any related Image records'], 'success');
+
+		</script>
+
 	<?php
 	}
 
-	/*
-	LOG ACTION
-	*/
+	//--------------
+	//  Log action
+	//--------------
+
 	$UnixTime = time(TRUE);
-	$log = isnerQ("INSERT INTO dimli.Activity
-						SET 
-							UserID = '{$_SESSION['user_id']}',
+
+	$sql = "INSERT INTO dimli.Activity
+						SET UserID = '{$_SESSION['user_id']}',
 							RecordType = 'Work',
 							RecordNumber = {$work_trim},
 							ActivityType = 'deleted',
-							UnixTime = '{$UnixTime}'
-						");
+							UnixTime = '{$UnixTime}' ";
+
+	$result = db_query($mysqli, $sql);
 }
 ?>
