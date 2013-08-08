@@ -26,7 +26,7 @@ Add These to Your Installation
 
 >dimli/_ppts
 
-PowerPoint files that you wish to make available for download by faculty/end-users should be placed in this direcotry and given a 4-digit filename which corresponds to the Order number for which they contain the images.
+PowerPoint files that you wish to make available for download by faculty/end-users should be placed in this directory and given a 4-digit filename which corresponds to the Order number whose images they contain.
 
 >_php/_config/constants.inc.php
 

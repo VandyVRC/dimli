@@ -110,10 +110,13 @@ if (isset($_GET['imageRecord']))
 	//	Updated
 	// -----------
 	
-	$query = " SELECT * FROM dimli.image WHERE id = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.image 
+				WHERE id = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['updated'] = 'Last updated: ' . date('D, M j, Y, h:i a', strtotime($row['last_update'])) . ' by '. $row['last_update_by'];
 	}
 	
@@ -121,11 +124,14 @@ if (isset($_GET['imageRecord']))
 	//	Title
 	// -----------
 	
-	$query = " SELECT * FROM dimli.title WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.title 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['titleType'.$i] = $Ititle[$i]['titleType'] = $row['title_type'];
 		$_SESSION['image']['title'.$i] = $Ititle[$i]['title'] = $row['title_text'];
 		$_SESSION['image']['titleDisplay'.$i] = $Ititle[$i]['titleDisplay'] = $row['display'];
@@ -136,11 +142,14 @@ if (isset($_GET['imageRecord']))
 	//	Agent
 	// ----------
 	
-	$query = " SELECT * FROM dimli.agent WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.agent 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['agentAttribution'.$i] = $Iagent[$i]['agentAttribution'] = $row['agent_attribution'];
 		$_SESSION['image']['agent'.$i] = $Iagent[$i]['agent'] = $row['agent_text'];
 		$_SESSION['image']['agentType'.$i] = $Iagent[$i]['agentType'] = $row['agent_type'];
@@ -154,11 +163,14 @@ if (isset($_GET['imageRecord']))
 	//	Date
 	// ----------
 	
-	$query = " SELECT * FROM dimli.date WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.date 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['dateType'.$i] = $Idate[$i]['dateType'] = $row['date_type'];
 		$_SESSION['image']['dateRange'.$i] = $Idate[$i]['dateRange'] = $row['date_range'];
 		$_SESSION['image']['circaDate'.$i] = $Idate[$i]['circaDate'] = $row['date_circa'];
@@ -174,11 +186,14 @@ if (isset($_GET['imageRecord']))
 	//	Material
 	// --------------
 	
-	$query = " SELECT * FROM dimli.material WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.material 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['materialType'.$i] = $Imaterial[$i]['materialType'] = $row['material_type'];
 		$_SESSION['image']['material'.$i] = $Imaterial[$i]['material'] = $row['material_text'];
 		$_SESSION['image']['materialId'.$i] = $Imaterial[$i]['materialId'] = $row['material_getty_id'];
@@ -190,11 +205,14 @@ if (isset($_GET['imageRecord']))
 	//	Technique
 	// ---------------
 	
-	$query = " SELECT * FROM dimli.technique WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.technique 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['technique'.$i] = $Itechnique[$i]['technique'] = $row['technique_text'];
 		$_SESSION['image']['techniqueId'.$i] = $Itechnique[$i]['techniqueId'] = $row['technique_getty_id'];
 		$_SESSION['image']['techniqueDisplay'.$i] = $Ititle[$i]['techniqueDisplay'] = $row['display'];
@@ -205,11 +223,14 @@ if (isset($_GET['imageRecord']))
 	//	Work Type
 	// ---------------
 	
-	$query = " SELECT * FROM dimli.work_type WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.work_type 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['workType'.$i] = $IworkType[$i]['workType'] = $row['work_type_text'];
 		$_SESSION['image']['workTypeId'.$i] = $IworkType[$i]['workTypeId'] = $row['work_type_getty_id'];
 		$_SESSION['image']['workTypeDisplay'.$i] = $Ititle[$i]['workTypeDisplay'] = $row['display'];
@@ -220,11 +241,14 @@ if (isset($_GET['imageRecord']))
 	//	Cultural Context
 	// ----------------------
 	
-	$query = " SELECT * FROM dimli.culture WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.culture 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['culturalContext'.$i] = $IculturalContext[$i]['culturalContext'] = $row['culture_text'];
 		$_SESSION['image']['culturalContextId'.$i] = $IculturalContext[$i]['culturalContextId'] = $row['culture_getty_id'];
 		$_SESSION['image']['culturalContextDisplay'.$i] = $Ititle[$i]['culturalContextDisplay'] = $row['display'];
@@ -235,11 +259,14 @@ if (isset($_GET['imageRecord']))
 	//	Style Period
 	// ------------------
 	
-	$query = " SELECT * FROM dimli.style_period WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.style_period 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['stylePeriod'.$i] = $IstylePeriod[$i]['stylePeriod'] = $row['style_period_text'];
 		$_SESSION['image']['stylePeriodId'.$i] = $IstylePeriod[$i]['stylePeriodId'] = $row['style_period_getty_id'];
 		$_SESSION['image']['stylePeriodDisplay'.$i] = $Ititle[$i]['stylePeriodDisplay'] = $row['display'];
@@ -250,11 +277,14 @@ if (isset($_GET['imageRecord']))
 	//	Location
 	// -------------
 	
-	$query = " SELECT * FROM dimli.location WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.location 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['location'.$i] = $Ilocation[$i]['location'] = $row['location_text'];
 		$_SESSION['image']['locationId'.$i] = $Ilocation[$i]['locationId'] = $row['location_getty_id'];
 		$_SESSION['image']['locationNameType'.$i] = $Ilocation[$i]['locationNameType'] = $row['location_name_type'];
@@ -267,10 +297,13 @@ if (isset($_GET['imageRecord']))
 	//	Description
 	// -----------------
 	
-	$query = " SELECT * FROM dimli.image WHERE id = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.image 
+				WHERE id = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['description0'] = $Idescription0 = $row['description'];
 	}
 	
@@ -278,11 +311,14 @@ if (isset($_GET['imageRecord']))
 	//	State/Edition
 	// -------------------
 	
-	$query = " SELECT * FROM dimli.edition WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.edition 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['stateEditionType'.$i] = $IstateEdition[$i]['stateEditionType'] = $row['edition_type'];
 		$_SESSION['image']['stateEdition'.$i] = $IstateEdition[$i]['stateEdition'] = $row['edition_text'];
 		$i ++;
@@ -292,11 +328,14 @@ if (isset($_GET['imageRecord']))
 	//	Measurements
 	// -------------------
 	
-	$query = " SELECT * FROM dimli.measurements WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.measurements 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['measurementType'.$i] = $Imeasurements[$i]['measurementType'] = $row['measurements_type'];
 		$_SESSION['image']['measurementField1_'.$i] = $Imeasurements[$i]['measurementField1_'] = $row['measurements_text'];
 		$_SESSION['image']['commonMeasurementList1_'.$i] = $Imeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
@@ -321,11 +360,14 @@ if (isset($_GET['imageRecord']))
 	//	Subject
 	// --------------
 	
-	$query = " SELECT * FROM dimli.subject WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.subject 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['subjectType'.$i] = $Isubject[$i]['subjectType'] = $row['subject_type'];
 		$_SESSION['image']['subject'.$i] = $Isubject[$i]['subject'] = $row['subject_text'];
 		$_SESSION['image']['subjectId'.$i] = $Isubject[$i]['subjectId'] = $row['subject_getty_id'];
@@ -337,11 +379,14 @@ if (isset($_GET['imageRecord']))
 	//	Inscription
 	// -----------------
 	
-	$query = " SELECT * FROM dimli.inscription WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.inscription 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['inscriptionType'.$i] = $Iinscription[$i]['inscriptionType'] = $row['inscription_type'];
 		$_SESSION['image']['workInscription'.$i] = $Iinscription[$i]['workInscription'] = $row['inscription_text'];
 		$_SESSION['image']['workInscriptionAuthor'.$i] = $Iinscription[$i]['workInscriptionAuthor'] = $row['inscription_author'];
@@ -354,11 +399,14 @@ if (isset($_GET['imageRecord']))
 	//	Rights
 	// --------------
 	
-	$query = " SELECT * FROM dimli.rights WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.rights 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['rightsType'.$i] = $Irights[$i]['rightsType'] = $row['rights_type'];
 		$_SESSION['image']['rightsHolder'.$i] = $Irights[$i]['rightsHolder'] = $row['rights_holder'];
 		$_SESSION['image']['rightsText'.$i] = $Irights[$i]['rightsText'] = $row['rights_text'];
@@ -369,11 +417,14 @@ if (isset($_GET['imageRecord']))
 	//	Source
 	// --------------
 	
-	$query = " SELECT * FROM dimli.source WHERE related_images = '{$_SESSION['imageNum']}' ";
-	$result = mysql_query($query, $connection); confirm_query($result);
+	$sql = "SELECT * 
+				FROM dimli.source 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch_assoc()) {
 		$_SESSION['image']['sourceNameType'.$i] = $Isource[$i]['sourceNameType'] = $row['source_name_type'];
 		$_SESSION['image']['sourceName'.$i] = $Isource[$i]['sourceName'] = $row['source_name_text'];
 		$_SESSION['image']['sourceType'.$i] = $Isource[$i]['sourceType'] = $row['source_type'];
@@ -394,8 +445,7 @@ if (isset($_GET['imageRecord']))
 	
 }
 
-include('../_php/_order/query_image.php');
-?>
+include('../_php/_order/query_image.php'); ?>
 
 <script>
 
@@ -788,9 +838,9 @@ include('../_php/_order/query_image.php');
 
 <script>
 
-	/*
-		Click to edit the catalog
-	*/
+	//-----------------------------
+	//	 Click to edit the catalog
+	//-----------------------------
 
 	$('a#editCatalog').click(
 		function()
@@ -806,9 +856,9 @@ include('../_php/_order/query_image.php');
 		});
 
 
-	/*
-		Click to view order
-	*/
+	//-----------------------
+	//  Click to view order
+	//-----------------------
 
 	$('a#viewOrder').click(
 		function()

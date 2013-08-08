@@ -20,9 +20,13 @@ require_priv('priv_catalog');
 $images = array();
 $loners = array();
 
-$images_res = isnerQ("SELECT * FROM dimli.image WHERE related_works = ''");
+$sql = "SELECT * 
+			FROM dimli.image 
+			WHERE related_works = '' ";
 
-while ($row = mysql_fetch_assoc($images_res))
+$images_res = db_query($mysqli, $sql);
+
+while ($row = $images_res->fetch_assoc())
 {
 	$images_a[str_pad($row['id'],6,'0',STR_PAD_LEFT)]['order'] = $row['order_id'];
 }
@@ -30,7 +34,16 @@ while ($row = mysql_fetch_assoc($images_res))
 $i = 0;
 foreach ($images_a as $image=>$arr)
 {
-	$complete_boo = mysql_result(isnerQ("SELECT images_catalogued FROM dimli.order WHERE id = {$arr['order']}"), 0);
+	$sql = "SELECT images_catalogued 
+				FROM dimli.order 
+				WHERE id = {$arr['order']} ";
+
+	$result = db_query($mysqli, $sql);
+
+	while ($row = $result->fetch_assoc()) {
+		$complete_boo = $row['images_catalogued'];
+	}
+
 	if ($complete_boo == 1 || $complete_boo == '1' || $complete_boo == true)
 	{
 		$loners[$i]['image'] = $image;

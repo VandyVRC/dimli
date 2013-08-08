@@ -29,8 +29,13 @@ require_priv('priv_catalog');
 
 $works = array();
 
-$res = isnerQ("SELECT * FROM dimli.work WHERE related_images = ''");
-while ($row = mysql_fetch_assoc($res))
+$sql = "SELECT * 
+			FROM dimli.work 
+			WHERE related_images = '' ";
+
+$result = db_query($mysqli, $sql);
+
+while ($row = $result->fetch_assoc())
 {
 	$works[] = $row['id'];
 }
@@ -40,26 +45,44 @@ foreach ($works as $workNum)
 	/*
 	Find 
 	*/
-	$title_res = isnerQ("SELECT title_text FROM dimli.title WHERE related_works = {$workNum} LIMIT 1");
-	if (mysql_num_rows($title_res) >= 1) {
-		while ($row = mysql_fetch_assoc($title_res)) {
+	$sql = "SELECT title_text 
+				FROM dimli.title 
+				WHERE related_works = {$workNum} LIMIT 1 ";
+
+	$title_res = db_query($mysqli, $sql);
+
+	if ($title_res->num_rows >= 1)
+	{
+		while ($row = $title_res->fetch_assoc())
+		{
 			$title = ($row['title_text'] != '')
 				? $row['title_text']
 				: 'blank entry';
 		}
-	} else {
+	} 
+	else 
+	{
 		$title = '[data missing]';
 	}
 
 
-	$agent_res = isnerQ("SELECT agent_text FROM dimli.agent WHERE related_works = {$workNum} LIMIT 1");
-	if (mysql_num_rows($title_res) >= 1) {
-		while ($row = mysql_fetch_assoc($agent_res)) {
+	$sql = "SELECT agent_text 
+				FROM dimli.agent 
+				WHERE related_works = {$workNum} LIMIT 1 ";
+
+	$agent_res = db_query($mysqli, $sql);
+
+	if ($agent_res->num_rows >= 1) 
+	{
+		while ($row = $agent_res->fetch_assoc()) 
+		{
 			$agent = ($row['agent_text'] != '')
 				? $row['agent_text']
 				: 'blank entry';
 		}
-	} else {
+	} 
+	else 
+	{
 		$agent = '[data missing]';
 	}
 		
