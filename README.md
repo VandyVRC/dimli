@@ -14,15 +14,15 @@ DIMLI is currently used by the Visual Resources Center and the Department of His
 
 DIMLI has facilitated our massive recataloging endeavor by allowing us to establish Work and Image record relationships where before we had none, and by introducing an order management system that enables us to more easily assign and track workflow tasks.
 
-Technical Details
------------------
+State of the Project
+--------------------
 
 >WARNING: At this time, I do not suggest attempting to install this application on your server environment. 
 
 I am in the process of phasing out several aspects of the app that tie it specifically to our server environment, as well as some soon-to-be-deprecated PHP functions. Please check back for updates as I prepare the app for distribution; but in the meantime, feel free to poke around.
 
-If you install DIMLI, add these files/directories
--------------------------------------------------
+Add These to Your Installation
+------------------------------
 
 >dimli/_ppts
 
