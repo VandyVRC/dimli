@@ -21,6 +21,17 @@ Technical Details
 
 I am in the process of phasing out several aspects of the app that tie it specifically to our server environment, as well as some soon-to-be-deprecated PHP functions. Please check back for updates as I prepare the app for distribution; but in the meantime, feel free to poke around.
 
+If you install DIMLI, add these files/directories
+-------------------------------------------------
+
+>dimli/_ppts
+
+PowerPoint files that you wish to make available for download by faculty/end-users should be placed in this direcotry and given a 4-digit filename which corresponds to the Order number for which they contain the images.
+
+>_php/_config/constants.inc.php
+
+I will provide a template for this file in the near future. It contains constant definitions which need to be completed for your specific database environment.
+
 For More Information
 --------------------
 
