@@ -35,7 +35,7 @@ Theoretically, DIMLI can be installed on your server environment as is. In order
 
 + Modify the _php/_config/constants.inc.php file to define the constants that are appropriate for your server/file-storage environment. The file itself contains some brief commented instructions for each constant that must be defined.
 
-+ Whichever directory you chose to be your main image repository should be divided into three folders named as follows:
++ Whichever directory you chose to be your main image repository should be divided into three folders named as follows: "full/, medium/ and thumb/".
 
 + As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder, which should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
 
