@@ -24,10 +24,6 @@ I am in the process of phasing out several aspects of the app that tie it specif
 Add These to Your Installation
 ------------------------------
 
->dimli/_ppts
-
-PowerPoint files that you wish to make available for download by faculty/end-users should be placed in this directory and given a 4-digit filename which corresponds to the Order number whose images they contain.
-
 >_php/_config/constants.inc.php
 
 I will provide a template for this file in the near future. It contains constant definitions which need to be completed for your specific database environment.
