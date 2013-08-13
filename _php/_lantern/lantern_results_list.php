@@ -66,7 +66,7 @@ if (($page*$rpp)-$rpp <= count($results))
 		// If the image id of the preferred thumbnail is NOT blank, display a result row
 		if (!in_array($img_id, array('', '0')))
 		{
-			$src = "http://dimli.library.vanderbilt.edu/_scripts/timthumb.php?src=mdidimages/HoAC/medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
+			$src = "http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
 		?>
 
 			<div class="lanternResults_list_row defaultCursor">

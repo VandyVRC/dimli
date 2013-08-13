@@ -23,6 +23,7 @@ require_priv('priv_catalog'); ?>
 			// in order to determine how many times to iterate.
 			// This is performed below for each type of data.
 			$rows = 0;
+			
 			foreach ($_SESSION['image'] as $key=>$value) {
 				if (startsWith($key, 'titleType')) {
 					$rows++;

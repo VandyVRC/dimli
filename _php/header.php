@@ -21,56 +21,36 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 	<title>dimli</title>
 
-<!-- 
-	Roboto font
- -->
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<!-- Roboto font -->
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' 
+	rel='stylesheet' type='text/css'>
 
-<!-- 
-	Stylesheets
- -->
-<link rel="stylesheet" type="text/css" href="_stylesheets/hobblet.css?<?php echo date('His');?>">
+<!-- Favicon -->
+<link href="_assets/_images/favicon.png" rel="icon" type="image/png">
 
-<!-- 
-	Favicon
- -->
-<link rel="icon" type="image/png" href="_assets/_images/favicon.png">
+<!-- Stylesheets -->
+<link href="_stylesheets/hobblet.css?<?php echo date('His');?>" rel="stylesheet" type="text/css">
 
-<!-- 
-	jQuery CSS
- -->
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="_jquery/css/ui-lightness/jquery-ui-1.8.19.custom.css">
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+<!-- jQuery JS and CSS -->
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<!-- 
-	jQuery JS
- -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-
-<!-- 
-	jQuery Datepicker 
- -->
+<!-- jQuery Datepicker -->
 <script src="_jquery/js/jquery-1.7.2.min.js"></script>
-<script src="_jquery/js/jquery-ui-1.8.19.custom.min.js"></script>
+<!-- <script src="_jquery/js/jquery-ui-1.8.19.custom.min.js"></script> -->
 <script>
 	var jQuery_date = $.noConflict(true);
 </script>
 
-<!-- 
-	Bind jQuery Datepicker
- -->
+<!-- Bind jQuery Datepicker -->
 <script>
 	jQuery_date(function() {
 		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
 	});
 </script>
 
-<!-- 
-	Custom UI feedback functions for immediate use
- -->
+<!-- Load UI-feedback functions for immediate use -->
 <script src="_javascript/ui_feedback.js"></script>
 
 </head>

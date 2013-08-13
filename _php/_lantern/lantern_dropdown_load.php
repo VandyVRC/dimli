@@ -145,7 +145,7 @@ foreach ($searches_arr as $search)
 ?>
 <div class="grid_dropdown_imgWrapper">
 
-	<img src="http://dimli.library.vanderbilt.edu/_scripts/timthumb.php?src=mdidimages/HoAC/medium/<?php echo $imageNum; ?>.jpg&amp;h=300&amp;q=80">
+	<img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/<?php echo $imageNum; ?>.jpg&amp;h=300&amp;q=80">
 
 </div>
 
