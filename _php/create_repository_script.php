@@ -7,16 +7,16 @@ require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_catalog');
 
-$museum = 	sql_prep(trim($_POST['data']['museum']));
-$address = 	sql_prep(trim($_POST['data']['address']));
-$city = 		sql_prep(trim($_POST['data']['city']));
-$state = 	sql_prep(trim($_POST['data']['state']));
-$zip = 		sql_prep(trim($_POST['data']['zip']));
-$region = 	sql_prep(trim($_POST['data']['region']));
-$country = 	sql_prep(trim($_POST['data']['country']));
-$phone = 	sql_prep(trim($_POST['data']['phone']));
-$website = 	sql_prep(trim($_POST['data']['website']));
-$images = 	sql_prep(trim($_POST['data']['images']));
+$museum = 	$mysqli->real_escape_string(trim($_POST['data']['museum']));
+$address = 	$mysqli->real_escape_string(trim($_POST['data']['address']));
+$city = 		$mysqli->real_escape_string(trim($_POST['data']['city']));
+$state = 	$mysqli->real_escape_string(trim($_POST['data']['state']));
+$zip = 		$mysqli->real_escape_string(trim($_POST['data']['zip']));
+$region = 	$mysqli->real_escape_string(trim($_POST['data']['region']));
+$country = 	$mysqli->real_escape_string(trim($_POST['data']['country']));
+$phone = 	$mysqli->real_escape_string(trim($_POST['data']['phone']));
+$website = 	$mysqli->real_escape_string(trim($_POST['data']['website']));
+$images = 	$mysqli->real_escape_string(trim($_POST['data']['images']));
 
 $sql = "INSERT INTO dimli.repository
 			SET museum = 	'{$museum}',

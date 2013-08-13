@@ -10,8 +10,7 @@ confirm_logged_in();
 ###########################################################
 ##################  BEGIN CLIENT-SIDE  ####################
 ###########################################################
-require("_php/header.php");
-?>
+require("_php/header.php"); ?>
 
 <div id="message_wrapper">
 	<div id="message_text"></div>

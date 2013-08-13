@@ -8,9 +8,9 @@ confirm_logged_in();
 require_priv('priv_users_read');
 
 $userId = $_POST['data']['userId'];
-$opw = crypt(trim(sql_prep($_POST['data']['userProf_oldPass'])), SALT);
+$opw = crypt(trim($mysqli->real_escape_string($_POST['data']['userProf_oldPass'])), SALT);
 $npw_raw = $_POST['data']['userProf_newPass'];
-$npw = crypt(trim(sql_prep($_POST['data']['userProf_newPass'])), SALT);
+$npw = crypt(trim($mysqli->real_escape_string($_POST['data']['userProf_newPass'])), SALT);
 
 //---------------------------------
 //  Find user's existing password

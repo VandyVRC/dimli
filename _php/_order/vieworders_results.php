@@ -12,17 +12,17 @@ require_priv('priv_orders_read');
 //  entered in "vieworders_form.php" and displays results table
 //---------------------------------------------------------------
 
-$_SESSION['findOrders_orderNum_start'] 	= trim(sql_prep($_GET['orderNum_start']));
-$_SESSION['findOrders_orderNum_end'] 		= trim(sql_prep($_GET['orderNum_end']));
-$_SESSION['findOrders_orderNum_range'] 	= trim(sql_prep($_GET['orderNum_range']));
-$_SESSION['findOrders_patron'] 				= trim(sql_prep($_GET['patron']));
-$_SESSION['findOrders_department'] 			= trim(sql_prep($_GET['department']));
-$_SESSION['findOrders_showIncomplete'] 	= trim(sql_prep($_GET['show_incomplete']));
-$_SESSION['findOrders_showComplete'] 		= trim(sql_prep($_GET['show_complete']));
-$_SESSION['findOrders_created_by']			= trim(sql_prep($_GET['created_by']));
-$_SESSION['findOrders_created_start']		= trim(sql_prep($_GET['created_start']));
-$_SESSION['findOrders_created_end']	 		= trim(sql_prep($_GET['created_end']));
-$_SESSION['findOrders_updated_by']			= trim(sql_prep($_GET['updated_by']));
+$_SESSION['findOrders_orderNum_start'] 	= trim($mysqli->real_escape_string($_GET['orderNum_start']));
+$_SESSION['findOrders_orderNum_end'] 		= trim($mysqli->real_escape_string($_GET['orderNum_end']));
+$_SESSION['findOrders_orderNum_range'] 	= trim($mysqli->real_escape_string($_GET['orderNum_range']));
+$_SESSION['findOrders_patron'] 				= trim($mysqli->real_escape_string($_GET['patron']));
+$_SESSION['findOrders_department'] 			= trim($mysqli->real_escape_string($_GET['department']));
+$_SESSION['findOrders_showIncomplete'] 	= trim($mysqli->real_escape_string($_GET['show_incomplete']));
+$_SESSION['findOrders_showComplete'] 		= trim($mysqli->real_escape_string($_GET['show_complete']));
+$_SESSION['findOrders_created_by']			= trim($mysqli->real_escape_string($_GET['created_by']));
+$_SESSION['findOrders_created_start']		= trim($mysqli->real_escape_string($_GET['created_start']));
+$_SESSION['findOrders_created_end']	 		= trim($mysqli->real_escape_string($_GET['created_end']));
+$_SESSION['findOrders_updated_by']			= trim($mysqli->real_escape_string($_GET['updated_by']));
 
 $pageNum = $_GET['pageNum'];
 $orderBy = $_GET['orderBy'];

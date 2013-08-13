@@ -11,14 +11,14 @@ require_priv('priv_orders_create');
 //--------------------------------
 //  PREPARE USER-SUBMITTED DATA
 //--------------------------------
-$source_name_type = sql_prep($_POST['sourceNameType']);
-$source_name_text = sql_prep($_POST['sourceName']);
-$source_type = sql_prep($_POST['sourceType']);
-$source_text = sql_prep($_POST['source']);
-$requestor = sql_prep($_POST['client']);
-$department = sql_prep($_POST['department']);
-$email = sql_prep($_POST['email']);
-$date_needed = sql_prep($_POST['dateNeeded']);
+$source_name_type = $mysqli->real_escape_string($_POST['sourceNameType']);
+$source_name_text = $mysqli->real_escape_string($_POST['sourceName']);
+$source_type = $mysqli->real_escape_string($_POST['sourceType']);
+$source_text = $mysqli->real_escape_string($_POST['source']);
+$requestor = $mysqli->real_escape_string($_POST['client']);
+$department = $mysqli->real_escape_string($_POST['department']);
+$email = $mysqli->real_escape_string($_POST['email']);
+$date_needed = $mysqli->real_escape_string($_POST['dateNeeded']);
 
 
 if (empty($_POST['imageCount'])) {
@@ -49,8 +49,8 @@ $i = 1;
 while ($i <= $imageCount)
 // For each image
 {
-	$page = trim(sql_prep($_POST['image'.$i]['page']));
-	$fig = trim(sql_prep($_POST['image'.$i]['fig']));
+	$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
+	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
 
 
 	$sql = "INSERT INTO dimli.image

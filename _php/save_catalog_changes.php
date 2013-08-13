@@ -23,161 +23,161 @@ foreach ($_POST['json'] as $key => $value) {
 	if (preg_match('/title/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['titleArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['titleArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['titleArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['titleArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['titleArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['titleArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/agent/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['agentArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['agentArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['agentArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['agentArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['agentArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['agentArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/(Date|date)/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['dateArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['dateArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['dateArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['dateArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['dateArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['dateArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/material/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['materialArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['materialArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['materialArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['materialArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['materialArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['materialArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/technique/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['techniqueArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['techniqueArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['techniqueArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['techniqueArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['techniqueArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['techniqueArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/workType/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['workTypeArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['workTypeArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['workTypeArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['workTypeArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['workTypeArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['workTypeArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/culturalContext/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['culturalContextArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['culturalContextArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['culturalContextArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['culturalContextArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['culturalContextArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['culturalContextArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/stylePeriod/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['stylePeriodArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['stylePeriodArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['stylePeriodArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['stylePeriodArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['stylePeriodArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['stylePeriodArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/location/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['locationArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['locationArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['locationArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['locationArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['locationArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['locationArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/description/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['descriptionArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['descriptionArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['descriptionArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['descriptionArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['descriptionArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['descriptionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/stateEdition/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['stateEditionArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['stateEditionArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['stateEditionArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['stateEditionArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['stateEditionArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['stateEditionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/(Measure|measure|inches|days|hours|minutes|seconds|fileSize|resolution|weight)/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['measurementsArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['measurementsArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['measurementsArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['measurementsArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['measurementsArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['measurementsArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/subject/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['subjectArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['subjectArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['subjectArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['subjectArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['subjectArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['subjectArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/(Inscription|inscription)/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['inscriptionArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['inscriptionArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['inscriptionArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['inscriptionArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['inscriptionArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['inscriptionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/rights/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['rightsArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['rightsArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['rightsArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['rightsArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['rightsArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['rightsArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match( '/source/', $key )) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['sourceArray']['work'][$key] = trim(sql_prep($value));
+			$_SESSION['sourceArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['sourceArray']['image'][$key] = trim(sql_prep($value));
+			$_SESSION['sourceArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['sourceArray']['createNewWork'][$key] = trim(sql_prep($value));
+			$_SESSION['sourceArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	}

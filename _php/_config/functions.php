@@ -1,15 +1,18 @@
 <?php
 function check_required_fields($required_array)
 {
-	$post_array = (isset($_POST['json'])) ? $_POST['json'] : $_POST;
+	$post_array = (isset($_POST['json'])) 
+		? $_POST['json'] 
+		: $_POST;
 
 	$field_errors = array();
-	foreach($required_array as $fieldname)
-	{
-		if (!isset($post_array[$fieldname]) ||
-			(empty($post_array[$fieldname]) && !is_int($post_array[$fieldname])) ||
-			(is_int($post_array[$fieldname]) && ($post_array[$fieldname]) < 1 ))
-		{
+
+	foreach($required_array as $fieldname) {
+
+		if ((!isset($post_array[$fieldname]))
+			|| (empty($post_array[$fieldname]) && !is_int($post_array[$fieldname])) 
+			|| (is_int($post_array[$fieldname]) && ($post_array[$fieldname]) < 1 )) {
+
 				$field_errors[] = $fieldname;
 		}
 	}
@@ -18,21 +21,24 @@ function check_required_fields($required_array)
 
 function check_max_field_lengths($field_length_array)
 {
-	$post_array = (isset($_POST['json'])) ? $_POST['json'] : $_POST;
+	$aPost = (isset($_POST['json']))
+		? $_POST['json'] 
+		: $_POST;
 
 	$field_errors = array();
-	foreach($field_length_array as $fieldname => $maxlength)
-	{
-		if (isset($post_array[$fieldname]) 
-			&& strlen(trim(sql_prep($post_array[$fieldname]))) > $maxlength)
-		{
+
+	foreach($field_length_array as $fieldname => $maxlength) {
+
+		if ((isset($aPost[$fieldname])) 
+			&& (strlen(trim($aPost[$fieldname])) > $maxlength)) {
+
 			$field_errors[] = $fieldname;
 		}
 	}
 	return $field_errors;
 }
 
-function sql_prep($value) 
+function sql_prep($value)
 {
 	$magic_quotes_active = get_magic_quotes_gpc();
 	$new_enough_php = function_exists("mysql_real_escape_string"); // i.e. PHP >= v4.3.0
@@ -46,6 +52,19 @@ function sql_prep($value)
 		// if magic quotes are active, then the slashes already exist
 	}
 	return $value;
+
+	// $magic_quotes_active = get_magic_quotes_gpc();
+	// $new_enough_php = function_exists("mysql_real_escape_string"); // i.e. PHP >= v4.3.0
+	// if ($new_enough_php) { // PHP v4.3.0 or higher
+	// 	// undo any magic quote effects so mysql_real_escape_string can do the work
+	// 	if ($magic_quotes_active) { $value = stripslashes($value); }
+	// 	$value = mysql_real_escape_string($value);
+	// } else { // before PHP v4.3.0
+	// 	// if magic quotes aren't already on then add slashes manually
+	// 	if(!$magic_quotes_active) { $value = addslashes($value); }
+	// 	// if magic quotes are active, then the slashes already exist
+	// }
+	// return $value;
 }
 
 // Performs query and returns result set, or reports error.

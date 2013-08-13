@@ -8,9 +8,9 @@ confirm_logged_in();
 require_priv('priv_users_read');
 
 $userId = $_POST['data']['userId'];
-$fName = sql_prep(trim($_POST['data']['userProf_firstName']));
-$lName = sql_prep(trim($_POST['data']['userProf_lastName']));
-$username = sql_prep(trim($_POST['data']['userProf_username']));
+$fName = $mysqli->real_escape_string(trim($_POST['data']['userProf_firstName']));
+$lName = $mysqli->real_escape_string(trim($_POST['data']['userProf_lastName']));
+$username = $mysqli->real_escape_string(trim($_POST['data']['userProf_username']));
 
 $sql = "SELECT * 
 			FROM dimli.user 

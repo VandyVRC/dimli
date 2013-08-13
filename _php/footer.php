@@ -22,9 +22,10 @@
 </html>
 
 <?php
-// if (isset($connection)) {
-// 	mysql_close($connection); // Close connection
-// }
+if (isset($connection)) {
+	// Close connection
+	mysql_close($connection);
+}
 
 if (isset($mysqli)) {
 	// Close database connection

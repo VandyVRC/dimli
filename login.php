@@ -28,8 +28,8 @@ if (isset($_POST['login'])) {
 	$errors = array_merge($errors, check_max_field_lengths($fields_with_lengths));
 	
 	// Sanitize data
-	$username = trim(sql_prep($_POST['username']));
-	$password = crypt(trim(sql_prep($_POST['password'])), SALT);
+	$username = trim($mysqli->real_escape_string($_POST['username']));
+	$password = crypt(trim($mysqli->real_escape_string($_POST['password'])), SALT);
 
 	if (empty($errors)) { //  User-submitted data is valid, so continue
 			
