@@ -14,19 +14,30 @@ DIMLI is currently used by the Visual Resources Center and the Department of His
 
 DIMLI has facilitated our massive recataloging endeavor by allowing us to establish Work and Image record relationships where before we had none, and by introducing an order management system that enables us to more easily assign and track workflow tasks.
 
-State of the Project
---------------------
+To-Do List
+----------
 
->WARNING: At this time, I do not suggest attempting to install this application on your server environment. 
+The following features need to be completed in order for DIMLI to function as intended:
 
-I am in the process of phasing out several aspects of the app that tie it specifically to our server environment, as well as some soon-to-be-deprecated PHP functions. Please check back for updates as I prepare the app for distribution; but in the meantime, feel free to poke around.
+#### User Regristration
+This must currently be done using SQL commands or a GUI for MySQL such as phpMyAdmin. New users should also be prompted to supply an email address that can in turn be used to auto-fill the email field during order creation. This email address would be integral to the creation of an automated email notification system that would alert users when orders have been completed.
 
-Add These to Your Installation
-------------------------------
+#### Data Imports
 
->_php/_config/constants.inc.php
+#### Printer-Friendly Order Paper-Trail
 
-I will provide a template for this file in the near future. It contains constant definitions which need to be completed for your specific database environment.
+#### Admin Activity Statistics
+
+Installation Instructions
+-------------------------
+
+Theoretically, DIMLI can be installed on your server environment as is. In order to do so, however, you will need to take a couple of important steps:
+
++ Modify the _php/_config/constants.inc.php file to define the constants that are appropriate for your server/file-storage environment. The file itself contains some brief commented instructions for each constant that must be defined.
+
++ Whichever directory you chose to be your main image repository should be divided into three folders named as follows:
+
++ As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder, which should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
 
 For More Information
 --------------------
