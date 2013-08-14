@@ -22,6 +22,7 @@ function highlight(str, elements, className) {
 
 // Toggle navigation dropdown menus
 function showThisDropdown(event) {
+
 	event.stopPropagation();
 	$('html, div.nav_dropdown').unbind('click.closeNavs');
 	$('div.nav_dropdown').hide();
@@ -52,7 +53,7 @@ function closeAllNavLists_prep() {
 }
 
 // Call this on a module to add a Close button 
-// that will remove the module from the DOM
+// which will remove the module from the DOM
 function closeModule_button(module) {
 
 	var close_button = $('<img>');
@@ -387,10 +388,6 @@ function usersBrowse_load() {
 			console.log('AJAX ERROR: _php/users_browse.php');
 		}
 	});
-}
-
-function usersRegister_load() {
-
 }
 
 function userProfile_load(userId) {
@@ -1858,6 +1855,18 @@ function registerNewUser_load() {
 	// Add a close button the module's header
 	closeModule_button($('div#registerUser_module'));
 
+	$.ajax({
+		type: 'GET',
+		url: '_php/_user/registerNewUser_load.php',
+		success: function(response) {
+			load_module($newUserModule, response);
+			$(document).scrollTop($('body').offset().top);
+			console.log("AJAX success: registerNewUser_load.php");
+		},
+		error: function() {
+			console.error("AJAX error: registerNewUser_load.php");
+		}
+	});
 }
 
 function createRepository() {

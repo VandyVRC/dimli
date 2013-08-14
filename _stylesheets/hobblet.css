@@ -1,35 +1,38 @@
 /*
-	hobblet.css by Matthew Isner
-	Developed for use with Dimli
+	hobblet.css
+	Matthew Isner
+	Stylesheet for DIMLI Project
+	August 2013
 */
 
-/* Site Colors:
-	#669 	= pastel blue
-	#ff8c00 = Dark Orange
+/* 
+	Site Colors:
+	#669 	  = pastel blue
+	#FF8C00 = Dark Orange
 	
 	#1A446C = blue grey
 	#D4E6F4 = very light blue
-	#f9f9f9 = off-white
-	#eee 	= Light Grey
-	#ccc 	= Grey
-	#a65f00 - Dark Orange
+	#F9F9F9 = off-white
+	#EEE 	  = Light Grey
+	#CCC 	  = Grey
+	#A65f00 - Dark Orange
 	#E6E6FA = Lavender
-	#32cd32 = Lime Green
+	#32CD32 = Lime Green
 	
-	#4a2a82 = Rich Purple
-	#e2dfee = Very Light Purple
-	#f3f1fb = Light Pastel Purple
-	#9966cc = Bright Purple (favicon)
+	#4A2A82 = Rich Purple
+	#E2DFEE = Very Light Purple
+	#F3F1Fb = Light Pastel Purple
+	#9966CC = Bright Purple (favicon)
 	#663399 = New Purple
 */
 
 /*
-Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
-http://cssreset.com
+	Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+	http://cssreset.com
 */
 html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 /*
-HTML5 display-role reset for older browsers
+	HTML5 display-role reset for older browsers
 */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;} body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; }blockquote:before, blockquote:after,q:before, q:after {	content: ''; content: none; } table {	border-collapse: collapse; border-spacing: 0; }
 
@@ -791,6 +794,10 @@ div.banner_text span.title {
 div.banner_text span.agent {
 	font-size: 0.8em;
 	font-style: italic;
+}
+
+form#registerNewUser input[type=text] {
+	width: 220px;
 }
 
 /*
@@ -1890,7 +1897,8 @@ p.instructions {
 }
 
 form#createRepository_form div.label,
-form#createOrder_form div.label {
+form#createOrder_form div.label,
+form#registerNewUser div.label {
 	width: 125px;
 	margin-left: 10px;
 	text-align: right;
