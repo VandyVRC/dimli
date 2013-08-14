@@ -32,7 +32,11 @@ sandbox.php
 # Logs and databases #
 ######################
 *.log
-*.sql
+##########
+# *.sql
+# It's necessary to include SQL files to make the database 
+# schema available to other users on guthub, etc.
+##########
 *.sqlite
 
 # OS generated files #
