@@ -5,6 +5,7 @@
 #####################
 _php/_config/constants.inc.php
 _jquery/*
+legacyReader.php
 sandbox.php
 
 # Compiled source #
