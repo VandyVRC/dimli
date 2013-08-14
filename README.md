@@ -26,7 +26,7 @@ This must currently be done using SQL commands or a GUI for MySQL such as phpMyA
 
 #### Printer-Friendly Order Paper-Trail
 
-#### Admin Activity Statistics
+#### Activity Statistics for Administrators
 
 Installation Instructions
 -------------------------
