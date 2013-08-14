@@ -155,7 +155,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWtitle<?php echo $i; ?>" 
 							class="autoWidth"
 							name="NWtitle<?php echo $i; ?>" 
-							label="Title"
+							placeholder="Title"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? htmlspecialchars($_SESSION['createNewWork']['title'.$i]) : ''; ?>">
 					
 					</div>
@@ -260,7 +260,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWagentRole<?php echo $i; ?>" 
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['agentRole'.$i] : ''; ?>" 
 							title="Agent role"
-							label="Agent role (e.g. 'artist; painter')">
+							placeholder="Agent role (e.g. 'artist; painter')">
 					
 					</div>
 					
@@ -312,7 +312,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWagent<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWagent<?php echo $i; ?>" 
-							label="Agent"
+							placeholder="Agent"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['agent'.$i] : ''; ?>">
 					
 					</div>
@@ -464,7 +464,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWstartDate<?php echo $i; ?>" 
 							name="NWstartDate<?php echo $i; ?>" 
 							maxlength="5"
-							label="Date" 
+							placeholder="Date" 
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['startDate'.$i] : ''; ?>" 
 							style="width: 3em;">
 					
@@ -499,7 +499,7 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWendDate<?php echo $i; ?>" 
 								name="NWendDate<?php echo $i; ?>" 
 								maxlength="5" 
-								label="Date"
+								placeholder="Date"
 								value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['endDate'.$i] : ''; ?>" 
 								style="width: 3em;">
 							
@@ -589,7 +589,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWmaterial<?php echo $i; ?>"
 							class="autoWidth authoritySearch idMissing" 
 							name="NWmaterial<?php echo $i; ?>" 
-							label="Material"
+							placeholder="Material"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['material'.$i] : ''; ?>">
 					
 					</div>
@@ -661,7 +661,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWtechnique<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWtechnique<?php echo $i; ?>" 
-							label="Technique"
+							placeholder="Technique"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['technique'.$i] : ''; ?>">
 					
 					</div>
@@ -733,7 +733,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWworkType<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWworkType<?php echo $i; ?>" 
-							label="Work Type"
+							placeholder="Work Type"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['workType'.$i] : ''; ?>">
 					
 					</div>
@@ -805,7 +805,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWculturalContext<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWculturalContext<?php echo $i; ?>" 
-							label="Cultural Context"
+							placeholder="Cultural Context"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['culturalContext'.$i] : ''; ?>">
 					
 					</div>
@@ -877,7 +877,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWstylePeriod<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWstylePeriod<?php echo $i; ?>" 
-							label="Style Period"
+							placeholder="Style Period"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['stylePeriod'.$i] : ''; ?>">
 					
 					</div>
@@ -949,7 +949,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWlocation<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWlocation<?php echo $i; ?>" 
-							label="Location"
+							placeholder="Location"
 							value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['location'.$i] : ''; ?>">
 					
 					</div>
@@ -1069,7 +1069,7 @@ if (!isset($_SESSION['createNewWork']))
 							class="fixedWidth" 
 							rows="2" 
 							name="NWdescription0" 
-							label="Description"
+							placeholder="Description"
 							style="height: 140px; overflow: hidden;"><?php echo (isset($_SESSION['createNewWork']['description0'])) ? htmlspecialchars($_SESSION['createNewWork']['description0']) : ''; ?></textarea>
 					
 					</div>
@@ -1136,7 +1136,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWstateEdition<?php echo $i; ?>" 
 							class="autoWidth"
 							name="NWstateEdition<?php echo $i; ?>" 
-							label="State/Edition"
+							placeholder="State/Edition"
 							value="<?php echo (isset($_SESSION['createNewWork']['stateEdition'.$i])) ? $_SESSION['createNewWork']['stateEdition'.$i] : ''; ?>" 
 							title="State/Edition number">
 					
@@ -1256,7 +1256,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWmeasurementField1_<?php echo $i; ?>" 
 							name="NWmeasurementField1_<?php echo $i; ?>" 
 							style="width: 4em;"
-							label=""
+							placeholder=""
 							value="<?php echo $_SESSION['createNewWork']['measurementField1_'.$i]; ?>">
 					
 					</div>
@@ -1297,7 +1297,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWinchesValue<?php echo $i; ?>" 
 								name="NWinchesValue<?php echo $i; ?>" 
-								label="in."
+								placeholder="in."
 								value="<?php echo $_SESSION['createNewWork']['inchesValue'.$i]; ?>" 
 								maxlength="5" 
 								style="width: 2em;">
@@ -1372,7 +1372,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWdays<?php echo $i; ?>" 
 								name="NWdays<?php echo $i; ?>" 
-								label="Day"
+								placeholder="Day"
 								value="" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1384,7 +1384,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWhours<?php echo $i; ?>" 
 								name="NWhours<?php echo $i; ?>" 
-								label="Hrs"
+								placeholder="Hrs"
 								value="" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1396,7 +1396,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWminutes<?php echo $i; ?>" 
 								name="NWminutes<?php echo $i; ?>" 
-								label="Min"
+								placeholder="Min"
 								value="" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1408,7 +1408,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWseconds<?php echo $i; ?>" 
 								name="NWseconds<?php echo $i; ?>" 
-								label="Sec"
+								placeholder="Sec"
 								value="" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1443,7 +1443,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWresolutionWidth<?php echo $i; ?>" 
 								name="NWresolutionWidth<?php echo $i; ?>" 
-								label="NWidth"
+								placeholder="NWidth"
 								maxlength="10" 
 								value="<?php echo $_SESSION['createNewWork']['resolutionWidth'.$i]; ?>"
 								style="width: 3em;">
@@ -1457,7 +1457,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWresolutionHeight<?php echo $i; ?>" 
 								name="NWresolutionHeight<?php echo $i; ?>"
-								label="Height" 
+								placeholder="Height" 
 								maxlength="10" 
 								value="<?php echo $_SESSION['createNewWork']['resolutionHeight'.$i]; ?>" 
 								style="width: 3em;">
@@ -1491,7 +1491,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWotherMeasurementDescription<?php //echo $i; ?>" 
 								name="NWotherMeasurementDescription<?php //echo $i; ?>" 
-								label="Description"
+								placeholder="Description"
 								maxlength="500" 
 								value="<?php //echo $_SESSION['createNewWork']['otherMeasurementDescription'.$i]; ?>">
 						
@@ -1593,7 +1593,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWsubject<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="NWsubject<?php echo $i; ?>" 
-							label="Subject"
+							placeholder="Subject"
 							value="<?php echo $_SESSION['createNewWork']['subject'.$i];?>" 
 							maxlength="500">
 					
@@ -1692,7 +1692,7 @@ if (!isset($_SESSION['createNewWork']))
 							id="NWworkInscription<?php echo $i; ?>" 
 							class="autoWidth"
 							name="NWworkInscription<?php echo $i; ?>" 
-							label="Inscription text"
+							placeholder="Inscription text"
 							value="<?php echo htmlspecialchars($_SESSION['createNewWork']['workInscription'.$i]); ?>" 
 							maxlength="500">
 					
@@ -1728,7 +1728,7 @@ if (!isset($_SESSION['createNewWork']))
 							value="<?php echo htmlspecialchars($_SESSION['createNewWork']['workInscriptionAuthor'.$i]); ?>" 
 							maxlength="500"
 							style="width: 120px;"
-							label="Inscription author">
+							placeholder="Inscription author">
 					
 					</div>
 					
@@ -1739,7 +1739,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWworkInscriptionLocation<?php echo $i; ?>" 
 							value="<?php echo htmlspecialchars($_SESSION['createNewWork']['workInscriptionLocation'.$i]); ?>" 
 							maxlength="500" 
-							label="Inscription location">
+							placeholder="Inscription location">
 					
 					</div>
 					
@@ -1809,7 +1809,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWrightsHolder<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['createNewWork']['rightsHolder'.$i]; ?>" 
 							maxlength="500"
-							label="Rights holder">
+							placeholder="Rights holder">
 					
 					</div>
 				
@@ -1843,7 +1843,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWrightsText<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['createNewWork']['rightsText'.$i]; ?>" 
 							maxlength="500"
-							label="Rights text">
+							placeholder="Rights text">
 					
 					</div>
 				
@@ -1922,7 +1922,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWsourceName<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['createNewWork']['sourceName'.$i]; ?>" 
 							maxlength="500" 
-							label="Source name">
+							placeholder="Source name">
 					
 					</div>
 				
@@ -1984,7 +1984,7 @@ if (!isset($_SESSION['createNewWork']))
 							name="NWsource<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['createNewWork']['source'.$i]; ?>" 
 							maxlength="500" 
-							label="Source text">
+							placeholder="Source text">
 					
 					</div>
 				
@@ -2039,9 +2039,7 @@ if (!isset($_SESSION['createNewWork']))
 	authorityIndicators();
 
 
-	// Add subtle fieldname to all inputs, based on the input's "label" attribute
-
-	$('div#createBuiltWork_module input[type=text], input[type=password], textarea').each(fieldLabel);
+	// Perform authority search
 
 	$('div#createBuiltWork_module input.authoritySearch').keyup(debounce(function()
 	{

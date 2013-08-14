@@ -1,22 +1,17 @@
-jQuery.fn.exists = function()
-{
+jQuery.fn.exists = function() {
 	return this.length > 0;
 };
 
-function exists()
-{
+function exists() {
 	return this.length > 0;
 }
 
 // Pad numbers with leading zeros
-//---------------------------------
-function pad(str, max)
-{
+function pad(str, max) {
 	return (str).toString().length < max ? pad("0" + (str).toString(), max) : (str).toString();
 }
 
-function highlight(str, elements, className)
-{
+function highlight(str, elements, className) {
 	$.each(elements, function()
 		{
 			var rgxp = new RegExp(str, 'ig');
@@ -26,9 +21,7 @@ function highlight(str, elements, className)
 }
 
 // Toggle navigation dropdown menus
-//-----------------------------------
-function showThisDropdown(event)
-{
+function showThisDropdown(event) {
 	event.stopPropagation();
 	$('html, div.nav_dropdown').unbind('click.closeNavs');
 	$('div.nav_dropdown').hide();
@@ -39,8 +32,7 @@ function showThisDropdown(event)
 	closeAllNavLists_prep();
 }
 
-function closeAllNavLists_prep()
-{
+function closeAllNavLists_prep() {
 	$('html, div.nav_dropdown').unbind('click.closeNavs');
 
 	// User clicks anywhere on the document
@@ -59,10 +51,10 @@ function closeAllNavLists_prep()
 		});
 }
 
-function closeModule_button(module)
 // Call this on a module to add a Close button 
 // that will remove the module from the DOM
-{
+function closeModule_button(module) {
+
 	var close_button = $('<img>');
 	$(close_button)
 		.attr('src', '_assets/_images/64_close.png')
@@ -78,8 +70,7 @@ function closeModule_button(module)
 	});
 }
 
-function promptToConfirm()
-{
+function promptToConfirm() {
 	// Remove remnants from previous instances
 	$('button#conf_button').remove();
 	$('div#confirm_wrapper_temp')
@@ -133,8 +124,7 @@ function promptToConfirm()
 	$('div#confirm_wrapper_temp').mouseleave(restoreSubmit);
 }
 
-function load_module(module, response)
-{
+function load_module(module, response) {
 	$(module).find('div.loading_gif').remove();
 
 	$(module)
@@ -148,8 +138,7 @@ function load_module(module, response)
 		});
 }
 
-function open_order(orderNum)
-{
+function open_order(orderNum) {
 	$('div[id$=_module]')
 		.not('div#browse_orders_module')
 		.not('div#work_module')
@@ -188,8 +177,7 @@ function open_order(orderNum)
 	});
 }
 
-function order_refreshImage(imageNum)
-{
+function order_refreshImage(imageNum) {
 	var $row = $('div.imageList_imageNum:contains('+imageNum+')')
 				.parent('div.orderView_imageRow');
 	var $loading = $('<div class="loading_gif">');
@@ -212,8 +200,7 @@ function order_refreshImage(imageNum)
 	});
 }
 
-function order_navigation()
-{
+function order_navigation() {
 	// Determine number of blocks needed
 	var imageCount = $('#orderView_imageList > .orderView_imageRow').length;
 	var blockCount = Math.floor(imageCount / 10);
@@ -280,8 +267,7 @@ function order_navigation()
 	});
 }	
 
-function order_updateProgress(event, orderNum)
-{
+function order_updateProgress(event, orderNum) {
 	$('script#updateOrderStatus_temp').remove();
 	// Remove any previous ajax response's existing javascript
 
@@ -316,8 +302,7 @@ function order_updateProgress(event, orderNum)
 	});
 }
 
-function order_updateCataloger(order, uid, username)
-{
+function order_updateCataloger(order, uid, username) {
 	$.ajax({
 		type: 'POST',
 		data: 'order='+order+'&uid='+uid+'&username='+username,
@@ -340,54 +325,7 @@ function order_updateCataloger(order, uid, username)
 	});
 }
 
-function fieldLabel()
-// Obsolete: replace with "placeholder" attribute
-// Function is still used in cataloging interface
-{
-	// Define field's current value
-	var val = $(this).val();
-
-	// Define input's fieldname
-	var fieldname = $(this).attr('label');
-
-	// Input in native state
-	if (val == '' || val == fieldname)
-	{
-		// Apply subtle fieldname
-		$(this).css({ color: '#CCC' }).val(fieldname);
-	}
-
-	$(this).unbind('focus.label').bind('focus.label', function(event)
-	{
-		console.log('field focused: '+event.target.id+', label: '+fieldname); // Debugging
-
-		$(this).css({ fontStyle: 'normal' });
-
-		// If input is in native state
-		if ($(this).val() == fieldname)
-		{
-			// Prepare field for input
-			$(this).val('').css({ color: '#555' });
-		}
-	});
-
-	$(this).bind('blur change', function()
-	{
-		// If input is in native state
-		if ($(this).val() == '' || $(this).val() == fieldname)
-		{
-			// Apply subtle fieldname
-			$(this).val(fieldname).css({ color: '#CCC' });
-		}
-		else
-		{
-			$(this).css({ color: '#555', fontStyle: 'normal' });
-		}
-	});
-}
-
-function recently_visited()
-{
+function recently_visited() {
 	$('div#recently_visited_module').remove();
 
 	var revi_module = $('<div id="recently_visited_module" class="module">');
@@ -422,8 +360,7 @@ function recently_visited()
 	});
 }
 
-function usersBrowse_load()
-{
+function usersBrowse_load() {
 	$('div[id$=_module]').remove();
 
 	// Hide control panel
@@ -452,8 +389,11 @@ function usersBrowse_load()
 	});
 }
 
-function userProfile_load(userId)
-{
+function usersRegister_load() {
+
+}
+
+function userProfile_load(userId) {
 	$('div[id$=_module]')
 		.not('div#usersBrowse_module')
 		.remove();
@@ -485,8 +425,7 @@ function userProfile_load(userId)
 	});
 }
 
-function userProfile_changePassword(userId)
-{
+function userProfile_changePassword(userId) {
 	var password_data = {};
 	var errors = [];
 
@@ -534,8 +473,7 @@ function userProfile_changePassword(userId)
 	}
 }
 
-function userProfile_updateNames(userId)
-{
+function userProfile_updateNames(userId) {
 	var name_data = {};
 	var errors = [];
 
@@ -592,8 +530,7 @@ function userProfile_updateNames(userId)
 	}
 }
 
-function userProfile_readPriv(wrapper, userId, priv)
-{
+function userProfile_readPriv(wrapper, userId, priv) {
 	$.ajax({
 		type: 'POST',
 		data: 'userId='+userId+'&priv='+priv,
@@ -618,8 +555,7 @@ function userProfile_readPriv(wrapper, userId, priv)
 	});
 }
 
-function userProfile_togglePriv(wrapper, userId, priv)
-{
+function userProfile_togglePriv(wrapper, userId, priv) {
 	$.ajax({
 		type: 'POST',
 		data: 'userId='+userId+'&priv='+priv,
@@ -636,8 +572,7 @@ function userProfile_togglePriv(wrapper, userId, priv)
 	});
 }
 
-function updateExportFlag(record, status)
-{
+function updateExportFlag(record, status) {
 	if (status == 0)
 	{
 		var flag_newStatus = 1;
@@ -673,8 +608,7 @@ function updateExportFlag(record, status)
 	});
 }
 
-function deleteImageRecord(deadRecord)
-{
+function deleteImageRecord(deadRecord) {
 	deadRecord = pad(deadRecord, 6);
 
 	if (confirm('Are you sure you wish to delete image ' + deadRecord + '?'))
@@ -701,8 +635,7 @@ function deleteImageRecord(deadRecord)
 	}
 }
 
-function view_work_record(record)
-{
+function view_work_record(record) {
 	record = $.trim(record);
 
 	if (record != 'None')
@@ -732,8 +665,7 @@ function view_work_record(record)
 	});
 }
 
-function view_image_record(record)
-{
+function view_image_record(record) {
 	record = pad($.trim(record), 6);
 
 	$('div#image_module').remove();
@@ -760,8 +692,7 @@ function view_image_record(record)
 	});
 }
 
-function image_viewer(imageNum)
-{
+function image_viewer(imageNum) {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -786,8 +717,7 @@ function image_viewer(imageNum)
 	console.log('IMAGE VIEWER: ' + imageNum);
 }
 
-function findOrders_loadForm()
-{
+function findOrders_loadForm() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -838,8 +768,7 @@ function findOrders_loadForm()
 	// xmlhttp.send();
 }
 
-function order_range()
-{
+function order_range() {
 	if ($('input[name=orderNum_range]').is(':checked'))
 	{
 		$('input[name=orderNum_end]').show();
@@ -850,16 +779,14 @@ function order_range()
 	}
 }
 
-function unique_array(array)
-{
+function unique_array(array) {
 	return array.filter(function(el, index, arr)
 	{
 		return index == arr.indexOf(el);
 	});
 }
 
-function suggest_input(inputName, minLen, searchArray, suggestionAreaId)
-{
+function suggest_input(inputName, minLen, searchArray, suggestionAreaId) {
 	if (
 		$('input[name='+inputName+']').val().length >= minLen
 		&& 
@@ -914,8 +841,7 @@ function suggest_input(inputName, minLen, searchArray, suggestionAreaId)
 	});
 }
 
-function findOrders_loadResults(pageNum, orderBy, order)
-{
+function findOrders_loadResults(pageNum, orderBy, order) {
 	$('div#findOrders_resultsTable').children().remove();
 	$('div#findOrders_resultsTable').append('<div class="loading_gif">');
 
@@ -960,8 +886,7 @@ function findOrders_loadResults(pageNum, orderBy, order)
 	// console.log('Page: '+pageNum+', Order by: '+orderBy+', Order: '+order);
 }
 
-function findOrders_reset()
-{
+function findOrders_reset() {
 	// Reset all inputs to their default states
 	$('input[name=orderNum_start]').val('');
 	$('input[name=orderNum_end]').val('').hide();
@@ -979,8 +904,7 @@ function findOrders_reset()
 	$('div.suggestion_text').remove();
 }
 
-function catalog_work()
-{
+function catalog_work() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -1012,8 +936,7 @@ function catalog_work()
 	xmlhttp.send();
 }
 
-function work_assign_preview(image, work)
-{
+function work_assign_preview(image, work) {
 	if (
 		image.length == 6 	&& 
 		$.isNumeric(image) 	&&
@@ -1040,8 +963,7 @@ function work_assign_preview(image, work)
 	}
 }
 
-function catalog_image()
-{
+function catalog_image() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -1071,8 +993,7 @@ function catalog_image()
 	xmlhttp.send();
 }
 
-function displayMeasurements()
-{
+function displayMeasurements() {
 	var selectedMeasureType = $(this).find('option:selected').val();
 	var thisRow = $(this).parents('div.catRowWrapper');
 
@@ -1320,8 +1241,8 @@ function displayMeasurements()
 	});
 }
 
-function catalogUI_addRow()
-{
+function catalogUI_addRow() {
+
 	var selectedRow = $(this).parents('div.catRowWrapper');
 	// Find the selected row
 	
@@ -1451,7 +1372,6 @@ function catalogUI_addRow()
 			
 		}
 
-		$(newRow).find('input[type=text]').each(fieldLabel);
 		$(newRow).find('input.cat_display').val('1');
 		$(newRow).find('div.titleText').removeClass('ital lightGrey');
 		
@@ -1469,8 +1389,8 @@ function catalogUI_addRow()
 	}
 }
 
-function catalogUI_removeRow()
-{
+function catalogUI_removeRow() {
+
 	var selectedRow = $(this).parents('div.catRowWrapper');
 	var workOrImage = $(this).parents('form').attr('id');
 	// Find the selected row
@@ -1571,14 +1491,10 @@ function catalogUI_removeRow()
 					.find('div[id*=dateRangeSpan0]').hide();
 			}
 		}
-
-		$('input[type=text], input[type=password], textarea')
-			.each(fieldLabel);
 	}
 }
 
-function catalogUI_dateRange_onLoad()
-{
+function catalogUI_dateRange_onLoad() {
 	var status = $(this).prop('checked');
 	if (status == true) 
 	{
@@ -1595,8 +1511,7 @@ function catalogUI_dateRange_onLoad()
 	}
 }
 
-function catalogUI_constrainEnterPress(event)
-{
+function catalogUI_constrainEnterPress(event) {
 	if ((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13))
 	{
 		$(this).parents('.catRowWrapper').find('input[type=submit]').click();
@@ -1608,8 +1523,7 @@ function catalogUI_constrainEnterPress(event)
 	}
 }
 
-function catalogUI_prepFields()
-{
+function catalogUI_prepFields() {
 	$('[id*=measurementFieldDiv]').hide();
 	$('[id*=measurementFieldDiv1]').show();
 	$('[id*=measurementType]').show();
@@ -1628,8 +1542,7 @@ function catalogUI_prepFields()
 	$('[id*=inchesMeasurement]').hide();
 }
 
-function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName)
-{
+function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName) {
 	// console.log('function called'); // Debug
 
 	// var json = {};
@@ -1672,8 +1585,7 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName)
 	});
 }
 
-function catalogUI_incrementPopularity(authorityId, table)
-{
+function catalogUI_incrementPopularity(authorityId, table) {
 	console.log('updated popularity of '+authorityId+' in '+table);
 
 	$.ajax({
@@ -1691,11 +1603,9 @@ function catalogUI_incrementPopularity(authorityId, table)
 	});
 }
 
-function catalogUI_clearFields(recordType)
-{
-	var thisPanel =
-		$('div#'+recordType+'_module')
-			.find('.cataloguingPane');
+function catalogUI_clearFields(recordType) {
+
+	var thisPanel = $('div#'+recordType+'_module').find('.cataloguingPane');
 
 	$(thisPanel).find('input:text').val('');
 	$(thisPanel).find('select').val('1');
@@ -1703,14 +1613,11 @@ function catalogUI_clearFields(recordType)
 	$(thisPanel).find('input:hidden').val('');
 	$(thisPanel).find('input:checkbox').prop('checked', false);
 	$(thisPanel).find('div[id*=dateRangeSpan]').hide();
-	console.log(recordType+' record fields cleared'); // Debugging
 
-	$('div#'+recordType+'_module input[type=text], input[type=password], textarea')
-		.each(fieldLabel);
+	console.log(recordType+' record fields cleared'); // Debugging
 }
 
-function autoWidth()
-{
+function autoWidth() {
 	var input = $(this);
 	var wrapper = $(input).parents('div.catRowWrapper');
 	var wrapper_width = $(wrapper).width();
@@ -1734,8 +1641,7 @@ function autoWidth()
 	// }	
 }
 
-function save_catalog_changes(workNum, imageNum)
-{
+function save_catalog_changes(workNum, imageNum) {
 	var json = {};
 
 	var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location','Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text'];
@@ -1795,8 +1701,7 @@ function save_catalog_changes(workNum, imageNum)
 	return false;
 }
 
-function debounce(fn, delay)
-{
+function debounce(fn, delay) {
 	var timer = null;
 	return function()
 	{
@@ -1810,8 +1715,7 @@ function debounce(fn, delay)
 	}
 }
 
-function remove_work_assoc(orderNum, workNum, imageNum)
-{
+function remove_work_assoc(orderNum, workNum, imageNum) {
 	var json = {};
 	json['workNum'] = workNum;
 	json['imageNum'] = imageNum;
@@ -1838,8 +1742,7 @@ function remove_work_assoc(orderNum, workNum, imageNum)
 	});
 }
 
-function delete_work_record(workNum)
-{
+function delete_work_record(workNum) {
 	$.ajax({
 		type: 'POST',
 		data: 'workNum='+workNum,
@@ -1860,8 +1763,7 @@ function delete_work_record(workNum)
 	});
 }
 
-function workAssoc_search(title, agent)
-{
+function workAssoc_search(title, agent) {
 	$('div#workAssoc_results').remove();
 	var results_div = $('<div>', { id: 'workAssoc_results' });
 	$('div#workAssoc_wrapper').after(results_div);
@@ -1886,8 +1788,7 @@ function workAssoc_search(title, agent)
 	});
 }
 
-function workAssoc_assoc(orderNum, workNum, imageNum)
-{
+function workAssoc_assoc(orderNum, workNum, imageNum) {
 	var json = {};
 	json['orderNum'] = $.trim(orderNum);
 	json['workNum'] = $.trim(workNum);
@@ -1914,8 +1815,7 @@ function workAssoc_assoc(orderNum, workNum, imageNum)
 	});
 }
 
-function authorityIndicators()
-{
+function authorityIndicators() {
 	$('input[type=text].authoritySearch').each(function()
 	{
 		var termId = 
@@ -1938,8 +1838,7 @@ function authorityIndicators()
 	});
 }
 
-function createRepository()
-{
+function createRepository() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -1982,8 +1881,7 @@ function createRepository()
 	xmlhttp.send();
 }
 
-function createRepository_submit()
-{
+function createRepository_submit() {
 	console.log('Submit function called');
 
 	var data = {};
@@ -2036,8 +1934,7 @@ function createRepository_submit()
 	}
 }
 
-function createBuiltWork()
-{
+function createBuiltWork() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
 		xmlhttp = new XMLHttpRequest; 
@@ -2081,8 +1978,7 @@ function createBuiltWork()
 	xmlhttp.send();
 }
 
-function createBuiltWork_submit()
-{
+function createBuiltWork_submit() {
 	console.log('submit function called');
 	var json = {};
 
@@ -2139,8 +2035,7 @@ function createBuiltWork_submit()
 	});
 }
 
-function createOrder_load_form()
-{
+function createOrder_load_form() {
 	$('div[id$=_module]').remove();
 
 	// Hide control panel
@@ -2170,8 +2065,7 @@ function createOrder_load_form()
 	});
 }
 
-function createOrder_continue()
-{
+function createOrder_continue() {
 	var newOrder_data = {};
 	var errors = [];
 	var requiresCount = ['Corpus','Donor','Electronic','Vendor','Other'];
@@ -2241,8 +2135,7 @@ function createOrder_continue()
 	}
 }
 
-function createOrder_load_pages(data)
-{
+function createOrder_load_pages(data) {
 	$('div#createOrderFigs_module').remove();
 
 	var cof_mod = $('<div id="createOrderFigs_module" class="module">');
@@ -2270,8 +2163,7 @@ function createOrder_load_pages(data)
 	});
 }
 
-function createOrder_submit()
-{
+function createOrder_submit() {
 	var newOrder_data = {};
 
 	$('form#createOrder_form input[type=text]').each(function()
@@ -2321,8 +2213,7 @@ function createOrder_submit()
 	});
 }
 
-function export_load()
-{
+function export_load() {
 	$('div[id$=_module]').remove();
 
 	// Hide control panel
@@ -2352,8 +2243,7 @@ function export_load()
 	});
 }
 
-function exportRecords(exportType)
-{
+function exportRecords(exportType) {
 	console.log('export function called. validation in progress.');
 
 	data = {};
@@ -2418,8 +2308,7 @@ function exportRecords(exportType)
 	}
 }
 
-function lantern_search(text, gToggle, page)
-{
+function lantern_search(text, gToggle, page) {
 	if (text.length >= 3)
 	// Valid search string length
 	{
@@ -2464,8 +2353,7 @@ function lantern_search(text, gToggle, page)
 	}
 }
 
-function lantern_wrap_imgRows()
-{
+function lantern_wrap_imgRows() {
 	// $('div.grid_dropdown').remove();
 	// $('div[id^=gridRow] img.gridThumb').removeClass('selected');
 
@@ -2489,8 +2377,7 @@ function lantern_wrap_imgRows()
 	}
 }
 
-function lantern_dropdown_load(dd, row, workNum, imageNum)
-{
+function lantern_dropdown_load(dd, row, workNum, imageNum) {
 	// console.log('work:'+workNum+', image:'+imageNum); // Debug
 
 	$('div.grid_dropdown').addClass('doomed');
@@ -2549,8 +2436,7 @@ function lantern_dropdown_load(dd, row, workNum, imageNum)
 	});
 }
 
-function lantern_grid_loadThumbBanner(thumb, banner, work, image)
-{
+function lantern_grid_loadThumbBanner(thumb, banner, work, image) {
 	console.log('hover over grid thumbnail - work:'+work+', image:'+image); // Debug
 
 	$.ajax({
@@ -2570,8 +2456,7 @@ function lantern_grid_loadThumbBanner(thumb, banner, work, image)
 	});
 }
 
-function lantern_list_view()
-{
+function lantern_list_view() {
 	$('div#lantern_results_list').remove();
 	$('script#lantern_search_script').remove();
 	$('div#lanternSearch_module').append('<div class="loading_gif">');
@@ -2610,8 +2495,7 @@ function lantern_list_view()
 	});
 }
 
-function lantern_grid_view()
-{
+function lantern_grid_view() {
 	$('div#lantern_results_list').remove();
 	$('script#lantern_search_script').remove();
 	$('div#lanternSearch_module').append('<div class="loading_gif">');
@@ -2650,8 +2534,7 @@ function lantern_grid_view()
 	});
 }
 
-function scroll_to_load($ele, view, nextPage)
-{
+function scroll_to_load($ele, view, nextPage) {
 	// console.log('"scroll_to_load" fired. view: '+view+', nextPage: '+nextPage); // Debug
 
 	$(window)
@@ -2672,8 +2555,7 @@ function scroll_to_load($ele, view, nextPage)
 			});
 }	
 
-function lantern_loadMore(view, nextPage)
-{
+function lantern_loadMore(view, nextPage) {
 	// console.log('"lantern_loadMore" fired. view: '+view+', nextPage: '+nextPage);
 
 	var $moreResults = $('<div style="height: 200px; position: relative;">');
@@ -2697,8 +2579,7 @@ function lantern_loadMore(view, nextPage)
 	});
 }
 
-function view_orphaned_works()
-{
+function view_orphaned_works() {
 	$('div[id$=_module]').remove();
 
 	var $module = $('<div id="viewOrphanedWorks_module" class="module double">');
@@ -2722,8 +2603,7 @@ function view_orphaned_works()
 	});
 }
 
-function view_orphaned_images()
-{
+function view_orphaned_images() {
 	$('div[id$=_module]').remove();
 
 	var $module = $('<div id="viewOrphanedImages_module" class="module double">');
@@ -2746,26 +2626,3 @@ function view_orphaned_images()
 		}
 	});
 }
-
-// Standard xmlhttp request template
-// var xmlhttp;
-// if (window.XMLHttpRequest) { // Modern browsers
-// 	xmlhttp = new XMLHttpRequest; 
-// } else { // IE5 & IE6
-// 	xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
-// }
-
-// xmlhttp.onreadystatechange = function()
-// {
-// 	if (xmlhttp.readyState == 1)
-// 	{
-
-// 	}
-// 	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-// 	{
-// 		$('div#someDiv').append(xmlhttp.responseText);
-// 	}
-// }
-
-// xmlhttp.open('GET', '_php/some_page.php?some_var='+some_val, true);
-// xmlhttp.send();

@@ -103,7 +103,7 @@ require_priv('priv_catalog'); ?>
 							id="Ititle<?php echo $i; ?>" 
 							class="autoWidth"
 							name="Ititle<?php echo $i; ?>" 
-							label="Title"
+							placeholder="Title"
 							value="<?php echo (isset($_SESSION['image'])) 
 								? htmlspecialchars($_SESSION['image']['title'.$i]) 
 								: ''; ?>">
@@ -275,7 +275,7 @@ require_priv('priv_catalog'); ?>
 									? $_SESSION['image']['agentRole'.$i] 
 									: ''; ?>"
 							title="Agent role"
-							label="Agent role (e.g. 'artist; painter')">
+							placeholder="Agent role (e.g. 'artist; painter')">
 					
 					</div>
 					
@@ -351,7 +351,7 @@ require_priv('priv_catalog'); ?>
 							id="Iagent<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Iagent<?php echo $i; ?>" 
-							label="Agent"
+							placeholder="Agent"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['agent'.$i] 
 									: ''; ?>">
@@ -583,7 +583,7 @@ require_priv('priv_catalog'); ?>
 							id="IstartDate<?php echo $i; ?>" 
 							name="IstartDate<?php echo $i; ?>" 
 							maxlength="5" 
-							label="Date"
+							placeholder="Date"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['startDate'.$i] 
 									: ''; ?>" 
@@ -627,7 +627,7 @@ require_priv('priv_catalog'); ?>
 								id="IendDate<?php echo $i; ?>" 
 								name="IendDate<?php echo $i; ?>" 
 								maxlength="5" 
-								label="Date"
+								placeholder="Date"
 								value="<?php echo (isset($_SESSION['image'])) 
 										? $_SESSION['image']['endDate'.$i] 
 										: ''; ?>" 
@@ -749,7 +749,7 @@ require_priv('priv_catalog'); ?>
 							id="Imaterial<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Imaterial<?php echo $i; ?>"
-							label="Material" 
+							placeholder="Material" 
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['material'.$i] 
 									: ''; ?>">
@@ -830,7 +830,7 @@ require_priv('priv_catalog'); ?>
 							id="Itechnique<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Itechnique<?php echo $i; ?>" 
-							label="Technique"
+							placeholder="Technique"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['technique'.$i] 
 									: ''; ?>">
@@ -910,7 +910,7 @@ require_priv('priv_catalog'); ?>
 							id="IworkType<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="IworkType<?php echo $i; ?>" 
-							label="Work Type"
+							placeholder="Work Type"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['workType'.$i] 
 									: ''; ?>">
@@ -991,7 +991,7 @@ require_priv('priv_catalog'); ?>
 							id="IculturalContext<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="IculturalContext<?php echo $i; ?>" 
-							label="Cultural Context"
+							placeholder="Cultural Context"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['culturalContext'.$i] 
 									: ''; ?>">
@@ -1072,7 +1072,7 @@ require_priv('priv_catalog'); ?>
 							id="IstylePeriod<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="IstylePeriod<?php echo $i; ?>" 
-							label="Style Period"
+							placeholder="Style Period"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['stylePeriod'.$i] 
 									: ''; ?>">
@@ -1153,7 +1153,7 @@ require_priv('priv_catalog'); ?>
 							id="Ilocation<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Ilocation<?php echo $i; ?>" 
-							label="Location"
+							placeholder="Location"
 							value="<?php echo (isset($_SESSION['image'])) 
 									? $_SESSION['image']['location'.$i] 
 									: ''; ?>">
@@ -1368,7 +1368,7 @@ require_priv('priv_catalog'); ?>
 							class="fixedWidth" 
 							rows="2" 
 							name="Idescription0" 
-							label="Description"
+							placeholder="Description"
 							style="height: 140px; overflow: hidden;"
 							><?php echo (isset($_SESSION['image']['description0'])) 
 									? htmlspecialchars($_SESSION['image']['description0']) 
@@ -1460,7 +1460,7 @@ require_priv('priv_catalog'); ?>
 							id="IstateEdition<?php echo $i; ?>"
 							class="autoWidth" 
 							name="IstateEdition<?php echo $i; ?>" 
-							label="State/Edition"
+							placeholder="State/Edition"
 							value="<?php echo (isset($_SESSION['image']['stateEdition'.$i])) 
 									? $_SESSION['image']['stateEdition'.$i] 
 									: ''; ?>" 
@@ -1661,7 +1661,7 @@ require_priv('priv_catalog'); ?>
 						<input type="text" 
 							id="ImeasurementField1_<?php echo $i; ?>" 
 							name="ImeasurementField1_<?php echo $i; ?>"
-							label="" 
+							placeholder="" 
 							value="<?php echo $_SESSION['image']['measurementField1_'.$i]; ?>" 
 							style="width: 4em;">
 					
@@ -1723,7 +1723,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="IinchesValue<?php echo $i; ?>" 
 								name="IinchesValue<?php echo $i; ?>" 
-								label="in."
+								placeholder="in."
 								value="<?php echo $_SESSION['image']['inchesValue'.$i]; ?>" 
 								maxlength="5" 
 								style="width: 2em;">
@@ -1834,7 +1834,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="Idays<?php echo $i; ?>" 
 								name="Idays<?php echo $i; ?>"
-								label="Day" 
+								placeholder="Day" 
 								value="<?php echo($_SESSION['image']['days'.$i]!='0')?$_SESSION['image']['days'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1846,7 +1846,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="Ihours<?php echo $i; ?>" 
 								name="Ihours<?php echo $i; ?>"
-								label="Hrs" 
+								placeholder="Hrs" 
 								value="<?php echo($_SESSION['image']['hours'.$i]!='0')?$_SESSION['image']['hours'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1858,7 +1858,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="Iminutes<?php echo $i; ?>" 
 								name="Iminutes<?php echo $i; ?>" 
-								label="Min"
+								placeholder="Min"
 								value="<?php echo($_SESSION['image']['minutes'.$i]!='0')?$_SESSION['image']['minutes'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1870,7 +1870,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="Iseconds<?php echo $i; ?>" 
 								name="Iseconds<?php echo $i; ?>" 
-								label="Sec"
+								placeholder="Sec"
 								value="<?php echo($_SESSION['image']['seconds'.$i]!='0')?$_SESSION['image']['seconds'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1902,7 +1902,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="IresolutionWidth<?php echo $i; ?>" 
 								name="IresolutionWidth<?php echo $i; ?>" 
-								label="Width"
+								placeholder="Width"
 								maxlength="10" 
 								value="<?php echo $_SESSION['image']['resolutionWidth'.$i]; ?>" 
 								style="width: 3em;">
@@ -1916,7 +1916,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="IresolutionHeight<?php echo $i; ?>" 
 								name="IresolutionHeight<?php echo $i; ?>" 
-								label="Height"
+								placeholder="Height"
 								maxlength="10" 
 								value="<?php echo $_SESSION['image']['resolutionHeight'.$i]; ?>" 
 								style="width: 3em;">
@@ -1950,7 +1950,7 @@ require_priv('priv_catalog'); ?>
 							<input type="text" 
 								id="IotherMeasurementDescription<?php //echo $i; ?>" 
 								name="IotherMeasurementDescription<?php //echo $i; ?>" 
-								label="Description"
+								placeholder="Description"
 								maxlength="500" 
 								value="<?php //echo $_SESSION['image']['otherMeasurementDescription'.$i]; ?>">
 						
@@ -2052,7 +2052,7 @@ require_priv('priv_catalog'); ?>
 							id="Isubject<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Isubject<?php echo $i; ?>" 
-							label="Subject"
+							placeholder="Subject"
 							value="<?php echo $_SESSION['image']['subject'.$i];?>" 
 							maxlength="500">
 					
@@ -2151,7 +2151,7 @@ require_priv('priv_catalog'); ?>
 							id="IworkInscription<?php echo $i; ?>" 
 							class="autoWidth"
 							name="IworkInscription<?php echo $i; ?>" 
-							label="Inscription text"
+							placeholder="Inscription text"
 							value="<?php echo htmlspecialchars($_SESSION['image']['workInscription'.$i]); ?>"
 							maxlength="500">
 					
@@ -2184,7 +2184,7 @@ require_priv('priv_catalog'); ?>
 						<input type="text" 
 							id="IworkInscriptionAuthor<?php echo $i; ?>" 
 							name="IworkInscriptionAuthor<?php echo $i; ?>" 
-							label="Inscription author"
+							placeholder="Inscription author"
 							value="<?php echo htmlspecialchars($_SESSION['image']['workInscriptionAuthor'.$i]); ?>" 
 							maxlength="500"
 							style="width: 120px;">
@@ -2196,7 +2196,7 @@ require_priv('priv_catalog'); ?>
 						<input type="text" 
 							id="IworkInscriptionLocation<?php echo $i; ?>" 
 							name="IworkInscriptionLocation<?php echo $i; ?>" 
-							label="Inscription location"
+							placeholder="Inscription location"
 							value="<?php echo htmlspecialchars($_SESSION['image']['workInscriptionLocation'.$i]); ?>" 
 							maxlength="500">
 					
@@ -2266,7 +2266,7 @@ require_priv('priv_catalog'); ?>
 							id="IrightsHolder<?php echo $i; ?>" 
 							class="autoWidth"
 							name="IrightsHolder<?php echo $i; ?>" 
-							label="Rights holder"
+							placeholder="Rights holder"
 							value="<?php echo $_SESSION['image']['rightsHolder'.$i]; ?>" 
 							maxlength="500">
 					
@@ -2300,7 +2300,7 @@ require_priv('priv_catalog'); ?>
 							id="IrightsText<?php echo $i; ?>" 
 							class="autoWidth"
 							name="IrightsText<?php echo $i; ?>" 
-							label="Rights text"
+							placeholder="Rights text"
 							value="<?php echo $_SESSION['image']['rightsText'.$i]; ?>" 
 							maxlength="500">
 					
@@ -2379,7 +2379,7 @@ require_priv('priv_catalog'); ?>
 							id="IsourceName<?php echo $i; ?>" 
 							class="autoWidth"
 							name="IsourceName<?php echo $i; ?>" 
-							label="Source name"
+							placeholder="Source name"
 							value="<?php echo $_SESSION['image']['sourceName'.$i]; ?>" 
 							maxlength="500">
 					
@@ -2441,7 +2441,7 @@ require_priv('priv_catalog'); ?>
 							id="Isource<?php echo $i; ?>" 
 							class="autoWidth"
 							name="Isource<?php echo $i; ?>" 
-							label="Source text"
+							placeholder="Source text"
 							value="<?php echo $_SESSION['image']['source'.$i]; ?>" 
 							maxlength="500">
 					
@@ -2492,34 +2492,40 @@ require_priv('priv_catalog'); ?>
 	catalogUI_prepFields();
 	authorityIndicators();
 
-	// Add subtle fieldname to all inputs, based on the input's "label" attribute
-	$('div#image_module input[type=text], input[type=password], textarea').each(fieldLabel);
 
-	$('div#image_module input.authoritySearch').keyup(debounce(function()
-	{
-		var term = $(this).val();
-		if (term.length > 2 && $.trim(term) != '')
+	// Perform authority search
+
+	$('div#image_module input.authoritySearch').keyup(debounce(
+		function()
 		{
-			var fieldName = $(this).attr('name');
-			var nearbyAuthorityFieldName = $(this).parent('div.catRowWrapper')
-												.find('input[type=hidden]')
-												.attr('name');
-			catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
+			var term = $(this).val();
+			if (term.length > 2 && $.trim(term) != '') {
 
-			$('form#catalog_form input').not(this).focus(function()
-			{
-				$('div.resultsWrapper').remove();
-			});
-		}
+				var fieldName = $(this).attr('name');
 
-	}, 1000));
+				var nearbyAuthorityFieldName = 
+					$(this).parent('div.catRowWrapper')
+						.find('input[type=hidden]')
+						.attr('name');
+
+				catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
+
+				$('form#catalog_form input').not(this).focus(function() {
+					$('div.resultsWrapper').remove();
+				});
+			}
+
+		}, 1000));
+
 
 	// Toggle date range
+
 	$('div#image_module input[type=checkbox][id*=dateRange]').click(function() 
 	{
 		var endDate = $(this).parents('div#image_module div.catRowWrapper')
 			.next('div.catRowWrapper')
 			.find('div[id*=dateRangeSpan]');
+
 		endDate.toggle();
 	});
 

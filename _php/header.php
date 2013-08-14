@@ -94,7 +94,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 					<?php if ($_SESSION['priv_users_create']=='1') { ?>
 
 					<div id="nav_registerUser"
-						class="nav_dropdown_item faded grey">register<br>user</div>
+						class="nav_dropdown_item">register<br>user</div>
 
 					<?php } ?>
 

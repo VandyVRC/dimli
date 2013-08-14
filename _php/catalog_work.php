@@ -99,7 +99,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wtitle<?php echo $i; ?>" 
 							class="autoWidth"
 							name="Wtitle<?php echo $i; ?>" 
-							label="Title"
+							placeholder="Title"
 							value="<?php echo (isset($_SESSION['work'])) ? htmlspecialchars($_SESSION['work']['title'.$i]) : ''; ?>">
 					
 					</div>
@@ -204,7 +204,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WagentRole<?php echo $i; ?>" 
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['agentRole'.$i] : ''; ?>" 
 							title="Agent role"
-							label="Agent role (e.g. 'artist; painter')">
+							placeholder="Agent role (e.g. 'artist; painter')">
 					
 					</div>
 					
@@ -256,7 +256,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wagent<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Wagent<?php echo $i; ?>" 
-							label="Agent"
+							placeholder="Agent"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['agent'.$i] : ''; ?>">
 					
 					</div>
@@ -408,7 +408,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WstartDate<?php echo $i; ?>" 
 							name="WstartDate<?php echo $i; ?>" 
 							maxlength="5"
-							label="Date" 
+							placeholder="Date" 
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['startDate'.$i] : ''; ?>" 
 							style="width: 3em;">
 					
@@ -443,7 +443,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WendDate<?php echo $i; ?>" 
 								name="WendDate<?php echo $i; ?>" 
 								maxlength="5" 
-								label="Date"
+								placeholder="Date"
 								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['endDate'.$i] : ''; ?>" 
 								style="width: 3em;">
 							
@@ -533,7 +533,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wmaterial<?php echo $i; ?>"
 							class="autoWidth authoritySearch idMissing" 
 							name="Wmaterial<?php echo $i; ?>" 
-							label="Material"
+							placeholder="Material"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['material'.$i] : ''; ?>">
 					
 					</div>
@@ -605,7 +605,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wtechnique<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Wtechnique<?php echo $i; ?>" 
-							label="Technique"
+							placeholder="Technique"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['technique'.$i] : ''; ?>">
 					
 					</div>
@@ -677,7 +677,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WworkType<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="WworkType<?php echo $i; ?>" 
-							label="Work Type"
+							placeholder="Work Type"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['workType'.$i] : ''; ?>">
 					
 					</div>
@@ -749,7 +749,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WculturalContext<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="WculturalContext<?php echo $i; ?>" 
-							label="Cultural Context"
+							placeholder="Cultural Context"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['culturalContext'.$i] : ''; ?>">
 					
 					</div>
@@ -821,7 +821,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WstylePeriod<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="WstylePeriod<?php echo $i; ?>" 
-							label="Style Period"
+							placeholder="Style Period"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['stylePeriod'.$i] : ''; ?>">
 					
 					</div>
@@ -893,7 +893,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wlocation<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Wlocation<?php echo $i; ?>" 
-							label="Location"
+							placeholder="Location"
 							value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['location'.$i] : ''; ?>">
 					
 					</div>
@@ -1013,7 +1013,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							class="fixedWidth" 
 							rows="2" 
 							name="Wdescription0" 
-							label="Description"
+							placeholder="Description"
 							style="height: 140px; overflow: hidden;"
 							><?php echo (isset($_SESSION['work']['description0'])) ? htmlspecialchars($_SESSION['work']['description0']) : ''; ?></textarea>
 					
@@ -1081,7 +1081,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WstateEdition<?php echo $i; ?>" 
 							class="autoWidth"
 							name="WstateEdition<?php echo $i; ?>" 
-							label="State/Edition"
+							placeholder="State/Edition"
 							value="<?php echo (isset($_SESSION['work']['stateEdition'.$i])) ? $_SESSION['work']['stateEdition'.$i] : ''; ?>" 
 							title="State/Edition number">
 					
@@ -1200,7 +1200,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 						<input type="text" 
 							id="WmeasurementField1_<?php echo $i; ?>" 
 							name="WmeasurementField1_<?php echo $i; ?>"
-							label="" 
+							placeholder="" 
 							style="width: 4em;"
 							value="<?php echo $_SESSION['work']['measurementField1_'.$i]; ?>">
 					
@@ -1242,7 +1242,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="WinchesValue<?php echo $i; ?>" 
 								name="WinchesValue<?php echo $i; ?>" 
-								label="in."
+								placeholder="in."
 								value="<?php echo $_SESSION['work']['inchesValue'.$i]; ?>" 
 								maxlength="5" 
 								style="width: 2em;">
@@ -1317,7 +1317,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="Wdays<?php echo $i; ?>" 
 								name="Wdays<?php echo $i; ?>" 
-								label="Day"
+								placeholder="Day"
 								value="<?php echo($_SESSION['work']['days'.$i]!='0')?$_SESSION['work']['days'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1329,7 +1329,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="Whours<?php echo $i; ?>" 
 								name="Whours<?php echo $i; ?>" 
-								label="Hrs"
+								placeholder="Hrs"
 								value="<?php echo($_SESSION['work']['hours'.$i]!='0')?$_SESSION['work']['hours'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1341,7 +1341,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="Wminutes<?php echo $i; ?>" 
 								name="Wminutes<?php echo $i; ?>" 
-								label="Min"
+								placeholder="Min"
 								value="<?php echo($_SESSION['work']['minutes'.$i]!='0')?$_SESSION['work']['minutes'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1353,7 +1353,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="Wseconds<?php echo $i; ?>" 
 								name="Wseconds<?php echo $i; ?>" 
-								label="Sec"
+								placeholder="Sec"
 								value="<?php echo($_SESSION['work']['seconds'.$i]!='0')?$_SESSION['work']['seconds'.$i]:'';?>" 
 								maxlength="10" 
 								style="width: 2em;">
@@ -1388,7 +1388,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="WresolutionWidth<?php echo $i; ?>" 
 								name="WresolutionWidth<?php echo $i; ?>" 
-								label="Width"
+								placeholder="Width"
 								maxlength="10" 
 								value="<?php echo $_SESSION['work']['resolutionWidth'.$i]; ?>"
 								style="width: 3em;">
@@ -1402,7 +1402,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="WresolutionHeight<?php echo $i; ?>" 
 								name="WresolutionHeight<?php echo $i; ?>"
-								label="Height" 
+								placeholder="Height" 
 								maxlength="10" 
 								value="<?php echo $_SESSION['work']['resolutionHeight'.$i]; ?>" 
 								style="width: 3em;">
@@ -1436,7 +1436,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<input type="text" 
 								id="WotherMeasurementDescription<?php //echo $i; ?>" 
 								name="WotherMeasurementDescription<?php //echo $i; ?>" 
-								label="Description"
+								placeholder="Description"
 								maxlength="500" 
 								style="width: 100px;"
 								value="<?php //echo $_SESSION['work']['otherMeasurementDescription'.$i]; ?>">
@@ -1539,7 +1539,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="Wsubject<?php echo $i; ?>" 
 							class="autoWidth authoritySearch idMissing"
 							name="Wsubject<?php echo $i; ?>" 
-							label="Subject"
+							placeholder="Subject"
 							value="<?php echo $_SESSION['work']['subject'.$i];?>" 
 							maxlength="500">
 					
@@ -1638,7 +1638,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							id="WworkInscription<?php echo $i; ?>" 
 							class="autoWidth"
 							name="WworkInscription<?php echo $i; ?>" 
-							label="Inscription text"
+							placeholder="Inscription text"
 							value="<?php echo htmlspecialchars($_SESSION['work']['workInscription'.$i]); ?>" 
 							maxlength="500">
 					
@@ -1674,7 +1674,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionAuthor'.$i]); ?>" 
 							maxlength="500"
 							style="width: 120px;"
-							label="Inscription author">
+							placeholder="Inscription author">
 					
 					</div>
 					
@@ -1685,7 +1685,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WworkInscriptionLocation<?php echo $i; ?>" 
 							value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionLocation'.$i]); ?>" 
 							maxlength="500" 
-							label="Inscription location">
+							placeholder="Inscription location">
 					
 					</div>
 					
@@ -1755,7 +1755,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WrightsHolder<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['work']['rightsHolder'.$i]; ?>" 
 							maxlength="500"
-							label="Rights holder">
+							placeholder="Rights holder">
 					
 					</div>
 				
@@ -1789,7 +1789,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WrightsText<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['work']['rightsText'.$i]; ?>" 
 							maxlength="500"
-							label="Rights text">
+							placeholder="Rights text">
 					
 					</div>
 				
@@ -1868,7 +1868,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WsourceName<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['work']['sourceName'.$i]; ?>" 
 							maxlength="500" 
-							label="Source name">
+							placeholder="Source name">
 					
 					</div>
 				
@@ -1930,7 +1930,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="Wsource<?php echo $i; ?>" 
 							value="<?php echo $_SESSION['work']['source'.$i]; ?>" 
 							maxlength="500" 
-							label="Source text">
+							placeholder="Source text">
 					
 					</div>
 				
@@ -1973,34 +1973,32 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 	catalogUI_prepFields();
 	authorityIndicators();
 
-	// Add subtle fieldname to all inputs, based on the input's "label" attribute
-	$('div#work_module input[type=text], input[type=password], textarea')
-		.each(fieldLabel);
 
-	$('div#work_module input.authoritySearch').keyup(
-		debounce(
-			function()
+	// Perform authority search
+
+	$('div#work_module input.authoritySearch').keyup(debounce(
+		function()
+		{
+			var term = $(this).val();
+
+			if (term.length > 2 && $.trim(term) != '') 
 			{
-				var term = $(this).val();
+				var fieldName = $(this).attr('name');
 
-				if (term.length > 2 && $.trim(term) != '') 
-				{
-					var fieldName = $(this).attr('name');
+				var nearbyAuthorityFieldName = 
+					$(this).parent('div.catRowWrapper')
+						.find('input[type=hidden]')
+						.attr('name');
 
-					var nearbyAuthorityFieldName = 
-						$(this).parent('div.catRowWrapper')
-							.find('input[type=hidden]')
-							.attr('name');
+				catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
 
-					catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName);
-
-					$('form#catalog_form input').not(this).focus(
-						function()
-						{
-							$('div.resultsWrapper').remove();
-						});
-				}
-			}, 1000));
+				$('form#catalog_form input').not(this).focus(
+					function()
+					{
+						$('div.resultsWrapper').remove();
+					});
+			}
+		}, 1000));
 
 	// Toggle date range
 	$('div#work_module input[type=checkbox][id*=dateRange]').click(

@@ -140,6 +140,9 @@ $(document).ready(function()
 	$('div#nav_browseUsers')
 		.click(usersBrowse_load);
 
+	$('div#nav_registerUser')
+		.click(usersRegister_load);
+
 	$('div#nav_export')
 		.click(export_load);
 
