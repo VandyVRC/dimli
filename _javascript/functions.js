@@ -1838,6 +1838,28 @@ function authorityIndicators() {
 	});
 }
 
+function registerNewUser_load() {
+
+	// Remove existing modules
+	$('div[id$=_module]').remove();
+
+	// Hide control panel
+	$('div#control_panel_wide').hide();
+
+	// Construct the module
+	var $newUserModule = $('<div id="registerUser_module" class="module">');
+	var $newUserHeader = $('<h1>').text("Register New User");
+	$newUserModule.prepend($newUserHeader);
+	$newUserModule.append('<div class="loading_gif">');
+
+	// Insert the module into the DOM
+	$('div#module_tier4 p.clear_module').before($newUserModule);
+
+	// Add a close button the module's header
+	closeModule_button($('div#registerUser_module'));
+
+}
+
 function createRepository() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
@@ -2036,6 +2058,8 @@ function createBuiltWork_submit() {
 }
 
 function createOrder_load_form() {
+
+	// Remove existing modules
 	$('div[id$=_module]').remove();
 
 	// Hide control panel
@@ -2062,7 +2086,7 @@ function createOrder_load_form() {
 		{
 			$(co_mod).append('AJAX request error: _php/_order/_create/load_form.php');
 		}
-	});
+		});
 }
 
 function createOrder_continue() {

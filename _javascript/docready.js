@@ -141,7 +141,7 @@ $(document).ready(function()
 		.click(usersBrowse_load);
 
 	$('div#nav_registerUser')
-		.click(usersRegister_load);
+		.click(registerNewUser_load);
 
 	$('div#nav_export')
 		.click(export_load);
