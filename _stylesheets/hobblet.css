@@ -796,7 +796,11 @@ div.banner_text span.agent {
 	font-style: italic;
 }
 
-form#registerNewUser input[type=text] {
+/*
+	input[type=text]
+*/
+form#registerNewUser input[name=first_name],
+form#registerNewUser input[name=last_name] {
 	width: 220px;
 }
 

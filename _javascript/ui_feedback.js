@@ -3,7 +3,7 @@ function msg(msg_arr, type)
 	var msg_str = '';
 	$.each(msg_arr, function(index, value)
 		{
-			console.log('displayed message -- "'+value+'"');
+			console.warn('user message: "'+value+'"');
 			msg_str += value+'<br>';
 		});
 

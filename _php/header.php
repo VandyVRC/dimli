@@ -8,11 +8,11 @@
 // Define directory root for use below, based on whether the app 
 // is being run in the XAMPP development environment
 //
-$dev = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)
+$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)
 	?'/dimli'
 	:'';
 if (!defined('MAIN_DIR')) {
-	define('MAIN_DIR', $_SERVER['DOCUMENT_ROOT'].$dev);
+	define('MAIN_DIR', $_SERVER['DOCUMENT_ROOT'].$urlpatch);
 }
 
 header('Content-type: text/html; charset=utf-8'); ?>
