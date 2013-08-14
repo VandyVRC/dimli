@@ -20,7 +20,7 @@ To-Do List
 The following features need to be completed in order for DIMLI to function as intended:
 
 #### User regristration
-This must currently be done using SQL commands or a GUI for MySQL such as phpMyAdmin. New users should also be prompted to supply an email address that can in turn be used to auto-fill the email field during order creation. This email address would be integral to the creation of an automated email notification system that would alert users when orders have been completed.
+Currently, this must be done using SQL commands or a GUI for MySQL such as phpMyAdmin. New users should also be prompted to supply an email address that can in turn be used to auto-fill the email field during order creation. This email address would be integral to the creation of an automated email notification system that would alert users when orders have been completed.
 
 #### Data imports
 
