@@ -52,6 +52,33 @@ function closeAllNavLists_prep() {
 		});
 }
 
+
+function noSpecialChars() {
+
+	var noSpecialChars = true;
+	var sInputValue = $(this).val();
+	var reNotAllowed = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|']/);
+
+	// Does the input field contain special chars?
+	if (sInputValue.search(reNotAllowed) >= 0) {
+
+		noSpecialChars = false;
+		// Display user error message
+		msg(['This field may not contain special characters'], 'error');
+		// Highlight input's background
+		$(this).css({ backgroundColor: '#FFF0DE' });
+	}
+	else {
+
+		noSpecialChars = true;
+		// Remove user error message
+		$('div#message_wrapper').hide();
+		// Reset input's background color
+		$(this).css({ backgroundColor: '#FFF' });
+	}
+	return noSpecialChars;
+}
+
 // Call this on a module to add a Close button 
 // which will remove the module from the DOM
 function closeModule_button(module) {

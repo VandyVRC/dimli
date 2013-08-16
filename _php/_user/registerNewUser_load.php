@@ -17,12 +17,14 @@ require_priv('priv_users_create'); ?>
 
 		<input type="text"
 			name="first_name"
+			maxlength="25"
 			value=""><br>
 
 		<div class="inline label">Last name:</div>
 
 		<input type="text"
 			name="last_name"
+			maxlength="25"
 			value=""><br>
 
 		<div class="inline label">Type:</div>
@@ -38,15 +40,17 @@ require_priv('priv_users_create'); ?>
 
 		<input type="text"
 			name="username"
+			maxlength="15"
 			value=""><br>
 
 		<div class="inline label">Password:</div>
 
 		<input type="password"
 			name="password"
+			maxlength="15"
 			value=""><br>
 
-		<button type="button"
+		<button type="button" 
 			id="registerNewUser_submit"
 			>Submit</button>
 
@@ -55,30 +59,20 @@ require_priv('priv_users_create'); ?>
 </div>
 
 <script>
-	
-$('input[name=username]').keyup(
-	function()
-	{
-		var sValue = $(this).val();
-		var reNotAllowed = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|']/);
-		if (sValue.search(reNotAllowed) >= 0) {
-			// Display user error message
-			msg(['Usernames may not contain special characters'], 'error');
-			// Highlight input's background
-			$(this).css({ backgroundColor: '#FFF0DE' });
-		}
-		else {
-			// Remove user error message
-			$('div#message_wrapper').hide();
-			// Reset input's background color
-			$(this).css({ backgroundColor: '#FFF' });
-		}
-	});
+
+// Provide error feedback if special characters 
+// are entered into the username input field
+$('input[name=username]').keyup(noSpecialChars);
 
 $('#registerNewUser_submit').click(
 	function()
 	{
-		
+		if (noSpecialChars === false) {
+			return false;
+		}
+		else if (noSpecialChars() === true) {
+			alert("No special chars!");
+		}
 	});
 
 </script>
