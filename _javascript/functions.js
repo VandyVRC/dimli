@@ -617,7 +617,9 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 }
 
 function registerNewUser_submit() {
-	alert("Valid");
+
+	var data = {};
+	
 }
 
 function updateExportFlag(record, status) {
