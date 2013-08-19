@@ -60,18 +60,40 @@ require_priv('priv_users_create'); ?>
 
 <script>
 
-// Provide error feedback if special characters 
-// are entered into the username input field
-$('input[name=username]').keyup(noSpecialChars);
+// Provide error feedback if special characters are entered into the username input field
+
+$('input[name=username]').unbind("keyup").keyup(
+	function()
+	{
+		noSpecialChars($('input[name=username]'));
+	});
+
+// Validate the entire form.
+// Returns a boolean.
+
+function registerNewUser_valid(form) {
+	var usernameInput = $('input[name=username]');
+	return form.elements.first_name.value != "" &&
+			 form.elements.last_name.value != "" &&
+			 form.elements.username.value != "" &&
+			 form.elements.password.value != "" &&
+			 noSpecialChars(usernameInput);
+}
+
+// Submit form elements only if fields contain no errors
 
 $('#registerNewUser_submit').click(
 	function()
 	{
-		if (noSpecialChars === false) {
-			return false;
-		}
-		else if (noSpecialChars() === true) {
-			alert("No special chars!");
+		var form = document.getElementById("registerNewUser");
+
+		if (registerNewUser_valid(form)) {
+
+			registerNewUser_submit();
+		} 
+		else {
+
+			msg(["Please correct errors before submitting"], "error");
 		}
 	});
 

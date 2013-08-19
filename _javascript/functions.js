@@ -1,3 +1,14 @@
+var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|']/);
+
+// [inputs] (jQuery object) Input fields being tracked
+function ErrorTracker(inputs) {
+	this.inputs = [inputs];
+
+	this.countInputs = function() {
+		return inputs.length;
+	}
+}
+
 jQuery.fn.exists = function() {
 	return this.length > 0;
 };
@@ -53,30 +64,39 @@ function closeAllNavLists_prep() {
 }
 
 
-function noSpecialChars() {
+// element (jQuery object)
+function indicateSpecialCharsInInput(element) {
 
-	var noSpecialChars = true;
-	var sInputValue = $(this).val();
-	var reNotAllowed = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|']/);
+}
 
-	// Does the input field contain special chars?
-	if (sInputValue.search(reNotAllowed) >= 0) {
+// element (jQuery object)
+// reSpecialChars depends on variable defined in parent scope
+// of this function definition
+function noSpecialChars(element) {
 
-		noSpecialChars = false;
+	// The input field contains special chars
+	if (element.val().search(reSpecialChars) >= 0) {
+
 		// Display user error message
 		msg(['This field may not contain special characters'], 'error');
+
 		// Highlight input's background
-		$(this).css({ backgroundColor: '#FFF0DE' });
+		$(element).css({ backgroundColor: '#FFF0DE' });
+
+		return false;
 	}
+
+	// The input field does not contain special chars
 	else {
 
-		noSpecialChars = true;
 		// Remove user error message
 		$('div#message_wrapper').hide();
+
 		// Reset input's background color
-		$(this).css({ backgroundColor: '#FFF' });
+		$(element).css({ backgroundColor: '#FFF' });
+
+		return true;
 	}
-	return noSpecialChars;
 }
 
 // Call this on a module to add a Close button 
@@ -594,6 +614,10 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 			console.log('AJAX ERROR: userProfile_togglePriv');
 		}
 	});
+}
+
+function registerNewUser_submit() {
+	alert("Valid");
 }
 
 function updateExportFlag(record, status) {
@@ -1936,7 +1960,7 @@ function createRepository() {
 	}
 
 	xmlhttp.open('GET', '_php/create_repository_form.php', true);
-	xmlhttp.send();
+		xmlhttp.send();
 }
 
 function createRepository_submit() {
