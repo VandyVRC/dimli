@@ -21,6 +21,9 @@ while ($user = $result->fetch_assoc()):
 	$username = $user['username'];
 	$firstname = $user['first_name'];
 	$lastname = $user['last_name'];
+	$email = $user['email'];
+	$department = $user['department'];
+	$userType = $user['pref_user_type'];
 	$created = date('M j, Y', strtotime($user['date_created']));
 	$updated = date('M j, Y', strtotime($user['last_update']));
 	$priv_digitize = $user['priv_digitize'];
@@ -93,6 +96,60 @@ endwhile; ?>
 		placeholder=""
 		maxlength="15"
 		value="<?php echo htmlentities($username);?>">
+
+	<br>
+
+	<div class="inline label">Email:</div>
+
+	<input type="text"
+		id="userProf_email"
+		name="userProf_email"
+		placeholder=""
+		maxlength="50"
+		value="<?php echo htmlentities($email);?>">
+
+	<br>
+
+	<div class="inline label">Department:</div>
+
+	<select id="userProf_department"
+		name="userProf_department">
+
+		<option value="History of Art"
+			<?php echo ($department == 'History of Art') 
+				? "selected" : ""; ?>
+			>History of Art</option>
+
+		<option value="Classical Studies"
+			<?php echo ($department == 'Classical Studies') 
+				? "selected" : ""; ?>
+			>Classical Studies</option>
+
+		<option value="Other"
+			<?php echo ($department == 'Other') 
+				? "selected" : ""; ?>
+			>Other</option>
+
+	</select>
+
+	<br>
+
+	<div class="inline label">User Type:</div>
+
+	<select id="userProf_userType"
+		name="userProf_userType">
+
+		<option value="end_user"
+			<?php echo ($userType == 'end_user')
+				? "selected" : ""; ?>
+			>End User</option>
+
+		<option value="cataloger"
+			<?php echo ($userType == 'cataloger')
+				? "selected" : ""; ?>
+			>Staff</option>
+
+	</select>
 
 	<br>
 

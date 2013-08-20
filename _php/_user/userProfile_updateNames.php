@@ -11,6 +11,9 @@ $userId = $_POST['data']['userId'];
 $fName = $mysqli->real_escape_string(trim($_POST['data']['userProf_firstName']));
 $lName = $mysqli->real_escape_string(trim($_POST['data']['userProf_lastName']));
 $username = $mysqli->real_escape_string(trim($_POST['data']['userProf_username']));
+$email = $mysqli->real_escape_string(trim($_POST['data']['userProf_email']));
+$department = $mysqli->real_escape_string(trim($_POST['data']['userProf_department']));
+$userType = $mysqli->real_escape_string(trim($_POST['data']['userProf_userType']));
 
 $sql = "SELECT * 
 			FROM dimli.user 
@@ -36,7 +39,10 @@ else:
 	$sql = "UPDATE dimli.user 
 				SET first_name = '{$fName}', 
 					last_name = '{$lName}', 
-					username = '{$username}' 
+					username = '{$username}', 
+					email = '{$email}', 
+					department = '{$department}',
+					pref_user_type = '{$userType}' 
 				WHERE id = '{$userId}' ";
 
 	$result = db_query($mysqli, $sql); ?>
@@ -46,7 +52,7 @@ else:
 		usersBrowse_load();
 		userProfile_load(<?php echo $userId;?>);
 
-		msg(['User name(s) successfully updated','Enjoy your new identity!'], 'success');
+		msg(['User info successfully updated','Enjoy your new identity!'], 'success');
 
 	</script>
 

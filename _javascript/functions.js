@@ -1,4 +1,4 @@
-var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|']/);
+var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|\']/);
 
 // [inputs] (jQuery object) Input fields being tracked
 function ErrorTracker(inputs) {
@@ -6,12 +6,8 @@ function ErrorTracker(inputs) {
 
 	this.countInputs = function() {
 		return inputs.length;
-	}
+	};
 }
-
-jQuery.fn.exists = function() {
-	return this.length > 0;
-};
 
 function exists() {
 	return this.length > 0;
@@ -19,29 +15,16 @@ function exists() {
 
 // Pad numbers with leading zeros
 function pad(str, max) {
-	return (str).toString().length < max ? pad("0" + (str).toString(), max) : (str).toString();
+	return str.toString().length < max ? pad("0" + str.toString(), max) : str.toString();
 }
 
 function highlight(str, elements, className) {
 	$.each(elements, function()
 		{
 			var rgxp = new RegExp(str, 'ig');
-		    var repl = '<span class="'+className+'">' + str + '</span>';
-		    this.innerHTML = this.innerHTML.replace(rgxp, repl);
+		   var repl = '<span class="'+className+'">' + str + '</span>';
+		   this.innerHTML = this.innerHTML.replace(rgxp, repl);
 		});
-}
-
-// Toggle navigation dropdown menus
-function showThisDropdown(event) {
-
-	event.stopPropagation();
-	$('html, div.nav_dropdown').unbind('click.closeNavs');
-	$('div.nav_dropdown').hide();
-	var dropdown = $(this).find('div.nav_dropdown');
-	dropdown.show();
-	console.log('nav dropdown shown');
-
-	closeAllNavLists_prep();
 }
 
 function closeAllNavLists_prep() {
@@ -63,10 +46,17 @@ function closeAllNavLists_prep() {
 		});
 }
 
+// Toggle navigation dropdown menus
+function showThisDropdown(event) {
 
-// element (jQuery object)
-function indicateSpecialCharsInInput(element) {
+	event.stopPropagation();
+	$('html, div.nav_dropdown').unbind('click.closeNavs');
+	$('div.nav_dropdown').hide();
+	var dropdown = $(this).find('div.nav_dropdown');
+	dropdown.show();
+	console.log('nav dropdown shown');
 
+	closeAllNavLists_prep();
 }
 
 // element (jQuery object)
@@ -130,9 +120,10 @@ function promptToConfirm() {
 			borderRight: 'none',
 			color: '#CCC'
 		});
-	var $submitSize = $(this).css('fontSize');
 
+	var $submitSize = $(this).css('fontSize');
 	var $confirm = $('<button>');
+
 	$confirm.attr('type', 'button')
 		.attr('id', 'conf_button')
 		.text('Confirm')
@@ -523,7 +514,7 @@ function userProfile_updateNames(userId) {
 
 	name_data['userId'] = userId;
 
-	$('input#userProf_firstName, input#userProf_lastName, input#userProf_username').each(
+	$('input#userProf_firstName, input#userProf_lastName, input#userProf_username, input#userProf_email, select#userProf_department, select#userProf_userType').each(
 		function()
 		{
 			var value = $.trim($(this).val());
@@ -616,10 +607,58 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 	});
 }
 
-function registerNewUser_submit() {
+function registerNewUser_submit(formId) {
 
-	var data = {};
+	var jsonData = {};
+	var formAsJQuerySelector = 'form#'+formId;
+
+	$(formAsJQuerySelector+' input:not([type=button], [type=submit], [type=checkbox])').each(
+		function()
+		{
+			var name = $(this).attr('name');
+			jsonData[name] = $('input[name='+name+']').val();
+		});
 	
+	var user_type = $(formAsJQuerySelector+' select[name=user_type]').val();
+	jsonData['user_type'] = user_type;
+
+	var department = $(formAsJQuerySelector+' select[name=department]').val();
+	jsonData['department'] = department;
+
+	$.ajax({
+		type: 'POST',
+		data: { jsonData: jsonData },
+		url: '_php/_user/registerNewUser_submit.php',
+		success: function(response) {
+			$(body).prepend(response);
+			$('div#registerUser_module').remove();
+			usersBrowse_load();
+			console.log("File successfully loaded: registerNewUser_submit.php");
+		},
+		error: function() {
+			console.error("Failed to load file: registerNewUser_submit.php");
+		}
+	});
+}
+
+function deleteUser_submit(userId) {
+
+	$.ajax({
+		type: 'POST',
+		data: 'userId='+userId,
+		url: '_php/_user/deleteUser_submit.php',
+		success: function(response) {
+			$(body).prepend(response);
+			console.log("File successfully loaded: deleteUser_submit.php");
+		},
+		error: function() {
+			console.error("Failed to load file: deleteUser_submit.php");
+		},
+		complete: function() {
+			// Reload the Browse Users module
+			usersBrowse_load();
+		}
+	});
 }
 
 function updateExportFlag(record, status) {
