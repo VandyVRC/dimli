@@ -3,7 +3,7 @@ DIMLI
 
 Digital Media Management Library
 
-Created by Matthew Isner, Vanderbilt University
+Created by Matthew Isner
 
 Project Description
 -------------------
@@ -17,18 +17,17 @@ DIMLI has facilitated our massive recataloging endeavor by allowing us to establ
 To-Do List
 ----------
 
-The following features need to be completed in order for DIMLI to function as intended:
+#### Must-Have Features:
 
-#### User regristration
-Currently, this must be done using SQL commands or a GUI for MySQL such as phpMyAdmin. New users should also be prompted to supply an email address that can in turn be used to auto-fill the email field during order creation. This email address would be integral to the creation of an automated email notification system that would alert users when orders have been completed.
+Data imports
 
-#### Data imports
+#### "Would Be Nice" Features:
 
-#### Printer-friendly Order paper-trail
+Printer-friendly Order paper-trail
 
-#### Activity statistics for Administrators
+Activity statistics for Administrators
 
-#### Ability to download images from Lantern serach results
+Ability to download images from Lantern serach results
 
 Installation Instructions
 -------------------------
