@@ -64,7 +64,7 @@ elseif (isset($_GET['type']) && $_GET['type'] == 'flagged')
 
 	// Define filename for the CSV to be output.
 	// Will be used below.
-	$filename = "dimli_exportToMdid__FlaggedApproved__". date('Y.m.d') .".csv";
+	$filename = "dimli_exportToMdid__FlaggedApproved__". date('Y.m.d');
 
 }
 
