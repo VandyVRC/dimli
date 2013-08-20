@@ -17,11 +17,11 @@ DIMLI has facilitated our massive recataloging endeavor by allowing us to establ
 To-Do List
 ----------
 
-##### "Must-Have" Features:
+#### "Must-Have" Features:
 
 + Data imports
 
-##### "Would Be Nice" Features:
+#### "Would Be Nice" Features:
 
 + Printer-friendly Order paper-trail
 
