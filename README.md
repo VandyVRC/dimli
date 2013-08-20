@@ -17,11 +17,11 @@ DIMLI has facilitated our massive recataloging endeavor by allowing us to establ
 To-Do List
 ----------
 
-#### "Must-Have" Features:
+##### "Must-Have" Features:
 
 + Data imports
 
-#### "Would Be Nice" Features:
+##### "Would Be Nice" Features:
 
 + Printer-friendly Order paper-trail
 
@@ -77,7 +77,9 @@ Theoretically, DIMLI can be installed on your server environment as is. In order
 
     define('DIR', dirname(__DIR__).'/');
 
-3) Save and allow _php/_config/constants.inc.php to remain at its current directory location. It will be required by several files in the application at large.
+3) Replace each of the sections in the above code that are wrapped in "<" and ">" with the appropriate values for your server environment.
+
+4) Save and allow _php/_config/constants.inc.php to remain at its current directory location. It will be required by several files in the application at large.
 
 #### Prepare Image Directory
 
@@ -87,8 +89,8 @@ Whichever directory you chose to be your main image repository should be divided
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
 
-For More Information
---------------------
+More Information
+----------------
 
 The [YouTube channel] [1] for this project contains a short [introductory video] [2] as well as several feature highlights that delve deeper into individual aspects of the application.
 
