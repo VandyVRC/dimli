@@ -32,7 +32,17 @@ To-Do List
 Installation Instructions
 -------------------------
 
-Theoretically, DIMLI can be installed on your server environment as is. In order to do so, however, you will need to take a couple of important steps:
+In order to install DIMLI, you will need a server running MySQL on which to create a database, and a server running PHP on which to host the application itself. These two functions can, of course, be fulfilled by the same server, though local practices might dictate a seperation of these aspects of the system.
+
+#### Import Database Schema
+
+DIMLI's database schema is provided by the following dump file:
+
+    _sql/dimli_schema.sql
+
+Use a command line prompt (or graphical user interface for the administration of SQL databases, such as phpMyAdmin) to create a new SQL database on your server. I suggest calling the database "dimli", but you may call the database whatever you wish. Then import/run the schema file to create the many tables that comprise DIMLI's relational structure.
+
+All data created by, and imported into, DIMLI will reside within these tables and the within the SQL database you just created.
 
 #### Define Unique Constants
 
