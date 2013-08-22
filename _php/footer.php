@@ -33,5 +33,5 @@ if (isset($mysqli)) {
 }
 
 // Show GLOBAL array, if username = "isnerms"
-showGlobals('isnerms');
+// showGlobals('isnerms');
 ?>

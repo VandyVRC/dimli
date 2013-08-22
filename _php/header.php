@@ -71,9 +71,9 @@ header('Content-type: text/html; charset=utf-8'); ?>
 				<li class="nav_item">dimli</li>
 			</a>
 
-		<?php if (logged_in()) { ?>
+		<?php if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) { ?>
 
-			<?php if ($_SESSION['priv_users_read']=='1' || $_SESSION['priv_users_read']=='1') { ?>
+			<?php if ($_SESSION['priv_users_read']=='1') { ?>
 
 			<!-- 
 				ADMIN
@@ -104,7 +104,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 			<?php } ?>
 
-			<?php if ($_SESSION['priv_csv_import']=='1' || $_SESSION['priv_csv_export']=='1') { ?>
+			<?php if ($_SESSION['pref_user_type'] === 'cataloger') { ?>
 
 			<!-- 
 				CURATE
@@ -144,7 +144,8 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 					<?php if ($_SESSION['priv_csv_import']=='1') { ?>
 
-					<div class="nav_dropdown_item faded grey">import<br>records</div>
+					<div id="nav_import"
+						class="nav_dropdown_item">import<br>records</div>
 
 					<?php } ?>
 

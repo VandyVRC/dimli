@@ -1269,7 +1269,7 @@ div.orderProgressBar_section {
 	background: #eaeaea; /* Old browsers */
 	background: -moz-linear-gradient(top,  #eaeaea 0%, #c9c9c9 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eaeaea), color-stop(100%,#c9c9c9)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #eaeaea 0%,#c9c9c9 100%);  Chrome10+,Safari5.1+ 
+	background: -webkit-linear-gradient(top,  #eaeaea 0%,#c9c9c9 100%); /* Chrome10+,Safari5.1+ */ 
 	background: -o-linear-gradient(top,  #eaeaea 0%,#c9c9c9 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #eaeaea 0%,#c9c9c9 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #eaeaea 0%,#c9c9c9 100%); /* W3C */
@@ -2044,7 +2044,33 @@ p.subtext {
 	border: 2px solid #7A7A7A;
 	width: 100%;
 	height: auto;
-	z-index: 40px;
+	z-index: 40;
+}
+
+/*
+	IMPORT EXISTING RECORDS
+*/
+
+table#import_map th {
+	padding: 5px;
+	font-weight: bold;
+	text-align: left;
+}
+
+tr.import_map_row {
+	height: 40px;
+	line-height: 39px;
+	border-top: 1px solid #EEE;
+	font-size: 0.9em;
+}
+
+tr.import_map_row td {
+	padding: 0 5px;
+	vertical-align: middle;
+}
+
+tr.import_map_row select {
+	margin: 0;
 }
 
 /*

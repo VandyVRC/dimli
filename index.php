@@ -36,49 +36,58 @@ require("_php/header.php"); ?>
 
 <div id="module_tier1">
 
-	<div id="user_module" class="module double">
+	<?php if (!isset($_GET['import'])): 
+		// Normal page load - user is not importing a file ?>
 
-		<h1>Welcome<?php echo ' '.$_SESSION['first_name'];?></h1>
+		<div id="user_module" class="module double">
 
-		<?php if ($_SESSION['pref_user_type'] == 'cataloger'): ?>
+			<h1>Welcome<?php echo ' '.$_SESSION['first_name'];?></h1>
+
+			<?php if ($_SESSION['pref_user_type'] == 'cataloger'): ?>
+
+				<!-- 
+						Activity Log (Curators & Catalogers)
+				 -->
+				<div class="floatLeft">
+					<?php include('_php/_homepage/activity_log.php'); ?>
+				</div>
+
+			<?php endif; ?>
+
+			<?php if ($_SESSION['pref_user_type'] == 'cataloger'): ?>
+
+				<!-- 
+						To-Do List (Curators & Catalogers)
+				 -->
+				<div class="floatLeft">
+					<?php include('_php/_homepage/todo_list.php'); ?>
+				</div>
+
+			<?php elseif ($_SESSION['pref_user_type'] == 'end_user'): ?>
+
+				<!-- 
+						Download Your Orders (Faculty & Patrons)
+				 -->
+				<div class="floatLeft">
+					<?php include('_php/_homepage/your_orders.php'); ?>
+				</div>
+
+			<?php endif; ?>
 
 			<!-- 
-					Activity Log (Curators & Catalogers)
+					Catalog Highlight (Visible to all)
 			 -->
 			<div class="floatLeft">
-				<?php include('_php/_homepage/activity_log.php'); ?>
+				<?php include('_php/_homepage/catalog_highlights.php'); ?>
 			</div>
-
-		<?php endif; ?>
-
-		<?php if ($_SESSION['pref_user_type'] == 'cataloger'): ?>
-
-			<!-- 
-					To-Do List (Curators & Catalogers)
-			 -->
-			<div class="floatLeft">
-				<?php include('_php/_homepage/todo_list.php'); ?>
-			</div>
-
-		<?php elseif ($_SESSION['pref_user_type'] == 'end_user'): ?>
-
-			<!-- 
-					Download Your Orders (Faculty & Patrons)
-			 -->
-			<div class="floatLeft">
-				<?php include('_php/_homepage/your_orders.php'); ?>
-			</div>
-
-		<?php endif; ?>
-
-		<!-- 
-				Catalog Highlight (Visible to all)
-		 -->
-		<div class="floatLeft">
-			<?php include('_php/_homepage/catalog_highlights.php'); ?>
+			
 		</div>
-		
-	</div>
+
+	<?php elseif (isset($_GET['import']) && $_GET['import'] == '1'): ?>
+
+		<?php print_r_pre($_FILES); ?>
+
+	<?php endif; ?>
 
 	<p class="clear_module"></p>
 

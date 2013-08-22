@@ -5,25 +5,26 @@ $(document).ready(function()
 {
 
 	// HOVER NAV ITEM
+	// (suspended for the time being)
 
-	$('li.nav_item, li#nav_lantern').hover(
-		function(event)
-		{
-			if ($(event.target).attr('class') != 'nav_dropdown')
-			{
-				event.stopPropagation();
-				$(this).css({ color: '#BFBFE3' });
-			}
-		}, function(event)
-		{
-			event.stopPropagation();
-			$(this).css({ color: '#E6E6FA' });
-		})
-	.children().hover(
-		function()
-		{
-			return false;
-		});
+	// $('li.nav_item, li#nav_lantern').hover(
+	// 	function(event)
+	// 	{
+	// 		if ($(event.target).attr('class') != 'nav_dropdown')
+	// 		{
+	// 			event.stopPropagation();
+	// 			$(this).css({ color: '#BFBFE3' });
+	// 		}
+	// 	}, function(event)
+	// 	{
+	// 		event.stopPropagation();
+	// 		$(this).css({ color: '#E6E6FA' });
+	// 	})
+	// .children().hover(
+	// 	function()
+	// 	{
+	// 		return false;
+	// 	});
 
 
 	// HOVER LANTERN NAV ITEM
@@ -137,32 +138,31 @@ $(document).ready(function()
 	//	Define events for navigation menu buttons
 	//---------------------------------------------
 
-	$('div#nav_browseUsers')
-		.click(usersBrowse_load);
+	$('div#nav_browseUsers').click(usersBrowse_load);
 
-	$('div#nav_registerUser')
-		.click(registerNewUser_load);
+	$('div#nav_registerUser').click(registerNewUser_load);
 
-	$('div#nav_export')
-		.click(export_load);
+	$('div#nav_export').click(export_load);
 
-	$('div#nav_findOrder')
-		.click(function(){ findOrders_loadForm(1, 'date_needed', 'ASC'); });
+	$('div#nav_findOrder').click(function() { 
+		findOrders_loadForm(1, 'date_needed', 'ASC');
+	});
 
-	$('div#nav_createOrder')
-		.click(function(){ createOrder_load_form(); });
+	$('div#nav_createOrder').click(function() { 
+		createOrder_load_form(); 
+	});
 
-	$('div#nav_createWork')
-		.click(createBuiltWork);
+	$('div#nav_createWork').click(createBuiltWork);
 
-	$('div#nav_createRepository')
-		.click(createRepository);
+	$('div#nav_createRepository').click(createRepository);
 
-	$('div#nav_viewOrphanedWorks')
-		.click(view_orphaned_works);
+	$('div#nav_viewOrphanedWorks').click(view_orphaned_works);
 
-	$('div#nav_viewOrphanedImages')
-		.click(view_orphaned_images);
+	$('div#nav_viewOrphanedImages').click(view_orphaned_images);
+
+	$('div#nav_import').click(function() {
+		window.location = "import.php";
+	});
 
 	//----------------------------
 	//	Legacy Reader Navigation

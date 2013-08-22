@@ -20,7 +20,13 @@
 
 	<?php while ($row = $result->fetch_assoc()): ?>
 	
-		<?php $altNames_arr = explode(' || ', $row['nonpref_term']); ?>
+		<?php
+		// Create array of alternate terms
+		$altNames_arr = explode(' || ', $row['nonpref_term']);
+		// Add preferred term to array of alternate terms if an english term exists
+		if ($row['english_pref_term'] != "") {
+			$altNames_arr = array_merge(array($row['getty_pref_term']), $altNames_arr);
+		} ?>
 	
 		<tr>
 
@@ -29,12 +35,16 @@
 				<div class="termLink mediumWeight"
 					title="<?php printAltNames($altNames_arr); ?>">
 
-					<?php 
-					echo $row['getty_pref_term'];
+					<?php
+					// Display english preferred term, if it exists.
+					// Otherwise, display getty preferred term.
+					echo ($row['english_pref_term'] != "")
+						? $row['english_pref_term']
+						: $row['getty_pref_term'];
 
 					echo (!empty($row['pref_place_type'])) 
-								? ' (' . $row['pref_place_type'] . ')' 
-								: ''; ?>
+						? " (" . $row['pref_place_type'] . ")" 
+						: ""; ?>
 
 				</div>
 

@@ -2339,6 +2339,7 @@ function createOrder_submit() {
 }
 
 function export_load() {
+
 	$('div[id$=_module]').remove();
 
 	// Hide control panel
@@ -2678,7 +2679,7 @@ function scroll_to_load($ele, view, nextPage) {
 					$(window).unbind('scroll.lantern');
 				}
 			});
-}	
+}
 
 function lantern_loadMore(view, nextPage) {
 	// console.log('"lantern_loadMore" fired. view: '+view+', nextPage: '+nextPage);
@@ -2750,4 +2751,37 @@ function view_orphaned_images() {
 			console.log('AJAX error: viewOrphanedImages');
 		}
 	});
+}
+
+function import_load() {
+
+	$('div[id$=_module]').remove();
+
+	// Hide control panel
+	$('div#control_panel_wide').hide();
+
+	var new_module = $('<div id="import_module" class="module double">');
+	var new_header = $('<h1>').text('Import Records');
+	$(new_module).prepend(new_header);
+	$(new_module).append('<div class="loading_gif>');
+
+	$('div#module_tier5 p.clear_module').before(new_module);
+
+	$.ajax({
+		type: 'GET',
+		url: '_php/_import/import_load.php',
+		success: function(response) {
+			load_module(new_module, response);
+			$(document).scrollTop($('body').offset().top);
+			console.log("Successfully loaded file: import_load.php");
+		},
+		error: function() {
+			console.error("Falied to load file: import_load.php");
+		}
+	});
+}
+
+function import_upload() {
+
+	
 }

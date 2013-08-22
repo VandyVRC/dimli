@@ -428,6 +428,8 @@ $result = db_query($mysqli, $sql);
 			});
 
 
+	// CLICK ON THUMBNAIL TO VIEW IMAGE
+
 	$('div.orderView_imageList_thumb')
 		.hover(
 			function() 
@@ -442,7 +444,7 @@ $result = db_query($mysqli, $sql);
 			function() 
 			{
 				event.stopPropagation();
-				var image = $(this).parents('.orderView_imageRow').find('.imageList_imageNum').text();
+				var image = $.trim($(this).parents('.orderView_imageRow').find('.imageList_imageNum').text());
 				image_viewer(image);
 			});
 

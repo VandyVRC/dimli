@@ -36,7 +36,7 @@ In order to install DIMLI, you will need a server running MySQL on which to crea
 
 #### Import Database Schema
 
-DIMLI's database schema is provided by the following dump file:
+DIMLI's database schema is provided by the following dump file, which is included in this repository:
 
     _sql/dimli_schema.sql
 
