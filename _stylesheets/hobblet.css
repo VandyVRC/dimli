@@ -205,6 +205,10 @@ button {
 	background-color: #FFDCB3;
 }
 
+.green_highlight {
+	background-color: #E3FFDE;
+}
+
 .rounded {
 	border-radius: 7px;
 }
@@ -2067,6 +2071,10 @@ tr.import_map_row {
 tr.import_map_row td {
 	padding: 0 5px;
 	vertical-align: middle;
+}
+
+tr.import_map_row td.status {
+	width: 200px;
 }
 
 tr.import_map_row select {

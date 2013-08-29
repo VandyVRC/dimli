@@ -222,8 +222,16 @@ $result = db_query($mysqli, $sql);
 	echo $imageCount;
 	echo ' images for ';
 	echo $client;
-	echo ' (due on ';
-	echo date('M j, Y', strtotime($dateNeeded));
+	echo ' (due on '; ?>
+
+	<span id="orderDueClickable" data-due="<?php echo $dateNeeded; ?>">
+
+	<?php
+	echo date('M j, Y', strtotime($dateNeeded)); ?>
+
+	</span>
+
+	<?php
 	echo ')'; ?>
 
 </p>
@@ -479,14 +487,47 @@ $result = db_query($mysqli, $sql);
 
 	// UPDATE ASSIGNED CATALOGER
 
-	$('div#order_assigned_cataloger select')
-		.change(
-			function()
+	$('div#order_assigned_cataloger select').change(
+		function() 
+		{
+			var order = '<?php echo $_SESSION['order']; ?>';
+			var uid = $(this).find(':selected').attr('data-id');
+			var username = $(this).find(':selected').val();
+			order_updateCataloger(order, uid, username);
+		});
+
+
+	// CLICK ON DUE DATE TO CHANGE
+
+	var showInputField = function() {
+		// console.log("showInputField");
+		var storedHTML = $(this).html();
+		var dueDate = $(this).attr('data-due');
+		var orderNum = "<?php echo $_SESSION['order'];?>";
+		var inputField = $('<input class="date" name="dueDate" style="width: 110px; margin: 0;">');
+		$(this).contents().replaceWith(inputField);
+		inputField.focus().val(dueDate).keyup(
+			function(event)
 			{
-				var order = '<?php echo $_SESSION['order']; ?>';
-				var uid = $(this).find(':selected').attr('data-id');
-				var username = $(this).find(':selected').val();
-				order_updateCataloger(order, uid, username);
+				if (event.keyCode == 13) {
+					updateOrderDueDate(inputField.val(), orderNum);
+				}
 			});
+		$('span#orderDueClickable').unbind('click');
+
+		var hideInputField = function(event) {
+			if (event.target.id != 'orderDueClickable') {
+				// console.log("hideInputField");
+				$(inputField).replaceWith(storedHTML);
+				$('body').unbind('click.kljasd');
+				$('span#orderDueClickable').click(showInputField);
+			}
+		};
+
+		// Bind click event to body in order to hide input field
+		$('body').not('span#orderDueClickable').bind('click.kljasd', hideInputField);
+	};
+
+	$('span#orderDueClickable').click(showInputField);
 
 </script>
