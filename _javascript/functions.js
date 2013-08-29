@@ -366,27 +366,17 @@ function order_updateCataloger(order, uid, username) {
 
 function updateOrderDueDate(newDueDate, orderNum) {
 
-	var rx = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-
-	if (rx.test(newDueDate.trim())) {
-
-		$.ajax({
-			type: 'POST',
-			data: 'newDueDate='+newDueDate+
-					'&orderNum='+orderNum,
-			url: '_php/_order/update_due_date.php',
-			success: function(response) {
-				$('body').prepend(response);
-			},
-			error: function() {
-				msg(["Failed to change the due date of this order"], 'error');
-			}
-		});
-
-	} else {
-		
-		msg(['Invalid date format'], 'error');
-	}
+	$.ajax({
+		type: 'POST',
+		data: 'newDueDate='+newDueDate+'&orderNum='+orderNum,
+		url: '_php/_order/update_due_date.php',
+		success: function(response) {
+			$('span#orderDueClickable').text('').append(response);
+		},
+		error: function() {
+			msg(["Failed to change the due date of this order"], 'error');
+		}
+	});
 }
 
 function recently_visited() {
@@ -534,7 +524,7 @@ function userProfile_changePassword(userId) {
 }
 
 function userProfile_updateNames(userId) {
-	
+
 	var name_data = {};
 	var errors = [];
 
@@ -2809,5 +2799,17 @@ function import_load() {
 
 function import_upload() {
 
-	
+	// In progress.
+}
+
+function createNewPopup(event) {
+	var newPopup = document.createElement('div');
+	newPopup.className += ' popup';
+	newPopup.style.top = event.clientY+'px';
+	newPopup.style.left = event.clientX+'px';
+	newPopup.log(event.clientX+' '+event.clientY);
+	newPopup.onmouseout = function(event) {
+		this.setTimeout
+	}
+	return newPopup;
 }

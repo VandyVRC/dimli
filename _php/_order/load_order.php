@@ -499,35 +499,38 @@ $result = db_query($mysqli, $sql);
 
 	// CLICK ON DUE DATE TO CHANGE
 
-	var showInputField = function() {
-		// console.log("showInputField");
-		var storedHTML = $(this).html();
+	// function showInputField() {
+
+	// 	function hideInputField(event) {
+	// 		if (event.target.id != 'orderDueClickable') {
+	// 			$(inputField).remove();
+	// 			$('body').unbind('click.kljasd');
+	// 			$('span#orderDueClickable').click(showInputField);
+	// 		}
+	// 	}
+
+	// 	var dueDate = $(this).attr('data-due');
+	// 	var orderNum = "<?php echo $_SESSION['order'];?>";
+	// 	var inputField = $('<input class="date" name="dueDate" style="width: 110px; margin: 0;">');
+	// 	$(this).contents().replaceWith(inputField);
+	// 	inputField.focus().val(dueDate).blur(
+	// 		function(event)
+	// 		{
+	// 			hideInputField(event);
+	// 			updateOrderDueDate(inputField.val(), orderNum);
+	// 		});
+	// 	$('span#orderDueClickable').unbind('click');
+
+	// 	// Bind click event to body in order to hide input field
+	// 	$('body').not('span#orderDueClickable').bind('click.kljasd', hideInputField);
+	// };
+
+	// $('span#orderDueClickable').click(showInputField);
+	$('span#orderDueClickable').click(function() {
 		var dueDate = $(this).attr('data-due');
 		var orderNum = "<?php echo $_SESSION['order'];?>";
-		var inputField = $('<input class="date" name="dueDate" style="width: 110px; margin: 0;">');
-		$(this).contents().replaceWith(inputField);
-		inputField.focus().val(dueDate).keyup(
-			function(event)
-			{
-				if (event.keyCode == 13) {
-					updateOrderDueDate(inputField.val(), orderNum);
-				}
-			});
-		$('span#orderDueClickable').unbind('click');
-
-		var hideInputField = function(event) {
-			if (event.target.id != 'orderDueClickable') {
-				// console.log("hideInputField");
-				$(inputField).replaceWith(storedHTML);
-				$('body').unbind('click.kljasd');
-				$('span#orderDueClickable').click(showInputField);
-			}
-		};
-
-		// Bind click event to body in order to hide input field
-		$('body').not('span#orderDueClickable').bind('click.kljasd', hideInputField);
-	};
-
-	$('span#orderDueClickable').click(showInputField);
+		var newDueDate = prompt("Enter a new due date:", dueDate);
+		updateOrderDueDate(newDueDate, orderNum);
+	});
 
 </script>
