@@ -554,12 +554,12 @@ function userProfile_updateNames(userId) {
 			else
 			// Value is NOT EMPTY
 			{
-				if ($(this).attr('id')=='userProf_username' && value.length < 6)
-				// Username value is LESS THAN 6 chars
+				if ($(this).attr('id')=='userProf_username' && value.length < 4)
+				// Username value is LESS THAN 4 chars
 				{
 					input_error($(this));
 					errors.push($(this).attr('name'));
-					msg(['Username must be at least six characters in length'], 'error');
+					msg(['Username must be at least four characters in length'], 'error');
 				}
 				else
 				{
