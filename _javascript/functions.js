@@ -534,6 +534,7 @@ function userProfile_changePassword(userId) {
 }
 
 function userProfile_updateNames(userId) {
+	
 	var name_data = {};
 	var errors = [];
 
