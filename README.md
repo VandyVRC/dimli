@@ -27,8 +27,6 @@ To-Do List
 
 + Activity statistics for Administrators
 
-+ Ability to download images from Lantern serach results
-
 Installation Instructions
 -------------------------
 
