@@ -998,11 +998,20 @@ div.thumb_panel img.list_thumb {
 	border: 1px solid #999;
 }
 
-div.thumb_panel span.view_catalog {
-	margin-left: 18px;
+div.thumb_panel span.view_catalog,
+div.thumb_panel span.download_image {
 	font-size: 0.75em;
 	vertical-align: middle;
 	opacity: 0.7;
+	line-height: 1.2em;
+}
+
+div.thumb_panel span.view_catalog {
+	margin-left: 18px;
+}
+
+div.thumb_panel span.download_image {
+	margin-left: 24px;
 }
 
 div.lanternResults_list_row div.text_panel {

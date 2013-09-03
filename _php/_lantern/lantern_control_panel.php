@@ -46,7 +46,7 @@ $_SESSION['lantern_filters'] = (!isset($_SESSION['lantern_filters']))
 	<div style="position: absolute; top: 0; left: 0; width: 90%; height: 100%; z-index: 10; background-color: #000; opacity: 0.8; color: #FFF; text-align: center; line-height: 80px; font-size: 1.5em;">
 
 		<span style="vertical-align: middle;"
-			>Search filters are coming soon.</span>
+			>Search filters are incomplete</span>
 
 	</div>
 

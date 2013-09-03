@@ -2721,6 +2721,21 @@ function lantern_loadMore(view, nextPage) {
 	});
 }
 
+function lantern_download(imageNum) {
+
+	// $.ajax({
+	// 	type: 'POST',
+	// 	data: 'imageNum='+imageNum,
+	// 	url: '_php/_lantern/lantern_download_image.php',
+	// 	success: function(response) {
+	// 		$('body').prepend(response);
+	// 	},
+	// 	error: msg(['Failed to load file:', 'lantern_download.php'], 'error')
+	// });
+
+	window.location.href = 'http://dimli.library.vanderbilt.edu/_php/_lantern/lantern_download_image.php?imageNum='+imageNum;
+}
+
 function view_orphaned_works() {
 	$('div[id$=_module]').remove();
 
