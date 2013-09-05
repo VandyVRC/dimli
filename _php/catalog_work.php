@@ -106,14 +106,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 					
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-					
-				<?php } ?>
-				
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
+									
 			</div> <!-- catRowWrapper -->
 		
 			<?php $i++; } ?>
@@ -210,14 +205,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 					
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-					
-				<?php } ?>
-			
 			</div> <!-- catRowWrapper -->
 			
 			
@@ -1966,7 +1956,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 
 	// Add & Remove cataloging rows
 	$('div#work_module div.addButton')
-		.click(catalogUI_addRow);
+		// .click(catalogUI_addRow);
+		.click(addRow_v2);
 	$('div#work_module div.removeButton')
 		.click(catalogUI_removeRow);
 

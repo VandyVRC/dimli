@@ -1346,6 +1346,86 @@ function displayMeasurements() {
 	});
 }
 
+function resetMeasurementsRow($row) {
+	$row.find('[id*=measurementFieldDiv]').hide();
+	$row.find('[id*=measurementFieldDiv1]').show();
+	$row.find('[id*=measurementType]').show();
+	$row.find('[id*=bitMeasurement]').hide();
+	$row.find('[id*=commonMeasurement]').hide();
+	$row.find('[id*=commonMeasurement2]').hide();
+	$row.find('[id*=areaMeasurement]').hide();
+	$row.find('[id*=countMeasurement]').hide();
+	$row.find('[id*=timeMeasurement]').hide();
+	$row.find('[id*=fileMeasurement]').hide();
+	$row.find('[id*=resolutionMeasurement]').hide();
+	$row.find('[id*=weightMeasurement]').hide();
+	$row.find('[id*=otherMeasurement]').hide();
+	$row.find('[id*=inchesMeasurement]').hide();
+}
+
+function resetDateRow($row) {
+	$row.find('div[id*=dateRangeSpan]').hide();
+	$row.find('input:checkbox[id*=dateRange]').prop('checked', false);
+	$row.find('input:checkbox[id*=circaDate]').prop('checked', false);
+}
+
+// Define an array of cataloging rows than consist of two lines
+var rowsWithTwoLines = ['Agent','Location','Inscription','Rights','Source','Date'];
+
+function addRow_v2() {
+
+	var $thisRow = $(this).parents('div.catRowWrapper');
+	var thisRowTitle = $thisRow.find('.titleText').text();
+	var $thisSection = $thisRow.parent('div.catSectionWrapper');
+	var numRows = $thisRow.parents('div.module').find('.titleText:contains('+thisRowTitle+')').length;
+
+	// If there are less than ten existing rows of this type
+	if (numRows < 10) {
+
+		// If the selected row is two lines high
+		if ($.inArray(thisRowTitle, rowsWithTwoLines) >= 0) {
+
+			// Add the following row to the selected row
+			$thisRow = $thisRow.add($thisRow.next('div.catRowWrapper'));
+		}
+
+		// Clone the selected row
+		var $newRow = $thisRow.clone(true);
+
+		// If selected row was 'Measure', reset the hidden fields
+		if (thisRowTitle == 'Measure') {
+			resetMeasurementsRow($newRow);
+		}
+
+		// If selected row was 'Date', reset the hidden fields
+		if (thisRowTitle == 'Date') {
+			resetDateRow($newRow);
+		}
+
+		// Clear the values of the new row's input fields
+		$newRow.find('input[type=text], input[type=hidden]').val('');
+		$newRow.find('select').val('');
+
+		// Insert new row into the DOM
+		$newRow.insertAfter($thisRow).hide().slideDown('fast');
+
+		// Re-increment the ids and names of all inputs within this section
+		reincrementSectionRows($thisSection);
+
+	// If there are already ten rows of this type, do not allow another to be added
+	} else {
+		msg(['You may only create a maximum of 10 '+thisRowTitle+' rows'], 'error');
+	}
+
+	console.log($thisSection);
+}
+
+function reincrementSectionRows($section) {
+	$section.find('div.catRowWrapper').each(function() {
+		$(this).css({ backgroundColor: 'red' });
+	});
+}
+
 function catalogUI_addRow() {
 
 	var selectedRow = $(this).parents('div.catRowWrapper');
@@ -1354,8 +1434,7 @@ function catalogUI_addRow() {
 	var rowTitle = $(selectedRow).find('.titleText').text();
 	// Find text title of the row
 	
-	var numRows = $(this)
-					.parents('div.module')
+	var numRows = $(this).parents('div.module')
 					.find('.titleText:contains('+ rowTitle +')')
 					.length;
 	// Count the number of existing rows with the same title
@@ -1398,20 +1477,7 @@ function catalogUI_addRow() {
 			
 			// If new row is MEASUREMENTS, then reset the row to its original state
 			if (newRowTitle.indexOf('Measurements') >= 0) {
-				$(newRow).find('[id*=measurementFieldDiv]').hide();
-				$(newRow).find('[id*=measurementFieldDiv1]').show();
-				$(newRow).find('[id*=measurementType]').show();
-				$(newRow).find('[id*=bitMeasurement]').hide();
-				$(newRow).find('[id*=commonMeasurement]').hide();
-				$(newRow).find('[id*=commonMeasurement2]').hide();
-				$(newRow).find('[id*=areaMeasurement]').hide();
-				$(newRow).find('[id*=countMeasurement]').hide();
-				$(newRow).find('[id*=timeMeasurement]').hide();
-				$(newRow).find('[id*=fileMeasurement]').hide();
-				$(newRow).find('[id*=resolutionMeasurement]').hide();
-				$(newRow).find('[id*=weightMeasurement]').hide();
-				$(newRow).find('[id*=otherMeasurement]').hide();
-				$(newRow).find('[id*=inchesMeasurement]').hide();
+				resetMeasurementsRow(newRow);
 			}
 			
 			$(newRow).find('input[type=text], input[type=hidden]').val('');
@@ -1461,11 +1527,7 @@ function catalogUI_addRow() {
 			// If new row is DATE, then reset the row to its original state
 			if (rowTitle == 'Date')
 			{
-				$(newRow).find('div[id*=dateRangeSpan]').hide();
-				$(newRow).find('input:checkbox[id*=dateRange]')
-							.prop('checked', false);
-				$(newRow).find('input:checkbox[id*=circaDate]')
-							.prop('checked', false);
+				resetDateRow(newRow);
 			}
 			
 			$(newRow).find('input[type=text], input[type=hidden]').val('');
@@ -1480,17 +1542,19 @@ function catalogUI_addRow() {
 		$(newRow).find('input.cat_display').val('1');
 		$(newRow).find('div.titleText').removeClass('ital lightGrey');
 		
-		// Delete the clicked row's add/remove buttons
-		$(this).siblings('.removeButton').remove();
+		/*
+		Delete the clicked row's add/remove buttons */
+		// $(this).siblings('.removeButton').remove();
+		// $(this).remove(); // Removes the clicked div with 'addButton' class
+
 		$(this).siblings('.titleText').show();
-		$(this).remove();
 
 		$('div.resultsWrapper').remove();
 	
 	} 
-	else 
+	else
 	{ 
-		alert('You may only create a maximum of 10 '+ rowTitle +' rows'); 
+		msg(['You may only create a maximum of 10 '+rowTitle+' rows'], 'error'); 
 	}
 }
 
@@ -1596,6 +1660,9 @@ function catalogUI_removeRow() {
 					.find('div[id*=dateRangeSpan0]').hide();
 			}
 		}
+
+		selectedRow.find('input.cat_display').val(1);
+		selectedRow.find('.titleText').removeClass('ital lightGrey');
 	}
 }
 
@@ -1716,6 +1783,7 @@ function catalogUI_clearFields(recordType) {
 	$(thisPanel).find('select').val('1');
 	$(thisPanel).find('textarea').val('');
 	$(thisPanel).find('input:hidden').val('');
+	$(thisPanel).find('input.cat_display').val(1);
 	$(thisPanel).find('input:checkbox').prop('checked', false);
 	$(thisPanel).find('div[id*=dateRangeSpan]').hide();
 
