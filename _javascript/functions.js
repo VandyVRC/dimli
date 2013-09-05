@@ -1421,6 +1421,7 @@ function addRow_v2() {
 }
 
 function reincrementSectionRows($section) {
+	
 	$section.find('div.catRowWrapper').each(function() {
 		$(this).css({ backgroundColor: 'red' });
 	});
@@ -1664,6 +1665,16 @@ function catalogUI_removeRow() {
 		selectedRow.find('input.cat_display').val(1);
 		selectedRow.find('.titleText').removeClass('ital lightGrey');
 	}
+}
+
+function catalogUI_prepAddRemove() {
+
+	$('div.addButton img').add('div.removeButton img').hide();
+	$('div.catRowWrapper').unbind('hover').hover(function() {
+		$(this).find('div.addButton img, div.removeButton img').show();
+	}, function() {
+		$(this).find('div.addButton img, div.removeButton img').hide();
+	});
 }
 
 function catalogUI_dateRange_onLoad() {

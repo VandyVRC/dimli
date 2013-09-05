@@ -371,13 +371,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 
 				</div> <!-- catCellWrapper -->
 
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 
 			</div> <!-- catRowWrapper -->
 
@@ -539,13 +534,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -611,13 +601,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -683,13 +668,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -755,13 +735,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -827,13 +802,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -899,13 +869,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 
@@ -1079,13 +1044,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -1437,13 +1397,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -1546,13 +1501,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -1636,13 +1586,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -1751,13 +1696,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -1864,13 +1804,8 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
 			</div> <!-- catRowWrapper -->
 			
@@ -1962,6 +1897,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 		.click(catalogUI_removeRow);
 
 	catalogUI_prepFields();
+	catalogUI_prepAddRemove();
 	authorityIndicators();
 
 

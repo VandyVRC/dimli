@@ -113,13 +113,9 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				<?php } ?>
-				
 				<!-- end catRowWrapper -->
 			</div> 
 		
@@ -282,13 +278,8 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-					
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- end catRowWrapper -->
 			</div> 
@@ -554,13 +545,8 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div>
 
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 
 				<!-- end catRowWrapper -->
 			</div>
@@ -770,13 +756,8 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- end catRowWrapper -->
 			</div> 
@@ -851,13 +832,8 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- end catRowWrapper -->
 			</div> 
@@ -931,13 +907,8 @@ require_priv('priv_catalog'); ?>
 					<!-- row catCell -->
 				</div>
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- end catRowWrapper -->
 			</div>
@@ -1012,13 +983,8 @@ require_priv('priv_catalog'); ?>
 					<!-- catCellWrapper -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- catRowWrapper -->
 			</div> 
@@ -1093,13 +1059,8 @@ require_priv('priv_catalog'); ?>
 					<!-- catCellWrapper -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- catRowWrapper -->
 			</div> 
@@ -1174,13 +1135,8 @@ require_priv('priv_catalog'); ?>
 					<!-- catCellWrapper -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- catRowWrapper -->
 			</div> 
@@ -1471,13 +1427,8 @@ require_priv('priv_catalog'); ?>
 					<!-- end catCell -->
 				</div> 
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 				<!-- end catRowWrapper -->
 			</div>
@@ -1960,13 +1911,8 @@ require_priv('priv_catalog'); ?>
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -2069,13 +2015,8 @@ require_priv('priv_catalog'); ?>
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 		
@@ -2159,13 +2100,8 @@ require_priv('priv_catalog'); ?>
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -2274,13 +2210,8 @@ require_priv('priv_catalog'); ?>
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 			
 			</div> <!-- catRowWrapper -->
 			
@@ -2387,13 +2318,8 @@ require_priv('priv_catalog'); ?>
 				
 				</div> <!-- catCellWrapper -->
 				
-				<?php if ($i == ($rows - 1)) { ?>
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				
-				<?php } ?>
+				<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+				<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
 			</div> <!-- catRowWrapper -->
 			
@@ -2490,6 +2416,7 @@ require_priv('priv_catalog'); ?>
 		.click(catalogUI_removeRow);
 
 	catalogUI_prepFields();
+	catalogUI_prepAddRemove();
 	authorityIndicators();
 
 
