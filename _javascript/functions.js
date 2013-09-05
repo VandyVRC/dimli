@@ -1369,25 +1369,42 @@ function resetDateRow($row) {
 	$row.find('input:checkbox[id*=circaDate]').prop('checked', false);
 }
 
+function reincrementSectionRows($section) {
+
+	var i = 0;
+	// For each div.clone_wrap
+	$section.find('div.clone_wrap').each(function() {
+
+		// For each select list and input element
+		$(this).find('select, input').each(function() {
+
+			// Update input ids
+			var idRoot = $(this).attr('id').slice(0, -1);
+			var newId = idRoot+String(i);
+			$(this).attr('id', newId);
+
+			// Update input names
+			var nameRoot = $(this).attr('name').slice(0, -1);
+			var newName = nameRoot+String(i);
+			$(this).attr('name', newName);
+
+		});
+		i ++;
+	});
+}
+
 // Define an array of cataloging rows than consist of two lines
 var rowsWithTwoLines = ['Agent','Location','Inscription','Rights','Source','Date'];
 
 function addRow_v2() {
 
-	var $thisRow = $(this).parents('div.catRowWrapper');
+	var $thisRow = $(this).parents('div.clone_wrap');
 	var thisRowTitle = $thisRow.find('.titleText').text();
 	var $thisSection = $thisRow.parent('div.catSectionWrapper');
 	var numRows = $thisRow.parents('div.module').find('.titleText:contains('+thisRowTitle+')').length;
 
 	// If there are less than ten existing rows of this type
 	if (numRows < 10) {
-
-		// If the selected row is two lines high
-		if ($.inArray(thisRowTitle, rowsWithTwoLines) >= 0) {
-
-			// Add the following row to the selected row
-			$thisRow = $thisRow.add($thisRow.next('div.catRowWrapper'));
-		}
 
 		// Clone the selected row
 		var $newRow = $thisRow.clone(true);
@@ -1406,271 +1423,75 @@ function addRow_v2() {
 		$newRow.find('input[type=text], input[type=hidden]').val('');
 		$newRow.find('select').val('');
 
+		// Hide the new row's add/remove buttons
+		$newRow.find('.addButton img, .removeButton img').hide();
+
 		// Insert new row into the DOM
 		$newRow.insertAfter($thisRow).hide().slideDown('fast');
 
-		// Re-increment the ids and names of all inputs within this section
+		// Reset preferred status and appearance of new row's title text
+		$newRow.find('input.cat_display').val('1');
+		$newRow.find('div.titleText').removeClass('ital lightGrey');
+
+		// Re-increment the ids and names of all inputs within this data type section
 		reincrementSectionRows($thisSection);
+
+		// Remove any lingering authority results
+		$('div.resultsWrapper').remove();
 
 	// If there are already ten rows of this type, do not allow another to be added
 	} else {
 		msg(['You may only create a maximum of 10 '+thisRowTitle+' rows'], 'error');
 	}
-
-	console.log($thisSection);
 }
 
-function reincrementSectionRows($section) {
-	
-	$section.find('div.catRowWrapper').each(function() {
-		$(this).css({ backgroundColor: 'red' });
-	});
-}
+function removeRow_v2() {
 
-function catalogUI_addRow() {
+	var $thisRow = $(this).parents('div.clone_wrap');
+	var thisRowTitle = $thisRow.find('.titleText').text();
+	var $thisSection = $thisRow.parent('div.catSectionWrapper');
+	var numRows = $thisRow.parents('div.module').find('.titleText:contains('+thisRowTitle+')').length;
 
-	var selectedRow = $(this).parents('div.catRowWrapper');
-	// Find the selected row
-	
-	var rowTitle = $(selectedRow).find('.titleText').text();
-	// Find text title of the row
-	
-	var numRows = $(this).parents('div.module')
-					.find('.titleText:contains('+ rowTitle +')')
-					.length;
-	// Count the number of existing rows with the same title
-	
-	if (numRows < 10) 
-	{
-	
-		if (
-			   rowTitle != 'Agent'
-			&& rowTitle != 'Location'
-			&& rowTitle != 'Inscription'
-			&& rowTitle != 'Rights'
-			&& rowTitle != 'Source'
-			&& rowTitle != 'Date'
-		) { // Row being duplicated is one line high
-		
-			var newRow = $(selectedRow).clone(true);
-			// Clone the selected row
-			
-			// Increment the new row's input IDS
-			$(newRow).find('select, input').each(function(index) {
-				console.log($(this).attr('id'));
-				var idRoot = $(this).attr('id').slice(0, -1);
-				var idLastDigit = $(this).attr('id').slice(-1);
-				var idNewLastDigit = parseInt(idLastDigit) + 1;
-				var newId = idRoot + idNewLastDigit;
-				$(this).attr('id', newId);
-			});
-			
-			// Increment the new row's input NAMES
-			$(newRow).find('select, input').each(function(index) {
-				var nameRoot = $(this).attr('name').slice(0, -1);
-				var nameLastDigit = $(this).attr('name').slice(-1);
-				var nameNewLastDigit = parseInt(nameLastDigit) + 1;
-				var newName = nameRoot + nameNewLastDigit;
-				$(this).attr('name', newName);
-			});
-			
-			var newRowTitle = $(newRow).find('div.catRowTitle').text();
-			
-			// If new row is MEASUREMENTS, then reset the row to its original state
-			if (newRowTitle.indexOf('Measurements') >= 0) {
-				resetMeasurementsRow(newRow);
-			}
-			
-			$(newRow).find('input[type=text], input[type=hidden]').val('');
-			$(newRow).find('select').val('');
-			// Clear the values of the new input fields
-			
-			$(newRow).find('.addButton img').attr('src', '_assets/_images/plus.png');
-			
-			$(newRow).insertAfter(selectedRow).hide(); $(newRow).slideDown('fast');
-			// Insert the clone after the selected row
-			
-		} 
-		else
-		// Row being duplicated is two lines high
-		{
-		
-			var nextRow = $(selectedRow).next('div.catRowWrapper');
-			// Find next row
-			
-			var selectedRows = $(selectedRow).add(nextRow);
-			// Combine both rows
-			
-			var newRow = $(selectedRows).clone(true);
-			// Clone the selected rows
-			
-			var endOfRow = $(this).parents('div.catRowWrapper').next('div.catRowWrapper');
-			// Find the row immediately after the row that was clicked
-			
-			// Increment the new row's input IDS
-			$(newRow).find('select, input').each(function(index) {
-				var idRoot = $(this).attr('id').slice(0, -1);
-				var idLastDigit = $(this).attr('id').slice(-1);
-				var idNewLastDigit = parseInt(idLastDigit) + 1;
-				var newId = idRoot + idNewLastDigit;
-				$(this).attr('id', newId);
-			});
-			
-			// Increment the new row's input NAMES
-			$(newRow).find('select, input').each(function(index) {
-				var nameRoot = $(this).attr('name').slice(0, -1);
-				var nameLastDigit = $(this).attr('name').slice(-1);
-				var nameNewLastDigit = parseInt(nameLastDigit) + 1;
-				var newName = nameRoot + nameNewLastDigit;
-				$(this).attr('name', newName);
-			});
-
-			// If new row is DATE, then reset the row to its original state
-			if (rowTitle == 'Date')
-			{
-				resetDateRow(newRow);
-			}
-			
-			$(newRow).find('input[type=text], input[type=hidden]').val('');
-			$(newRow).find('select').val('');
-			// Clear the values of the new input fields
-			
-			$(newRow).insertAfter(endOfRow).hide(); $(newRow).slideDown('fast');
-			// Insert the clone after the selected row
-			
-		}
-
-		$(newRow).find('input.cat_display').val('1');
-		$(newRow).find('div.titleText').removeClass('ital lightGrey');
-		
-		/*
-		Delete the clicked row's add/remove buttons */
-		// $(this).siblings('.removeButton').remove();
-		// $(this).remove(); // Removes the clicked div with 'addButton' class
-
-		$(this).siblings('.titleText').show();
-
-		$('div.resultsWrapper').remove();
-	
-	} 
-	else
-	{ 
-		msg(['You may only create a maximum of 10 '+rowTitle+' rows'], 'error'); 
-	}
-}
-
-function catalogUI_removeRow() {
-
-	var selectedRow = $(this).parents('div.catRowWrapper');
-	var workOrImage = $(this).parents('form').attr('id');
-	// Find the selected row
-	
-	var rowTitle = $(selectedRow).find('.titleText').text();
-	// Find text title of the row
-	
-	var numRows = $(this).parents('div.catFormWrapper').find('.titleText:contains('+ rowTitle +')').length;
-	// Count the number of existing rows with the same title
-
+	// Remove any lingering authority results
 	$('div.resultsWrapper').remove();
-	
-	if (numRows > 1)
-	// This is NOT the last remaining row of this field type,
-	// so it can be removed completely
-	{ 
-		if ( // Row being removed is one line high
-			   rowTitle != 'Agent' 
-			&& rowTitle != 'Location' 
-			&& rowTitle != 'Inscription' 
-			&& rowTitle != 'Rights' 
-			&& rowTitle != 'Source'
-			&& rowTitle != 'Date'
-		)
-		{ 
-		
-			var newRemoveButton = $(this).clone(true).hide();
-			var newAddButton = $(this).siblings('.addButton').clone(true).hide();
-			// Clone clicked row's add/remove button
-			
-			$(selectedRow).prev('.catRowWrapper').append(newRemoveButton);
-			$(selectedRow).prev('.catRowWrapper').append(newAddButton);
-			$(newAddButton).show(); $(newRemoveButton).show();
-			// Insert add/remove buttons to previous row
-			
-			$(selectedRow).slideUp('fast', function() { $(selectedRow).remove(); });
-			// Remove the selected row from the DOM
-		
-		}
-		else // Row being removed is two lines high
-		{
-		
-			var newRemoveButton = $(this).clone(true).hide();
-			var newAddButton = $(this).siblings('.addButton').clone(true).hide();
-			// Clone clicked row's add/remove button
-			
-			$(selectedRow).prev('.catRowWrapper').prev('.catRowWrapper').append(newRemoveButton);
-			$(selectedRow).prev('.catRowWrapper').prev('.catRowWrapper').append(newAddButton);
-			$(newAddButton).show(); $(newRemoveButton).show();
-			// Insert add/remove buttons to previous row
-		
-			var nextRow = $(selectedRow).next('div.catRowWrapper');
-			// Find next row
-			
-			var selectedRows = $(selectedRow).add(nextRow);
-			// Combine both rows
-			
-			$(selectedRows).slideUp('fast', function() { $(selectedRows).remove(); });
-			// Remove the selected rows from the DOM
-		
-		}
-		
-	}
-	else
-	// This IS the last remaining row of this field type,
-	// so clear the input fields instead of removing the row(s) altogether
-	{
-		if ( // Row being removed is ONE line high
-			   rowTitle != 'Agent'
-			&& rowTitle != 'Location'
-			&& rowTitle != 'Inscription'
-			&& rowTitle != 'Rights'
-			&& rowTitle != 'Source'
-			&& rowTitle != 'Date'
-		)
-		{
-			$(selectedRow).find('input[type=text], input[type=hidden]').val('');
-			$(selectedRow).find('input[type=text]:not("input[id*=agentRole]"), input[type=hidden]')
-				.css({ backgroundColor: '#FFF' });
-			$(selectedRow).find(':checked').removeAttr('checked');
-			$(selectedRow).find('select option').removeAttr('selected');
-			$(selectedRow).find('select option:first').attr('selected', 'selected');
-		}
-		else // Row being removed is TWO lines high
-		{
-			var nextRow = $(selectedRow).next('div.catRowWrapper');
-			$(selectedRow).add(nextRow).find('input[type=text], input[type=hidden]')
-				.val('')
-				.css({ backgroundColor: '#FFF' });
-			$(selectedRow).add(nextRow).find(':checked').removeAttr('checked');
-			$(selectedRow).add(nextRow).find('select option').removeAttr('selected');
-			$(selectedRow).add(nextRow).find('select option:first').attr('selected', 'selected');
 
-			if (rowTitle == 'Date')
-			{
-				$(selectedRow)
-					.next('div.catRowWrapper')
-					.find('div[id*=dateRangeSpan0]').hide();
-			}
+	// If there are at least two rows of this type remaining, 
+	// allow the removal of one row
+	if (numRows > 1) {
+
+		// Kill the red shirt
+		$thisRow.slideUp('fast', function() {
+			$thisRow.remove().promise().done(function() {
+				// Re-increment the ids and names of all inputs within this data type section
+				reincrementSectionRows($thisSection);
+			});
+		});
+
+	// If user is attempting to remove the last remaining row of this data type,
+	// clear the row's values instead
+	} else {
+
+		// Reset all select and input values
+		$thisRow.find('input[type=text], input[type=hidden]').val('');
+		$thisRow.find('input[type=text]:not("input[id*=agentRole]"), input[type=hidden]').css({ backgroundColor: '#FFF' });
+		$thisRow.find(':checked').removeAttr('checked');
+		$thisRow.find('select option').removeAttr('selected');
+		$thisRow.find('select option:first').attr('selected', 'selected');
+
+		if (thisRowTitle == 'Date') {
+			$thisRow.find('div[id^=dateRangeSpan]').hide();
 		}
 
-		selectedRow.find('input.cat_display').val(1);
-		selectedRow.find('.titleText').removeClass('ital lightGrey');
+		// Reset preferred status and appearance of the row's title text
+		$thisRow.find('input.cat_display').val('1');
+		$thisRow.find('div.titleText').removeClass('ital lightGrey');
 	}
 }
 
 function catalogUI_prepAddRemove() {
 
 	$('div.addButton img').add('div.removeButton img').hide();
-	$('div.catRowWrapper').unbind('hover').hover(function() {
+	$('div.clone_wrap').unbind('hover').hover(function() {
 		$(this).find('div.addButton img, div.removeButton img').show();
 	}, function() {
 		$(this).find('div.addButton img, div.removeButton img').hide();
