@@ -97,6 +97,43 @@ Whichever directory you chose to be your main image repository should be divided
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
 
+Export CSV Fields Explained
+---------------------------
+
+When using DIMLI's Export feature, a user will generate a CSV file that consists of twenty-seven individual fields which descibe each image record. These fields are explained below.
+
+The CSV's schema was developed in order to remain consistent with an existing installation of Madison Digital Image Database (MDID) at Vanderbilt University and adopts the field names which correspond with those which were used for past imports into that system (a new installation of DIMLI could rename these fields by modifying _php/_export/export_records.php lines 1183-1209 to reflect the field names you would prefer to use). The names of the fields are relatively unimportant provided that the Digital Asset Management (DAM) system into which you are importing the cataloging data allows you to manually map each of the fields in DIMLI's export CSV to the appropriate location in the DAM.
+
+    Identifier
+
+The six-digit record id number associated with this particular image record.
+
+    resource
+
+Same as identifier, but with ".jpg" appended to the six-digit record id. This field can be used to instruct the Digital Asset Manager where to find image files.
+
+    vra.title
+
+A semi-colon-seperated list of titles. This is a comprehenisve list of the titles of the work record which is related to the image at hand.
+
+    vra.imagetitle
+
+A semi-colon-seperated list of titles. This is a comprehenisve list of the titles of the image record itself.
+
+    vra.agent
+
+A semi-colon-seperated list of agent names. Each agent name is formatted 'Lastname, Firstname' and followed by a parenthetical comma-seperated list of roles which this particular agent filled in the making of this image, or its related work record. No distinction is made between image-record agents and work-record agents - they are simply strung together.
+
+    agentALT
+
+A semi-colon-seperated list of agent names. These are drawn from the Getty Union List of Artist Names and represent every documented alternative spelling of the agent names found in the 'vra.agent' field above.
+
+    vra.date
+
+A semi-colon-seperated list of dates. Rough dates begin with 'ca.' and the start and end dates of time spans are seperated by a hyphen. Each date is followed by a parethetical type description, denoting the event that the preceeding date describes.
+
+     
+
 More Information
 ----------------
 
