@@ -114,25 +114,61 @@ Same as identifier, but with ".jpg" appended to the six-digit record id. This fi
 
     vra.title
 
-A semi-colon-seperated list of titles. This is a comprehenisve list of the titles of the work record which is related to the image at hand.
+A semi-colon-separated list of titles. This is a comprehenisve list of the titles of the work record which is related to the image at hand.
 
     vra.imagetitle
 
-A semi-colon-seperated list of titles. This is a comprehenisve list of the titles of the image record itself.
+A semi-colon-separated list of titles. This is a comprehenisve list of the titles of the image record itself.
 
     vra.agent
 
-A semi-colon-seperated list of agent names. Each agent name is formatted 'Lastname, Firstname' and followed by a parenthetical comma-seperated list of roles which this particular agent filled in the making of this image, or its related work record. No distinction is made between image-record agents and work-record agents - they are simply strung together.
+A semi-colon-separated list of agent names. Each agent name is formatted 'Lastname, Firstname' and followed by a parenthetical comma-separated list of roles which this particular agent filled in the making of this image, or its related work record. No distinction is made between image-record agents and work-record agents - they are simply strung together.
 
     agentALT
 
-A semi-colon-seperated list of agent names. These are drawn from the Getty Union List of Artist Names and represent every documented alternative spelling of the agent names found in the 'vra.agent' field above.
+A semi-colon-separated list of agent names. These are drawn from the Getty Union List of Artist Names and represent every documented alternative spelling of the agent names found in the 'vra.agent' field above.
 
     vra.date
 
-A semi-colon-seperated list of dates. Rough dates begin with 'ca.' and the start and end dates of time spans are seperated by a hyphen. Each date is followed by a parethetical type description, denoting the event that the preceeding date describes.
+A semi-colon-separated list of dates. Rough dates begin with 'ca.' and the start and end dates of time spans are separated by a hyphen. Each date is followed by a parethetical type description, denoting the event which the date describes.
 
-     
+    vra.technique
+
+A semi-colon-separated list of techniques. These are drawn from the cataloging entry for the image record at hand, and its related work record. Some technique terms are followed by a parenthetical qualifier that distinguishes this term from other simliar terms in the Getty Art and Architecture Thesaurus.
+
+   techniqueALT
+
+ A semi-colon-separated list of techniques. These are drawn from the Getty Art and Architecture Thesaurus and represent every documented alternative spelling of the technique terms found in the 'vra.technique' field above.
+
+    vra.worktype
+
+A semi-colon-separated list of work types. These are drawn from the cataloging entry for the image record at hand, and its related work record. Some work type terms are followed by a parenthetical qualifier that distinguishes this term from other simliar terms in the Getty Art and Architecture Thesaurus.
+
+    worktypeALT
+
+A semi-colon-separated list of work types. These are drawn from the Getty Art and Architecture Thesaurus and represent every documented alternative spelling of the work type terms found in the 'vra.worktype' field above.
+
+    vra.material
+
+A semi-colon-separated list of materials. These are drawn from the cataloging entry for the image record at hand, and its related work record. Some material terms are followed by a parenthetical qualifier that distinguishes this term from other simliar terms in the Getty Art and Architecture Thesaurus.
+
+    materialALT
+
+A semi-colon-separated list of materials. These are drawn from the Getty Art and Architecture Thesaurus and represent every documented alternative spelling of the material terms found in the 'vra.material' field above.
+
+    vra.measurementsWORK
+
+A semi-colon-separeted list of measurements which describe the image's parent work record. Each measurement is followed by a parenthetical type which clarifies in what manner the measurement describes the object.
+
+   vra.measurementIMAGE
+
+ A semi-colon-separeted list of measurements which describe the image record itself. Each measurement is followed by a parenthetical type which clarifies in what manner the measurement describes the object. These entries are often populated with the default 'None' entry because most image records gather most of their descriptive information from their parent work record, except when the object described by the image record is dramatically different from the object described by the work record.
+
+    vra.location
+
+A semi-colon-separated list of locations. These are drawn from the cataloging entry for the image record at hand, and its related work record. Each location is followed by a parenthetical qualifier that distinguishes this location from other simliarly named locations in the Getty Thesaurus of Geographic Names, as well as a second parenthetical type which clarifies the relationship that the location has with the object at hand.
+
+    
 
 More Information
 ----------------
