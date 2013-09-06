@@ -168,7 +168,7 @@ A semi-colon-separeted list of measurements which describe the image's parent wo
 
 A semi-colon-separated list of locations. These are drawn from the cataloging entry for the image record at hand, and its related work record. Each location is followed by a parenthetical qualifier that distinguishes this location from other simliarly named locations in the Getty Thesaurus of Geographic Names, as well as a second parenthetical type which clarifies the relationship that the location has with the object at hand.
 
-    
+more coming ...
 
 More Information
 ----------------
