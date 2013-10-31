@@ -1,31 +1,4 @@
-//
-//	Defines events and functions to be run immediately on page load
-//
-$(document).ready(function()
-{
-
-	// HOVER NAV ITEM
-	// (suspended for the time being)
-
-	// $('li.nav_item, li#nav_lantern').hover(
-	// 	function(event)
-	// 	{
-	// 		if ($(event.target).attr('class') != 'nav_dropdown')
-	// 		{
-	// 			event.stopPropagation();
-	// 			$(this).css({ color: '#BFBFE3' });
-	// 		}
-	// 	}, function(event)
-	// 	{
-	// 		event.stopPropagation();
-	// 		$(this).css({ color: '#E6E6FA' });
-	// 	})
-	// .children().hover(
-	// 	function()
-	// 	{
-	// 		return false;
-	// 	});
-
+$(document).ready(function () {
 
 	// HOVER LANTERN NAV ITEM
 
@@ -80,7 +53,50 @@ $(document).ready(function()
 
 			$('div.nav_dropdown').hide();
 
-			var msgs = ['aim for','be after','beat the bushes','bird-dog','bob for','cast about','chase','comb','delve','delve for','dig for','dragnet','explore','fan','ferret out','fish','fish for','follow','go after','gun for','hunt','inquire','investigate','leave no stone unturned','look about','look around','look high and low','mouse','nose','prowl','pursue','quest','ransack','root','run after','scout','scratch','search for','search out','seek','sniff out','track down'];
+			var msgs = [
+				'aim for',
+				'be after',
+				'beat the bushes',
+				'bird-dog','bob for',
+				'cast about',
+				'chase',
+				'comb',
+				'delve',
+				'delve for',
+				'dig for',
+				'dragnet',
+				'explore',
+				'fan',
+				'ferret out',
+				'fish',
+				'fish for',
+				'follow',
+				'go after',
+				'gun for',
+				'hunt',
+				'inquire',
+				'investigate',
+				'leave no stone unturned',
+				'look about',
+				'look around',
+				'look high and low',
+				'mouse',
+				'nose',
+				'prowl',
+				'pursue',
+				'quest',
+				'ransack',
+				'root',
+				'run after',
+				'scout',
+				'scratch',
+				'search for',
+				'search out',
+				'seek',
+				'sniff out',
+				'track down'
+			];
+			
 			var msg = msgs[Math.floor(Math.random() * msgs.length)];
 
 			$('input#lantern_search').attr('placeholder', msg);
