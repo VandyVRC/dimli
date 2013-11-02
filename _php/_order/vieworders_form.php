@@ -108,9 +108,7 @@ while ($user = $result->fetch_assoc()) {
 		<?php echo ($_SESSION['findOrders_showComplete'] == 'yes') 
 			? 'checked="checked"' 
 			: ''; ?>
-		value="yes">&nbsp;Show complete
-
-	<hr />
+		value="yes">&nbsp;Show complete<hr />
 
 	<div class="mediumWeight" style="margin-top: 15px;">Patron</div>
 
