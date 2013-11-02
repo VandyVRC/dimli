@@ -29,9 +29,9 @@ header('Content-type: text/html; charset=utf-8'); ?>
 <link href="_assets/_images/favicon.png" rel="icon" type="image/png">
 
 <!-- Stylesheets -->
-<link href="_stylesheets/hobblet.css?<?php echo date('His');?>" rel="stylesheet" type="text/css">
+<link href="_stylesheets/hobblet.css" rel="stylesheet" type="text/css">
 
-<!-- jQuery JS and CSS -->
+<!-- jQuery -->
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
