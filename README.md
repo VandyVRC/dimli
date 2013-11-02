@@ -42,11 +42,9 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 #### Define Unique Constants
 
-1) Create a new file, named and located according to the following filepath:
+1) Create a new file called `_php/_config/constants.inc.php`
 
-    _php/_config/constants.inc.php
-
-2) Insert the following contents into constants.inc.php:
+2) Insert the following contents into the file:
 
     <?php
     /* 
@@ -85,7 +83,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 3) Replace each of the sections in the above code that are wrapped in `{` and `}` with the appropriate values for your server environment.
 
-4) Save and allow `_php/_config/constants.inc.php` to remain at its current directory location. It will be required by several files in the application at large.
+4) Save and allow `_php/_config/constants.inc.php` to remain at this directory location. It will be required by several files in the application at large.
 
 #### Create a Starter Admin User
 
@@ -93,7 +91,7 @@ The first user will need to be created manually. Additional users can be added f
 
 1) Add an entry to the `user` table of the new database. Give a value to the `username`, `first_name` and `last_name` fields. Enter `1` in every field whose name ends in `_priv` to give the admin all possible privileges.
 
-2) Create a new file called `makePassword.php` with the following contents:
+2) Create a temporary file called `makePassword.php` with the following contents:
 
     <?php
     $salt = '{same salt string you defined above in constants.inc.php}';
@@ -101,7 +99,7 @@ The first user will need to be created manually. Additional users can be added f
 
 3) Run this file in your browser. Use the resulting message as the value for the `crypted_password` field in the `user` table entry for your admin user.
 
-4) Delete the file `makePassword.php`.
+4) Delete the temporary file `makePassword.php`.
 
 #### Prepare Image Directory
 
