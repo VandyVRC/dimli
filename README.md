@@ -80,7 +80,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
     /*
     OTHER CONSTANTS
     ---------------
-
+    */
     define('DIR', dirname(__DIR__).'/');
 
 3) Replace each of the sections in the above code that are wrapped in `{` and `}` with the appropriate values for your server environment.
