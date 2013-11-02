@@ -218,7 +218,8 @@ while ($user = $result->fetch_assoc()) {
 
 	// Load jQuery's datepicker widget
 	$(function () {
-		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+		$('#datepicker1').datepicker({ dateFormat: 'yy-mm-dd' });
+		$('#datepicker2').datepicker({ dateFormat: 'yy-mm-dd' });
 	});
 
 	//--------------------------------------------------------

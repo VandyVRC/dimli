@@ -36,22 +36,11 @@ header('Content-type: text/html; charset=utf-8'); ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
-<!-- Bind jQuery Datepicker -->
-<script>
-$(function() {
-	$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-});
-</script>
-
 <!-- Load UI-feedback functions for immediate use -->
 <script src="_javascript/ui_feedback.js"></script>
 
 </head>
-<!--
-#####################################################################
-##########################  BEGIN BODY  #############################
-#####################################################################
--->
+
 <body>
 
 <div id="header_wide">
