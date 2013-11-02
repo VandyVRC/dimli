@@ -823,12 +823,6 @@ function image_viewer(imageNum) {
 }
 
 function findOrders_loadForm() {
-	var xmlhttp;
-	if (window.XMLHttpRequest) { // Modern browsers
-		xmlhttp = new XMLHttpRequest; 
-	} else { // IE5 & IE6
-		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
-	}
 
 	// Remove existing modules
 	$('div[id$=_module]').remove();
@@ -855,22 +849,6 @@ function findOrders_loadForm() {
 		}
 	});
 
-	// xmlhttp.onreadystatechange = function()
-	// {
-	// 	if (xmlhttp.readyState == 1)
-	// 	{
-	// 		$(newModule).append('<div class="loading_gif">');
-	// 	}
-	// 	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-	// 	{
-	// 		$('div.loading_gif').remove();
-	// 		$(newModule).append(xmlhttp.responseText);
-	// 		$(document).scrollTop($('body').offset().top);
-	// 	}
-	// }
-
-	// xmlhttp.open('GET', '_php/_order/vieworders_form.php', true);
-	// xmlhttp.send();
 }
 
 function order_range() {
