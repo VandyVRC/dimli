@@ -217,11 +217,9 @@ while ($user = $result->fetch_assoc()) {
 	$('input[name=orderNum_range]').click(order_range);
 
 	// Load jQuery's datepicker widget
-	jQuery_date(
-		function()
-		{
-			$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-		});
+	$(function () {
+		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+	});
 
 	//--------------------------------------------------------
 	//  Prepare suggest_input function with array of patrons

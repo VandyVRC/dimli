@@ -33,21 +33,14 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 <!-- jQuery JS and CSS -->
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-
-<!-- jQuery Datepicker -->
-<script src="_jquery/js/jquery-1.7.2.min.js"></script>
-<!-- <script src="_jquery/js/jquery-ui-1.8.19.custom.min.js"></script> -->
-<script>
-	var jQuery_date = $.noConflict(true);
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
 <!-- Bind jQuery Datepicker -->
 <script>
-	jQuery_date(function() {
-		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-	});
+$(function() {
+	$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+});
 </script>
 
 <!-- Load UI-feedback functions for immediate use -->

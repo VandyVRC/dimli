@@ -237,11 +237,9 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 	//  Load jQuery's datepicker widget
 
-	jQuery_date(
-		function()
-		{
-			$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-		});
+	$(function () {
+		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+	});
 
 
 	//  Prohibit "Image count" higher than 200
