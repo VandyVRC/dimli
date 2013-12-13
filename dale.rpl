@@ -1,0 +1,2 @@
+perl -p -i.bak -e 's/dimli\./$DB_NAME\./g' *.php:wq
+
