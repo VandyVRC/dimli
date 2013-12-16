@@ -84,22 +84,6 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 4) Save and allow `_php/_config/constants.inc.php` to remain at this directory location. It will be required by several files in the application at large.
 
-#### Create a Starter Admin User
-
-The first user will need to be created manually. Additional users can be added from within DIMLI's user-interface once the admin has logged in. Follow these steps to create an admin user:
-
-1) Add an entry to the `user` table of the new database. Give a value to the `username`, `first_name` and `last_name` fields. Enter `1` in every field whose name ends in `_priv` to give the admin all possible privileges.
-
-2) Create a temporary file called `makePassword.php` with the following contents:
-
-    <?php
-    $salt = '{same salt string you defined above in constants.inc.php}';
-    echo crypt('{yourDesiredPassword}', $salt);
-
-3) Run this file in your browser. Use the resulting message as the value for the `crypted_password` field in the `user` table entry for your admin user.
-
-4) Delete the temporary file `makePassword.php`.
-
 #### Prepare Image Directory
 
 Whichever directory you chose to be your main image repository should be divided into three folders named as follows: full/, medium/ and thumb/. The size of the JPG files placed in the 'thumb/' directory should be exactly 96 pixels wide x 72 pixels high at 72 ppi. You may choose the dimensions for the 'medium/' and 'full/' JPG files as you wish. DIMLI will look in these directory locations for image files used throughout the application.
@@ -107,6 +91,13 @@ Whichever directory you chose to be your main image repository should be divided
 #### Making PowerPoints Available to End-Users
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
+
+#### Log in
+
+The default admin user's credentials are
+
+username: admin
+password: admin
 
 Export CSV Fields Explained
 ---------------------------
