@@ -94,7 +94,7 @@ As you complete/deliver orders, manually add a PowerPoint file for each order to
 
 #### Log In as the Default Admin
 
-username/password: `admin/admin`
+username/password: `admin`/`admin`
 
 Export CSV Fields Explained
 ---------------------------
