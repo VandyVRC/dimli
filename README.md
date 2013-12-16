@@ -92,12 +92,9 @@ Whichever directory you chose to be your main image repository should be divided
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
 
-#### Log in
+#### Log In as the Default Admin
 
-The default admin user's credentials are
-
-username: admin
-password: admin
+username/password: admin/admin
 
 Export CSV Fields Explained
 ---------------------------
