@@ -70,10 +70,9 @@ All data created by, and imported into, DIMLI will reside within these tables an
     /*
     DEFINE ENCRYPTION SALT
     ----------------------
-    Define a salt parameter to pass into the crypt function
-    Example: "gobly76gook13" */
+    Define a salt parameter to pass into the crypt function */
 
-    define('SALT', '{saltStringOfYourChoice}');
+    define('SALT', '19ReXiNSuLaRuM23');
     
     /*
     OTHER CONSTANTS
