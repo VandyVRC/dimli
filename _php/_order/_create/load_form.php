@@ -82,7 +82,7 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 				style="width: 90px;"
 				value="<?php echoValue($_SESSION['newOrderDetails']['dateNeeded']); ?>">
 
-			<div style="position: absolute; left: 150px; bottom: -7px; font-size: 0.7em; font-style: italic;">
+			<div style="position: absolute; left: 150px; bottom: -7px; font-size: 0.8em; font-style: italic;">
 				Allow a minimum of 2 weeks
 			</div>
 
@@ -152,7 +152,7 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 				style="width: 3em;"
 				value="<?php echoValue($_SESSION['newOrderDetails']['imageCount']); ?>">
 
-			<span style="font-size: 0.7em; font-style: italic;">Max: 200</span>
+			<span style="font-size: 0.8em; font-style: italic;">Max: 200</span>
 
 			<br>
 
@@ -210,6 +210,13 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 				value="<?php echoValue($_SESSION['newOrderDetails']['source']); ?>">
 
 			<br>
+
+		</div>
+
+		<div class="legacy_wrap">
+
+			<input type="checkbox" name="" value="">
+			<span>I would like to specify an existing<br>identifier for each image record</span>
 
 		</div>
 
