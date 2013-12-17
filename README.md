@@ -3,8 +3,6 @@ DIMLI
 
 Digital Media Management Library
 
-@author  matthew.isner@deque.com
-
 Project Description
 -------------------
 
