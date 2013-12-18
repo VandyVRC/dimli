@@ -647,9 +647,19 @@ function registerNewUser_submit(formId) {
 		url: '_php/_user/registerNewUser_submit.php',
 		success: function(response) {
 			$(body).prepend(response);
-			$('div#registerUser_module').remove();
-			usersBrowse_load();
-			console.log("File successfully loaded: registerNewUser_submit.php");
+				if ($('form#createOrder_form select')
+					.length > 0)
+				{
+					createOrder_submit();
+					$('')	
+					$('div#registerUser_module').remove();
+					$('div.suggestion_text').remove();
+				}
+				else	
+				{
+					$('div#registerUser_module').remove();
+					usersBrowse_load();
+				}	
 		},
 		error: function() {
 			console.error("Failed to load file: registerNewUser_submit.php");
@@ -923,6 +933,81 @@ function suggest_input(inputName, minLen, searchArray, suggestionAreaId) {
 			.remove();
 	});
 }
+
+function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fillName, selectName, fillArray)
+{
+
+	if (
+		$('input[name='+inputName+']').val().length >= minLen
+		&& 
+		$('input[name='+inputName+']').val() != inputName
+		)
+	// User has typed at least 2 characters
+	// AND input value is NOT the same as the input's name
+	{
+		
+		console.log('function called: suggest_inputFill('+inputName+', '+searchArray+', '+suggestionAreaId+')');
+
+		var typed = $('input[name='+inputName+']').val().toLowerCase();;
+		console.log('User typed: "'+typed+'"');
+		var suggestions = [];
+
+		$.each(searchArray, function(index, val)
+		{
+			console.log('Array contains: "'+val+'"');
+			if (val.toLowerCase().indexOf(typed) >= 0)
+			{
+			console.log('"'+typed+'" matched "'+val+'" at position '+index);
+				suggestions.push(val); // Add this match to suggestions
+				$('div#'+suggestionAreaId).text('');
+				$.each(suggestions, function(index, val)
+				{
+					if ($('div#'+suggestionAreaId).text().indexOf(val) == -1)
+					{
+						$('div#'+suggestionAreaId).append('<div class="suggestion_text">'+val+'</div>');
+					}
+				})
+			}
+		})
+	}
+
+	else
+	{
+		// console.log('function called, but not completed');
+		$('div#'+suggestionAreaId).text('');
+	}
+	
+	$('div.suggestion_text').click(function()
+	{
+	
+		var selectedSuggestion = $(this).text();
+		var thisSuggestionDiv = $(this)
+		.parents('div#'+suggestionAreaId);
+
+		$(thisSuggestionDiv)
+			.prev('input[name='+inputName+']')
+			.val(selectedSuggestion);
+
+		$(thisSuggestionDiv)
+			.children()
+			.remove();	
+
+		$.each(fillArray, function(index, val)
+		{
+			if ((selectedSuggestion) == (index))
+			{
+				$.each(val, function (k, v)
+				{
+
+			$('select[name= '+selectName+']').find('option:contains('+v+')').attr('selected', true);
+				
+			$('input[name='+fillName+']').val(v); 
+						
+				})
+			}
+		})
+	});				
+} 
 
 function findOrders_loadResults(pageNum, orderBy, order) {
 	$('div#findOrders_resultsTable').children().remove();
@@ -2133,23 +2218,122 @@ function createOrder_continue() {
 	var legacyIds = $('form#createOrder_form input[name="legacyIds"]')[0].checked;
 	newOrder_data['legacyIds'] = legacyIds;
 
-	// console.log('form errors: ' + errors); // Debugging
+	//console.log('form errors: '+errors); // Debugging
 
-	if (errors.length === 0) {
+	if (errors.length === 0)
+	{
 		$('.input_error').removeClass('input_error');
-		createOrder_load_pages(newOrder_data);
+		createOrder_load_pages();
 		$('span#createOrder_errors').text('');
 		$('button#createOrder_continue_button').hide();
 		$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
-			.attr('disabled', true);
-		$('button#createOrder_continue_button').unbind('click');
-
-	} else {
-		$('span#createOrder_errors').text(errors.length + ' error');
-		if (errors.length > 1) {
-			$('span#createOrder_errors').append('s');
-		}
+        .attr('disabled', true);
+      $('button#createOrder_continue_button').unbind('click');
 	}
+	else
+	{
+		$('span#createOrder_errors').text(errors.length+' error');
+		if (errors.length > 1) { $('span#createOrder_errors').append('s'); }
+	}
+}
+
+function createOrder_newUser() {
+
+	var typed = $('input[name="patron"]').val();
+	console.log('User selected: "'+typed+'"');
+	var userMatch = true; 		
+	
+	$.each(user_a, (function (index, val)
+	{
+		console.log('Array contains: "'+val+'"');
+		if ((typed) === (val)){
+
+		//Continue to page and figure assignment and break
+			
+			userMatch = true;	
+			createOrder_submit();
+			return false;
+		}
+
+		else{
+			console.log("no match")
+			userMatch = false;
+		}
+	}));	
+	
+	if (userMatch == false)	{
+
+		// Construct the new user module
+		var $newUserModule = $('<div id="registerUser_module" class="module_right">');
+		var $newUserHeader = $('<h1>').text("Register New User");
+		$newUserModule.prepend($newUserHeader);
+		$newUserModule.append('<div class="loading_gif">')
+		
+
+		// Insert the module into the DOM
+	 	$('div#module_tier4 p.clear_module').before($newUserModule);
+
+		// Add a close button the module's header
+		closeModule_button($('div#registerUser_module'));
+
+		$.ajax({
+		type: 'GET',
+		url: '_php/_user/registerNewUser_load.php',
+		success: function(response) {
+			load_module($newUserModule, response);
+			console.log("AJAX success: registerNewUser_load.php");
+			$(document).scrollTop($('#registerNewUser_submit').offset().top);
+			createOrder_newUser_fillForm();
+			},
+			error: function() {
+				console.error("AJAX error: registerNewUser_load.php");
+			}
+			});
+
+	}
+	//Suggested user is selected after New User module has loaded
+	$('div.suggestion_text').click (function()
+	{	
+		$('div#registerUser_module').remove()
+	});
+
+	//  User clicks "Back" to return to first step
+	$('button#createOrder_back_button').click(
+		function()
+		{
+			$('div#registerUser_module').remove()
+			});
+}
+
+function createOrder_newUser_fillForm() 
+{
+//Fill the New User module				
+	var emailVal = $('div#createOrder_module input[name=email]').val();
+						
+	var selectVal = $('div#createOrder_module select[name=department]').find('option:selected').val();
+					
+	$('div#registerUser_module input[name=email]').val(emailVal);
+
+	$('div#registerUser_module select[name=department]').find('option:contains('+selectVal+')').attr('selected', true);					
+
+//----------------------------------------------------
+// WHERE TEMP PW CREATION AND SEND EMAIL WILL LIVE
+//-------------------------------------------------------
+
+	var pwVal = ('inappropriatesolution');
+
+	//$('div#registerUser_module input[name=username]').val(emailVal); 
+	//$('div#registerUser_module input[name=username]').hide();
+	//$('div#registerUser_module div[id=username]').hide();
+
+	$('div#registerUser_module input[name=password]').val(pwVal);
+	$('div#registerUser_module input[name=password]').hide();
+	$('div#registerUser_module div[id=password]').hide();
+	//$('div#registerUser_module div[id=minchar]').hide();
+
+//------------------------------------------------------
+// RESEARCH IN PROGRESS
+//---------------------------------------------------
 }
 
 function createOrder_load_pages(data) {
