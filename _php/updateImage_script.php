@@ -47,7 +47,7 @@ elseif ($_SESSION['workNum'] == 'None')
 //  Log action
 //--------------
 
-$sql = "INSERT INTO dimli.Activity
+$sql = "INSERT INTO dimli.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Image',
 				RecordNumber = {$recordNum},

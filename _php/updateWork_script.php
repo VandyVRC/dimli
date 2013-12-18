@@ -38,7 +38,7 @@ if ($_SESSION['workNum'] == 'None' || $_SESSION['workNum'] == '')
 
 	$ts = date('Y m d H:i:s');
 
-	$sql = "INSERT INTO dimli.Activity
+	$sql = "INSERT INTO dimli.activity
 				SET UserID = '{$_SESSION['user_id']}',
 					RecordType = 'Work',
 					RecordNumber = {$_SESSION['shortWorkNum']},
@@ -104,7 +104,7 @@ elseif (strlen($_SESSION['workNum']) == 6)
 	//  Log action
 	//--------------
 	
-	$sql = "INSERT INTO dimli.Activity
+	$sql = "INSERT INTO dimli.activity
 				SET UserID = '{$_SESSION['user_id']}',
 					RecordType = 'Work',
 					RecordNumber = {$_SESSION['shortWorkNum']},

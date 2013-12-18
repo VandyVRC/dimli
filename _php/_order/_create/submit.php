@@ -120,7 +120,7 @@ $result = db_query($mysqli, $sql);
 
 $UnixTime = time(TRUE);
 
-$sql = "INSERT INTO dimli.Activity
+$sql = "INSERT INTO dimli.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = {$newOrderId},

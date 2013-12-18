@@ -104,7 +104,7 @@ if ($_SESSION['workNum'] != 'None')
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO dimli.Activity 
+	$sql = "INSERT INTO dimli.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Work', 
 					RecordNumber = {$_SESSION['workNum']}, 

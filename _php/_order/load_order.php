@@ -16,7 +16,7 @@ $_SESSION['order'] = $_GET['order'];
 
 // Log this visit
 $UnixTime = time(TRUE);
-$sql = "INSERT INTO dimli.Activity 
+$sql = "INSERT INTO dimli.activity 
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = '{$_SESSION['order']}',
