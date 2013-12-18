@@ -213,12 +213,12 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 		</div>
 
-		<!--<div class="legacy_wrap">
+		<div class="legacy_wrap">
 
 			<input type="checkbox" name="legacyIds">
 			<span>I would like to specify an existing identifier for each image record</span>
 
-		</div>-->
+		</div>
 
 		<button type="button"
 			id="createOrder_continue_button"
