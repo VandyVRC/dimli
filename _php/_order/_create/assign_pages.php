@@ -127,7 +127,7 @@ require_priv('priv_orders_create');
 			function()
 			{
 				$('button#conf_button')
-					.click(createOrder_submit);
+					.click(createOrder_newUser);
 			});
 
 	
