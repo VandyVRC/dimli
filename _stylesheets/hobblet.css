@@ -515,6 +515,20 @@ div.module {
 	border: 1px solid #BBB;
 }
 
+div.module_right {
+	position: relative;
+	float: right;
+	min-height: 200px;
+	/*min-width: 365px;
+	max-width: 365px;*/
+	min-width: 455px;
+	max-width: 455px;
+	margin: 15px 15px 0 0;
+	padding: 5px 5px 5px 5px;
+	background-color: #FFF;
+	border: 1px solid #BBB;
+}
+
 div.module.double {
 	/*min-width: 757px;
 	max-width: 757px;*/
