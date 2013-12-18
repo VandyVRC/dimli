@@ -2089,68 +2089,66 @@ function createOrder_continue() {
 	var errors = [];
 	var requiresCount = ['Corpus','Donor','Electronic','Vendor','Other'];
 
-	$('form#createOrder_form input[type=text]').each(function()
-	// Perform on each TEXT INPUT in the form
-	{
+		// Validate text inputs
+	$('form#createOrder_form input[type=text]').each(function () {
 		var value = $.trim($(this).val());
 
-		if (value == '')
-		// IF val is blank
-		{
-			if ($(this).attr('name') != 'imageCount')
-			{
+		if (value == '') {
+
+			var isImgCount = $(this).attr('name') === 'imageCount';
+			var optRequiresCount = $.inArray($('select[name=sourceNameType] option:selected')
+				.val(), requiresCount) >= 0
+
+			if (!isImgCount) {
 				input_error($(this));
 				errors.push($(this).attr('name'));
 			}
-			if (
-				$(this).attr('name') == 'imageCount'
-				&& $.inArray($('select[name=sourceNameType] option:selected').val(), requiresCount) >= 0
-			)
-			{
+
+			if (isImgCount && optRequiresCount) {
 				input_error($(this));
 				errors.push($(this).attr('name'));
 			}
-		}
-		else
-		{
+
+		} else {
 			newOrder_data[$(this).attr('name')] = value;
 		}
+
 	});
 
-	$('form#createOrder_form select').each(function()
-	// Perform on each SELECT list in the form
-	{
+		// Validate select list inputs
+	$('form#createOrder_form select').each(function() {
 		var value = $(this).find('option:selected').val();
 
-		if (value == '')
-		// IF val is blank
-		{
+		if (value == '') {
+
 			input_error($(this));
 			errors.push($(this).attr('name'));
-			// Add to error array
-		}
-		else
-		{
+			
+		} else {
 			newOrder_data[$(this).attr('name')] = value;
 		}
+
 	});
 
-	console.log('form errors: '+errors); // Debugging
+	var legacyIds = $('form#createOrder_form input[name="legacyIds"]')[0].checked;
+	newOrder_data['legacyIds'] = legacyIds;
 
-	if (errors.length === 0)
-	{
+	// console.log('form errors: ' + errors); // Debugging
+
+	if (errors.length === 0) {
 		$('.input_error').removeClass('input_error');
 		createOrder_load_pages(newOrder_data);
 		$('span#createOrder_errors').text('');
 		$('button#createOrder_continue_button').hide();
-		$('form#createOrder_form').find('input[type=text], select')
+		$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
 			.attr('disabled', true);
 		$('button#createOrder_continue_button').unbind('click');
-	}
-	else
-	{
-		$('span#createOrder_errors').text(errors.length+' error');
-		if (errors.length > 1) { $('span#createOrder_errors').append('s'); }
+
+	} else {
+		$('span#createOrder_errors').text(errors.length + ' error');
+		if (errors.length > 1) {
+			$('span#createOrder_errors').append('s');
+		}
 	}
 }
 

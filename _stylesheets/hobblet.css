@@ -1920,13 +1920,20 @@ p.instructions {
 	font-weight: 400;
 }
 
+form#createOrder_form {
+	font-size: 0.9em;
+}
+
 form#createRepository_form div.label,
 form#createOrder_form div.label,
 form#registerNewUser div.label {
 	width: 125px;
 	margin-left: 10px;
 	text-align: right;
-	font-size: 0.9em;
+}
+
+form#createOrder_form div.legacy_wrap {
+	margin-left: 20px;
 }
 
 form#createOrderFigs_form input[type=text] {
