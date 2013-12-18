@@ -215,8 +215,8 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 		<div class="legacy_wrap">
 
-			<input type="checkbox" name="" value="">
-			<span>I would like to specify an existing<br>identifier for each image record</span>
+			<input type="checkbox" name="legacyIds">
+			<span>I would like to specify an existing identifier for each image record</span>
 
 		</div>
 

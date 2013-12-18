@@ -1933,7 +1933,7 @@ form#registerNewUser div.label {
 }
 
 form#createOrder_form div.legacy_wrap {
-	margin-left: 150px;
+	margin-left: 20px;
 }
 
 form#createOrderFigs_form input[type=text] {
