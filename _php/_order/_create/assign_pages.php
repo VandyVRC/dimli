@@ -142,7 +142,7 @@ require_priv('priv_orders_create');
 			$('button#createOrder_continue_button').show();
 			// Show the "Continue" button in the New Order module
 
-			$('form#createOrder_form').find('input[type=text], select')
+			$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
 				.attr('disabled', false);
 			// Enable the inputs in the New Order module
 
