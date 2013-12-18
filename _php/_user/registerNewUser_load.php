@@ -63,7 +63,7 @@ require_priv('priv_users_create'); ?>
 
 		<br>
 
-		<div class="inline label">Username:</div>
+		<div class="inline label" id="username">Username:</div>
 
 		<input type="text"
 			name="username"
@@ -72,7 +72,7 @@ require_priv('priv_users_create'); ?>
 
 		<br>
 
-		<div class="inline label">Password:</div>
+		<div class="inline label" id="password">Password:</div>
 
 		<input type="password"
 			name="password"
@@ -84,7 +84,7 @@ require_priv('priv_users_create'); ?>
 
 		<div class="inline label"></div>	
 
-		<div class="inline" 
+		<div class="inline" id="minchar"
 			style="font-size: 0.7em; margin-left: 10px;"
 			>minimum 6 charcters</div>
 
