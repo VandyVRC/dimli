@@ -131,7 +131,7 @@ $result = db_query($mysqli, $sql);
 
 
 // Clear array for new order details
-$_SESSION['newOrderDetails'] = array('client'=>'','department'=>'','email'=>'','dateNeeded'=>'','imageCount'=>'','sourceNameType'=>'','sourceName'=>'','sourceType'=>'','source'=>'');
+$_SESSION['newOrderDetails'] = array('patron'=>'','department'=>'','email'=>'','dateNeeded'=>'','imageCount'=>'','sourceNameType'=>'','sourceName'=>'','sourceType'=>'','source'=>'');
 
 // Pad the id of the new order for use in javascript below
 $newOrderId = create_four_digits($newOrderId);
