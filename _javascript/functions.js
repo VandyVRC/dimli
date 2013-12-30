@@ -919,7 +919,7 @@ function suggest_input(inputName, minLen, searchArray, suggestionAreaId) {
 	});
 }
 
-function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fillName, selectName, fillArray)
+function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fillArray)
 {
 
 	if (
@@ -933,7 +933,7 @@ function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fil
 		
 		console.log('function called: suggest_inputFill('+inputName+', '+searchArray+', '+suggestionAreaId+')');
 
-		var typed = $('input[name='+inputName+']').val().toLowerCase();;
+		var typed = $('input[name='+inputName+']').val().toLowerCase();
 		console.log('User typed: "'+typed+'"');
 		var suggestions = [];
 
@@ -977,17 +977,17 @@ function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fil
 			.children()
 			.remove();	
 
+
 		$.each(fillArray, function(index, val)
 		{
 			if ((selectedSuggestion) == (index))
 			{
 				$.each(val, function (k, v)
 				{
-
-			$('select[name= '+selectName+']').find('option:contains('+v+')').attr('selected', true);
-				
-			$('input[name='+fillName+']').val(v); 
-						
+		
+			$('input[name='+k+']').val(v); 	
+			console.log(''+k+' is '+v+'');
+			$('select[name= '+k+']').find('option:contains('+v+')').attr('selected', true);
 				})
 			}
 		})

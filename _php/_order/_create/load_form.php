@@ -272,7 +272,7 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 		function()
 		{
 			
-		suggest_inputFill('patron', 2,  user_a, 'suggestedPatrons','email', 'department', filler_a);
+		suggest_inputFill('patron', 2,  user_a, 'suggestedPatrons', filler_a);
 		});
 
 	//  Load jQuery's datepicker widget
