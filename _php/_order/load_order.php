@@ -37,7 +37,7 @@ $result = db_query($mysqli, $sql);
 
 while ($row = $result->fetch_assoc()) {
 
-	$client = 		$row['requestor'];
+	$patron = 		$row['requestor'];
 	$department = 	$row['department'];
 	$email = 		$row['email'];
 	$dateCreated = $row['date_created'];
@@ -221,7 +221,7 @@ $result = db_query($mysqli, $sql);
 	<?php // Echo main headline at the top of the order window
 	echo $imageCount;
 	echo ' images for ';
-	echo $client;
+	echo $patron;
 	echo ' (due on '; ?>
 
 	<span id="orderDueClickable" data-due="<?php echo $dateNeeded; ?>">
