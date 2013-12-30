@@ -1,6 +1,6 @@
 var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|\']/);
 
-// [inputs] (jQuery object) Input fields being tracked
+	// @param	 {jQueryObject}  Inputs being tracked
 function ErrorTracker(inputs) {
 	this.inputs = [inputs];
 
@@ -13,40 +13,37 @@ function exists() {
 	return this.length > 0;
 }
 
-// Pad numbers with leading zeros
+	// Pad numbers with leading zeros
 function pad(str, max) {
-	return str.toString().length < max ? pad("0" + str.toString(), max) : str.toString();
+	return str.toString().length < max ? pad('0' + str.toString(), max) : str.toString();
 }
 
 function highlight(str, elements, className) {
-	$.each(elements, function()
-		{
-			var rgxp = new RegExp(str, 'ig');
-		   var repl = '<span class="'+className+'">' + str + '</span>';
-		   this.innerHTML = this.innerHTML.replace(rgxp, repl);
-		});
+	$.each(elements, function () {
+		var rgxp = new RegExp(str, 'ig');
+		var repl = '<span class="' + className + '">' + str + '</span>';
+		this.innerHTML = this.innerHTML.replace(rgxp, repl);
+	});
 }
 
 function closeAllNavLists_prep() {
+
 	$('html, div.nav_dropdown').unbind('click.closeNavs');
 
-	// User clicks anywhere on the document
+		// User clicks anywhere on the document
 	$('html, div.nav_dropdown_item').bind('click.closeNavs',
-		function(event)
-		{
-			if (
-				event.target.id != 'lantern_search' &&
-				event.target.id != 'lantern_gettyToggle'
-				)
-			{
+		function (event) {
+
+		if (event.target.id != 'lantern_search' &&
+			  event.target.id != 'lantern_gettyToggle') {
+
 				// Hide the navigation dropdowns
-				$('div.nav_dropdown').hide();
-				// console.log('all nav dropdowns hidden'); // Debug
-			}
-		});
+			$('div.nav_dropdown').hide();
+		}
+	});
 }
 
-// Toggle navigation dropdown menus
+	// Toggle navigation dropdown menus
 function showThisDropdown(event) {
 
 	event.stopPropagation();
@@ -54,35 +51,40 @@ function showThisDropdown(event) {
 	$('div.nav_dropdown').hide();
 	var dropdown = $(this).find('div.nav_dropdown');
 	dropdown.show();
-	console.log('nav dropdown shown');
 
 	closeAllNavLists_prep();
 }
 
-// element (jQuery object)
-// reSpecialChars depends on variable defined in parent scope
-// of this function definition
+/**
+ * Checks that an input element does not contains special
+ * characters when the form is submitted
+ * 
+ * @param  {jQueryObject}  element 
+ * Input whose value is checked for special characters
+ * 
+ * @return {Boolean}        
+ * True if value is ok; false if special chars are present
+ */
 function noSpecialChars(element) {
 
-	// The input field contains special chars
+		// The input field contains special chars
 	if (element.val().search(reSpecialChars) >= 0) {
 
-		// Display user error message
+			// Display user error message
 		msg(['This field may not contain special characters'], 'error');
 
-		// Highlight input's background
+			// Highlight input's background
 		$(element).css({ backgroundColor: '#FFF0DE' });
 
 		return false;
-	}
 
-	// The input field does not contain special chars
-	else {
+		// The input field does not contain special chars
+	} else {
 
-		// Remove user error message
+			// Remove user error message
 		$('div#message_wrapper').hide();
 
-		// Reset input's background color
+			// Reset input's background color
 		$(element).css({ backgroundColor: '#FFF' });
 
 		return true;
@@ -97,29 +99,32 @@ function closeModule_button(module) {
 	$(close_button)
 		.attr('src', '_assets/_images/64_close.png')
 		.addClass('floatRight pointer closeButton')
-		.css({ maxHeight: '16px', 
-			opacity: '0.3', 
+		.css({
+			maxHeight: '16px',
+			opacity: '0.3',
 			verticalAlign: 'middle',
-			paddingTop: '3px' });
+			paddingTop: '3px'
+		});
 	$(module).find('h1').append(close_button);
-	$(close_button).click(function()
-	{
+	$(close_button).click(function () {
 		$(module).remove();
 	});
 }
 
 function promptToConfirm() {
-	// Remove remnants from previous instances
+
+		// Remove remnants from previous instances
 	$('button#conf_button').remove();
 	$('div#confirm_wrapper_temp')
 		.replaceWith($('div#confirm_wrapper_temp').contents());
 
 	var $submit = $(this);
-		$submit.css({
-			marginRight: '0',
-			borderRight: 'none',
-			color: '#CCC'
-		});
+
+	$submit.css({
+		marginRight: '0',
+		borderRight: 'none',
+		color: '#CCC'
+	});
 
 	var $submitSize = $(this).css('fontSize');
 	var $confirm = $('<button>');
@@ -134,8 +139,8 @@ function promptToConfirm() {
 			fontSize: $submitSize
 		});
 
-	function restoreSubmit()
-	{
+	function restoreSubmit() {
+
 		$($confirm).remove();
 
 		$('div#confirm_wrapper_temp')
@@ -164,6 +169,7 @@ function promptToConfirm() {
 }
 
 function load_module(module, response) {
+
 	$(module).find('div.loading_gif').remove();
 
 	$(module)
@@ -171,8 +177,7 @@ function load_module(module, response) {
 		.wrapInner('<div class="temp_wrapper"/>');
 
 	$(module).find('.temp_wrapper')
-		.fadeIn(800, function()
-		{
+		.fadeIn(800, function () {
 			$(this).replaceWith($(module).find('.temp_wrapper').contents());
 		});
 }
@@ -184,7 +189,7 @@ function open_order(orderNum) {
 		.not('div#image_module')
 		.remove();
 
-	// Hide control panel
+		// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var newModule = $('<div>', {id: 'order_module', class: 'module double'});
@@ -199,24 +204,20 @@ function open_order(orderNum) {
 		type: 'GET',
 		data: { order: orderNum },
 		url: '_php/_order/load_order.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(newModule, response);
-
-			// console.log('Order '+ orderNum +' loaded'); // Debug
 		},
-		error: function()
-		{
-			console.log('ajax request failed: _php/_order/load_order.php')
+		error: function () {
+			console.log('ajax request failed: _php/_order/load_order.php');
 		},
-		complete: function()
-		{
+		complete: function () {
 			recently_visited();
 		}
 	});
 }
 
 function order_refreshImage(imageNum) {
+
 	var $row = $('div.imageList_imageNum:contains('+imageNum+')')
 				.parent('div.orderView_imageRow');
 	var $loading = $('<div class="loading_gif">');
@@ -225,117 +226,114 @@ function order_refreshImage(imageNum) {
 
 	$.ajax({
 		type: 'GET',
-		data: 'image='+imageNum,
+		data: 'image=' + imageNum,
 		url: '_php/_order/refresh_row.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$('div.loading_gif').remove();
 			$($row).append(response).fadeIn(400);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: refresh_row.php');
 		}
 	});
 }
 
 function order_navigation() {
-	// Determine number of blocks needed
+
+		// Determine number of blocks needed
 	var imageCount = $('#orderView_imageList > .orderView_imageRow').length;
 	var blockCount = Math.floor(imageCount / 10);
-	if ((imageCount % 10) != 0) { blockCount++; }
+	if ((imageCount % 10) !== 0) {
+		blockCount++;
+	}
 
-
-	// Determine height for blocks
+		// Determine height for blocks
 	var navbarHeight = $('div.order_nav_bar').height();
 	var blockHeight = navbarHeight / blockCount;
 
 
-	// Add navigation blocks to navigation bar
-	for (var i=1; i<=blockCount; i++)
-	{
+		// Add navigation blocks to navigation bar
+	for (var i = 1; i <= blockCount; i++) {
 		var block = $('<div class="order_nav_block">');
 		$(block).appendTo('div.order_nav_bar')
-			.css({ height: blockHeight+'px', lineHeight: blockHeight+'px' });
+			.css({ height: blockHeight + 'px', lineHeight: blockHeight + 'px' });
 	}
 
 	$('div.order_nav_block').first().attr('id','order_nav_current');
-
 	
-	// Define events for page-block hovering
-	$('div#order_nav_current').hover(function()
-	{
+		// Define events for page-block hovering
+	$('div#order_nav_current').hover(function () {
 		$(this).text($(this).parent().children().index(this) + 1);
-	}, function()
-	{
+
+	}, function () {
 		$(this).text('');
+
 	});
 
-	$('div.order_nav_block:not(#order_nav_current)').hover(function()
-	{
+	$('div.order_nav_block:not(#order_nav_current)').hover(function () {
 		$(this).text($(this).parent().children().index(this) + 1);
-	}, function()
-	{
+
+	}, function () {
 		$(this).text('');
+
 	});
 
 
-	// Add anchors to image list to enable page jumping
+		// Add anchors to image list to enable page jumping
 	$('.orderView_imageRow').first().before('<a id="imageList_page1">');
 
-	for (var i=1; i<=blockCount; i++)
-	{
-		var row = (i*10);
-		// console.log(row); // Debugging
-		$('.orderView_imageRow:eq('+row+')')
-			.before('<a id="imageList_page'+(i+1)+'">');
+	for (var i = 1; i <= blockCount; i++) {
+
+		var row = (i * 10);
+		$('.orderView_imageRow:eq(' + row + ')')
+			.before('<a id="imageList_page' + (i + 1) + '">');
+
 	}
 
 
 	// Define event when user clicks on navigation block
-	$('div.order_nav_block').click(function()
-	{
+	$('div.order_nav_block').click(function () {
+
 		var page = $(this).parent().children().index(this) + 1;
-		console.log('page: '+page); // Debugging
 
 		$('div#orderView_imageList')
-			.animate({ top: -((page*530)-530) }, 500);
+			.animate({ top: - ((page * 530) - 530) }, 500);
 
 		$('div#order_nav_current').attr('id', '');
 		$(this).attr('id','order_nav_current');
+
 	});
-}	
+}
 
 function order_updateProgress(event, orderNum) {
+
+		// Remove any previous ajax response's existing javascript
 	$('script#updateOrderStatus_temp').remove();
-	// Remove any previous ajax response's existing javascript
 
 	var eleId = event.target.id;
-	console.log(eleId+' clicked for order '+orderNum); // Debugging
+	// console.log(eleId+' clicked for order '+orderNum); // Debug
 
-	if ($('div[id='+eleId+']').hasClass('complete'))
-	{
-		var status = '0';
-		var statusClass = '';
-	}
-	else
-	{
-		var status = '1';
-		var statusClass = 'complete';
+	var status, statusClass;
+
+	if ($('div[id=' + eleId + ']').hasClass('complete')) {
+		status = '0';
+		statusClass = '';
+
+	} else {
+		status = '1';
+		statusClass = 'complete';
+
 	}
 
 	$.ajax({
 		type: 'POST',
 		data: 'process='+eleId+'&status='+status+'&orderNum='+orderNum,
 		url: '_php/_order/update_progress.php',
-		success: function(response)
-		{
+		success: function (response) {
 			console.log('order '+orderNum+' - attempting to set '+eleId+' status to '+status+', if user has sufficient privilege');
-
 			$('div[id='+eleId+']').replaceWith(response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: _order/update_progress.php');
 		}
 	});
@@ -344,21 +342,18 @@ function order_updateProgress(event, orderNum) {
 function order_updateCataloger(order, uid, username) {
 	$.ajax({
 		type: 'POST',
-		data: 'order='+order+'&uid='+uid+'&username='+username,
+		data: 'order=' + order + '&uid=' + uid + '&username=' + username,
 		url: '_php/_order/update_assigned.php',
-		success: function(response)
-		{
+		success: function (response) {
+				
+				// Remove any scripts generated by previous cataloger updates from the page
 			$('script#updateCataloger_script').remove();
-			// Remove any scripts generated by previous cataloger updates from the page
+			
+				// Add script to page generate user message
 			$('body').prepend(response);
-			// Add script to page generate user message
+			
 		},
-		error: function()
-		{
-
-		},
-		complete: function()
-		{
+		complete: function () {
 			findOrders_loadResults(1, 'date_needed', 'ASC');
 		}
 	});
@@ -374,12 +369,13 @@ function updateOrderDueDate(newDueDate, orderNum) {
 			$('span#orderDueClickable').text('').append(response);
 		},
 		error: function() {
-			msg(["Failed to change the due date of this order"], 'error');
+			msg(['Failed to change the due date of this order'], 'error');
 		}
 	});
 }
 
 function recently_visited() {
+
 	$('div#recently_visited_module').remove();
 
 	var revi_module = $('<div id="recently_visited_module" class="module">');
@@ -391,8 +387,7 @@ function recently_visited() {
 	$.ajax({
 		type: 'GET',
 		url: '_php/_homepage/activity_log.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$(revi_module).find('div.loading_gif').remove();
 
 			$(revi_module)
@@ -404,20 +399,17 @@ function recently_visited() {
 				{
 					$(this).replaceWith($('#recently_visited_module .temp_wrapper').contents());
 				});
-
-			// console.log('recently_visited refreshed'); // Debug
 		},
-		error: function()
-		{
-			console.log('ajax request failed: recently_visited')
+		error: function () {
+			console.log('ajax request failed: recently_visited');
 		}
 	});
 }
 
 function usersBrowse_load() {
+
 	$('div[id$=_module]').remove();
 
-	// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var ub_mod = $('<div id="usersBrowse_module" class="module">');
@@ -432,23 +424,21 @@ function usersBrowse_load() {
 	$.ajax({
 		type: 'GET',
 		url: '_php/users_browse.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(ub_mod, response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: _php/users_browse.php');
 		}
 	});
 }
 
 function userProfile_load(userId) {
+
 	$('div[id$=_module]')
 		.not('div#usersBrowse_module')
 		.remove();
 
-	// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var up_mod = $('<div id="userProfile_module" class="module">');
@@ -464,61 +454,54 @@ function userProfile_load(userId) {
 		type: 'POST',
 		data: 'userId='+userId,
 		url: '_php/_user/userProfile_load.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(up_mod, response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: userProfile_load.php');
 		}
 	});
 }
 
 function userProfile_changePassword(userId) {
+
 	var password_data = {};
 	var errors = [];
 
-	password_data['userId'] = userId;
+	password_data.userId = userId;
 
 	$('input#userProf_oldPass, input#userProf_newPass').each(
-		function()
-		{
+		function () {
+
 			var value = $.trim($(this).val());
 
-			if (value == '')
-			// IF val is blank
-			{
+			if (value === '') {
 				input_error($(this));
 				errors.push($(this).attr('name'));
-			}
-			else
-			{
+
+			} else {
 				password_data[$(this).attr('name')] = value;
+
 			}
 		});
 
-	console.log('form errors: '+errors);
+	console.log('form errors: ' + errors);
 
-	if (errors.length === 0)
-	{
+	if (errors.length === 0) {
 		$.ajax({
 			type: 'POST',
 			data: { data: password_data },
 			url: '_php/_user/userProfile_changePassword.php',
-			success: function(response)
-			{
+			success: function (response) {
 				$('body').append(response);
 				console.log('ajax request complete: password change');
 			},
-			error: function()
-			{
+			error: function () {
 				console.log('AJAX ERROR: userProfile_changePassword.php');
 			}
 		});
-	}
-	else
-	{
+
+	} else {
 		msg(['A required field was left blank'], 'error');
 	}
 }
@@ -528,7 +511,9 @@ function userProfile_updateNames(userId) {
 	var name_data = {};
 	var errors = [];
 
-	name_data['userId'] = userId;
+	// TODO: Continue formatting cleanup, from here.
+
+	name_data.userId = userId;
 
 	$('input#userProf_firstName, input#userProf_lastName, input#userProf_username, input#userProf_email, select#userProf_department, select#userProf_userType').each(
 		function()
