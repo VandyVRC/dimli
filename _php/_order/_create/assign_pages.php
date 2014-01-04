@@ -7,15 +7,32 @@ require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_orders_create');
 
-// print_r($_POST); // Debugging
+	// Does the user want to use legacy identifiers/filenames?
+$useLegacyIds = $_POST['legacyIds'] === 'true';
+
+	// Instructional text
+$instructionHeading1 = $useLegacyIds
+	? 'Enter unique identifiers and, optionally, a filename for each image included with this order'
+	: 'Enter page and figure numbers, or brief instructions, for each image included with this order';
+$instructionHeading2 = $useLegacyIds
+	? ''
+	: 'Do <span style="font-weight: 600;">NOT</span> include abbreviations such as "pg", "p.", or "fig."';
+
+	// Define placeholder text for inputs based on whether the user
+	// elected to use legacy identifiers for this order
+$placeholderVal1 = $useLegacyIds
+	? 'identifier'
+	: 'page';
+$placeholderVal2 = $useLegacyIds
+	? 'filename/other'
+	: 'fig/instructions';
 ?>
 
 <div>
 
-	<p class="instructions center_text">Where applicable, enter page and figure numbers, or brief instructions, for each image.</p>
+	<p class="instructions center_text"><?php echo $instructionHeading1; ?></p>
 
-	<p class="instructions center_text" 
-		style="font-size: 0.8em;">Do <span style="font-weight: 400;">NOT</span> include abbreviations such as "pg", "p.", or "fig."</p>
+	<p class="instructions center_text" style="font-size: 0.8em;"><?php echo $instructionHeading2; ?></p>
 
 	<form id="createOrderFigs_form">
 
@@ -23,16 +40,15 @@ require_priv('priv_orders_create');
 			style="line-height: 16px;">
 
 			<div class="pageFig_row_number"
-				style="display: inline-block; width: 30px; font-size: 1.1em; font-weight: 400; color: #CCC; text-align: right; vertical-align: middle; margin-right: 5px;"
-				>1</div>
+				style="display: inline-block; width: 30px; font-size: 1.1em; font-weight: 400; color: #CCC; text-align: right; vertical-align: middle; margin-right: 5px;">1</div>
 
 			<input type="text"
-				placeholder="page"
+				placeholder="<?php echo $placeholderVal1; ?>"
 				style="width: 80px; margin-left: 0; margin-bottom: 5px;"
 				value="">
 
 			<input type="text"
-				placeholder="fig/instructions"
+				placeholder="<?php echo $placeholderVal2; ?>"
 				style="width: 235px; margin-left: 5px; margin-bottom: 5px;"
 				value="">
 

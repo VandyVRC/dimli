@@ -2153,6 +2153,7 @@ function createOrder_continue() {
 }
 
 function createOrder_load_pages(data) {
+	
 	$('div#createOrderFigs_module').remove();
 
 	var cof_mod = $('<div id="createOrderFigs_module" class="module">');
