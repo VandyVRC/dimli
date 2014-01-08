@@ -136,8 +136,7 @@ function create_six_digits($int) {
 // Require specific privilege to access page
 function require_priv($req_priv)
 {
-	$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-	if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
+	if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 
 	if (logged_in() && $_SESSION[$req_priv] != '1')
 	{

@@ -1,8 +1,5 @@
 <?php
-
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__').$urlpatch);}
-
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php'); 
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');

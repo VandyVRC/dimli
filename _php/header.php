@@ -4,13 +4,7 @@
 <head>
 
 <?php
-//
-// Define directory root for use below, based on whether the app 
-// is being run in the XAMPP development environment
-//
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__').$urlpatch);}
-
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 
 header('Content-type: text/html; charset=utf-8'); ?>
 

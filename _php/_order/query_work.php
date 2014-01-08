@@ -1,8 +1,6 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__').$urlpatch);}
-
-require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 
 if ($_SESSION['workNum'] != 'None') {
