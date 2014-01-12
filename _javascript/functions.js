@@ -2094,6 +2094,7 @@ function createOrder_continue() {
 }
 
 function createOrder_load_pages(data) {
+	
 	$('div#createOrderFigs_module').remove();
 
 	var cof_mod = $('<div id="createOrderFigs_module" class="module">');
@@ -2137,6 +2138,9 @@ function createOrder_submit() {
 		var value = $(this).find('option:selected').val();
 		newOrder_data[$(this).attr('name')] = value;
 	});
+
+	var legacyIds = $('#legacyIds:checked').length > 0;
+	newOrder_data['legacyIds'] = legacyIds;
 
 	var i = 1;
 	$('form#createOrderFigs_form div.pageFig_row').each(function()

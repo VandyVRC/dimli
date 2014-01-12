@@ -104,6 +104,7 @@ if (isset($_GET['imageRecord']))
 	$_SESSION['image']['sourceType0'] = $Isource[0]['sourceType'] =
 	$_SESSION['image']['source0'] = $Isource[0]['source'] =
 	$_SESSION['image']['updated'] = '';
+	$_SESSION['image']['legacyId'] = '';
 	
 	
 	// -----------
@@ -117,7 +118,10 @@ if (isset($_GET['imageRecord']))
 	$result = db_query($mysqli, $sql);
 	
 	while ($row = $result->fetch_assoc()) {
+
 		$_SESSION['image']['updated'] = 'Last updated: ' . date('D, M j, Y, h:i a', strtotime($row['last_update'])) . ' by '. $row['last_update_by'];
+
+		$_SESSION['image']['legacyId'] = $row['legacy_id'];
 	}
 	
 	// -----------
@@ -449,10 +453,13 @@ include('../_php/_order/query_image.php'); ?>
 
 <script>
 
-	// Add Image number to module header
-
+		// Add Image number to module header
 	var imageNum = $.trim(<?php echo json_encode($_SESSION['imageNum']); ?>);
-	$('div#image_module h1').append('<div class="floatRight">' + imageNum + '</div>');
+	var legacyId = <?php echo json_encode($_SESSION['image']['legacyId']); ?>;
+	var strDisplay = !!legacyId
+		? '(' + legacyId + ') ' + imageNum
+		: imageNum;
+	$('div#image_module h1').append('<div class="floatRight">' + strDisplay + '</div>');
 
 </script>
 
