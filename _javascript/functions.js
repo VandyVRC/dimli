@@ -2198,6 +2198,9 @@ function createOrder_submit() {
 		newOrder_data[$(this).attr('name')] = value;
 	});
 
+	var legacyIds = $('#legacyIds:checked').length > 0;
+	newOrder_data['legacyIds'] = legacyIds;
+
 	var i = 1;
 	$('form#createOrderFigs_form div.pageFig_row').each(function()
 	{
