@@ -16,7 +16,7 @@ $instructionHeading1 = $useLegacyIds
 	: 'Enter page and figure numbers, or brief instructions, for each image included with this order';
 $instructionHeading2 = $useLegacyIds
 	? ''
-	: 'Do <span style="font-weight: 600;">NOT</span> include abbreviations such as "pg", "p.", or "fig."';
+	: 'Do <em>NOT</em> include abbreviations such as "pg", "p.", or "fig."';
 
 	// Define placeholder text for inputs based on whether the user
 	// elected to use legacy identifiers for this order
@@ -134,7 +134,7 @@ $placeholderVal2 = $useLegacyIds
 
 		});
 
-	
+
 	//  User clicks "Submit" and "Confirm"
 
 	$('button#createOrder_submit_button')
@@ -183,7 +183,7 @@ $placeholderVal2 = $useLegacyIds
 
 				$(this).find('div.pageFig_row_number')
 					.text($(this).parent().children().index(this)+1);
-					
+
 			});
 	}
 
