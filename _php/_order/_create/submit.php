@@ -54,7 +54,7 @@ while ($i <= $imageCount) {
 	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
 
 		// User elected to supply legacy ids and filenames
-	if ($legacyIds) {
+	if ($legacyIds === true) {
 
 		$sql = "INSERT INTO dimli.image
 					SET legacy_id = '{$page}',
@@ -88,9 +88,9 @@ while ($i <= $imageCount) {
 	$result = db_query($mysqli, $sql);
 
 	$i++;
+
 	$thisImage = create_six_digits($thisImage++);
 }
-
 
 //---------------------
 //  CREATE NEW ORDER
