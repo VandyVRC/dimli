@@ -80,24 +80,23 @@ $placeholderVal2 = $useLegacyIds
 <script>
 
 	closeModule_button($('div#createOrderFigs_module'));
-	$('div#createOrderFigs_module img[class*=closeButton]').click(function()
-	{
-		$('div#createOrder_module').remove();
-	});
+
+	$('div#createOrderFigs_module img[class*=closeButton]').click(
+		function () {
+			$('div#createOrder_module').remove();
+		});
 
 
 	//  User clicks add
 
 	$('img.pageFig_addRow').click(
-		function()
-		{
+		function () {
 			var row = $(this).parents('div.pageFig_row').clone(true);
 			$(row).find('input').val('');
 			$(row).hide().insertAfter($(this).parent()).slideDown(200);
 
 			$('div.pageFig_row').each(
-				function()
-				{
+				function () {
 					$(this).find('div.pageFig_row_number')
 						.text($(this).parent().children().index(this)+1);
 				});
@@ -110,28 +109,29 @@ $placeholderVal2 = $useLegacyIds
 	// User clicks trash
 
 	$('img.pageFig_removeRow').click(
-		function()
-		{
-			// If this is NOT the last remaining row
+		function () {
+
+				// If this is NOT the last remaining row
 			if ($('div.pageFig_row').length > 1) {
 
 				var row = $(this).parents('div.pageFig_row');
 
-				$(row).slideUp(200, function()
-					{
-						$(this).remove();
-						
-						$('div.pageFig_row').each(
-							function()
-							{
-								$(this).find('div.pageFig_row_number')
-									.text($(this).parent().children().index(this)+1);
-							});
-					});
+				$(row).slideUp(200, function () {
+
+					$(this).remove();
+					
+					$('div.pageFig_row').each(
+						function () {
+							$(this).find('div.pageFig_row_number')
+								.text($(this).parent().children().index(this)+1);
+						});
+				});
 
 				$('div#createOrder_module input[name=imageCount]')
 					.val(Number($('div#createOrder_module input[name=imageCount]').val())-1);
+
 			}
+
 		});
 
 	
@@ -140,33 +140,31 @@ $placeholderVal2 = $useLegacyIds
 	$('button#createOrder_submit_button')
 		.click(promptToConfirm)
 		.click(
-			function()
-			{
-				$('button#conf_button')
-					.click(createOrder_submit);
+			function () {
+				$('button#conf_button').click(createOrder_submit);
 			});
 
 	
 	//  User clicks "Back" to return to first step
 
 	$('button#createOrder_back_button').click(
-		function()
-		{
+		function () {
+
+				// Remove the Page/Fig module
 			$('div#createOrderFigs_module').remove();
-			// Remove the Page/Fig module
 
+				// Show the "Continue" button in the New Order module
 			$('button#createOrder_continue_button').show();
-			// Show the "Continue" button in the New Order module
 
+				// Enable the inputs in the New Order module
 			$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
 				.attr('disabled', false);
-			// Enable the inputs in the New Order module
 
-			// Bind event for "Continue" button in New Order module
+				// Bind event for "Continue" button in New Order module
 			$('button#createOrder_continue_button')
 				.click(createOrder_continue);
 
-			// Scroll to top of document
+				// Scroll to top of document
 			$(document).scrollTop($('body').offset().top);
 		});
 
@@ -174,16 +172,18 @@ $placeholderVal2 = $useLegacyIds
 	var imageCount = $('div#createOrder_module input[name=imageCount]').val();
 	var row = $('div.pageFig_row:eq(0)');
 
-	for (var i=1; i<imageCount; i++)
-	{
+	for (var i = 1; i < imageCount; i++) {
+
 		console.log('cloned');
+
 		$(row).clone(true).insertAfter('div.pageFig_row:last');
 		
 		$('div.pageFig_row').each(
-			function()
-			{
+			function () {
+
 				$(this).find('div.pageFig_row_number')
 					.text($(this).parent().children().index(this)+1);
+					
 			});
 	}
 
