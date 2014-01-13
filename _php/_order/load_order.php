@@ -241,20 +241,37 @@ $result = db_query($mysqli, $sql);
 	<div id="orderView_imageList">
 	
 		<?php $i = 0; ?>
-		<?php while ($row = $result_orderHQ_images->fetch_assoc()): ?>
+		<?php while ($row = $result_orderHQ_images->fetch_assoc()):
+
+			$imageId = create_six_digits($row['id']);
+
+				// Define the page/fig, or legacyId/legacyFilename values,
+				// depending on the db entry for each image record.
+				// `${page/fig}Title` is used to supply the `title`
+				// attribute value for the markup below.
+			$page = (!!$row['legacy_id'])
+				? $row['legacy_id']
+				: $row['page'];
+
+			$pageTitle = (!!$row['legacy_id'])
+				? 'Legacy ID'
+				: 'Page';
+
+			$fig = (!!$row['legacy_filename'])
+				? $row['legacy_filename']
+				: $row['fig'];
+
+			$figTitle = (!!$row['legacy_filename'])
+				? 'Legacy Filename'
+				: 'Fig';
+		?>
 	
-		<div class="orderView_imageRow defaultCursor" 
+		<div class="orderView_imageRow defaultCursor"
 			style="position: relative;">
 		
 			<!-- Image ID -->
 			<div class="imageList_imageNum purple" 
-				style="display: inline-block; width: 70px;">
-
-				<?php
-				$imageId = create_six_digits($row['id']);
-				echo $imageId; ?>
-
-			</div>
+				style="display: inline-block; width: 70px;"><?php echo $imageId; ?></div>
 			
 			<!-- Thumbnail -->
 			<div class="orderView_imageList_thumb">
@@ -307,25 +324,19 @@ $result = db_query($mysqli, $sql);
 									
 			<!-- Page number -->
 			<div class="hoverCursor"
-				title="Page"
+				title="<?php echo $pageTitle; ?>"
 				style="display: inline-block; width: 70px; line-height: 1.3em; padding-right: 10px;">
 			
-				<?php
-				echo (!empty($row['page']))
-					? $row['page']
-					: '--'; ?>
+				<?php echo (!!$page) ? $page : '--'; ?>
 
 			</div>
 			
 			<!-- Figure number -->
 			<div class="hoverCursor"
-				title="Figure"
+				title="<?php echo $figTitle; ?>"
 				style="display: inline-block; line-height: 15px;">
 			
-				<?php
-				echo (!empty($row['fig']))
-					? $row['fig']
-					: '--'; ?>
+				<?php echo (!!$fig) ? $fig : '--'; ?>
 
 			</div>
 
