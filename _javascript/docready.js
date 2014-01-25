@@ -79,27 +79,26 @@ $(document).ready(function () {
 
 
     // Submit Lantern search
-  function lanternSearch_submit()
-  {
+  function lanternSearch_submit() {
     var text = $('input#lantern_search').val();
     var gToggle = $('input#lantern_gettyToggle').prop('checked');
-    console.log('lantern-search submitted');
-    console.log('lantern-search string -- "'+text+'"');
-    console.log('lantern-search authority toggle -- '+gToggle);
+    // console.log('lantern-search submitted');
+    // console.log('lantern-search string: "' + text + '"');
+    // console.log('lantern-search authority toggle: ' + gToggle);
     lantern_search(text, gToggle, 1);
   }
 
   $('button#lantern_submit').click(lanternSearch_submit);
-  $('input#lantern_search').keypress(
-    function (event) {
-      var enterWhich = event.which && event.which == 13;
-      var enterKeycode = event.keyCode && event.keyCode == 13;
+  
+  $('input#lantern_search').keypress(function (event) {
+    var enterWhich = event.which && event.which == 13;
+    var enterKeycode = event.keyCode && event.keyCode == 13;
 
-      if (enterWhich || enterKeycode) {
-        lanternSearch_submit();
-      }
+    if (enterWhich || enterKeycode) {
+      lanternSearch_submit();
+    }
 
-    });
+  });
       
 
 
