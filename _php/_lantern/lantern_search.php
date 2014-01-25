@@ -478,7 +478,8 @@ if (isset($_POST['page']) && $_POST['page']==1) { ?>
 ?>
 
   <?php 
-  include_once('lantern_results_'.$_SESSION['pref_lantern_view'].'.php');
+  // Display 'list' or 'grid' results view, depending on the user's preference
+  include_once('lantern_results_' . $_SESSION['pref_lantern_view'] . '.php');
 
 // If this is a fresh search, close the wrapper
 if (isset($_POST['page']) && $_POST['page'] == 1) { ?>
