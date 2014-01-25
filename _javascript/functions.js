@@ -2261,20 +2261,19 @@ function exportRecords(exportType) {
 		var first = data['firstExportRecord'];
 		var last = data['lastExportRecord'];
 
-		// REVISIT
+		// TODO
 		window.location.href = 'http://dimli.library.vanderbilt.edu/_php/_export/export_records.php?type='+exportType+'&firstExportRecord='+first+'&lastExportRecord='+last;
 
-	}
-	else
-	{
-		console.log('form errors: '+errors); // Debugging
+	} else {
+		console.log('form errors: ' + errors); // Debugging
+
 	}
 }
 
 function lantern_search(text, gToggle, page) {
-	if (text.length >= 3)
-	// Valid search string length
-	{
+
+	if (text.length >= 3) { // Validate string length
+
 		$('div[id$=_module]').remove();
 
 		$('li#nav_lantern div.nav_dropdown').hide();
@@ -2284,41 +2283,37 @@ function lantern_search(text, gToggle, page) {
 			.prepend('<div id="filter_toggle"><span>Show Filters</span></div>');
 
 		$('div#module_tier2a').prepend($module);
+
 		$(document).scrollTop($('body').offset().top);
 
-		if (gToggle == true) { var toggle = 1; } else { var toggle = 0 }
+		var toggle = gToggle == true ? 1 : 0;
 
 		$.ajax({
 			type: 'POST',
-			data: 'text='+text+'&toggle='+toggle+'&page='+page,
+			data: 'text=' + text + '&toggle=' + toggle + '&page=' + page,
 			url: '_php/_lantern/lantern_search.php',
-			success: function(response)
-			{
+			success: function (response) {
 				$('script#lantern_list_script').remove();
 				$('script#lantern_grid_script').remove();
 				// load_module($module, response);
 				$module.find('div.loading_gif').remove();
 				$module.append(response);
 			},
-			error: function()
-			{
+			error: function () {
 				console.log('AJAX error: lantern_search');
 			},
-			complete: function()
-			{
+			complete: function () {
 				// $('div#control_panel_wide').slideDown(600);
 			}
 		});
-	}
-	else // Search string too short
-	{
+
+	} else { // Search string too short
 		msg(['Lantern searches must be at least three characters in length'], 'error');
+
 	}
 }
 
 function lantern_wrap_imgRows() {
-	// $('div.grid_dropdown').remove();
-	// $('div[id^=gridRow] img.gridThumb').removeClass('selected');
 
 	$('div[id*=gridRow]').each(
 		function()
@@ -2328,15 +2323,15 @@ function lantern_wrap_imgRows() {
 
 	var outer_wrapper = $('div#lantern_results_list');
 	var imgs = $('div#lantern_results_list div.gridThumb_wrapper');
-	// var imgs = $('div#lantern_results_list img');
 
 	var imgSize = imgs.first().outerWidth(true);
 	var w = outer_wrapper.width(),
 		breakat = Math.floor(w/imgSize); // Number of imgs per row
 
-	for (var i=0; i<=imgs.length; i=i+breakat)
-	{
-		$(imgs).slice(i,(i+breakat)).wrapAll('<div id="gridRow'+((i/breakat)+1)+'" class="gridRow">');
+	for (var i = 0; i <= imgs.length; i = i + breakat) {
+		$(imgs)
+			.slice(i, (i + breakat))
+			.wrapAll('<div id="gridRow' + ((i/breakat) + 1) + '" class="gridRow">');
 	}
 }
 
