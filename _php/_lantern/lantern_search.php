@@ -493,12 +493,7 @@ if ($page == 1)
 {
 ?>
 
-<script id="lantern_search_script">
-
-  // var res_ct = <?php echo count($results_arr); ?>;
-  // msg([res_ct+' results found'], 'success'); // Might be unnecessary
-
-</script>
+<script id="lantern_search_script"></script>
 
 <?php
 }
