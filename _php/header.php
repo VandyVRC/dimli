@@ -283,19 +283,16 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 <div id="header_spacer"></div>
 
-<div id="control_panel_wide">
+<!-- <div id="control_panel_wide"> -->
+  <!-- <div id="control_panel"> -->
+    <?php // if (logged_in()) {
 
-  <div id="control_panel">
+      // TEMP Reactivate if we want to use the lantern-search filters
+      // include('_php/_lantern/lantern_control_panel.php');
 
-    <?php if (logged_in()) {
-
-      include('_php/_lantern/lantern_control_panel.php');
-
-    } ?>
-
-  </div>
-
-</div>
+    // } ?>
+  <!-- </div> -->
+<!-- </div> -->
 
 <div id="body_wide">
 
