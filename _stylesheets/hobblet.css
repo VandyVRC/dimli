@@ -952,11 +952,16 @@ div#filter_toggle {
   text-align: center;
 }
 
-div#filter_toggle:hover {
+div#filter_toggle span[id^="go-"]:hover {
   cursor: pointer;
 }
 
+div#filter_toggle span[id^="go-"].current {
+  font-weight: 600;
+}
+
 div#filter_toggle span {
+  margin: 0 5px;
   vertical-align: middle;
   opacity: 0.8;
 }
