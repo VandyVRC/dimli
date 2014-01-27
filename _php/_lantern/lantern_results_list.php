@@ -2,367 +2,356 @@
 $results = new ArrayIterator($results_arr);
 $rpp = 30; // "Results per page"
 
-if (($page*$rpp)-$rpp <= count($results))
-{
-
-	$i = 0;
-	foreach (new LimitIterator($results, (($page*$rpp)-$rpp), $rpp) as $resid=>$arr)
-	{
-		if ($i == $rpp) break;
+if (($page*$rpp)-$rpp <= count($results)) {
 
-		// Trim 'work' or 'image' from beginning of id string
-		$id = substr($resid, -6);
+  $i = 0;
+  foreach (new LimitIterator($results, (($page * $rpp) - $rpp), $rpp) as $resid=>$arr) {
+    if ($i == $rpp) break;
 
-		// Define array of search types that yielded results for this record
-		// by combining search arrays for all terms together
-		$searches_arr = array();
-		foreach ($arr['search'] as $term_arr) {
-			$searches_arr = array_merge($searches_arr, $term_arr);
-		}
-		$searches_arr = array_unique($searches_arr); //print_r($searches_arr);
+    // Trim 'work' or 'image' from beginning of id string
+    $id = substr($resid, -6);
 
-		// Determine the preferred thumbnail image for this record
-		// And assign a parent Work, if available
-		if ($arr['type']=='work')
-		{
-			$short_id = ltrim($id, '0');
+    // Define array of search types that yielded results for this record
+    // by combining search arrays for all terms together
+    $searches_arr = array();
+    foreach ($arr['search'] as $term_arr) {
+      $searches_arr = array_merge($searches_arr, $term_arr);
+    }
+    $searches_arr = array_unique($searches_arr);
 
-			$sql = "SELECT preferred_image 
-						FROM dimli.work 
-						WHERE id = {$short_id} ";
+    // Determine the preferred thumbnail image for this record
+    // And assign a parent Work, if available
+    if ($arr['type']=='work') {
 
-			$r = db_query($mysqli, $sql);
+      $short_id = ltrim($id, '0');
 
-			if ($r->num_rows >= 1) 
-			{
-				while ($work = $r->fetch_assoc())
-				{ 
-					$img_id = create_six_digits($work['preferred_image']);
-				}
-			}
-			$parent = 'none';
-		}
-		elseif ($arr['type']=='image')
-		{
-			$img_id = create_six_digits($id);
+      $sql = "SELECT preferred_image 
+            FROM dimli.work 
+            WHERE id = {$short_id} ";
 
-			// Find this Image's parent Work and Order Number
-			$sql = "SELECT related_works, 
-								order_id, 
-								catalogued 
-						FROM dimli.image 
-						WHERE id = {$id} ";
+      $r = db_query($mysqli, $sql);
 
-			$parent = db_query($mysqli, $sql);
+      if ($r->num_rows >= 1) {
+        while ($work = $r->fetch_assoc()) { 
+          $img_id = create_six_digits($work['preferred_image']);
+        }
+      }
+      $parent = 'none';
 
-			$parent = $parent->fetch_array();
+    } elseif ($arr['type']=='image') {
 
-			$parent = (trim($parent['related_works'] != '')) 
-				? $parent['related_works'] 
-				: 'none';
+      $img_id = create_six_digits($id);
 
-		}
-			
-		// If the image id of the preferred thumbnail is NOT blank, display a result row
-		if (!in_array($img_id, array('', '0')))
-		{
-			$src = "http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
-		?>
+      // Find this Image's parent Work and Order Number
+      $sql = "SELECT related_works, 
+                order_id, 
+                catalogued 
+            FROM dimli.image 
+            WHERE id = {$id} ";
 
-			<div class="lanternResults_list_row defaultCursor">
+      $parent = db_query($mysqli, $sql);
 
-				<div class="thumb_panel">
+      $parent = $parent->fetch_array();
 
-					<img src="<?php echo $src; ?>"
-						class="list_thumb"
-						title="Click to preview"
-						data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
-						data-image="<?php echo create_six_digits($img_id); ?>">
+      $parent = (trim($parent['related_works'] != '')) 
+        ? $parent['related_works'] 
+        : 'none';
 
-					<?php if ($_SESSION['priv_orders_read']=='1') { ?>
+    }
+      
+    // If the image id of the preferred thumbnail is NOT blank, display a result row
+    if (!in_array($img_id, array('', '0'))) {
+      $src = "http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/" . $img_id . ".jpg&amp;h=80&amp;w=80&amp;q=90";
+    ?>
 
-					<span class="view_catalog pointer"
-						title="Jump to catalog record">view catalog</span>
+      <div class="lanternResults_list_row defaultCursor">
 
-					<span class="download_image pointer"
-						title="Download JPG file">download</span>
+        <div class="thumb_panel">
 
-					<?php } ?>
+          <img src="<?php echo $src; ?>"
+            class="list_thumb"
+            title="Click to preview"
+            data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
+            data-image="<?php echo create_six_digits($img_id); ?>">
 
-				</div>
+          <?php if ($_SESSION['priv_orders_read']=='1') { ?>
 
-				<!-- Catalog data for this result -->
+          <span class="view_catalog pointer"
+            title="Jump to catalog record">view catalog</span>
 
-				<div class="text_panel">
+          <span class="download_image pointer"
+            title="Download JPG file">download</span>
 
-					<!-- Title -->
+          <?php } ?>
 
-					<div class="highlightable"
-						style="margin-bottom: 2px; font-size: 1.1em; line-height: 1.1em;">
+        </div>
 
-						<?php
-						$sql = "SELECT * 
-									FROM dimli.title 
-									WHERE related_{$arr['type']}s = {$id} ";
+        <!-- Catalog data for this result -->
 
-						$res = db_query($mysqli, $sql);
+        <div class="text_panel">
 
-						$title_arr = array();
+          <!-- Title -->
 
-						while ($row = $res->fetch_assoc()) {
-							$title_arr[] = $row['title_text'];
-						}
+          <div class="highlightable"
+            style="margin-bottom: 2px; font-size: 1.1em; line-height: 1.1em;">
 
-						// Assign a default value if title array is empty
-						$title_arr = (empty($title_arr)) 
-							? array('Uncataloged') 
-							: $title_arr;
+            <?php
+            $sql = "SELECT * 
+                  FROM dimli.title 
+                  WHERE related_{$arr['type']}s = {$id} ";
 
-						// Display appropriate titles
-						lantern_list_display_titles($mysqli, $title_arr, $searches_arr); ?>
+            $res = db_query($mysqli, $sql);
 
-					</div>
+            $title_arr = array();
 
-					<!-- Agent -->
+            while ($row = $res->fetch_assoc()) {
+              $title_arr[] = $row['title_text'];
+            }
 
-					<div class="highlightable"
-						style="margin-bottom: 1px; font-size: 0.9em;">
+            // Assign a default value if title array is empty
+            $title_arr = (empty($title_arr)) 
+              ? array('Uncataloged') 
+              : $title_arr;
 
-						<?php
-						lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent);
-						?>
+            // Display appropriate titles
+            lantern_list_display_titles($mysqli, $title_arr, $searches_arr); ?>
 
-					</div>
+          </div>
 
-					<!-- Record number -->
+          <!-- Agent -->
 
-					<div style="font-size: 0.8em; color: #999; margin-bottom: 5px;">
+          <div class="highlightable"
+            style="margin-bottom: 1px; font-size: 0.9em;">
 
-						<?php echo ucfirst($arr['type']).' '; ?>
+            <?php
+            lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent);
+            ?>
 
-						<span class="highlightable">
+          </div>
 
-							<?php echo create_six_digits($id); ?>
+          <!-- Record number -->
 
-						</span>
+          <div style="font-size: 0.8em; color: #999; margin-bottom: 5px;">
 
-					</div>
+            <?php echo ucfirst($arr['type']).' '; ?>
 
-					<!-- Date -->
+            <span class="highlightable">
 
-					<div class="data_row">
+              <?php echo create_six_digits($id); ?>
 
-						<span class="mediumWeight" style="display: inline-block;">Date:&nbsp;</span>
+            </span>
 
-						<span class="highlightable">
+          </div>
 
-							<?php
-							lantern_list_display_date($mysqli, $arr['type'], $id, $parent);
-								// eg. func('work', '062261', 'none/000261')
-							?>
+          <!-- Date -->
 
-						</span>
+          <div class="data_row">
 
-					</div>
+            <span class="mediumWeight" style="display: inline-block;">Date:&nbsp;</span>
 
-					<!-- Other matched data -->
+            <span class="highlightable">
 
-					<?php
-					// For each type of search that successfully returned this record
-					foreach ($searches_arr as $search)
-					{
+              <?php
+              lantern_list_display_date($mysqli, $arr['type'], $id, $parent);
+                // eg. func('work', '062261', 'none/000261')
+              ?>
 
-						if (!in_array($search, array('work_id','image_id','title','agent','work_description','image_description','getty_att','getty_tgn','getty_ulan')))
-						{
-							// Define name of function to display the record's data
-							$func = 'lantern_list_display_'.$search;
-							?>
-							<div class="data_row">
+            </span>
 
-								<span class="mediumWeight" style="display: inline-block;">
+          </div>
 
-									<?php
-									echo str_replace('_',' ',ucfirst($search));
-									?>:&nbsp;
+          <!-- Other matched data -->
 
-								</span>
+          <?php
+          // For each type of search that successfully returned this record
+          foreach ($searches_arr as $search) {
 
-								<span class="highlightable"><?php
+            if (!in_array($search, array('work_id','image_id','title','agent','work_description','image_description','getty_att','getty_tgn','getty_ulan'))) {
 
-									// Call appropriate function to display this field
-									$func($mysqli, $arr['type'], $id); 
-										// eg. func(mysqli connection, 'work', '000261')
-							
-								?></span>
+              // Define name of function to display the record's data
+              $func = 'lantern_list_display_'.$search; ?>
 
-							</div><?php
-						}
+              <div class="data_row">
 
-						// Search term found in DESCRIPTION
-						if (in_array($search, array('work_description','image_description')))
-						{
-							$sql = "SELECT description 
-										FROM dimli.{$arr['type']} 
-										WHERE lpad(id, 6, '0') = {$id} ";
+                <span class="mediumWeight" style="display: inline-block;">
 
-							$res = db_query($mysqli, $sql);
+                  <?php
+                  echo str_replace('_',' ',ucfirst($search));
+                  ?>:&nbsp;
 
-							while ($row = $res->fetch_assoc()) {
-								$desc = $row['description'];
-							} ?>
+                </span>
 
-							<div class="highlightable lantern_desc collapsed data_row" style="overflow: hidden;">
+                <span class="highlightable"><?php
 
-								<span class="mediumWeight" style="display: inline-block;">Description:&nbsp;</span>
+                  // Call appropriate function to display this field
+                  $func($mysqli, $arr['type'], $id); 
+                    // eg. func(mysqli connection, 'work', '000261')
+              
+                ?></span>
 
-								<?php echo $desc; ?>
+              </div>
 
-							</div><?php
-						}
-					}
-					?>
+            <?php
+            }
 
-				<!-- end text_panel -->
-				</div>
+            // Search term found in DESCRIPTION
+            if (in_array($search, array('work_description','image_description'))) {
 
-				<!-- Related images frame -->
+              $sql = "SELECT description 
+                    FROM dimli.{$arr['type']} 
+                    WHERE lpad(id, 6, '0') = {$id} ";
 
-				<div class="related_panel">
+              $res = db_query($mysqli, $sql);
 
-					<div></div>
+              while ($row = $res->fetch_assoc()) {
+                $desc = $row['description'];
+              } ?>
 
-					<?php if ($arr['type']=='work')
-					{
-						get_related_images($mysqli, $id);
-					} ?>
+              <div class="highlightable lantern_desc collapsed data_row" style="overflow: hidden;">
 
-				</div>
+                <span class="mediumWeight" style="display: inline-block;">Description:&nbsp;</span>
 
-			<?php
-			// echo '<pre>';
-			// print_r($results[$resid]);
-			// echo '</pre>';
-			?>
+                <?php echo $desc; ?>
 
-			<p class="clear"></p>
+              </div><?php
+            }
+          }
+          ?>
 
-			<!-- end row -->
-			</div>
+        <!-- end text_panel -->
+        </div>
 
-		<?php
-		}
-	$i++;
-	}
-	?>
+        <!-- Related images frame -->
 
-	<script id="lantern_list_script">
+        <div class="related_panel">
 
-		/*
-		TOGGLE FILTER VISIBILITY
-		*/
-		$('#filter_toggle').unbind('click').click(
-			function()
-			{
-				if (!$('#control_panel_wide').is(':visible'))
-				{
-					$('#control_panel_wide').slideDown(600);
-					$('#filter_toggle span').text('Hide Filters');
-					$(document).scrollTop($('body').offset().top);
-				}
-				else
-				{
-					$('#control_panel_wide').slideUp(600);
-					$('#filter_toggle span').text('Show Filters');
-				}
-			});
+          <div></div>
 
+          <?php
+          if ($arr['type']=='work') {
+            get_related_images($mysqli, $id);
+          } ?>
 
-		// DEFINE TERMS FOR HIGHLIGHT SEARCH
+        </div>
 
-		var terms = <?php echo json_encode($searchText_arr); ?>;
-		// console.log(JSON.stringify(terms)); // Debug
+      <?php
+      // echo '<pre>';
+      // print_r($results[$resid]);
+      // echo '</pre>';
+      ?>
 
+      <p class="clear"></p>
 
-		// HIGHLIGHT SEARCH TERMS ON MOUSEENTER
+      <!-- end row -->
+      </div>
 
-		$('div.lanternResults_list_row').hover(
-			function(event)
-			{
-				event.stopPropagation();
-				var $row = $(this);
-				$.each(terms, function(index, val, row)
-					{
-						$row.find('.highlightable').highlight(val);
-					});
-			},
-			function(event)
-			{
-				event.stopPropagation();
-				$.each($(this).find('.highlightable span.glowBG'), function()
-					{
-						var $text = $(this).text();
-						$(this).replaceWith($text);
-					});
-			});
+    <?php
+    }
+  $i++;
+  }
+  ?>
 
+  <script id="lantern_list_script">
 
-		// GLOW ON THUMBNAIL HOVER
+    /*
+    TOGGLE FILTER VISIBILITY
+    */
+    // TEMP: Commented out while filters are not being used
+    // 
+    // $('#filter_toggle').unbind('click').click(
+    //  function()
+    //  {
+    //    if (!$('#control_panel_wide').is(':visible'))
+    //    {
+    //      $('#control_panel_wide').slideDown(600);
+    //      $('#filter_toggle span').text('Hide Filters');
+    //      $(document).scrollTop($('body').offset().top);
+    //    }
+    //    else
+    //    {
+    //      $('#control_panel_wide').slideUp(600);
+    //      $('#filter_toggle span').text('Show Filters');
+    //    }
+    //  });
 
-		$('div.thumb_panel img.list_thumb, div.related_panel img').hover(
-			function()
-			{
-				$(this).addClass('glowPurple');
-			}, 
-			function()
-			{
-				$(this).removeClass('glowPurple');
-			});
 
+    // DEFINE TERMS FOR HIGHLIGHT SEARCH
 
-		// JUMP TO CATALOG
+    var terms = <?php echo json_encode($searchText_arr); ?>;
+    // console.log(JSON.stringify(terms)); // Debug
 
-		$('span.view_catalog').click(
-			function()
-			{
-				var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
-				view_image_record(imageNum);
-				view_work_record(imageNum);
-				// console.log(imageNum+' clicked'); //Debug
-			});
 
-		// DONWLOAD IMAGE
+    // HIGHLIGHT SEARCH TERMS ON MOUSEENTER
 
-		$('span.download_image').click(function() {
-			var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
-			lantern_download(imageNum);
-		});
+    $('div.lanternResults_list_row').hover(
+      function (event) {
+        event.stopPropagation();
+        var $row = $(this);
+        $.each(terms, function (index, val, row) {
+          $row.find('.highlightable').highlight(val);
+        });
+      },
+      function (event) {
+        event.stopPropagation();
+        $.each($(this).find('.highlightable span.glowBG'), function () {
+          var $text = $(this).text();
+          $(this).replaceWith($text);
+        });
+      });
 
 
-		// CLICK THUMBNAIL TO PREVIEW
+    // GLOW ON THUMBNAIL HOVER
 
-		$('img.list_thumb').click(
-			function()
-			{
-				var img = $(this).attr('data-image');
-				image_viewer(img);
-			});
+    $('div.thumb_panel img.list_thumb, div.related_panel img').hover(
+      function () {
+        $(this).addClass('glowPurple');
+      }, 
+      function () {
+        $(this).removeClass('glowPurple');
+      });
 
 
-		// EXPAND/COLLAPSE RECORD DESCRIPTION
+    // JUMP TO CATALOG
 
-		$('.lantern_desc').click(
-			function()
-			{
-				$(this).toggleClass('collapsed expanded');
-			});
+    $('span.view_catalog').click(
+      function () {
+        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+        view_image_record(imageNum);
+        view_work_record(imageNum);
+      });
 
+    // DONWLOAD IMAGE
 
-		// LOAD MORE RESULTS WHEN USER SCROLLS TO END OF LIST
+    $('span.download_image').click(
+      function () {
+        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+        lantern_download(imageNum);
+      });
 
-		var newPage = <?php echo $page+1; ?>;
-		scroll_to_load($('div#lantern_results_list'), 'list', newPage);
 
-	</script>
+    // CLICK THUMBNAIL TO PREVIEW
+
+    $('img.list_thumb').click(
+      function () {
+        var img = $(this).attr('data-image');
+        image_viewer(img);
+      });
+
+
+    // EXPAND/COLLAPSE RECORD DESCRIPTION
+
+    $('.lantern_desc').click(
+      function () {
+        $(this).toggleClass('collapsed expanded');
+      });
+
+
+    // LOAD MORE RESULTS WHEN USER SCROLLS TO END OF LIST
+
+    var newPage = <?php echo $page + 1; ?>;
+    scroll_to_load($('div#lantern_results_list'), 'list', newPage);
+
+  </script>
 
 <?php
 }
