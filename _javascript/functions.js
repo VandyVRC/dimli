@@ -360,17 +360,63 @@ function order_updateCataloger(order, uid, username) {
 	});
 }
 
-function updateOrderDueDate(newDueDate, orderNum) {
+function updateOrderDueDate(orderNum) {
+
+	var newDueDate = $('input#datepicker3').val();
 
 	$.ajax({
 		type: 'POST',
 		data: 'newDueDate='+newDueDate+'&orderNum='+orderNum,
 		url: '_php/_order/update_due_date.php',
 		success: function(response) {
+			
 			$('span#orderDueClickable').text('').append(response);
+			$('span#orderDueClickable').show();
+			$('form#edit_date_form').remove();
+			$('span#orderDueClickable').show();
 		},
 		error: function() {
 			msg(['Failed to change the due date of this order'], 'error');
+		}
+	});
+}
+
+function editId_form(imageView, imageNum, orderNum){
+
+	$.ajax({
+		type: 'POST',
+		data: 'imageView='+imageView+'&imageNum='+imageNum+'&orderNum='+orderNum,
+		url: '_php/edit_id_form.php',
+		success: function(response) {			
+		
+			$('div#image_module h1').append(response);
+			
+			console.log('imageView is '+imageView+' and imageNum is '+imageNum+' and orderNum is' +orderNum);
+			console.log('Form load: success')
+		},
+		
+		error: function() {
+			console.log('Form failed to load', 'error')	
+		}
+	});
+}
+
+function editDate_form(orderNum, dateNeeded){
+	
+	$.ajax({
+		type: 'POST',
+		data:'orderNum='+orderNum+'&dateNeeded='+dateNeeded,
+		url: '_php/edit_date_form.php',
+		success: function(response) {			
+
+			$('div#date_needed').append(response);
+			
+			console.log('orderNum is '+orderNum+' and dateNeeded is '+dateNeeded);
+			console.log('Form load: success')
+		},
+		
+		error: function() {
+			console.log('Form failed to load', 'error')	
 		}
 	});
 }
@@ -767,6 +813,26 @@ function view_image_record(record) {
 		url: '_php/view_image_record.php',
 		success: function (response) {
 			load_module(image_module, response);
+		}
+	});
+}
+
+function editImage_id(imageNum) {
+
+	var newImageId = $('input#edit_id').val();
+
+		$.ajax({                                                       
+		type: 'POST', 
+		data: 'newImageId='+newImageId+'&imageNum='+imageNum,
+		url: '_php/edit_image_id.php',
+		success: function(response) {
+
+			view_image_record(imageNum);
+			view_work_record(imageNum);
+
+		},
+		error: function() {
+			msg(['Failed to change the image id'], 'error');
 		}
 	});
 }
@@ -2330,14 +2396,38 @@ function createOrder_submit() {
 	newOrder_data['legacyIds'] = legacyIds;
 
 	var i = 1;
+	
 	$('form#createOrderFigs_form div.pageFig_row').each(function()
 	{
+
 		var image_data = {};
-		newOrder_data['image'+i] = { 
+
+		if ($('#legacyIds:checked').length > 0) {
+				
+			newOrder_data['image'+i] = { 
+			
+				legacyId: $(this).find('input:eq(0)').val(),
+				page: '', 
+				fig: '',
+				fileFormat: $(this).find('select').val()
+			
+			};
+
+		console.log('image_data is'+image_data);	
+		}
+
+		else{
+			
+			newOrder_data['image'+i] = { 
+				legacyId: '',
 				page: $(this).find('input:eq(0)').val(), 
-				fig: $(this).find('input:eq(1)').val()
-		};
+				fig: $(this).find('input:eq(1)').val(),
+				fileFormat: '.jpg'
+			};
+		}	
+
 		i++;
+
 	});
 
 	$('div#createOrder_module')
@@ -2393,69 +2483,79 @@ function export_load() {
 	});
 }
 
-function exportRecords(exportType) {
-	console.log('export function called. validation in progress.');
-
+function query_export(){
+	
 	data = {};
 	errors = [];
 
-	if (exportType == 'range')
-	// User selected export of a record range
-	{
-		data['type'] = 'range';
-		// Add export type to data array for script conditions
-
-		$('div#exportRange_form input[type=text]').each(function()
+	$('div#exportRange_form input[type=text]').each(function()
 		{
 			var value = $.trim($(this).val());
 
-			if (value == '' || value.length > 6 || $.isNumeric(value) != true)
+			if (value == '')
 			{
 				input_error($(this));
 				errors.push($(this).attr('name'));
 			}
-			else
-			{
+			else{
 				data[($(this).attr('name'))] = value;
 			}
+		});	
+	
+	var first = data['firstExportRecord'];
+	var last = data['lastExportRecord'];
+
+	if (errors.length === 0){
+
+	// Insert hidden module for script supporting query
+		$('div#control_panel_wide').hide();
+		var ef_mod = $('<div id="exportForm_module" class="module">');
+		$('div#module_tier5 p.clear_module').before(ef_mod);
+		$(ef_mod).hide();
+
+		$.ajax({
+			type: 'GET',
+			url: '_php/_export/query_export_range.php',
+			data: 'firstExportRecord='+first+'&lastExportRecord='+last,
+			success: function(response)
+			{
+				$('button#exportCsv, button#exportCsv_allFlagged')
+				.replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+
+				load_module(ef_mod, response);
+				console.log('AJAX success: query_export_range.php');
+			},
+			error: function()
+			{
+				console.log('AJAX error: query_export_range.php');
+			} 
 		});
-
-		if ($('input[name=lastExportRecord]').val() - $('input[name=firstExportRecord]').val() > 10000)
-		{
-			input_error($('input[name=firstExportRecord]'));
-			input_error($('input[name=lastExportRecord]'));
-			errors.push('record range exceeds 10,000 records');
-		}
-
 	}
+}
 
-	if (exportType == 'flagged')
-	// User selected export of all flagged records
-	{
-		data['type'] = 'flagged';
-		// Add export type to data array for script conditions
-	}
+function export_range(first, last){
 
-	if (errors.length === 0)
-	// Either export type equaled 'range' and NO errors were found
-	// Or export type equaled 'flagged'
-	{
-		console.log('valid export request - processing csv...');
-
-		$('button#exportCsv, button#exportCsv_allFlagged')
+	console.log('export function called. validation in progress.');
+	
+	$('button#exportCsv, button#exportCsv_allFlagged')
 			.replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
 
-		var first = data['firstExportRecord'];
-		var last = data['lastExportRecord'];
+	var type = 'range';
+			
+	window.location.href = '_php/_export/export_records.php?type='+type+'&first='+first+'&last='+last;	
+}
 
-		// REVISIT
-		window.location.href = 'http://dimli.library.vanderbilt.edu/_php/_export/export_records.php?type='+exportType+'&firstExportRecord='+first+'&lastExportRecord='+last;
+function export_flagged() {
+	
+	console.log('export function called. validation in progress.');
 
-	}
-	else
-	{
-		console.log('form errors: '+errors); // Debugging
-	}
+	var type = 'flagged';
+	console.log('valid export request - processing csv...');
+
+	$('button#exportCsv, button#exportCsv_allFlagged').replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+
+	// REVISIT
+	window.location.href ='_php/_export/export_records.php?type='+type;
 }
 
 function lantern_search(text, gToggle, page) {
