@@ -221,7 +221,6 @@ CREATE TABLE IF NOT EXISTS `getty_ulan` (
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `legacy_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `legacy_filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `related_works` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `order_id` int(11) NOT NULL,
