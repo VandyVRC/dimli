@@ -79,6 +79,7 @@ if (isset($_POST['login'])) {
 					'priv_orders_delete',
 					'priv_csv_import',
 					'priv_csv_export',
+					'priv_image_ids_edit',
 					'priv_images_delete',
 					'priv_images_flag4Export'
 					) as $type)

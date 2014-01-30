@@ -42,6 +42,7 @@ while ($user = $result->fetch_assoc()):
 	$priv_orders_delete = $user['priv_orders_delete'];
 	$priv_csv_import = $user['priv_csv_import'];
 	$priv_csv_export = $user['priv_csv_export'];
+	$priv_image_ids_edit = $user['priv_image_ids_edit'];
 	$priv_images_delete = $user['priv_images_delete'];
 	$priv_images_flag4Export = $user['priv_images_flag4Export'];
 
@@ -238,6 +239,12 @@ endwhile; ?>
 
 		<div class="inline label">Export Data:</div>
 		<div id="priv_csv_export" class="priv_wrapper">
+			<div class="priv_left"></div>
+			<div class="priv_right"></div>
+		</div><br>
+
+		<div class="inline label">Edit Image Ids:</div>
+		<div id="priv_image_ids_edit" class="priv_wrapper">
 			<div class="priv_left"></div>
 			<div class="priv_right"></div>
 		</div><br>
