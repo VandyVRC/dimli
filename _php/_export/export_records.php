@@ -16,9 +16,6 @@ require_priv('priv_csv_export');
 //  Updated 25 July 2013
 //------------------------------------------------
 
-// Define first and last records to export
-$start = $_GET['firstExportRecord'];
-$end = $_GET['lastExportRecord'];
 
 // Define array of flagged images, and number to export
 $exportFlagged_count = count($_SESSION['flaggedImages']);
@@ -37,14 +34,18 @@ $csvArray = array();
 //-----------------------------------------------------
 if (isset($_GET['type']) && $_GET['type'] == 'range')
 {
+
 // User enetered a range of image records
+// Define first and last records to export
+$start = $_GET['first'];
+$end = $_GET['last'];
 
 	$sql = "SELECT * FROM dimli.image 
 				WHERE id BETWEEN {$start} AND {$end} ";
 
 	// Establish query fragment to be used below 
 	// to update images records after export is complete
-	$updateThese = " id BETWEEN {$_SESSION['firstExportRecord']} AND {$_SESSION['lastExportRecord']} ";
+	$updateThese = "id BETWEEN {$start} AND {$end}";
 
 	// Define filename for the CSV to be output.
 	// Will be used below.
@@ -81,6 +82,8 @@ while ($row = $result->fetch_assoc())
 	if ($i == $stop) break;
 
 	$imageId = create_six_digits($row['id']);
+	$legacyId = $row['legacy_id'];
+	$fileFormat = $row['file_format'];
 	$imageDescription = $row['description'];
 	$workId = (!empty($row['related_works']))
 			? create_six_digits($row['related_works'])
@@ -244,7 +247,7 @@ while ($row = $result->fetch_assoc())
 			
 		}
 
-		$result_workTitle->free();
+		$result_agent->free();
 		
 		// Define final string of unique, non-preferred agent names
 		$super_nonprefAgent_string = preg_replace('/; $/', '', implode('; ', $super_nonprefTerms_array));
@@ -1180,8 +1183,8 @@ while ($row = $result->fetch_assoc())
 	// Write each row of the csv array
 	$csvArray[$i] = array(
 	
-		'Identifier' => $imageId,
-		'resource' => $imageId . '.jpg',
+		'Identifier' => $legacyId,
+		'resource' => $legacyId . $fileFormat,
 		'vra.title' => $workTitle_string,
 		'vra.imagetitle' => $imageTitle_string,
 		'vra.agent' => $agent_string,
@@ -1223,8 +1226,8 @@ echo "\xEF\xBB\xBF"; // To export with BOM (Byte Order Mark)
 
 echo array2csv($csvArray); // Defined in _php/_config/functions.php
 
-// print_r($csvArray); // Debugging
-
+?>
+<?php
 //---------------------------------------------------------
 //		Update the images' "last_exported" timestamp
 //---------------------------------------------------------
@@ -1236,3 +1239,7 @@ $sql = "UPDATE dimli.image
 			WHERE {$updateThese} ";
 
 $result_lastExported = db_query($mysqli, $sql);
+
+?>
+
+
