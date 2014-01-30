@@ -20,7 +20,7 @@ $department = $mysqli->real_escape_string($_POST['department']);
 $email = $mysqli->real_escape_string($_POST['email']);
 $date_needed = $mysqli->real_escape_string($_POST['dateNeeded']);
 $legacyIds = $_POST['legacyIds'];
-
+ 
 
 	// $_POST contained no value for 'imageCount'
 if (empty($_POST['imageCount'])) {
@@ -46,37 +46,41 @@ if (empty($_POST['imageCount'])) {
 //-------------------------------------
 
 $i = 1;
-
 	// For each image
 while ($i <= $imageCount) {
 
-	$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
-	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
+		$legacyId = trim($mysqli->real_escape_string($_POST['image'.$i]['legacyId']));
 
-		// User elected to supply legacy ids and filenames
-	if ($legacyIds === true) {
-
-		$sql = "INSERT INTO dimli.image
-					SET legacy_id = '{$page}',
-						legacy_filename = '{$fig}',
-						file_format = '.jpg',
-						last_update_by = '{$_SESSION['username']}' ";
-
-	} else {
+		$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
+		$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
+		$fileFormat = ($_POST['image'.$i]['fileFormat']);
 
 		$sql = "INSERT INTO dimli.image
-					SET page = '{$page}',
+					SET
+						legacy_id = '{$legacyId}',
+						page = '{$page}',
 						fig = '{$fig}',
-						file_format = '.jpg',
+						file_format = '{$fileFormat}',
 						last_update_by = '{$_SESSION['username']}' ";
-
-	}
 
 	$result = db_query($mysqli, $sql);
 	
 	// Create a variable for the recently created image's ID/PK
-	$thisImage = create_six_digits($mysqli->insert_id);
+	$thisId = ($mysqli->insert_id);
+	$thisImage = create_six_digits($thisId);
 
+	// Populate blank legacy id fields with 6 digit id for image id references
+
+		if ($legacyId == ''){
+
+		$sql = "UPDATE dimli.image
+					SET legacy_id = '{$thisImage}'
+					WHERE id = '{$thisId}'";
+		
+
+		$result = db_query($mysqli, $sql);
+
+		}
 	
 	$sql = "INSERT INTO dimli.source
 					SET related_images = '{$thisImage}',
@@ -88,8 +92,25 @@ while ($i <= $imageCount) {
 	$result = db_query($mysqli, $sql);
 
 	$i++;
+	$thisId = ($thisId++);
+	$thisImage = create_six_digits($thisId++);
+}
 
-	$thisImage = create_six_digits($thisImage++);
+
+//---------------------------------------
+// Obtain Requestor ID 
+//--------------------------------------=-
+
+$sql = "SELECT id
+			FROM dimli.user
+			WHERE display_name ='{$requestor}'";
+
+	$result = db_query($mysqli, $sql);
+
+
+	while ($row = $result->fetch_assoc()) {
+		$requestor_id = $row['id'];
+	
 }
 
 //---------------------
@@ -100,6 +121,7 @@ $today = date('Y-m-d H:i:s');
 
 $sql = "INSERT INTO dimli.order
 			SET requestor = '{$requestor}',
+				requestor_id = '{$requestor_id}',
 				department = '{$department}',
 				email = '{$email}',
 				date_created = '{$today}',
@@ -152,7 +174,7 @@ $newOrderId = create_four_digits($newOrderId);
 
 <script>
 
-	var newOrder = <?php echo $newOrderId; ?>;
+	var newOrder = <?php echo $newOrderId; ?>
 
 	$(document).ready(
 		function()

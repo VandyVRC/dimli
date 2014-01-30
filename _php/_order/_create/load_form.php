@@ -11,25 +11,15 @@ require_priv('priv_orders_create');
 if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails'])) {
 
 	// Create empty array to store repository data
-	// TODO: Revert the below values when done testing
-	// $_SESSION['newOrderDetails']['patron'] = '';
-	$_SESSION['newOrderDetails']['patron'] = 'Matt';
-	// $_SESSION['newOrderDetails']['department'] = '';
-	$_SESSION['newOrderDetails']['department'] = 'Other';
-	// $_SESSION['newOrderDetails']['email'] = '';
-	$_SESSION['newOrderDetails']['email'] = 'mail@web.com';
-	// $_SESSION['newOrderDetails']['dateNeeded'] = '';
-	$_SESSION['newOrderDetails']['dateNeeded'] = '2014-10-28';
-	// $_SESSION['newOrderDetails']['imageCount'] = '1';
-	$_SESSION['newOrderDetails']['imageCount'] = '3';
-	// $_SESSION['newOrderDetails']['sourceName'] = '';
-	$_SESSION['newOrderDetails']['sourceName'] = 'The Source';
-	// $_SESSION['newOrderDetails']['sourceNameType'] = '';
-	$_SESSION['newOrderDetails']['sourceNameType'] = 'Vendor';
-
+	$_SESSION['newOrderDetails']['patron'] = '';
+	$_SESSION['newOrderDetails']['department'] = '';
+	$_SESSION['newOrderDetails']['email'] = '';
+	$_SESSION['newOrderDetails']['dateNeeded'] = '';
+	$_SESSION['newOrderDetails']['imageCount'] = '1';
+	$_SESSION['newOrderDetails']['sourceName'] = '';
+	$_SESSION['newOrderDetails']['sourceNameType'] = '';
 	$_SESSION['newOrderDetails']['sourceType'] = '';
-	// $_SESSION['newOrderDetails']['source'] = '';
-	$_SESSION['newOrderDetails']['source'] = 'Archivision';
+	$_SESSION['newOrderDetails']['source'] = '';
 	$_SESSION['newOrderDetails'][''] = '';
 }
 

@@ -12,21 +12,15 @@ $useLegacyIds = $_POST['legacyIds'] === 'true';
 
 	// Instructional text
 $instructionHeading1 = $useLegacyIds
-	? 'Enter unique identifiers and, optionally, a filename for each image included with this order'
-	: 'Enter page and figure numbers, or brief instructions, for each image included with this order';
+	? 'Enter unique identifiers for each image.'
+	: 'Enter page and figure numbers, or brief instructions, for each image included with this order.';
 $instructionHeading2 = $useLegacyIds
-	? ''
+	? "Leave any field blank to use Dimli's identifier."
 	: 'Do <em>NOT</em> include abbreviations such as "pg", "p.", or "fig."';
 
-	// Define placeholder text for inputs based on whether the user
-	// elected to use legacy identifiers for this order
-$placeholderVal1 = $useLegacyIds
-	? 'identifier'
-	: 'page';
-$placeholderVal2 = $useLegacyIds
-	? 'filename/other'
-	: 'fig/instructions';
+
 ?>
+
 
 <div>
 
@@ -39,18 +33,41 @@ $placeholderVal2 = $useLegacyIds
 		<div class="pageFig_row"
 			style="line-height: 16px;">
 
+		
+			
+<?php if ($useLegacyIds) {?>
+
+			<div class="pageFig_row_number"
+				style="display: inline-block; width: 30px; font-size: 1.1em; font-weight: 400; color: #CCC; text-align: right; vertical-align: middle; margin-right: 5px; margin-left: 80px;">1</div>
+
+			<input type="text" id="identifier"
+				placeholder="Identifier"
+				style="width: 90px; margin-left: 0; margin-bottom: 5px;"
+				value="">
+
+			<select name="fileFormat" style ="width: 75px; margin-left: 5px; margin-bottom: 5px; font-size: .85em; ">
+							
+			<option value=".jpg"
+			>.jpg</option>
+
+			</select>	
+		
+	<?php } else { ?>		
+
+
 			<div class="pageFig_row_number"
 				style="display: inline-block; width: 30px; font-size: 1.1em; font-weight: 400; color: #CCC; text-align: right; vertical-align: middle; margin-right: 5px;">1</div>
 
-			<input type="text"
-				placeholder="<?php echo $placeholderVal1; ?>"
+			<input type="text" id="page"
+				placeholder="page"
 				style="width: 80px; margin-left: 0; margin-bottom: 5px;"
 				value="">
 
-			<input type="text"
-				placeholder="<?php echo $placeholderVal2; ?>"
+			<input type="text" id="fig"
+				placeholder="fig/instructions"
 				style="width: 235px; margin-left: 5px; margin-bottom: 5px;"
 				value="">
+<?php } ?>
 
 			<img src="_assets/_images/plus.png"
 				class="pageFig_addRow pointer"
