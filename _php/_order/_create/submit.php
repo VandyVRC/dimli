@@ -98,20 +98,22 @@ while ($i <= $imageCount) {
 
 
 //---------------------------------------
-// Obtain Requestor ID 
+// Obtain Requestor ID - IN PROGRESS
 //--------------------------------------=-
 
-$sql = "SELECT id
-			FROM dimli.user
-			WHERE display_name ='{$requestor}'";
+//$sql = "SELECT id
+		//	FROM dimli.user
+	//		WHERE display_name ='{$requestor}'";
 
-	$result = db_query($mysqli, $sql);
+//	$result = db_query($mysqli, $sql);
 
 
-	while ($row = $result->fetch_assoc()) {
-		$requestor_id = $row['id'];
+//	while ($row = $result->fetch_assoc()) {
+//		$requestor_id = $row['id'];
 	
-}
+//}
+
+// requestor_id = '{$requestor_id}', - For create new order query 
 
 //---------------------
 //  CREATE NEW ORDER
@@ -121,7 +123,6 @@ $today = date('Y-m-d H:i:s');
 
 $sql = "INSERT INTO dimli.order
 			SET requestor = '{$requestor}',
-				requestor_id = '{$requestor_id}',
 				department = '{$department}',
 				email = '{$email}',
 				date_created = '{$today}',
