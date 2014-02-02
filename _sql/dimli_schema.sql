@@ -327,6 +327,7 @@ CREATE TABLE IF NOT EXISTS `measurements` (
 CREATE TABLE IF NOT EXISTS `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `requestor` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `requestor_id` int(11) NOT NULL,
   `department` enum('History of Art','Classical Studies','Other') COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `date_created` datetime NOT NULL,
