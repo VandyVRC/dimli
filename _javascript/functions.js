@@ -2233,7 +2233,7 @@ function createOrder_continue() {
 	if (errors.length === 0)
 	{
 		$('.input_error').removeClass('input_error');
-		createOrder_load_pages();
+		createOrder_load_pages(newOrder_data);
 		$('span#createOrder_errors').text('');
 		$('button#createOrder_continue_button').hide();
 		$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
@@ -2330,15 +2330,15 @@ function createOrder_newUser_fillForm()
 // WHERE TEMP PW CREATION AND SEND EMAIL WILL LIVE
 //-------------------------------------------------------
 
-	var pwVal = ('inappropriatesolution');
+	//var pwVal = ('inappropriatesolution');
 
 	//$('div#registerUser_module input[name=username]').val(emailVal); 
 	//$('div#registerUser_module input[name=username]').hide();
 	//$('div#registerUser_module div[id=username]').hide();
 
-	$('div#registerUser_module input[name=password]').val(pwVal);
-	$('div#registerUser_module input[name=password]').hide();
-	$('div#registerUser_module div[id=password]').hide();
+	//$('div#registerUser_module input[name=password]').val(pwVal);
+//	$('div#registerUser_module input[name=password]').hide();
+//	$('div#registerUser_module div[id=password]').hide();
 	//$('div#registerUser_module div[id=minchar]').hide();
 
 //------------------------------------------------------
