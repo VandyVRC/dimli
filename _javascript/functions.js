@@ -209,7 +209,7 @@ function open_order(orderNum) {
       load_module(newModule, response);
     },
     error: function () {
-      console.log('ajax request failed: _php/_order/load_order.php');
+      console.error('ajax request failed: _php/_order/load_order.php');
     },
     complete: function () {
       recently_visited();
@@ -234,7 +234,7 @@ function order_refreshImage(imageNum) {
       $($row).append(response).fadeIn(400);
     },
     error: function () {
-      console.log('AJAX ERROR: refresh_row.php');
+      console.error('AJAX ERROR: refresh_row.php');
     }
   });
 }
@@ -312,8 +312,6 @@ function order_updateProgress(event, orderNum) {
   $('script#updateOrderStatus_temp').remove();
 
   var eleId = event.target.id;
-  // console.log(eleId+' clicked for order '+orderNum); // Debug
-
   var status, statusClass;
 
   if ($('div[id=' + eleId + ']').hasClass('complete')) {
@@ -328,14 +326,13 @@ function order_updateProgress(event, orderNum) {
 
   $.ajax({
     type: 'POST',
-    data: 'process='+eleId+'&status='+status+'&orderNum='+orderNum,
+    data: 'process=' + eleId + '&status=' + status + '&orderNum=' + orderNum,
     url: '_php/_order/update_progress.php',
     success: function (response) {
-      console.log('order '+orderNum+' - attempting to set '+eleId+' status to '+status+', if user has sufficient privilege');
-      $('div[id='+eleId+']').replaceWith(response);
+      $('div[id=' + eleId + ']').replaceWith(response);
     },
     error: function () {
-      console.log('AJAX ERROR: _order/update_progress.php');
+      console.error('AJAX ERROR: _order/update_progress.php');
     }
   });
 }
@@ -402,7 +399,7 @@ function recently_visited() {
         });
     },
     error: function () {
-      console.log('ajax request failed: recently_visited');
+      console.error('ajax request failed: recently_visited');
     }
   });
 }
@@ -429,7 +426,7 @@ function usersBrowse_load() {
       load_module(ub_mod, response);
     },
     error: function () {
-      console.log('AJAX ERROR: _php/users_browse.php');
+      console.error('AJAX ERROR: _php/users_browse.php');
     }
   });
 }
@@ -459,7 +456,7 @@ function userProfile_load(userId) {
       load_module(up_mod, response);
     },
     error: function () {
-      console.log('AJAX ERROR: userProfile_load.php');
+      console.error('AJAX ERROR: userProfile_load.php');
     }
   });
 }
@@ -486,8 +483,6 @@ function userProfile_changePassword(userId) {
       }
     });
 
-  console.log('form errors: ' + errors);
-
   if (errors.length === 0) {
     $.ajax({
       type: 'POST',
@@ -495,10 +490,9 @@ function userProfile_changePassword(userId) {
       url: '_php/_user/userProfile_changePassword.php',
       success: function (response) {
         $('body').append(response);
-        console.log('ajax request complete: password change');
       },
       error: function () {
-        console.log('AJAX ERROR: userProfile_changePassword.php');
+        console.error('AJAX ERROR: userProfile_changePassword.php');
       }
     });
 
@@ -546,8 +540,6 @@ function userProfile_updateNames(userId) {
     }
   });
 
-  console.log('form errors: ' + errors);
-
   if (errors.length === 0) {
 
     $.ajax({
@@ -556,9 +548,8 @@ function userProfile_updateNames(userId) {
       url: '_php/_user/userProfile_updateNames.php',
       success: function (response) {
         $('body').append(response);
-        console.log('ajax request complete: update names');
       }, error: function () {
-        console.log('AJAX ERROR: userProfile_updateNames.php');
+        console.error('AJAX ERROR: userProfile_updateNames.php');
       }
     });
   }
@@ -581,7 +572,7 @@ function userProfile_readPriv(wrapper, userId, priv) {
         $(wrapper).find('div.priv_right').css({ backgroundColor: '#CCC' }).text('OFF');
       }
     }, error: function () {
-      console.log('AJAX ERROR: userProfile_readPriv.php');
+      console.error('AJAX ERROR: userProfile_readPriv.php');
     }
   });
 }
@@ -594,9 +585,8 @@ function userProfile_togglePriv(wrapper, userId, priv) {
     url: '_php/_user/userProfile_togglePriv.php',
     success: function (response) {
       $('div#userProfile_module').append(response);
-      console.log('user ' + userId + ' ' + priv + ' updated');
     }, error: function () {
-      console.log('AJAX ERROR: userProfile_togglePriv');
+      console.error('AJAX ERROR: userProfile_togglePriv');
     }
   });
 }
@@ -625,7 +615,6 @@ function registerNewUser_submit(formId) {
       $(body).prepend(response);
       $('div#registerUser_module').remove();
       usersBrowse_load();
-      console.log('File successfully loaded: registerNewUser_submit.php');
     }, error: function () {
       console.error('Failed to load file: registerNewUser_submit.php');
     }
@@ -640,7 +629,6 @@ function deleteUser_submit(userId) {
     url: '_php/_user/deleteUser_submit.php',
     success: function (response) {
       $(body).prepend(response);
-      console.log('File successfully loaded: deleteUser_submit.php');
     }, error: function () {
       console.error('Failed to load file: deleteUser_submit.php');
     }, complete: function () {
@@ -655,7 +643,6 @@ function updateExportFlag(record, status) {
   var flag_newStatus = status == 0 ? 1 : 0;
 
   record = pad(record, 6);
-  console.log(record + ' flag status: ' + flag_newStatus);
 
   $.ajax({
     type: 'POST',
@@ -692,8 +679,6 @@ function deleteImageRecord(deadRecord) {
     } else { // IE5 & IE6
       xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
     }
-
-    console.log('Dead record (post-padding): ' + deadRecord);
 
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -775,7 +760,6 @@ function image_viewer(imageNum) {
 
   xmlhttp.open('GET', '_php/image_viewer.php?imageNum=' + imageNum, true);
   xmlhttp.send();
-  console.log('IMAGE VIEWER: ' + imageNum);
 }
 
 function findOrders_loadForm() {
@@ -980,10 +964,8 @@ function work_assign_preview(image, work) {
     url: '_php/work_assign_preview.php',
     success: function (response) {
       $('div.workRecord_thumb').replaceWith(response);
-      console.log('successful ajax post: _php/work_assign_preview.php');
-      console.log('preferred image, ' + image + ', assigned to work '+work);
     }, error: function () {
-      console.log('AJAX ERROR: _php/work_assign_preview.php');
+      console.error('AJAX ERROR: _php/work_assign_preview.php');
     }
   });
 }
@@ -1022,13 +1004,13 @@ function displayMeasurements() {
   var thisRow = $(this).parents('div.catRowWrapper');
 
   if (
-       selectedMeasureType == "Circumference"
-    || selectedMeasureType == "Depth"
-    || selectedMeasureType == "Diameter"
-    || selectedMeasureType == "Distance between"
-    || selectedMeasureType == "Height"
-    || selectedMeasureType == "Length"
-    || selectedMeasureType == "Width"
+    selectedMeasureType == 'Circumference' ||
+    selectedMeasureType == 'Depth' ||
+    selectedMeasureType == 'Diameter' ||
+    selectedMeasureType == 'Distance between' ||
+    selectedMeasureType == 'Height' ||
+    selectedMeasureType == 'Length' ||
+    selectedMeasureType == 'Width'
   ) {
   
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
@@ -1051,18 +1033,18 @@ function displayMeasurements() {
     
     var selectedUnit = $(thisRow).find('[id*=commonMeasurementList] option:selected').attr('id');
   
-    if (selectedUnit == "ft") {
+    if (selectedUnit == 'ft') {
     
       $(thisRow).find('[id*=inchesMeasurement]').show();
     }
     
-    if (selectedUnit != "ft") {
+    if (selectedUnit != 'ft') {
     
       $(thisRow).find('[id*=inchesMeasurement]').hide();
     }
   }
   
-  if (selectedMeasureType == "Area") {
+  if (selectedMeasureType == 'Area') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1080,7 +1062,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Bit depth") {
+  if (selectedMeasureType == 'Bit depth') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').show();
@@ -1097,7 +1079,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=otherMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Count") {
+  if (selectedMeasureType == 'Count') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1115,7 +1097,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Duration" || selectedMeasureType == "Running time") {
+  if (selectedMeasureType == 'Duration' || selectedMeasureType == 'Running time') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').hide();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1133,7 +1115,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "File size") {
+  if (selectedMeasureType == 'File size') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1151,7 +1133,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Resolution") {
+  if (selectedMeasureType == 'Resolution') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').hide();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1169,7 +1151,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Scale") {
+  if (selectedMeasureType == 'Scale') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').show();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1187,7 +1169,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Size") {
+  if (selectedMeasureType == 'Size') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1205,7 +1187,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Weight") {
+  if (selectedMeasureType == 'Weight') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
@@ -1223,7 +1205,7 @@ function displayMeasurements() {
     $(thisRow).find('[id*=inchesMeasurement]').hide();
   }
   
-  if (selectedMeasureType == "Other") {
+  if (selectedMeasureType == 'Other') {
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
     $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitmeasurement]').hide();
@@ -1424,7 +1406,6 @@ function catalogUI_dateRange_onLoad() {
     $(this).parents('div.catRowWrapper')
       .next('div.catRowWrapper')
       .find('div[id*=dateRangeSpan]').css({ display: 'inline-block' });
-      console.log('date range shown');
   }
   else
   {
@@ -1466,13 +1447,10 @@ function catalogUI_prepFields() {
 }
 
 function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName) {
-  // console.log('function called'); // Debug
 
   // var json = {};
   // json['fieldName'] = fieldName;
   var fieldName = fieldName;
-
-  // console.log(JSON.stringify(json));
 
   var field = $('input[name='+fieldName+']');
   // json['fieldVal'] = $(field).val();
@@ -1497,7 +1475,6 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName) {
     url: '_php/_authority_search/perform_search.php',
     success: function(response)
     {
-      console.log('ajax request succeeded. fieldName: '+fieldName);
       $(field).removeClass('authorityLoading');
       $(resultsWrapper).prepend(response);
     },
@@ -1509,8 +1486,6 @@ function catalogUI_searchAuthority(fieldName, nearbyAuthorityFieldName) {
 }
 
 function catalogUI_incrementPopularity(authorityId, table) {
-  console.log('updated popularity of '+authorityId+' in '+table);
-
   $.ajax({
     type: 'POST',
     data: 'authorityId='+authorityId+'&table='+table,
@@ -1521,7 +1496,7 @@ function catalogUI_incrementPopularity(authorityId, table) {
     },
     error: function()
     {
-      console.log('AJAX ERROR: _php/_authority_search/increment_popularity.php');
+      console.error('AJAX ERROR: _php/_authority_search/increment_popularity.php');
     }
   });
 }
@@ -1538,7 +1513,6 @@ function catalogUI_clearFields(recordType) {
   $(thisPanel).find('input:checkbox').prop('checked', false);
   $(thisPanel).find('div[id*=dateRangeSpan]').hide();
 
-  console.log(recordType+' record fields cleared'); // Debugging
 }
 
 function autoWidth() {
@@ -1606,7 +1580,6 @@ function save_catalog_changes(workNum, imageNum) {
     url: '_php/save_catalog_changes.php',
     success: function(response)
     {
-      console.log('ajax request succeeded');
       $('body').prepend(response); // Debug
     },
     error: function()
@@ -1641,8 +1614,8 @@ function debounce(fn, delay) {
 
 function remove_work_assoc(orderNum, workNum, imageNum) {
   var json = {};
-  json['workNum'] = workNum;
-  json['imageNum'] = imageNum;
+  json.workNum = workNum;
+  json.imageNum = imageNum;
 
   $.ajax({
     type: 'GET',
@@ -1650,12 +1623,11 @@ function remove_work_assoc(orderNum, workNum, imageNum) {
     url: '_php/workAssoc_remove.php',
     success: function(response)
     {
-      console.log('work association removed');
       $('body').prepend(response);
     },
     error: function()
     {
-      console.log('ajax request failed: remove_work_assoc')
+      console.error('ajax request failed: remove_work_assoc');
     },
     complete: function()
     {
@@ -1677,7 +1649,7 @@ function delete_work_record(workNum) {
     },
     error: function()
     {
-      console.log('AJAX error: delete_work_record');
+      console.error('AJAX error: delete_work_record');
     },
     complete: function()
     {
@@ -1695,8 +1667,6 @@ function workAssoc_search(title, agent) {
   title = $.trim(title);
   agent = $.trim(agent);
 
-  console.log(title+' '+agent);
-
   $.ajax({
     type: 'POST',
     data: 'title='+title+'&agent='+agent,
@@ -1707,28 +1677,25 @@ function workAssoc_search(title, agent) {
     },
     error: function()
     {
-      console.log('ajax request failed: workAssoc_search');
+      console.error('ajax request failed: workAssoc_search');
     }
   });
 }
 
 function workAssoc_assoc(orderNum, workNum, imageNum) {
   var json = {};
-  json['orderNum'] = $.trim(orderNum);
-  json['workNum'] = $.trim(workNum);
-  json['imageNum'] = $.trim(imageNum);
+  json.orderNum = $.trim(orderNum);
+  json.workNum = $.trim(workNum);
+  json.imageNum = $.trim(imageNum);
 
   $.ajax({
     type: 'GET',
     data: { json: json },
     url: '_php/workAssoc_assoc.php',
-    success: function(response)
-    {
-      console.log('ASSOCIATED Work-'+workNum+' & Image-'+imageNum);
-    },
+    success: function (response) {},
     error: function()
     {
-      console.log('ajax request failed: workAssoc_assoc');
+      console.error('ajax request failed: workAssoc_assoc');
     },
     complete: function()
     {
@@ -1740,22 +1707,19 @@ function workAssoc_assoc(orderNum, workNum, imageNum) {
 }
 
 function authorityIndicators() {
-  $('input[type=text].authoritySearch').each(function()
-  {
-    var termId = 
+  $('input[type=text].authoritySearch').each(function () {
+    var termId =
       $(this)
       .parents('div.catRowWrapper')
       .find('input[type=hidden]:not(.cat_display)')
       .val();
 
-    if (termId != '')
-    {
+    if (termId != '') {
       $(this).removeClass('idMissing');
       $(this).addClass('idPresent');
     }
     
-    if (termId == '')
-    {
+    if (termId == '') {
       $(this).removeClass('idPresent');
       $(this).addClass('idMissing');
     }
@@ -1772,7 +1736,7 @@ function registerNewUser_load() {
 
   // Construct the module
   var $newUserModule = $('<div id="registerUser_module" class="module">');
-  var $newUserHeader = $('<h1>').text("Register New User");
+  var $newUserHeader = $('<h1>').text('Register New User');
   $newUserModule.prepend($newUserHeader);
   $newUserModule.append('<div class="loading_gif">');
 
@@ -1788,10 +1752,9 @@ function registerNewUser_load() {
     success: function(response) {
       load_module($newUserModule, response);
       $(document).scrollTop($('body').offset().top);
-      console.log("AJAX success: registerNewUser_load.php");
     },
     error: function() {
-      console.error("AJAX error: registerNewUser_load.php");
+      console.error('AJAX error: registerNewUser_load.php');
     }
   });
 }
@@ -1814,7 +1777,7 @@ function createRepository() {
   // Hide control panel
   $('div#control_panel_wide').hide();
 
-  var createRep_module = 
+  var createRep_module =
     $('<div>', { id: 'createRepository_module', class: 'module' });
   var createRep_header = $('<h1>').text('New Repository');
   $(createRep_module).append(createRep_header);
@@ -1840,23 +1803,18 @@ function createRepository() {
 }
 
 function createRepository_submit() {
-  console.log('Submit function called');
-
   var data = {};
 
   $('form#createRepository_form input[type=text]').each(
-    function()
-    {
+    function () {
       var val = $(this).val();
       data[$(this).attr('name')] = val;
     });
 
-  data['images'] = $('input[type=radio]:checked').val();
+  data.images = $('input[type=radio]:checked').val();
 
-  $.each(['museum','country','city'], function(index, value)
-    {
-      if ($('input[name='+value+']').val() == '')
-      {
+  $.each(['museum','country','city'], function (index, value) {
+      if ($('input[name=' + value + ']').val() == '') {
         input_error($('input[name='+value+']'));
         msg(['Please supply required information'], 'error');
       }
@@ -1881,8 +1839,6 @@ function createRepository_submit() {
       {
         $('body').append(response);
         $('div#createRepository_module').remove();
-        console.log('Repository submitted');
-        // $('body').prepend(response); // Debug
       },
       error: function()
       {
@@ -1937,7 +1893,6 @@ function createBuiltWork() {
 }
 
 function createBuiltWork_submit() {
-  console.log('submit function called');
   var json = {};
 
   var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location','Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text'];
@@ -1981,9 +1936,7 @@ function createBuiltWork_submit() {
     url: '_php/save_catalog_changes.php',
     success: function(response)
     {
-      console.log('ajax request succeeded');
       $('div#createBuiltWork_module').remove();
-      // $('body').prepend(response); // Debug
     },
     error: function(response)
     {
@@ -2015,8 +1968,6 @@ function createOrder_load_form() {
     {
       load_module(co_mod, response);
       $(document).scrollTop($('body').offset().top);
-
-      console.log('AJAX request success: _php/_order/_create/load_form.php');
     },
     error: function()
     {
@@ -2074,8 +2025,6 @@ function createOrder_continue() {
   var legacyIds = $('form#createOrder_form input[name="legacyIds"]')[0].checked;
   newOrder_data['legacyIds'] = legacyIds;
 
-  // console.log('form errors: ' + errors); // Debugging
-
   if (errors.length === 0) {
     $('.input_error').removeClass('input_error');
     createOrder_load_pages(newOrder_data);
@@ -2112,8 +2061,6 @@ function createOrder_load_pages(data) {
     {
       load_module(cof_mod, response);
       $(document).scrollTop($('body').offset().top);
-
-      console.log('AJAX request success: _php/_order/_create/assign_pages.php');
     },
     error: function()
     {
@@ -2157,8 +2104,6 @@ function createOrder_submit() {
     .add('div#createOrderFigs_module')
     .remove();
 
-  console.log('newOrder_data: '+JSON.stringify(newOrder_data));
-
   $.ajax({
     type: 'POST',
     data: newOrder_data,
@@ -2166,11 +2111,10 @@ function createOrder_submit() {
     success: function(response)
     {
       $('body').append(response);
-      console.log('AJAX request success: _php/_order/_create/submit.php');
     },
     error: function()
     {
-      console.log('AJAX request error: _php/_order/_create/submit.php');
+      console.error('AJAX request error: _php/_order/_create/submit.php');
     }
   });
 }
@@ -2196,8 +2140,6 @@ function export_load() {
     {
       load_module(ef_mod, response);
       $(document).scrollTop($('body').offset().top);
-
-      console.log('AJAX success: export_load.php');
     },
     error: function()
     {
@@ -2207,8 +2149,6 @@ function export_load() {
 }
 
 function exportRecords(exportType) {
-  console.log('export function called. validation in progress.');
-
   data = {};
   errors = [];
 
@@ -2300,7 +2240,7 @@ function lantern_search(text, gToggle, page) {
         $module.append(response);
       },
       error: function () {
-        console.log('AJAX error: lantern_search');
+        console.error('AJAX error: lantern_search');
       },
       complete: function () {
         $('#filter_toggle').append($('<span>View:</span>'));
@@ -2368,7 +2308,7 @@ function lantern_dropdown_load(dd, row, workNum, imageNum) {
         .insertAfter(row);
     },
     error: function () {
-      console.log('AJAX error: lantern_dropdown_load');
+      console.error('AJAX error: lantern_dropdown_load');
     },
     complete: function () {
       // If clicked thumb is in the same row as the last
@@ -2408,8 +2348,6 @@ function lantern_dropdown_load(dd, row, workNum, imageNum) {
 }
 
 function lantern_grid_loadThumbBanner(thumb, banner, work, image) {
-  console.log('hover over grid thumbnail - work:'+work+', image:'+image); // Debug
-
   $.ajax({
     type: 'POST',
     data: 'work='+work+'&image='+image,
@@ -2422,7 +2360,7 @@ function lantern_grid_loadThumbBanner(thumb, banner, work, image) {
     },
     error: function()
     {
-      console.log('AJAX ERROR: lantern_grid_loadThumbBanner');
+      console.error('AJAX ERROR: lantern_grid_loadThumbBanner');
     }
   });
 }
@@ -2441,7 +2379,6 @@ function lantern_list_view() {
       // load_module($('div#lanternSearch_module'), response);
       $('div#lanternSearch_module').find('div.loading_gif').remove();
       $('div#lanternSearch_module').append(response);
-      console.log('AJAX success: lantern_list_view');
     },
     error: function()
     {
@@ -2480,7 +2417,6 @@ function lantern_grid_view() {
       // load_module($('div#lanternSearch_module'), response);
       $('div#lanternSearch_module').find('div.loading_gif').remove();
       $('div#lanternSearch_module').append(response);
-      console.log('AJAX success: lantern_grid_view');
     },
     error: function()
     {
@@ -2506,16 +2442,10 @@ function lantern_grid_view() {
 }
 
 function scroll_to_load($ele, view, nextPage) {
-  // console.log('"scroll_to_load" fired. view: '+view+', nextPage: '+nextPage); // Debug
-
   $(window)
     .unbind('scroll.lantern')
-    .bind('scroll.lantern', function()
-      {
-        // console.log($(window).scrollTop()+' + '+$(window).innerHeight()+' - '+$ele.offset().top+' >= '+$ele.innerHeight()); // Debug
-
-        if ($(window).scrollTop() + $(window).innerHeight() - $ele.offset().top >= $ele.innerHeight())
-        {
+    .bind('scroll.lantern', function () {
+        if ($(window).scrollTop() + $(window).innerHeight() - $ele.offset().top >= $ele.innerHeight()) {
           $('script#lantern_list_script')
             .add('script#lantern_grid_script')
             .add('script#lantern_search_script')
@@ -2527,8 +2457,6 @@ function scroll_to_load($ele, view, nextPage) {
 }
 
 function lantern_loadMore(view, nextPage) {
-  // console.log('"lantern_loadMore" fired. view: '+view+', nextPage: '+nextPage);
-
   var $moreResults = $('<div style="height: 200px; position: relative;">');
   $moreResults.append('<div class="loading_gif">');
   $('div#lantern_results_list').append($moreResults);
@@ -2541,7 +2469,6 @@ function lantern_loadMore(view, nextPage) {
     {
       $('div.loading_gif').remove();
       $moreResults.append(response).replaceWith($moreResults.contents());
-      console.log('AJAX success: lantern_loadMore');
     },
     error: function()
     {
@@ -2584,7 +2511,7 @@ function view_orphaned_works() {
     },
     error: function()
     {
-      console.log('AJAX error: viewOrphanedWorks');
+      console.error('AJAX error: viewOrphanedWorks');
     }
   });
 }
@@ -2608,7 +2535,7 @@ function view_orphaned_images() {
     },
     error: function()
     {
-      console.log('AJAX error: viewOrphanedImages');
+      console.error('AJAX error: viewOrphanedImages');
     }
   });
 }
