@@ -1006,7 +1006,7 @@ div.thumb_panel img.list_thumb {
 }
 
 div.thumb_panel span.view_catalog,
-div.thumb_panel span.download_image {
+div.thumb_panel span.add_image_to_cart {
   font-size: 0.75em;
   vertical-align: middle;
   opacity: 0.7;
@@ -1017,8 +1017,8 @@ div.thumb_panel span.view_catalog {
   margin-left: 18px;
 }
 
-div.thumb_panel span.download_image {
-  margin-left: 24px;
+div.thumb_panel span.add_image_to_cart {
+  margin-left: 22px;
 }
 
 div.lanternResults_list_row div.text_panel {
