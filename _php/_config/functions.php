@@ -910,9 +910,8 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
   }
 }
 
-function get_related_images($mysqli, $workNum)
-{
-  $workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
+function get_related_images($mysqli, $workNum) {
+  $workNum = str_pad((string)$workNum, 6, '0', STR_PAD_LEFT);
   $rel_images = array();
 
   $sql = "SELECT id 
@@ -921,14 +920,13 @@ function get_related_images($mysqli, $workNum)
 
   $res = db_query($mysqli, $sql);
 
-  while ($row = $res->fetch_assoc())
-  {
-    $rel_images[] = str_pad((string)$row['id'],6,'0',STR_PAD_LEFT);
+  while ($row = $res->fetch_assoc()) {
+    $rel_images[] = str_pad((string)$row['id'], 6, '0', STR_PAD_LEFT);
   }
 
   foreach ($rel_images as $img) { ?>
 
-    <img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60">
+    <img class="related_thumb" src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60" data-image="<?php echo $img; ?>">
 
   <?php
   }

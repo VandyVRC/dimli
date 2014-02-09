@@ -331,7 +331,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     // CLICK THUMBNAIL TO PREVIEW
 
-    $('img.list_thumb').click(
+    $('img.list_thumb, img.related_thumb').click(
       function () {
         var img = $(this).attr('data-image');
         image_viewer(img);
