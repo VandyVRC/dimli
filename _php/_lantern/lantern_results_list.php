@@ -79,8 +79,8 @@ if (($page*$rpp)-$rpp <= count($results)) {
           <span class="view_catalog pointer"
             title="Jump to catalog record">view catalog</span>
 
-          <span class="download_image pointer"
-            title="Download JPG file">download</span>
+          <span class="add_image_to_cart pointer"
+            title="Add image to cart">add to cart</span>
 
           <?php } ?>
 
@@ -320,12 +320,12 @@ if (($page*$rpp)-$rpp <= count($results)) {
         view_work_record(imageNum);
       });
 
-    // DONWLOAD IMAGE
+    // ADD IMAGE TO CART
 
-    $('span.download_image').click(
+    $('span.add_image_to_cart').click(
       function () {
         var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
-        lantern_download(imageNum);
+        add_to_cart(imageNum);
       });
 
 
