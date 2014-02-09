@@ -2279,8 +2279,8 @@ function lantern_search(text, gToggle, page) {
     $('li#nav_lantern div.nav_dropdown').hide();
 
     var $module = $('<div id="lanternSearch_module" class="module double">');
-    $($module).append('<div class="loading_gif">')
-      .prepend('<div id="filter_toggle"><span>Show Filters</span></div>');
+    $module.append('<div class="loading_gif">')
+      .prepend('<div id="filter_toggle">');
 
     $('div#module_tier2a').prepend($module);
 
@@ -2303,7 +2303,23 @@ function lantern_search(text, gToggle, page) {
         console.log('AJAX error: lantern_search');
       },
       complete: function () {
-        // $('div#control_panel_wide').slideDown(600);
+        $('#filter_toggle').append($('<span>View:</span>'));
+        $('#filter_toggle').append($('<span id="go-list">List</span>'));
+        $('#filter_toggle').append($('<span id="go-grid">Grid</span>'));
+
+        // On click, switch to list view
+        $('#go-list').unbind('click').click(function () {
+          $('span[id^="go-"]').removeClass('current');
+          $(this).addClass('current');
+          lantern_list_view();
+        });
+
+        // On click, switch to grid view
+        $('#go-grid').unbind('click').click(function () {
+          $('span[id^="go-"]').removeClass('current');
+          $(this).addClass('current');
+          lantern_grid_view();
+        });
       }
     });
 
