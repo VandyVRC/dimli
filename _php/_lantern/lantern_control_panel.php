@@ -6,6 +6,13 @@ require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 
+/**
+ * NOTE
+ *
+ * The Lantern results filters are currently not is use.
+ * The 'include' of this file has been commented out and 
+ * this code does not currently run in DIMLI.
+ */
 
 // If control panel is being reloaded because user toggled
 // between display modes, assign the new preferred display
@@ -327,32 +334,23 @@ $_SESSION['lantern_filters'] = (!isset($_SESSION['lantern_filters']))
 
 	<script>
 
-		//  Toggle List view
-		
-		$('span#lantern_list_toggle').click(
-			function()
-			{
-				if ($(this).hasClass('fadedMore'))
-				{
+			//  Toggle List view
+		$('span#lantern_list_toggle').click(function () {
+				if ($(this).hasClass('fadedMore')) {
 					lantern_list_view();
 				}
 			});
 
 
-		//  Toggle Grid view
-		
-		$('span#lantern_grid_toggle').click(
-			function()
-			{
-				if ($(this).hasClass('fadedMore'))
-				{
+			//  Toggle Grid view
+		$('span#lantern_grid_toggle').click(function () {
+				if ($(this).hasClass('fadedMore')) {
 					lantern_grid_view();
 				}
 			});
 
 		
-		//  Reset filters
-		
+			//  Reset filters
 		$('#reset_filters').click(
 			function()
 			{

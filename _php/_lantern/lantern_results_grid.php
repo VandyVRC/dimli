@@ -89,20 +89,22 @@ if (($page*$rpp)-$rpp <= count($results))
 		/*
 		TOGGLE FILTER VISIBILITY
 		*/
-		$('#filter_toggle').unbind('click').click(function()
-			{
-				if (!$('#control_panel_wide').is(':visible'))
-				{
-					$('#control_panel_wide').slideDown(600);
-					$('#filter_toggle span').text('Hide Filters');
-					$(document).scrollTop($('body').offset().top);
-				}
-				else
-				{
-					$('#control_panel_wide').slideUp(600);
-					$('#filter_toggle span').text('Show Filters');
-				}
-			});
+		// TEMP: Commented out while filters are not being used
+		// 
+		// $('#filter_toggle').unbind('click').click(function()
+		// 	{
+		// 		if (!$('#control_panel_wide').is(':visible'))
+		// 		{
+		// 			$('#control_panel_wide').slideDown(600);
+		// 			$('#filter_toggle span').text('Hide Filters');
+		// 			$(document).scrollTop($('body').offset().top);
+		// 		}
+		// 		else
+		// 		{
+		// 			$('#control_panel_wide').slideUp(600);
+		// 			$('#filter_toggle span').text('Show Filters');
+		// 		}
+		// 	});
 
 
 		// GRID VIEW THUMBNAILS
@@ -112,9 +114,8 @@ if (($page*$rpp)-$rpp <= count($results))
 
 		$('div[id^=gridRow] div.gridThumb_wrapper')
 			.click(
-				function()
 				// Prepare and call function to load the preview dropdown
-				{
+				function () {
 					if ($(this).find('img.gridThumb').hasClass('selected') == false)
 					{
 						var img = $(this).find('img.gridThumb');
@@ -128,9 +129,8 @@ if (($page*$rpp)-$rpp <= count($results))
 					}
 				})
 			.mouseenter(debounce(
-				function(event)
 				// After a brief delay, query the record title and display it in a thumbnail banner
-				{
+				function (event) {
 					var thumb = $(this).find('img.gridThumb');
 					var banner = $('<div class="gridThumb_banner">').css({ width: ($(thumb).width()-10)+'px' });
 					var work = $(thumb).attr('data-work');
