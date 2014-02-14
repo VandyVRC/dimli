@@ -414,14 +414,15 @@ foreach ($results_arr as $id=>$arr) {
       $assocImgs = $work['related_images'];
     }
 
-    $assocImgs = explode(',', $assocImgs);
 
-    foreach ($assocImgs as $img) {
+   // $assocImgs = explode(',', $assocImgs);
 
-      if (array_key_exists('image'.$img, $results_arr)) {
-        unset($results_arr['image'.$img]);
-      }
-    }
+  //  foreach ($assocImgs as $img) {
+
+    //  if (array_key_exists('image'.$img, $results_arr)) {
+     //   unset($results_arr['image'.$img]);
+    //  }
+   // }
   }
 }
 
