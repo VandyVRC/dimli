@@ -45,6 +45,10 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 			<option value=""></option>
 
+			<option value="Library"
+				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'Library'); ?>
+				>Library</option>
+                
 			<option value="History of Art"
 				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'History of Art'); ?>
 				>History of Art</option>
