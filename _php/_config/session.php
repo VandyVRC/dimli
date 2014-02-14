@@ -11,12 +11,12 @@ session_start();
 
 // Verify that the current session is logged in
 function logged_in() {
-	return isset($_SESSION['user_id']);
+  return isset($_SESSION['user_id']);
 }
 
 // Reroute to the login screen if session is not logged in
 function confirm_logged_in() {
-	if (!logged_in()) {
-		header('Location: login.php');
-	}
+  if (!logged_in()) {
+    header('Location: login.php');
+  }
 }
