@@ -54,7 +54,7 @@ while ($i <= $imageCount) {
 	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
 
 		// User elected to supply legacy ids and filenames
-	if ($legacyIds === true) {
+	if ($legacyIds == "true") {
 
 		$sql = "INSERT INTO $DB_NAME.image
 					SET legacy_id = '{$page}',
