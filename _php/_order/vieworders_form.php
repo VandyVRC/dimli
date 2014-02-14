@@ -108,9 +108,7 @@ while ($user = $result->fetch_assoc()) {
 		<?php echo ($_SESSION['findOrders_showComplete'] == 'yes') 
 			? 'checked="checked"' 
 			: ''; ?>
-		value="yes">&nbsp;Show complete
-
-	<hr />
+		value="yes">&nbsp;Show complete<hr />
 
 	<div class="mediumWeight" style="margin-top: 15px;">Patron</div>
 
@@ -222,11 +220,10 @@ while ($user = $result->fetch_assoc()) {
 	$('input[name=orderNum_range]').click(order_range);
 
 	// Load jQuery's datepicker widget
-	jQuery_date(
-		function()
-		{
-			$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-		});
+	$(function () {
+		$('#datepicker1').datepicker({ dateFormat: 'yy-mm-dd' });
+		$('#datepicker2').datepicker({ dateFormat: 'yy-mm-dd' });
+	});
 
 	//--------------------------------------------------------
 	//  Prepare suggest_input function with array of patrons

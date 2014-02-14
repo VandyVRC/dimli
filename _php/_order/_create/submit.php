@@ -19,23 +19,24 @@ $requestor = $mysqli->real_escape_string($_POST['client']);
 $department = $mysqli->real_escape_string($_POST['department']);
 $email = $mysqli->real_escape_string($_POST['email']);
 $date_needed = $mysqli->real_escape_string($_POST['dateNeeded']);
+$legacyIds = $_POST['legacyIds'];
 
 
+	// $_POST contained no value for 'imageCount'
 if (empty($_POST['imageCount'])) {
-// No image count is set - count should be determined by total
-// number of image/figure rows submitted
 
+		// Determine the image count by counting the number of keys in
+		// `$_POST` that begin with 'image'
 	$count = 0;
-	foreach ($_POST as $key=>$val) {
-		if ((strpos($key, 'image') > -1) && $key != 'imageCount') {
+	foreach ($_POST as $key => $val) {
+		if ((strpos($key, 'image') > -1) && $key !== 'imageCount') {
 			$count++;
 		}
 	}
 	$imageCount = $count;
 
+	// Image count was supplied by user
 } else {
-// Image count was supplied by user
-
 	$imageCount = $_POST['imageCount'];
 }
 
@@ -46,18 +47,30 @@ if (empty($_POST['imageCount'])) {
 
 $i = 1;
 
-while ($i <= $imageCount)
-// For each image
-{
+	// For each image
+while ($i <= $imageCount) {
+
 	$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
 	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
 
+		// User elected to supply legacy ids and filenames
+	if ($legacyIds === true) {
 
-	$sql = "INSERT INTO $DB_NAME.image
-				SET page = '{$page}',
-					fig = '{$fig}',
-					file_format = '.jpg',
-					last_update_by = '{$_SESSION['username']}' ";
+		$sql = "INSERT INTO $DB_NAME.image
+					SET legacy_id = '{$page}',
+						legacy_filename = '{$fig}',
+						file_format = '.jpg',
+						last_update_by = '{$_SESSION['username']}' ";
+
+	} else {
+
+		$sql = "INSERT INTO $DB_NAME.image
+					SET page = '{$page}',
+						fig = '{$fig}',
+						file_format = '.jpg',
+						last_update_by = '{$_SESSION['username']}' ";
+
+	}
 
 	$result = db_query($mysqli, $sql);
 	
@@ -75,9 +88,9 @@ while ($i <= $imageCount)
 	$result = db_query($mysqli, $sql);
 
 	$i++;
+
 	$thisImage = create_six_digits($thisImage++);
 }
-
 
 //---------------------
 //  CREATE NEW ORDER

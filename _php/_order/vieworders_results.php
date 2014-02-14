@@ -351,7 +351,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 						$init2 = substr($user['last_name'], 0, 1);
 					endwhile;
 
-					echo $init1.$init2;
+					echo (isset($init1)) ? $init1.$init2 : '';
 
 				endif; ?>
 

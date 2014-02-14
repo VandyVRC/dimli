@@ -1,6 +1,7 @@
-var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:\<\>\`\~\-\_\=\+\{\}\[\]\|\']/);
 
-// [inputs] (jQuery object) Input fields being tracked
+var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:<>\`\~\-\_\=\+\{\}\[\]\|\']/);
+
+	// @param	 {jQueryObject}  Inputs being tracked
 function ErrorTracker(inputs) {
 	this.inputs = [inputs];
 
@@ -13,40 +14,37 @@ function exists() {
 	return this.length > 0;
 }
 
-// Pad numbers with leading zeros
+	// Pad numbers with leading zeros
 function pad(str, max) {
-	return str.toString().length < max ? pad("0" + str.toString(), max) : str.toString();
+	return str.toString().length < max ? pad('0' + str.toString(), max) : str.toString();
 }
 
 function highlight(str, elements, className) {
-	$.each(elements, function()
-		{
-			var rgxp = new RegExp(str, 'ig');
-		   var repl = '<span class="'+className+'">' + str + '</span>';
-		   this.innerHTML = this.innerHTML.replace(rgxp, repl);
-		});
+	$.each(elements, function () {
+		var rgxp = new RegExp(str, 'ig');
+		var repl = '<span class="' + className + '">' + str + '</span>';
+		this.innerHTML = this.innerHTML.replace(rgxp, repl);
+	});
 }
 
 function closeAllNavLists_prep() {
+
 	$('html, div.nav_dropdown').unbind('click.closeNavs');
 
-	// User clicks anywhere on the document
+		// User clicks anywhere on the document
 	$('html, div.nav_dropdown_item').bind('click.closeNavs',
-		function(event)
-		{
-			if (
-				event.target.id != 'lantern_search' &&
-				event.target.id != 'lantern_gettyToggle'
-				)
-			{
+		function (event) {
+
+		if (event.target.id != 'lantern_search' &&
+			  event.target.id != 'lantern_gettyToggle') {
+
 				// Hide the navigation dropdowns
-				$('div.nav_dropdown').hide();
-				// console.log('all nav dropdowns hidden'); // Debug
-			}
-		});
+			$('div.nav_dropdown').hide();
+		}
+	});
 }
 
-// Toggle navigation dropdown menus
+	// Toggle navigation dropdown menus
 function showThisDropdown(event) {
 
 	event.stopPropagation();
@@ -54,35 +52,40 @@ function showThisDropdown(event) {
 	$('div.nav_dropdown').hide();
 	var dropdown = $(this).find('div.nav_dropdown');
 	dropdown.show();
-	console.log('nav dropdown shown');
 
 	closeAllNavLists_prep();
 }
 
-// element (jQuery object)
-// reSpecialChars depends on variable defined in parent scope
-// of this function definition
+/**
+ * Checks that an input element does not contains special
+ * characters when the form is submitted
+ * 
+ * @param  {jQueryObject}  element 
+ * Input whose value is checked for special characters
+ * 
+ * @return {Boolean}        
+ * True if value is ok; false if special chars are present
+ */
 function noSpecialChars(element) {
 
-	// The input field contains special chars
+		// The input field contains special chars
 	if (element.val().search(reSpecialChars) >= 0) {
 
-		// Display user error message
+			// Display user error message
 		msg(['This field may not contain special characters'], 'error');
 
-		// Highlight input's background
+			// Highlight input's background
 		$(element).css({ backgroundColor: '#FFF0DE' });
 
 		return false;
-	}
 
-	// The input field does not contain special chars
-	else {
+		// The input field does not contain special chars
+	} else {
 
-		// Remove user error message
+			// Remove user error message
 		$('div#message_wrapper').hide();
 
-		// Reset input's background color
+			// Reset input's background color
 		$(element).css({ backgroundColor: '#FFF' });
 
 		return true;
@@ -97,29 +100,32 @@ function closeModule_button(module) {
 	$(close_button)
 		.attr('src', '_assets/_images/64_close.png')
 		.addClass('floatRight pointer closeButton')
-		.css({ maxHeight: '16px', 
-			opacity: '0.3', 
+		.css({
+			maxHeight: '16px',
+			opacity: '0.3',
 			verticalAlign: 'middle',
-			paddingTop: '3px' });
+			paddingTop: '3px'
+		});
 	$(module).find('h1').append(close_button);
-	$(close_button).click(function()
-	{
+	$(close_button).click(function () {
 		$(module).remove();
 	});
 }
 
 function promptToConfirm() {
-	// Remove remnants from previous instances
+
+		// Remove remnants from previous instances
 	$('button#conf_button').remove();
 	$('div#confirm_wrapper_temp')
 		.replaceWith($('div#confirm_wrapper_temp').contents());
 
 	var $submit = $(this);
-		$submit.css({
-			marginRight: '0',
-			borderRight: 'none',
-			color: '#CCC'
-		});
+
+	$submit.css({
+		marginRight: '0',
+		borderRight: 'none',
+		color: '#CCC'
+	});
 
 	var $submitSize = $(this).css('fontSize');
 	var $confirm = $('<button>');
@@ -134,8 +140,8 @@ function promptToConfirm() {
 			fontSize: $submitSize
 		});
 
-	function restoreSubmit()
-	{
+	function restoreSubmit() {
+
 		$($confirm).remove();
 
 		$('div#confirm_wrapper_temp')
@@ -164,6 +170,7 @@ function promptToConfirm() {
 }
 
 function load_module(module, response) {
+
 	$(module).find('div.loading_gif').remove();
 
 	$(module)
@@ -171,8 +178,7 @@ function load_module(module, response) {
 		.wrapInner('<div class="temp_wrapper"/>');
 
 	$(module).find('.temp_wrapper')
-		.fadeIn(800, function()
-		{
+		.fadeIn(800, function () {
 			$(this).replaceWith($(module).find('.temp_wrapper').contents());
 		});
 }
@@ -184,7 +190,7 @@ function open_order(orderNum) {
 		.not('div#image_module')
 		.remove();
 
-	// Hide control panel
+		// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var newModule = $('<div>', {id: 'order_module', class: 'module double'});
@@ -199,24 +205,20 @@ function open_order(orderNum) {
 		type: 'GET',
 		data: { order: orderNum },
 		url: '_php/_order/load_order.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(newModule, response);
-
-			// console.log('Order '+ orderNum +' loaded'); // Debug
 		},
-		error: function()
-		{
-			console.log('ajax request failed: _php/_order/load_order.php')
+		error: function () {
+			console.log('ajax request failed: _php/_order/load_order.php');
 		},
-		complete: function()
-		{
+		complete: function () {
 			recently_visited();
 		}
 	});
 }
 
 function order_refreshImage(imageNum) {
+
 	var $row = $('div.imageList_imageNum:contains('+imageNum+')')
 				.parent('div.orderView_imageRow');
 	var $loading = $('<div class="loading_gif">');
@@ -225,117 +227,114 @@ function order_refreshImage(imageNum) {
 
 	$.ajax({
 		type: 'GET',
-		data: 'image='+imageNum,
+		data: 'image=' + imageNum,
 		url: '_php/_order/refresh_row.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$('div.loading_gif').remove();
 			$($row).append(response).fadeIn(400);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: refresh_row.php');
 		}
 	});
 }
 
 function order_navigation() {
-	// Determine number of blocks needed
+
+		// Determine number of blocks needed
 	var imageCount = $('#orderView_imageList > .orderView_imageRow').length;
 	var blockCount = Math.floor(imageCount / 10);
-	if ((imageCount % 10) != 0) { blockCount++; }
+	if ((imageCount % 10) !== 0) {
+		blockCount++;
+	}
 
-
-	// Determine height for blocks
+		// Determine height for blocks
 	var navbarHeight = $('div.order_nav_bar').height();
 	var blockHeight = navbarHeight / blockCount;
 
 
-	// Add navigation blocks to navigation bar
-	for (var i=1; i<=blockCount; i++)
-	{
+		// Add navigation blocks to navigation bar
+	for (var i = 1; i <= blockCount; i++) {
 		var block = $('<div class="order_nav_block">');
 		$(block).appendTo('div.order_nav_bar')
-			.css({ height: blockHeight+'px', lineHeight: blockHeight+'px' });
+			.css({ height: blockHeight + 'px', lineHeight: blockHeight + 'px' });
 	}
 
 	$('div.order_nav_block').first().attr('id','order_nav_current');
-
 	
-	// Define events for page-block hovering
-	$('div#order_nav_current').hover(function()
-	{
+		// Define events for page-block hovering
+	$('div#order_nav_current').hover(function () {
 		$(this).text($(this).parent().children().index(this) + 1);
-	}, function()
-	{
+
+	}, function () {
 		$(this).text('');
+
 	});
 
-	$('div.order_nav_block:not(#order_nav_current)').hover(function()
-	{
+	$('div.order_nav_block:not(#order_nav_current)').hover(function () {
 		$(this).text($(this).parent().children().index(this) + 1);
-	}, function()
-	{
+
+	}, function () {
 		$(this).text('');
+
 	});
 
 
-	// Add anchors to image list to enable page jumping
+		// Add anchors to image list to enable page jumping
 	$('.orderView_imageRow').first().before('<a id="imageList_page1">');
 
-	for (var i=1; i<=blockCount; i++)
-	{
-		var row = (i*10);
-		// console.log(row); // Debugging
-		$('.orderView_imageRow:eq('+row+')')
-			.before('<a id="imageList_page'+(i+1)+'">');
+	for (var i = 1; i <= blockCount; i++) {
+
+		var row = (i * 10);
+		$('.orderView_imageRow:eq(' + row + ')')
+			.before('<a id="imageList_page' + (i + 1) + '">');
+
 	}
 
 
 	// Define event when user clicks on navigation block
-	$('div.order_nav_block').click(function()
-	{
+	$('div.order_nav_block').click(function () {
+
 		var page = $(this).parent().children().index(this) + 1;
-		console.log('page: '+page); // Debugging
 
 		$('div#orderView_imageList')
-			.animate({ top: -((page*530)-530) }, 500);
+			.animate({ top: - ((page * 530) - 530) }, 500);
 
 		$('div#order_nav_current').attr('id', '');
 		$(this).attr('id','order_nav_current');
+
 	});
-}	
+}
 
 function order_updateProgress(event, orderNum) {
+
+		// Remove any previous ajax response's existing javascript
 	$('script#updateOrderStatus_temp').remove();
-	// Remove any previous ajax response's existing javascript
 
 	var eleId = event.target.id;
-	console.log(eleId+' clicked for order '+orderNum); // Debugging
+	// console.log(eleId+' clicked for order '+orderNum); // Debug
 
-	if ($('div[id='+eleId+']').hasClass('complete'))
-	{
-		var status = '0';
-		var statusClass = '';
-	}
-	else
-	{
-		var status = '1';
-		var statusClass = 'complete';
+	var status, statusClass;
+
+	if ($('div[id=' + eleId + ']').hasClass('complete')) {
+		status = '0';
+		statusClass = '';
+
+	} else {
+		status = '1';
+		statusClass = 'complete';
+
 	}
 
 	$.ajax({
 		type: 'POST',
 		data: 'process='+eleId+'&status='+status+'&orderNum='+orderNum,
 		url: '_php/_order/update_progress.php',
-		success: function(response)
-		{
+		success: function (response) {
 			console.log('order '+orderNum+' - attempting to set '+eleId+' status to '+status+', if user has sufficient privilege');
-
 			$('div[id='+eleId+']').replaceWith(response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: _order/update_progress.php');
 		}
 	});
@@ -344,21 +343,18 @@ function order_updateProgress(event, orderNum) {
 function order_updateCataloger(order, uid, username) {
 	$.ajax({
 		type: 'POST',
-		data: 'order='+order+'&uid='+uid+'&username='+username,
+		data: 'order=' + order + '&uid=' + uid + '&username=' + username,
 		url: '_php/_order/update_assigned.php',
-		success: function(response)
-		{
+		success: function (response) {
+				
+				// Remove any scripts generated by previous cataloger updates from the page
 			$('script#updateCataloger_script').remove();
-			// Remove any scripts generated by previous cataloger updates from the page
+			
+				// Add script to page generate user message
 			$('body').prepend(response);
-			// Add script to page generate user message
+			
 		},
-		error: function()
-		{
-
-		},
-		complete: function()
-		{
+		complete: function () {
 			findOrders_loadResults(1, 'date_needed', 'ASC');
 		}
 	});
@@ -374,12 +370,13 @@ function updateOrderDueDate(newDueDate, orderNum) {
 			$('span#orderDueClickable').text('').append(response);
 		},
 		error: function() {
-			msg(["Failed to change the due date of this order"], 'error');
+			msg(['Failed to change the due date of this order'], 'error');
 		}
 	});
 }
 
 function recently_visited() {
+
 	$('div#recently_visited_module').remove();
 
 	var revi_module = $('<div id="recently_visited_module" class="module">');
@@ -391,8 +388,7 @@ function recently_visited() {
 	$.ajax({
 		type: 'GET',
 		url: '_php/_homepage/activity_log.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$(revi_module).find('div.loading_gif').remove();
 
 			$(revi_module)
@@ -404,20 +400,17 @@ function recently_visited() {
 				{
 					$(this).replaceWith($('#recently_visited_module .temp_wrapper').contents());
 				});
-
-			// console.log('recently_visited refreshed'); // Debug
 		},
-		error: function()
-		{
-			console.log('ajax request failed: recently_visited')
+		error: function () {
+			console.log('ajax request failed: recently_visited');
 		}
 	});
 }
 
 function usersBrowse_load() {
+
 	$('div[id$=_module]').remove();
 
-	// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var ub_mod = $('<div id="usersBrowse_module" class="module">');
@@ -432,23 +425,21 @@ function usersBrowse_load() {
 	$.ajax({
 		type: 'GET',
 		url: '_php/users_browse.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(ub_mod, response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: _php/users_browse.php');
 		}
 	});
 }
 
 function userProfile_load(userId) {
+
 	$('div[id$=_module]')
 		.not('div#usersBrowse_module')
 		.remove();
 
-	// Hide control panel
 	$('div#control_panel_wide').hide();
 
 	var up_mod = $('<div id="userProfile_module" class="module">');
@@ -464,61 +455,54 @@ function userProfile_load(userId) {
 		type: 'POST',
 		data: 'userId='+userId,
 		url: '_php/_user/userProfile_load.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(up_mod, response);
 		},
-		error: function()
-		{
+		error: function () {
 			console.log('AJAX ERROR: userProfile_load.php');
 		}
 	});
 }
 
 function userProfile_changePassword(userId) {
+
 	var password_data = {};
 	var errors = [];
 
-	password_data['userId'] = userId;
+	password_data.userId = userId;
 
 	$('input#userProf_oldPass, input#userProf_newPass').each(
-		function()
-		{
+		function () {
+
 			var value = $.trim($(this).val());
 
-			if (value == '')
-			// IF val is blank
-			{
+			if (value === '') {
 				input_error($(this));
 				errors.push($(this).attr('name'));
-			}
-			else
-			{
+
+			} else {
 				password_data[$(this).attr('name')] = value;
+
 			}
 		});
 
-	console.log('form errors: '+errors);
+	console.log('form errors: ' + errors);
 
-	if (errors.length === 0)
-	{
+	if (errors.length === 0) {
 		$.ajax({
 			type: 'POST',
 			data: { data: password_data },
 			url: '_php/_user/userProfile_changePassword.php',
-			success: function(response)
-			{
+			success: function (response) {
 				$('body').append(response);
 				console.log('ajax request complete: password change');
 			},
-			error: function()
-			{
+			error: function () {
 				console.log('AJAX ERROR: userProfile_changePassword.php');
 			}
 		});
-	}
-	else
-	{
+
+	} else {
 		msg(['A required field was left blank'], 'error');
 	}
 }
@@ -527,54 +511,53 @@ function userProfile_updateNames(userId) {
 
 	var name_data = {};
 	var errors = [];
+	var inputs = [
+		'input#userProf_firstName',
+		'input#userProf_lastName',
+		'input#userProf_username',
+		'input#userProf_email',
+		'select#userProf_department',
+		'select#userProf_userType'
+	].join(', ');
 
-	name_data['userId'] = userId;
+	name_data.userId = userId;
 
-	$('input#userProf_firstName, input#userProf_lastName, input#userProf_username, input#userProf_email, select#userProf_department, select#userProf_userType').each(
-		function()
-		{
-			var value = $.trim($(this).val());
+	$(inputs).each(function () {
 
-			if (value == '')
-			// Value is EMPTY
-			{
+		var value = $.trim($(this).val());
+
+		if (value === '') {
+			input_error($(this));
+			errors.push($(this).attr('name'));
+			msg(['A required field was left blank'], 'error');
+
+		} else {
+				// If username value is LESS THAN 4 chars
+			if ($(this).attr('id')=='userProf_username' && value.length < 4) {
 				input_error($(this));
 				errors.push($(this).attr('name'));
-				msg(['A required field was left blank'], 'error');
-			}
-			else
-			// Value is NOT EMPTY
-			{
-				if ($(this).attr('id')=='userProf_username' && value.length < 4)
-				// Username value is LESS THAN 4 chars
-				{
-					input_error($(this));
-					errors.push($(this).attr('name'));
-					msg(['Username must be at least four characters in length'], 'error');
-				}
-				else
-				{
-					name_data[$(this).attr('name')] = value;
+				msg(['Username must be at least four characters in length'], 'error');
+
+			} else {
 					// Add value to data array
-				}
+				name_data[$(this).attr('name')] = value;
+				
 			}
-		});
+		}
+	});
 
-	console.log('form errors: '+errors);
+	console.log('form errors: ' + errors);
 
-	if (errors.length === 0)
-	{
+	if (errors.length === 0) {
+
 		$.ajax({
 			type: 'POST',
 			data: { data: name_data },
 			url: '_php/_user/userProfile_updateNames.php',
-			success: function(response)
-			{
+			success: function (response) {
 				$('body').append(response);
 				console.log('ajax request complete: update names');
-			},
-			error: function()
-			{
+			}, error: function () {
 				console.log('AJAX ERROR: userProfile_updateNames.php');
 			}
 		});
@@ -582,42 +565,37 @@ function userProfile_updateNames(userId) {
 }
 
 function userProfile_readPriv(wrapper, userId, priv) {
+
 	$.ajax({
 		type: 'POST',
-		data: 'userId='+userId+'&priv='+priv,
+		data: 'userId=' + userId + '&priv=' + priv,
 		url: '_php/_user/userProfile_readPriv.php',
-		success: function(response)
-		{
-			if (response == 'true')
-			{
+		success: function (response) {
+
+			if (response == 'true') {
 				$(wrapper).find('div.priv_left').css({ backgroundColor: '#669' }).text('ON');
 				$(wrapper).find('div.priv_right').css({ backgroundColor: '#EEE' }).text('');
-			}
-			else
-			{
+
+			} else {
 				$(wrapper).find('div.priv_left').css({ backgroundColor: '#EEE' }).text('');
 				$(wrapper).find('div.priv_right').css({ backgroundColor: '#CCC' }).text('OFF');
 			}
-		},
-		error: function()
-		{
+		}, error: function () {
 			console.log('AJAX ERROR: userProfile_readPriv.php');
 		}
 	});
 }
 
 function userProfile_togglePriv(wrapper, userId, priv) {
+
 	$.ajax({
 		type: 'POST',
-		data: 'userId='+userId+'&priv='+priv,
+		data: 'userId=' + userId + '&priv=' + priv,
 		url: '_php/_user/userProfile_togglePriv.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$('div#userProfile_module').append(response);
-			console.log('user '+userId+' '+priv+' updated');
-		},
-		error: function()
-		{
+			console.log('user ' + userId + ' ' + priv + ' updated');
+		}, error: function () {
 			console.log('AJAX ERROR: userProfile_togglePriv');
 		}
 	});
@@ -626,33 +604,30 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 function registerNewUser_submit(formId) {
 
 	var jsonData = {};
-	var formAsJQuerySelector = 'form#'+formId;
+	var formAsJQuerySelector = 'form#' + formId;
 
-	$(formAsJQuerySelector+' input:not([type=button], [type=submit], [type=checkbox])').each(
-		function()
-		{
-			var name = $(this).attr('name');
-			jsonData[name] = $('input[name='+name+']').val();
-		});
+	$(formAsJQuerySelector + ' input:not([type=button], [type=submit], [type=checkbox])').each(function () {
+		var name = $(this).attr('name');
+		jsonData[name] = $('input[name='+name+']').val();
+	});
 	
-	var user_type = $(formAsJQuerySelector+' select[name=user_type]').val();
-	jsonData['user_type'] = user_type;
+	var user_type = $(formAsJQuerySelector + ' select[name=user_type]').val();
+	jsonData.user_type = user_type;
 
-	var department = $(formAsJQuerySelector+' select[name=department]').val();
-	jsonData['department'] = department;
+	var department = $(formAsJQuerySelector + ' select[name=department]').val();
+	jsonData.department = department;
 
 	$.ajax({
 		type: 'POST',
 		data: { jsonData: jsonData },
 		url: '_php/_user/registerNewUser_submit.php',
-		success: function(response) {
+		success: function (response) {
 			$(body).prepend(response);
 			$('div#registerUser_module').remove();
 			usersBrowse_load();
-			console.log("File successfully loaded: registerNewUser_submit.php");
-		},
-		error: function() {
-			console.error("Failed to load file: registerNewUser_submit.php");
+			console.log('File successfully loaded: registerNewUser_submit.php');
+		}, error: function () {
+			console.error('Failed to load file: registerNewUser_submit.php');
 		}
 	});
 }
@@ -661,79 +636,70 @@ function deleteUser_submit(userId) {
 
 	$.ajax({
 		type: 'POST',
-		data: 'userId='+userId,
+		data: 'userId=' + userId,
 		url: '_php/_user/deleteUser_submit.php',
-		success: function(response) {
+		success: function (response) {
 			$(body).prepend(response);
-			console.log("File successfully loaded: deleteUser_submit.php");
-		},
-		error: function() {
-			console.error("Failed to load file: deleteUser_submit.php");
-		},
-		complete: function() {
-			// Reload the Browse Users module
+			console.log('File successfully loaded: deleteUser_submit.php');
+		}, error: function () {
+			console.error('Failed to load file: deleteUser_submit.php');
+		}, complete: function () {
+				// Reload the Browse Users module
 			usersBrowse_load();
 		}
 	});
 }
 
 function updateExportFlag(record, status) {
-	if (status == 0)
-	{
-		var flag_newStatus = 1;
-	}
-	else
-	{
-		var flag_newStatus = 0;
-	}
+
+	var flag_newStatus = status == 0 ? 1 : 0;
 
 	record = pad(record, 6);
 	console.log(record + ' flag status: ' + flag_newStatus);
 
 	$.ajax({
 		type: 'POST',
-		data: 'flagged_for_export='+flag_newStatus+'&image_id='+record,
+		data: 'flagged_for_export=' + flag_newStatus + '&image_id=' + record,
 		url: '_php/update_export_flag.php',
-		success: function(response)
-		{
-			$('div.imageList_imageNum:contains('+record+')')
+		success: function (response) {
+			$('div.imageList_imageNum:contains(' + record + ')')
 				.siblings('div.flagRecord_button.active')
 				.remove();
 
 			var nearbyDelete = $('div.imageList_imageNum:contains(' + record + ')')
 				.siblings('div.deleteRecord_button');
 
-			$(nearbyDelete).siblings('div.export_flag_status').text(flag_newStatus);
+			$(nearbyDelete)
+				.siblings('div.export_flag_status')
+				.text(flag_newStatus);
 
 			$(nearbyDelete).before(response);
 			$('.flagRecord_button.active').addClass('faded');
 
-			// console.log(response);
 		}
 	});
 }
 
 function deleteImageRecord(deadRecord) {
-	deadRecord = pad(deadRecord, 6);
 
-	if (confirm('Are you sure you wish to delete image ' + deadRecord + '?'))
-	{
+	deadRecord = pad(deadRecord, 6);
+	var confirmed = confirm('Are you sure you wish to delete image ' + deadRecord + '?');
+
+	if (confirmed) {
 		var xmlhttp;
 		if (window.XMLHttpRequest) { // Modern browsers
-			xmlhttp = new XMLHttpRequest; 
+			xmlhttp = new XMLHttpRequest();
 		} else { // IE5 & IE6
 			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
 		}
 
 		console.log('Dead record (post-padding): ' + deadRecord);
 
-		xmlhttp.onreadystatechange = function()
-		{
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-			{
+		xmlhttp.onreadystatechange = function () {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				open_order(order_num);
 			}
-		}
+		};
 
 		xmlhttp.open('GET', '_php/delete_image_record.php?deadImage=' + pad(deadRecord, 6), true);
 		xmlhttp.send();
@@ -741,10 +707,10 @@ function deleteImageRecord(deadRecord) {
 }
 
 function view_work_record(record) {
+
 	record = $.trim(record);
 
-	if (record != 'None')
-	{
+	if (record != 'None') {
 		record = pad(record, 6);
 	}
 
@@ -761,16 +727,14 @@ function view_work_record(record) {
 		type: 'GET',
 		data: 'imageRecord='+record,
 		url: '_php/view_work_record.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(work_module, response);
-
-			// console.log('work record loaded'); // Debug
 		}
 	});
 }
 
 function view_image_record(record) {
+
 	record = pad($.trim(record), 6);
 
 	$('div#image_module').remove();
@@ -786,36 +750,28 @@ function view_image_record(record) {
 
 	$.ajax({
 		type: 'GET',
-		data: 'imageRecord='+record,
+		data: 'imageRecord=' + record,
 		url: '_php/view_image_record.php',
-		success: function(response)
-		{
+		success: function (response) {
 			load_module(image_module, response);
-
-			// console.log('image record loaded: '+$.trim(record)); // Debug
 		}
 	});
 }
 
 function image_viewer(imageNum) {
+
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
-		xmlhttp = new XMLHttpRequest; 
+		xmlhttp = new XMLHttpRequest();
 	} else { // IE5 & IE6
 		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
 	}
 
-	xmlhttp.onreadystatechange = function()
-	{
-		if (xmlhttp.readyState == 1)
-		{
-			
-		}
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			$('body').append(xmlhttp.responseText);
 		}
-	}
+	};
 
 	xmlhttp.open('GET', '_php/image_viewer.php?imageNum=' + imageNum, true);
 	xmlhttp.send();
@@ -823,118 +779,82 @@ function image_viewer(imageNum) {
 }
 
 function findOrders_loadForm() {
-	var xmlhttp;
-	if (window.XMLHttpRequest) { // Modern browsers
-		xmlhttp = new XMLHttpRequest; 
-	} else { // IE5 & IE6
-		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
-	}
 
-	// Remove existing modules
+		// Remove existing modules
 	$('div[id$=_module]').remove();
 
-	// Hide control panel
+		// Hide control panel
 	$('div#control_panel_wide').hide();
 
-	// Create new module
+		// Create new module
 	var newModule = $('<div>', { id: 'browse_orders_module', class: 'module double' });
 	var newHeader = $('<h1 style="font-size: 1.7em;">').text('Orders');
 	$(newModule).prepend(newHeader);
 
-	// Add new module to the DOM
+		// Add new module to the DOM
 	$('div#module_tier1a').prepend(newModule);
 
 	$.ajax({
 		type: 'GET',
 		url: '_php/_order/vieworders_form.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$('div.loading_gif').remove();
 			$(newModule).append(response);
 			$(document).scrollTop($('body').offset().top);
 		}
 	});
 
-	// xmlhttp.onreadystatechange = function()
-	// {
-	// 	if (xmlhttp.readyState == 1)
-	// 	{
-	// 		$(newModule).append('<div class="loading_gif">');
-	// 	}
-	// 	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-	// 	{
-	// 		$('div.loading_gif').remove();
-	// 		$(newModule).append(xmlhttp.responseText);
-	// 		$(document).scrollTop($('body').offset().top);
-	// 	}
-	// }
-
-	// xmlhttp.open('GET', '_php/_order/vieworders_form.php', true);
-	// xmlhttp.send();
 }
 
 function order_range() {
-	if ($('input[name=orderNum_range]').is(':checked'))
-	{
+	if ($('input[name=orderNum_range]').is(':checked')) {
 		$('input[name=orderNum_end]').show();
-	}
-	else
-	{
+	} else {
 		$('input[name=orderNum_end]').hide();
 	}
 }
 
 function unique_array(array) {
-	return array.filter(function(el, index, arr)
-	{
+	return array.filter(function(el, index, arr) {
 		return index == arr.indexOf(el);
 	});
 }
 
 function suggest_input(inputName, minLen, searchArray, suggestionAreaId) {
-	if (
-		$('input[name='+inputName+']').val().length >= minLen
-		&& 
-		$('input[name='+inputName+']').val() != inputName
-		)
-	// User has typed at least 2 characters
-	// AND input value is NOT the same as the input's name
-	{
-		// console.log('function called: suggest_input('+inputName+', '+searchArray+', '+suggestionAreaId+')');
 
-		var typed = $('input[name='+inputName+']').val().toLowerCase();; 
-		// console.log('User typed: "'+typed+'"');
+		// If user has typed at least 2 characters
+		// AND input value is NOT the same as the input's name
+	if ($('input[name=' + inputName + ']').val().length >= minLen && $('input[name=' + inputName + ']').val() != inputName) {
+
+		var typed = $('input[name=' + inputName + ']').val().toLowerCase();
 		var suggestions = [];
 
-		$.each(searchArray, function(index, val)
-		{
-			// console.log('Array contains: "'+val+'"');
-			if (val.toLowerCase().indexOf(typed) >= 0)
-			{
-				// console.log('"'+typed+'" matched "'+val+'" at position '+index);
-				suggestions.push(val); // Add this match to suggestions
-				$('div#'+suggestionAreaId).text('');
-				$.each(suggestions, function(index, val)
-				{
-					if ($('div#'+suggestionAreaId).text().indexOf(val) == -1)
-					{
-						$('div#'+suggestionAreaId).append('<div class="suggestion_text">'+val+'</div>');
+		$.each(searchArray, function (index, val) {
+
+			if (val.toLowerCase().indexOf(typed) >= 0) {
+
+					// Add this match to suggestions
+				suggestions.push(val);
+				$('div#' + suggestionAreaId).text('');
+
+				$.each(suggestions, function(index, val) {
+
+					if ($('div#'+suggestionAreaId).text().indexOf(val) == -1) {
+
+						$('div#' + suggestionAreaId).append('<div class="suggestion_text">'+val+'</div>');
 					}
-				})
+				});
 			}
 		});
 
-	}
-	else
-	{
-		// console.log('function called, but not completed');
-		$('div#'+suggestionAreaId).text('');
+	} else {
+		$('div#' + suggestionAreaId).text('');
+
 	}
 
-	$('div.suggestion_text').click(function()
-	{
+	$('div.suggestion_text').click(function () {
 		var selectedSuggestion = $(this).text();
-		var thisSuggestionDiv = $(this).parents('div#'+suggestionAreaId);
+		var thisSuggestionDiv = $(this).parents('div#' + suggestionAreaId);
 
 		$(thisSuggestionDiv)
 			.prev('input[name='+inputName+']')
@@ -959,40 +879,47 @@ function findOrders_loadResults(pageNum, orderBy, order) {
 	var created_end = $('input[name=created_end]').val();
 	var updated_by = $('input[name=updated_by]').val();
 
-	if ($('input[name=orderNum_range]').is(':checked')) {
-		var orderNum_range = 'yes';
-	} else {
-		var orderNum_range = 'no';
-	}
+	var rangeChecked = $('input[name=orderNum_range]').is(':checked');
+	var orderNum_range = rangeChecked ? 'yes' : 'no';
 
-	if ($('input[name=show_incomplete]').is(':checked')) {
-		var show_incomplete = 'yes';
-	} else {
-		var show_incomplete = 'no';
-	}
+	var showIncChecked = $('input[name=show_incomplete]').is(':checked');
+	var show_incomplete = showIncChecked ? 'yes' : 'no';
+	
+	showCompChecked = $('input[name=show_complete]').is(':checked');
+	var show_complete = showCompChecked ? 'yes' :'no';
 
-	if ($('input[name=show_complete]').is(':checked')) {
-		var show_complete = 'yes';
-	} else {
-		var show_complete = 'no';
-	}
+	var dataStr = [
+		'orderNum_start=' + orderNum_start,
+		'&orderNum_end=' + orderNum_end,
+		'&orderNum_range=' + orderNum_range,
+		'&patron='+patron,
+		'&department=' + department,
+		'&show_incomplete=' + show_incomplete,
+		'&show_complete=' + show_complete,
+		'&created_by=' + created_by,
+		'&created_start=' + created_start,
+		'&created_end=' + created_end,
+		'&updated_by=' + updated_by,
+		'&pageNum=' + pageNum,
+		'&orderBy=' + orderBy,
+		'&order=' + order
+	].join('');
 
 	$.ajax({
 		type: 'GET',
-		data: 'orderNum_start='+orderNum_start+'&orderNum_end='+orderNum_end+'&orderNum_range='+orderNum_range+'&patron='+patron+'&department='+department+'&show_incomplete='+show_incomplete+'&show_complete='+show_complete+'&created_by='+created_by+'&created_start='+created_start+'&created_end='+created_end+'&updated_by='+updated_by+'&pageNum='+pageNum+'&orderBy='+orderBy+'&order='+order,
+		data: dataStr,
 		url: '_php/_order/vieworders_results.php',
-		success: function(response)
-		{
+		success: function (response) {
 			$('div#findOrders_resultsTable div.loading_gif').remove();
 			$('div#findOrders_resultsTable').append(response);
 		}
 	});
 
-	// console.log('Page: '+pageNum+', Order by: '+orderBy+', Order: '+order);
 }
 
 function findOrders_reset() {
-	// Reset all inputs to their default states
+
+		// Reset all inputs to their default states
 	$('input[name=orderNum_start]').val('');
 	$('input[name=orderNum_end]').val('').hide();
 	$('input[name=orderNum_range]').prop('checked', false);
@@ -1005,14 +932,14 @@ function findOrders_reset() {
 	$('input[name=created_end]').val('');
 	$('input[name=updated_by]').val('');
 
-	// Remove any lingering term suggestions below the text input fields
+		// Remove any lingering term suggestions below the text input fields
 	$('div.suggestion_text').remove();
 }
 
 function catalog_work() {
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
-		xmlhttp = new XMLHttpRequest; 
+		xmlhttp = new XMLHttpRequest();
 	} else { // IE5 & IE6
 		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
 	}
@@ -1023,55 +950,49 @@ function catalog_work() {
 		.add('div#work_module div.module_footer')
 		.remove();
 
-	xmlhttp.onreadystatechange = function()
-	{
-		if (xmlhttp.readyState == 1)
-		{
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 1) {
 			$('div#work_module').append('<div class="loading_gif">');
 		}
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			$('div#work_module div.loading_gif').remove();
-			// $('div#work_module').append(xmlhttp.responseText);
 			load_module('div#work_module', xmlhttp.responseText);
 		}
-	}
+	};
 
 	xmlhttp.open('GET', '_php/catalog_work.php', true);
 	xmlhttp.send();
 }
 
 function work_assign_preview(image, work) {
-	if (
-		image.length == 6 	&& 
-		$.isNumeric(image) 	&&
-		work.length == 6 	&&
-		$.isNumeric(work)
-		)
-	{
-		$.ajax({
-			type: 'POST',
-			data: 'image='+image+'&work='+work,
-			url: '_php/work_assign_preview.php',
-			success: function(response)
-			{
-				$('div.workRecord_thumb').replaceWith(response);
 
-				console.log('successful ajax post: _php/work_assign_preview.php');
-				console.log('preferred image, '+image+', assigned to work '+work);
-			},
-			error: function()
-			{
-				console.log('AJAX ERROR: _php/work_assign_preview.php');
-			}
-		});
+	var lengthsOk = image.length == 6 && work.length == 6;
+	var typesOk = $.isNumeric(image) && $.isNumeric(work);
+	var allOk = imageLenOk && imageTypeOk && workLenOk && workTypeOk;
+
+	if (!allOk) {
+		return;
 	}
+
+	$.ajax({
+		type: 'POST',
+		data: 'image=' + image + '&work=' + work,
+		url: '_php/work_assign_preview.php',
+		success: function (response) {
+			$('div.workRecord_thumb').replaceWith(response);
+			console.log('successful ajax post: _php/work_assign_preview.php');
+			console.log('preferred image, ' + image + ', assigned to work '+work);
+		}, error: function () {
+			console.log('AJAX ERROR: _php/work_assign_preview.php');
+		}
+	});
 }
 
 function catalog_image() {
+
 	var xmlhttp;
 	if (window.XMLHttpRequest) { // Modern browsers
-		xmlhttp = new XMLHttpRequest; 
+		xmlhttp = new XMLHttpRequest();
 	} else { // IE5 & IE6
 		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
 	}
@@ -1080,23 +1001,21 @@ function catalog_image() {
 		.add('div#image_module div.cataloguingPane')
 		.remove();
 
-	xmlhttp.onreadystatechange = function()
-	{
-		if (xmlhttp.readyState == 1)
-		{
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 1) {
 			$('div#image_module').append('<div class="loading_gif">');
 		}
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			$('div.loading_gif').remove();
-			// $('div#image_module').append(xmlhttp.responseText);
 			load_module('div#image_module', xmlhttp.responseText);
 		}
-	}
+	};
 
 	xmlhttp.open('GET', '_php/catalog_image.php', true);
 	xmlhttp.send();
 }
+
+// TODO: Resume formatting cleanup from here
 
 function displayMeasurements() {
 	var selectedMeasureType = $(this).find('option:selected').val();
@@ -2111,72 +2030,71 @@ function createOrder_continue() {
 	var errors = [];
 	var requiresCount = ['Corpus','Donor','Electronic','Vendor','Other'];
 
-	$('form#createOrder_form input[type=text]').each(function()
-	// Perform on each TEXT INPUT in the form
-	{
+		// Validate text inputs
+	$('form#createOrder_form input[type=text]').each(function () {
 		var value = $.trim($(this).val());
 
-		if (value == '')
-		// IF val is blank
-		{
-			if ($(this).attr('name') != 'imageCount')
-			{
+		if (value == '') {
+
+			var isImgCount = $(this).attr('name') === 'imageCount';
+			var optRequiresCount = $.inArray($('select[name=sourceNameType] option:selected')
+				.val(), requiresCount) >= 0
+
+			if (!isImgCount) {
 				input_error($(this));
 				errors.push($(this).attr('name'));
 			}
-			if (
-				$(this).attr('name') == 'imageCount'
-				&& $.inArray($('select[name=sourceNameType] option:selected').val(), requiresCount) >= 0
-			)
-			{
+
+			if (isImgCount && optRequiresCount) {
 				input_error($(this));
 				errors.push($(this).attr('name'));
 			}
-		}
-		else
-		{
+
+		} else {
 			newOrder_data[$(this).attr('name')] = value;
 		}
+
 	});
 
-	$('form#createOrder_form select').each(function()
-	// Perform on each SELECT list in the form
-	{
+		// Validate select list inputs
+	$('form#createOrder_form select').each(function() {
 		var value = $(this).find('option:selected').val();
 
-		if (value == '')
-		// IF val is blank
-		{
+		if (value == '') {
+
 			input_error($(this));
 			errors.push($(this).attr('name'));
-			// Add to error array
-		}
-		else
-		{
+			
+		} else {
 			newOrder_data[$(this).attr('name')] = value;
 		}
+
 	});
 
-	console.log('form errors: '+errors); // Debugging
+	var legacyIds = $('form#createOrder_form input[name="legacyIds"]')[0].checked;
+	newOrder_data['legacyIds'] = legacyIds;
 
-	if (errors.length === 0)
-	{
+	// console.log('form errors: ' + errors); // Debugging
+
+	if (errors.length === 0) {
 		$('.input_error').removeClass('input_error');
 		createOrder_load_pages(newOrder_data);
 		$('span#createOrder_errors').text('');
 		$('button#createOrder_continue_button').hide();
-		$('form#createOrder_form').find('input[type=text], select')
+		$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
 			.attr('disabled', true);
 		$('button#createOrder_continue_button').unbind('click');
-	}
-	else
-	{
-		$('span#createOrder_errors').text(errors.length+' error');
-		if (errors.length > 1) { $('span#createOrder_errors').append('s'); }
+
+	} else {
+		$('span#createOrder_errors').text(errors.length + ' error');
+		if (errors.length > 1) {
+			$('span#createOrder_errors').append('s');
+		}
 	}
 }
 
 function createOrder_load_pages(data) {
+	
 	$('div#createOrderFigs_module').remove();
 
 	var cof_mod = $('<div id="createOrderFigs_module" class="module">');
@@ -2220,6 +2138,9 @@ function createOrder_submit() {
 		var value = $(this).find('option:selected').val();
 		newOrder_data[$(this).attr('name')] = value;
 	});
+
+	var legacyIds = $('#legacyIds:checked').length > 0;
+	newOrder_data['legacyIds'] = legacyIds;
 
 	var i = 1;
 	$('form#createOrderFigs_form div.pageFig_row').each(function()

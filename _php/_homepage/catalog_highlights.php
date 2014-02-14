@@ -18,6 +18,7 @@ for ($i=0; $i<1000; $i++):
 		endwhile;
 		if ($catd == 1) break;
 	endif;
+    // echo "$i: $id<br/>";
 endfor;
 
 $sql = "SELECT image.id, 

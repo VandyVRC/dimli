@@ -81,7 +81,7 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 				style="width: 90px;"
 				value="<?php echoValue($_SESSION['newOrderDetails']['dateNeeded']); ?>">
 
-			<div style="position: absolute; left: 150px; bottom: -7px; font-size: 0.7em; font-style: italic;">
+			<div style="position: absolute; left: 150px; bottom: -7px; font-size: 0.8em; font-style: italic;">
 				Allow a minimum of 2 weeks
 			</div>
 
@@ -151,7 +151,7 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 				style="width: 3em;"
 				value="<?php echoValue($_SESSION['newOrderDetails']['imageCount']); ?>">
 
-			<span style="font-size: 0.7em; font-style: italic;">Max: 200</span>
+			<span style="font-size: 0.8em; font-style: italic;">Max: 200</span>
 
 			<br>
 
@@ -212,6 +212,13 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 		</div>
 
+		<div class="legacy_wrap">
+
+			<input type="checkbox" id="legacyIds" name="legacyIds">
+			<label for="legacyIds">I would like to specify an existing identifier for each image record</label>
+
+		</div>
+
 		<button type="button"
 			id="createOrder_continue_button"
 			>Continue</button>
@@ -236,11 +243,9 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 	//  Load jQuery's datepicker widget
 
-	jQuery_date(
-		function()
-		{
-			$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-		});
+	$(function () {
+		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+	});
 
 
 	//  Prohibit "Image count" higher than 200

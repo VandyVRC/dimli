@@ -29,7 +29,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php'); ?>
 
 <script>
 
-var urlBase = 'http://.library.vanderbilt.edu/mdidimages/HoAC/';
+var urlBase = 'http://digmedia.library.vanderbilt.edu/mdidimages/HoAC/';
 var portY = window.innerHeight;
 var portX = window.innerWidth;
 var wrapper = document.getElementById('slideshow_wrap');

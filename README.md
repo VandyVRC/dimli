@@ -3,8 +3,6 @@ DIMLI
 
 Digital Media Management Library
 
-Created by Matthew Isner
-
 Project Description
 -------------------
 
@@ -34,9 +32,7 @@ In order to install DIMLI, you will need a server running MySQL on which to crea
 
 #### Import Database Schema
 
-DIMLI's database schema is provided by the following dump file, which is included in this repository:
-
-    _sql/dimli_schema.sql
+DIMLI's database schema is provided by the dump file `_sql/dimli_schema.sql`
 
 Use a command line prompt (or graphical user interface for the administration of SQL databases, such as phpMyAdmin) to create a new SQL database on your server. I suggest calling the database "dimli", but you may call the database whatever you wish. Then import/run the schema file to create the many tables that comprise DIMLI's relational structure.
 
@@ -44,11 +40,9 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 #### Define Unique Constants
 
-1) Create a new file, named and located according to the following filepath:
+1) Create a new file called `_php/_config/constants.inc.php`
 
-    _php/_config/constants.inc.php
-
-2) Insert the following contents into constants.inc.php:
+2) Insert the following contents into the file:
 
     <?php
     /* 
@@ -56,10 +50,10 @@ All data created by, and imported into, DIMLI will reside within these tables an
     ------------------
     Define the specifics of your server environment */
 
-    define('DB_SERVER', '<your.server.url.here>');
-    define('DB_USER', '<yourDatabaseUsername>');
-    define('DB_PASS', '<yourDatabasePassword>');
-    define('DB_NAME', '<yourDatabaseName>');
+    define('DB_SERVER', '{your.server.url.here}');
+    define('DB_USER', '{yourDatabaseUsername}');
+    define('DB_PASS', '{yourDatabasePassword}');
+    define('DB_NAME', '{yourDatabaseName}');
 
     /* 
     DEFINE IMAGE FILEPATH
@@ -69,25 +63,24 @@ All data created by, and imported into, DIMLI will reside within these tables an
        "../MyImageFiles/"
        "http://hosted.image.repository.edu/images/" */
 
-    define('IMAGE_DIR', '<filepathOfYourImageDirectory>');
+    define('IMAGE_DIR', '{filepathOfYourImageDirectory}');
     
     /*
     DEFINE ENCRYPTION SALT
     ----------------------
-    Define a salt parameter to pass into the crypt function
-    Example: "gobly76gook13" */
+    Define a salt parameter to pass into the crypt function */
 
-    define('SALT', '<saltStringOfYourChoice>');
+    define('SALT', '19ReXiNSuLaRuM23');
     
     /*
     OTHER CONSTANTS
     ---------------
-
+    */
     define('DIR', dirname(__DIR__).'/');
 
-3) Replace each of the sections in the above code that are wrapped in "<" and ">" with the appropriate values for your server environment.
+3) Replace each of the sections in the above code that are wrapped in `{` and `}` with the appropriate values for your server environment.
 
-4) Save and allow _php/_config/constants.inc.php to remain at its current directory location. It will be required by several files in the application at large.
+4) Save and allow `_php/_config/constants.inc.php` to remain at this directory location. It will be required by several files in the application at large.
 
 #### Prepare Image Directory
 
@@ -96,6 +89,10 @@ Whichever directory you chose to be your main image repository should be divided
 #### Making PowerPoints Available to End-Users
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
+
+#### Log In as the Default Admin
+
+username/password: `admin`/`admin`
 
 Export CSV Fields Explained
 ---------------------------
