@@ -939,7 +939,7 @@ function get_related_images($mysqli, $workNum)
 
 	foreach ($rel_images as $img) { ?>
 
-		<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60">
+		<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php $image_src; ?>thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60">
 
 	<?php
 	}

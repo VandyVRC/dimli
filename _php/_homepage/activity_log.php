@@ -122,9 +122,9 @@ $activity_r = db_query($mysqli, $sql);
 
 			--><?php echo $str; ?>
 
-			<?php if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$img.".jpg")): ?>
+			<?php if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$img.".jpg")): ?>
 
-				<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $img; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 					style="float: right; margin-top: -15px;">
 
 			<?php elseif ($row['RecordType'] == 'Order'): ?>
