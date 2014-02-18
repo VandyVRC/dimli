@@ -28,7 +28,7 @@ if (($page*$rpp)-$rpp <= count($results))
 			$short_id = ltrim($id, '0');
 
 			$sql = "SELECT preferred_image 
-						FROM dimli.work 
+						FROM $DB_NAME.work 
 						WHERE id = {$short_id} ";
 
 			$res = db_query($mysqli, $sql);
@@ -45,7 +45,7 @@ if (($page*$rpp)-$rpp <= count($results))
 
 			// Find this Image's parent Work
 			$sql = "SELECT related_works 
-							FROM dimli.image 
+							FROM $DB_NAME.image 
 							WHERE id = {$id} ";
 
 			$result = db_query($mysqli, $sql);

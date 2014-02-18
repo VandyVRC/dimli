@@ -11,7 +11,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-----------------
 
 	$sql = "SELECT * 
-				FROM dimli.work 
+				FROM $DB_NAME.work 
 				WHERE id = '{$_SESSION['workNum']}' ";
 
 	$result_workUpdates = db_query($mysqli, $sql);
@@ -30,7 +30,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM dimli.title 
+				FROM $DB_NAME.title 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workTitles = db_query($mysqli, $sql);
@@ -60,7 +60,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM dimli.agent 
+				FROM $DB_NAME.agent 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workAgents = db_query($mysqli, $sql);
@@ -106,7 +106,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM dimli.date 
+				FROM $DB_NAME.date 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workDates = db_query($mysqli, $sql);
@@ -154,7 +154,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.material 
+				FROM $DB_NAME.material 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workMaterials = db_query($mysqli, $sql);
@@ -192,7 +192,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.technique 
+				FROM $DB_NAME.technique 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workTechniques = db_query($mysqli, $sql);
@@ -226,7 +226,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-------------------
 	
 	$sql = "SELECT *
-				FROM dimli.work_type 
+				FROM $DB_NAME.work_type 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workWorkTypes = db_query($mysqli, $sql);
@@ -260,7 +260,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//--------------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.culture 
+				FROM $DB_NAME.culture 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workCultures = db_query($mysqli, $sql);
@@ -294,7 +294,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.style_period 
+				FROM $DB_NAME.style_period 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workStylePeriods = db_query($mysqli, $sql);
@@ -328,7 +328,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.location 
+				FROM $DB_NAME.location 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workLocations = db_query($mysqli, $sql);
@@ -372,7 +372,7 @@ if ($_SESSION['workNum'] != 'None') {
 	$trimmed_id = ltrim($_SESSION['workNum'], '0');
 
 	$sql = "SELECT description 
-				FROM dimli.work 
+				FROM $DB_NAME.work 
 				WHERE id = '{$trimmed_id}' ";
 
 	$result_workDescription = db_query($mysqli, $sql);
@@ -390,7 +390,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.edition 
+				FROM $DB_NAME.edition 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workEditions = db_query($mysqli, $sql);
@@ -421,7 +421,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.measurements 
+				FROM $DB_NAME.measurements 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workMeasurements = db_query($mysqli, $sql);
@@ -525,7 +525,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-----------------
 	
 	$sql = "SELECT * 
-				FROM dimli.subject 
+				FROM $DB_NAME.subject 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workSubjects = db_query($mysqli, $sql);
@@ -563,7 +563,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.inscription 
+				FROM $DB_NAME.inscription 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workInscriptions = db_query($mysqli, $sql);
@@ -602,7 +602,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.rights 
+				FROM $DB_NAME.rights 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workRights = db_query($mysqli, $sql);
@@ -637,7 +637,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.source 
+				FROM $DB_NAME.source 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_workSources = db_query($mysqli, $sql);
@@ -676,7 +676,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-------------------------
 
 	$sql = "SELECT preferred_image 
-				FROM dimli.work 
+				FROM $DB_NAME.work 
 				WHERE id = '{$_SESSION['workNum']}' ";
 
 	$result_prefImage = db_query($mysqli, $sql);
@@ -692,7 +692,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//-------------------------
 
 	$sql = "SELECT * 
-				FROM dimli.image 
+				FROM $DB_NAME.image 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_assocImages = db_query($mysqli, $sql);

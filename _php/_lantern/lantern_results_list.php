@@ -26,7 +26,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
       $short_id = ltrim($id, '0');
 
       $sql = "SELECT preferred_image 
-            FROM dimli.work 
+            FROM $DB_NAME.work 
             WHERE id = {$short_id} ";
 
       $r = db_query($mysqli, $sql);
@@ -46,7 +46,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
       $sql = "SELECT related_works, 
                 order_id, 
                 catalogued 
-            FROM dimli.image 
+            FROM $DB_NAME.image 
             WHERE id = {$id} ";
 
       $parent = db_query($mysqli, $sql);
@@ -97,7 +97,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
             <?php
             $sql = "SELECT * 
-                  FROM dimli.title 
+                  FROM $DB_NAME.title 
                   WHERE related_{$arr['type']}s = {$id} ";
 
             $res = db_query($mysqli, $sql);
@@ -198,7 +198,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             if (in_array($search, array('work_description','image_description'))) {
 
               $sql = "SELECT description 
-                    FROM dimli.{$arr['type']} 
+                    FROM $DB_NAME.{$arr['type']} 
                     WHERE lpad(id, 6, '0') = {$id} ";
 
               $res = db_query($mysqli, $sql);

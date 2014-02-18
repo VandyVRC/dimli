@@ -13,7 +13,7 @@ if (isset($_GET['imageRecord']))
 
 	$sql = "SELECT related_works, 
 					order_id 
-				FROM dimli.image 
+				FROM $DB_NAME.image 
 				WHERE id = {$_SESSION['imageNum']} ";
 
 	$result = db_query($mysqli, $sql);
@@ -30,7 +30,7 @@ if (isset($_GET['imageRecord']))
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO dimli.activity 
+	$sql = "INSERT INTO $DB_NAME.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Image', 
 					RecordNumber = {$_SESSION['imageNum']}, 
@@ -113,7 +113,7 @@ if (isset($_GET['imageRecord']))
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM dimli.image 
+				FROM $DB_NAME.image 
 				WHERE id = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -131,7 +131,7 @@ if (isset($_GET['imageRecord']))
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM dimli.title 
+				FROM $DB_NAME.title 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -149,7 +149,7 @@ if (isset($_GET['imageRecord']))
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM dimli.agent 
+				FROM $DB_NAME.agent 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -170,7 +170,7 @@ if (isset($_GET['imageRecord']))
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM dimli.date 
+				FROM $DB_NAME.date 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -193,7 +193,7 @@ if (isset($_GET['imageRecord']))
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM dimli.material 
+				FROM $DB_NAME.material 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -212,7 +212,7 @@ if (isset($_GET['imageRecord']))
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM dimli.technique 
+				FROM $DB_NAME.technique 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -230,7 +230,7 @@ if (isset($_GET['imageRecord']))
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM dimli.work_type 
+				FROM $DB_NAME.work_type 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -248,7 +248,7 @@ if (isset($_GET['imageRecord']))
 	// ----------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.culture 
+				FROM $DB_NAME.culture 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -266,7 +266,7 @@ if (isset($_GET['imageRecord']))
 	// ------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.style_period 
+				FROM $DB_NAME.style_period 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -284,7 +284,7 @@ if (isset($_GET['imageRecord']))
 	// -------------
 	
 	$sql = "SELECT * 
-				FROM dimli.location 
+				FROM $DB_NAME.location 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -304,7 +304,7 @@ if (isset($_GET['imageRecord']))
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM dimli.image 
+				FROM $DB_NAME.image 
 				WHERE id = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -318,7 +318,7 @@ if (isset($_GET['imageRecord']))
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.edition 
+				FROM $DB_NAME.edition 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -335,7 +335,7 @@ if (isset($_GET['imageRecord']))
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM dimli.measurements 
+				FROM $DB_NAME.measurements 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -367,7 +367,7 @@ if (isset($_GET['imageRecord']))
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM dimli.subject 
+				FROM $DB_NAME.subject 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -386,7 +386,7 @@ if (isset($_GET['imageRecord']))
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM dimli.inscription 
+				FROM $DB_NAME.inscription 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -406,7 +406,7 @@ if (isset($_GET['imageRecord']))
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM dimli.rights 
+				FROM $DB_NAME.rights 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -424,7 +424,7 @@ if (isset($_GET['imageRecord']))
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM dimli.source 
+				FROM $DB_NAME.source 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);

@@ -8,7 +8,7 @@ confirm_logged_in();
 
 for ($i=0; $i<1000; $i++):
 	$id = rand(1, 70000);
-	$sql = "SELECT * FROM dimli.image 
+	$sql = "SELECT * FROM $DB_NAME.image 
 				WHERE id = {$id} ";
 	$result = db_query($mysqli, $sql);
 	if ($result->num_rows > 0):
@@ -26,11 +26,11 @@ $sql = "SELECT image.id,
 				title.title_text, 
 				agent.related_works, 
 				agent.agent_text 
-			FROM dimli.image 
-			INNER JOIN dimli.title 
+			FROM $DB_NAME.image 
+			INNER JOIN $DB_NAME.title 
 			ON image.id = {$id}
 				AND image.related_works = title.related_works 
-			INNER JOIN dimli.agent 
+			INNER JOIN $DB_NAME.agent 
 			ON image.id = {$id} 
 				AND image.related_works = agent.related_works
 			LIMIT 1 ";

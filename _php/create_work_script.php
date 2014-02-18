@@ -9,7 +9,7 @@ $workDescription = mysqli_real_escape_string($_SESSION['descriptionArray']['crea
 
 // Create the new work record
 
-$sql = "INSERT INTO dimli.work
+$sql = "INSERT INTO $DB_NAME.work
 				SET description = '{$workDescription}',
 					last_update = '{$timestamp}',
 					last_update_by = '{$_SESSION['username']}',

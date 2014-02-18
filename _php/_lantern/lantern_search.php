@@ -14,7 +14,7 @@ mode to the session, and update the database
 if (isset($_POST['pref_lantern_view']))
 {
   $_SESSION['pref_lantern_view'] = $_POST['pref_lantern_view'];
-  $res = isnerQ("UPDATE dimli.user SET pref_lantern_view = '{$_SESSION['pref_lantern_view']}' WHERE id = '{$_SESSION['user_id']}'");
+  $res = isnerQ("UPDATE $DB_NAME.user SET pref_lantern_view = '{$_SESSION['pref_lantern_view']}' WHERE id = '{$_SESSION['user_id']}'");
 }
 
 /*
@@ -237,7 +237,7 @@ foreach ($searchText_arr as $term) {
     foreach ($arr['fields'] as $field) {
 
       // Begin building query
-      $sql = " SELECT * FROM dimli.".$arr['table']." WHERE ";
+      $sql = " SELECT * FROM $DB_NAME.".$arr['table']." WHERE ";
       
       // Customize query for Work and Image id searches
       if (in_array($search_name, array('image_id','work_id'))) {
@@ -307,7 +307,7 @@ foreach ($searchText_arr as $term) {
           foreach ($tables as $table) {
 
             $gq = "SELECT * 
-                FROM dimli.".$table." 
+                FROM $DB_NAME.".$table." 
                 WHERE ".$table."_getty_id = '{$gid}' ";
 
             $g_result = db_query($mysqli, $gq);
@@ -337,7 +337,7 @@ foreach ($searchText_arr as $term) {
           foreach ($tables as $table) {
 
             $gq = "SELECT * 
-                FROM dimli.".$table." 
+                FROM $DB_NAME.".$table." 
                 WHERE ".$table."_getty_id = '{$gid}' ";
 
             $g_result = db_query($mysqli, $gq);
@@ -367,7 +367,7 @@ foreach ($searchText_arr as $term) {
           foreach ($tables as $table) {
 
             $gq = "SELECT * 
-                FROM dimli.".$table." 
+                FROM $DB_NAME.".$table." 
                 WHERE ".$table."_getty_id = '{$gid}' ";
 
             $g_result = db_query($mysqli, $gq);
@@ -405,7 +405,7 @@ foreach ($results_arr as $id=>$arr) {
     $id = substr($id, -6);
 
     $sql = "SELECT related_images 
-        FROM dimli.work 
+        FROM $DB_NAME.work 
         WHERE id = {$id} ";
 
     $r = db_query($mysqli, $sql);

@@ -16,7 +16,7 @@ $priv = $_POST['priv'];
 //------------------------------------
 
 $sql = "SELECT ".$priv." 
-			FROM dimli.user 
+			FROM $DB_NAME.user 
 			WHERE id = ".$userId." 
 			LIMIT 1 ";
 
@@ -42,7 +42,7 @@ endwhile;
 //  Update the privilege level
 //------------------------------
 
-$sql = "UPDATE dimli.user 
+$sql = "UPDATE $DB_NAME.user 
 			SET ".$priv." = {$newValue}
 			WHERE id = ".$userId;
 

@@ -18,7 +18,7 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
 
     // Build query to find image ids associated with the current order number
     $sql = "SELECT * 
-            FROM dimli.image 
+            FROM $DB_NAME.image 
             WHERE order_id = {$order} ";
 
     $result = db_query($mysqli, $sql);

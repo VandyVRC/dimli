@@ -13,14 +13,14 @@ confirm_logged_in(); ?>
 	<?php $current_user = $_SESSION['first_name'].' '.$_SESSION['last_name'];
 
 	$sql = "SELECT * 
-				FROM dimli.order 
+				FROM $DB_NAME.order 
 				WHERE requestor = '{$current_user}' ";
 
 	$result = db_query($mysqli, $sql);
 	$total_orders = $result->num_rows;
 
 	$sql = "SELECT * 
-				FROM dimli.order 
+				FROM $DB_NAME.order 
 				WHERE requestor = '{$current_user}' 
 				ORDER BY date_created DESC ";
 
@@ -49,7 +49,7 @@ confirm_logged_in(); ?>
 		//  been exported to permanent storage
 
 		$sql = "SELECT images_exported 
-					FROM dimli.order 
+					FROM $DB_NAME.order 
 					WHERE id = {$row['id']} ";
 
 		$result = db_query($mysqli, $sql);
@@ -65,7 +65,7 @@ confirm_logged_in(); ?>
 		//  as thumbnail previews in the list of orders
 
 		$sql = "SELECT id 
-					FROM dimli.image 
+					FROM $DB_NAME.image 
 					WHERE order_id = {$row['id']} 
 					LIMIT 3 ";
 
@@ -123,7 +123,7 @@ confirm_logged_in(); ?>
 											source.related_images, 
 											source.source_name_text, 
 											source.source_name_type 
-										FROM dimli.image INNER JOIN dimli.source 
+										FROM $DB_NAME.image INNER JOIN $DB_NAME.source 
 										ON image.id = source.related_images 
 										WHERE image.order_id = {$row['id']} 
 										ORDER BY image.id 

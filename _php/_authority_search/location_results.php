@@ -172,7 +172,7 @@
 
 					<?php
 
-					$sql = " SELECT * FROM dimli.title WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					$sql = " SELECT * FROM $DB_NAME.title WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 					$result = $mysqli->query($sql);
 
 					$prefCount = 0;
@@ -185,7 +185,7 @@
 						}
 					}
 
-					$sql = " SELECT * FROM dimli.title WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					$sql = " SELECT * FROM $DB_NAME.title WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 					$result = $mysqli->query($sql);
 
 					while ($row = $result->fetch_assoc())
@@ -217,7 +217,7 @@
 
 					<?php
 
-					$sql = " SELECT * FROM dimli.location WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					$sql = " SELECT * FROM $DB_NAME.location WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 					$result = $mysqli->query($sql);
 
 					while ($row = $result->fetch_assoc())
@@ -233,7 +233,7 @@
 
 					<?php
 
-					$sql = " SELECT * FROM dimli.agent WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					$sql = " SELECT * FROM $DB_NAME.agent WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 					$result = $mysqli->query($sql);
 
 					while ($row = $result->fetch_assoc())
@@ -259,7 +259,7 @@
 
 					<?php
 
-					$sql = " SELECT * FROM dimli.date WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					$sql = " SELECT * FROM $DB_NAME.date WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 					$result = $mysqli->query($sql);
 
 					while ($row = $result->fetch_assoc())
@@ -290,7 +290,7 @@
 
 				<div>
 
-					<?php $sql = " SELECT * FROM dimli.work_type WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
+					<?php $sql = " SELECT * FROM $DB_NAME.work_type WHERE related_works = {$builtWorkIds_filteredOnce[$i]} ";
 
 					$result = $mysqli->query($sql);
 

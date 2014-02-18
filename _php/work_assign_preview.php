@@ -10,7 +10,7 @@ require_priv('priv_catalog');
 $image = $_POST['image'];
 $work = $_POST['work'];
 
-$sql = "UPDATE dimli.work 
+$sql = "UPDATE $DB_NAME.work 
 			SET preferred_image = '{$image}'
 			WHERE id = '{$work}' ";
 

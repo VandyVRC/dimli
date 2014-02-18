@@ -37,7 +37,7 @@ if ($_POST['title'] != '') {
 	
 	// Begin building query
 	$titleQuery = "SELECT * 
-						FROM dimli.title 
+						FROM $DB_NAME.title 
 						WHERE related_works <> '' && ( ";
 
 	foreach ($titleArray as $term) {
@@ -84,7 +84,7 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 
 		// Begin building query
 		$agentQuery = "SELECT * 
-							FROM dimli.agent 
+							FROM $DB_NAME.agent 
 							WHERE related_works = '{$row['related_works']}' && ( ";
 
 		foreach ($agentArray as $term) {
@@ -113,7 +113,7 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 
 	// Begin building query
 	$agentQuery = "SELECT * 
-						FROM dimli.agent 
+						FROM $DB_NAME.agent 
 						WHERE related_works <> '' && ( ";
 
 	foreach ($agentArray as $term) {
@@ -166,7 +166,7 @@ if (!empty($matchingWorks)) {
 	<?php foreach ($matchingWorks as $workId) { 
 
 		$query = "SELECT id 
-						FROM dimli.image 
+						FROM $DB_NAME.image 
 						WHERE related_works = '{$workId}' ";
 
 		$result = db_query($mysqli, $query);
@@ -184,7 +184,7 @@ if (!empty($matchingWorks)) {
 		}
 			
 		$sql = "SELECT preferred_image 
-					FROM dimli.work 
+					FROM $DB_NAME.work 
 					WHERE id = {$workId} ";
 
 		$work_thumb_res = db_query($mysqli, $sql);
@@ -197,25 +197,25 @@ if (!empty($matchingWorks)) {
 		$thumb_file = IMAGE_DIR.'thumb/'.create_six_digits($work_thumb_id).'.jpg';
 
 		$sql = "SELECT title_text 
-					FROM dimli.title 
+					FROM $DB_NAME.title 
 					WHERE related_works = '{$workId}' ";
 
 		$title_result = db_query($mysqli, $sql);
 
 		$sql = "SELECT agent_text 
-					FROM dimli.agent 
+					FROM $DB_NAME.agent 
 					WHERE related_works = '{$workId}' ";
 
 		$agent_result = db_query($mysqli, $sql);
 
 		$sql = "SELECT * 
-					FROM dimli.date 
+					FROM $DB_NAME.date 
 					WHERE related_works = '{$workId}' LIMIT 2 ";
 
 		$date_result = db_query($mysqli, $sql);
 
 		$sql = "SELECT culture_text 
-					FROM dimli.culture 
+					FROM $DB_NAME.culture 
 					WHERE related_works = '{$workId}' LIMIT 2 ";
 
 		$culture_result = db_query($mysqli, $sql); ?>

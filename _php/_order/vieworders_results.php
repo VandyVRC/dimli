@@ -30,7 +30,7 @@ $order = $_GET['order'];
 
 
 $sql = "SELECT username 
-			FROM dimli.user 
+			FROM $DB_NAME.user 
 			WHERE display_name = '{$_SESSION['findOrders_created_by']}' ";
 
 $result = db_query($mysqli, $sql);
@@ -43,7 +43,7 @@ if ($result->num_rows > 0) {
 
 
 $sql = "SELECT username 
-			FROM dimli.user 
+			FROM $DB_NAME.user 
 			WHERE display_name = '{$_SESSION['findOrders_updated_by']}' ";
 
 $result = db_query($mysqli, $sql);
@@ -69,7 +69,7 @@ $created_end = ($_SESSION['findOrders_created_end'] != 'Created before')
 //---------------------------
 
 $sql = "SELECT SQL_CACHE * 
-			FROM dimli.order 
+			FROM $DB_NAME.order 
 			WHERE id != 0 ";
 
 $sql.= (!empty($_SESSION['findOrders_orderNum_start'])
@@ -327,7 +327,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 
 				<?php
 				$sql = "SELECT assigned_to 
-							FROM dimli.order 
+							FROM $DB_NAME.order 
 							WHERE id = '{$row['id']}' ";
 
 				$result = db_query($mysqli, $sql);
@@ -342,7 +342,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 
 					$sql = "SELECT first_name, 
 									last_name 
-								FROM dimli.user 
+								FROM $DB_NAME.user 
 								WHERE id = {$assigned_to} ";
 
 					$result = db_query($mysqli, $sql);
@@ -377,7 +377,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 
 			$sql = "SELECT legacy_id
 
-							FROM dimli.image
+							FROM $DB_NAME.image
 							WHERE order_id = '{$row['id']}' ";
 
 			$result = db_query($mysqli, $sql);
@@ -474,7 +474,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 				//-------------------------------------------
 
 				$sql = "SELECT * 
-								FROM dimli.image 
+								FROM $DB_NAME.image 
 								WHERE order_id = '{$row['id']}' 
 									AND catalogued = '1' ";
 

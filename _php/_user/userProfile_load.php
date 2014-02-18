@@ -10,7 +10,7 @@ require_priv('priv_users_read');
 $userId = $_POST['userId'];
 
 $sql = "SELECT *
-			FROM dimli.user
+			FROM $DB_NAME.user
 			WHERE id = '{$userId}'
 			LIMIT 1 ";
 

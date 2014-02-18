@@ -12,7 +12,7 @@ $orderNum = ltrim($_POST['orderNum'], '0');
 
 if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $newDueDate)) {
 
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET date_needed = '{$newDueDate}'
 				WHERE id = '{$orderNum}' ";
 
@@ -30,7 +30,7 @@ if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $newDueDate)) {
 }
 
 $sql = "SELECT date_needed
-		FROM dimli.order
+		FROM $DB_NAME.order
 		WHERE id = '{$orderNum}' ";
 
 $result = db_query($mysqli, $sql);

@@ -21,7 +21,7 @@ $images = array();
 $loners = array();
 
 $sql = "SELECT * 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE related_works = '' ";
 
 $images_res = db_query($mysqli, $sql);
@@ -35,7 +35,7 @@ $i = 0;
 foreach ($images_a as $image=>$arr)
 {
 	$sql = "SELECT images_catalogued 
-				FROM dimli.order 
+				FROM $DB_NAME.order 
 				WHERE id = {$arr['order']} ";
 
 	$result = db_query($mysqli, $sql);

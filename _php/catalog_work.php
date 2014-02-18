@@ -11,7 +11,7 @@ require_priv('priv_catalog');
 // Find images that are depedent upon the current work record
 
 $sql = "SELECT * 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE related_works = '{$_SESSION['workNum']}' ";
 
 $dependentImages = db_query($mysqli, $sql);

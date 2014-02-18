@@ -8,7 +8,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php');
 //-----------------
 
 $sql = "SELECT * 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE id = '{$_SESSION['imageNum']}' ";
 
 $result_imageUpdates = db_query($mysqli, $sql);
@@ -24,7 +24,7 @@ while ($image = $result_imageUpdates->fetch_assoc()) {
 
 $sql = "SELECT date_created, 
 				created_by 
-			FROM dimli.order 
+			FROM $DB_NAME.order 
 			WHERE id = '{$order_id}' ";
 
 $result_orderInfo = db_query($mysqli, $sql);
@@ -41,7 +41,7 @@ while ($order = $result_orderInfo->fetch_assoc()) {
 //---------------
 
 $sql = "SELECT * 
-			FROM dimli.title 
+			FROM $DB_NAME.title 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageTitles = db_query($mysqli, $sql);
@@ -71,7 +71,7 @@ while ($title = $result_imageTitles->fetch_assoc()) {
 //---------------
 
 $sql = "SELECT * 
-			FROM dimli.agent 
+			FROM $DB_NAME.agent 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageAgents = db_query($mysqli, $sql);
@@ -116,7 +116,7 @@ while ($agent = $result_imageAgents->fetch_assoc()) {
 //---------------
 
 $sql = "SELECT * 
-			FROM dimli.date 
+			FROM $DB_NAME.date 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageDates = db_query($mysqli, $sql);
@@ -165,7 +165,7 @@ while ($date = $result_imageDates->fetch_assoc()) {
 //------------------
 
 $sql = "SELECT * 
-			FROM dimli.material 
+			FROM $DB_NAME.material 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageMaterials = db_query($mysqli, $sql);
@@ -203,7 +203,7 @@ while ($material = $result_imageMaterials->fetch_assoc()) {
 //-------------------
 
 $sql = "SELECT * 
-			FROM dimli.technique 
+			FROM $DB_NAME.technique 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageTechniques = db_query($mysqli, $sql);
@@ -237,7 +237,7 @@ while ($technique = $result_imageTechniques->fetch_assoc()) {
 //-------------------
 
 $sql = "SELECT * 
-			FROM dimli.work_type 
+			FROM $DB_NAME.work_type 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageWorkTypes = db_query($mysqli, $sql);
@@ -271,7 +271,7 @@ while ($imageWorkType = $result_imageWorkTypes->fetch_assoc()) {
 //--------------------------
 
 $sql = "SELECT * 
-			FROM dimli.culture 
+			FROM $DB_NAME.culture 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageCultures = db_query($mysqli, $sql);
@@ -304,7 +304,7 @@ while ($culture = $result_imageCultures->fetch_assoc()) {
 //----------------------
 
 $sql = "SELECT * 
-			FROM dimli.style_period 
+			FROM $DB_NAME.style_period 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageStylePeriods = db_query($mysqli, $sql);
@@ -338,7 +338,7 @@ while ($stylePeriod = $result_imageStylePeriods->fetch_assoc()) {
 //------------------
 
 $sql = "SELECT * 
-			FROM dimli.location 
+			FROM $DB_NAME.location 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageLocations = db_query($mysqli, $sql);
@@ -382,7 +382,7 @@ while ($location = $result_imageLocations->fetch_assoc()) {
 $trimmed_id = ltrim($_SESSION['imageNum'], '0');
 
 $sql = "SELECT description 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE id = '{$trimmed_id}' ";
 
 $result_imageDescription = db_query($mysqli, $sql);
@@ -400,7 +400,7 @@ while ($description = $result_imageDescription->fetch_assoc()) {
 //----------------------
 
 $sql = "SELECT * 
-			FROM dimli.edition 
+			FROM $DB_NAME.edition 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageEditions = db_query($mysqli, $sql);
@@ -431,7 +431,7 @@ while ($edition = $result_imageEditions->fetch_assoc()) {
 //----------------------
 
 $sql = "SELECT * 
-			FROM dimli.measurements 
+			FROM $DB_NAME.measurements 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageMeasurements = db_query($mysqli, $sql);
@@ -534,7 +534,7 @@ while ($measure = $result_imageMeasurements->fetch_assoc()) {
 //-----------------
 
 $sql = "SELECT * 
-			FROM dimli.subject 
+			FROM $DB_NAME.subject 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageSubjects = db_query($mysqli, $sql);
@@ -572,7 +572,7 @@ while ($subject = $result_imageSubjects->fetch_assoc()) {
 //--------------------
 
 $sql = "SELECT * 
-			FROM dimli.inscription 
+			FROM $DB_NAME.inscription 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageInscriptions = db_query($mysqli, $sql);
@@ -611,7 +611,7 @@ while ($inscription = $result_imageInscriptions->fetch_assoc()) {
 //--------------------
 
 $sql = "SELECT * 
-			FROM dimli.rights 
+			FROM $DB_NAME.rights 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageRights = db_query($mysqli, $sql);
@@ -646,7 +646,7 @@ while ($rights = $result_imageRights->fetch_assoc()) {
 //--------------------
 
 $sql = "SELECT * 
-			FROM dimli.source 
+			FROM $DB_NAME.source 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 $result_imageSources = db_query($mysqli, $sql);

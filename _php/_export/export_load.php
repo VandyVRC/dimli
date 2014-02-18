@@ -30,7 +30,7 @@ $_SESSION['flaggedImages'] = array();
 //----------------------------------
 
 // Fetch all flagged image records
-$sql = "SELECT id FROM dimli.image 
+$sql = "SELECT id FROM $DB_NAME.image 
 			WHERE catalogued = 1 
 			AND flagged_for_export = 1 ";
 $result = db_query($mysqli, $sql);
@@ -45,7 +45,7 @@ foreach ($flaggedImages as $key=>$image):
 
 	// Find the order id for the current image record
 	$sql = "SELECT order_id 
-				FROM dimli.image 
+				FROM $DB_NAME.image 
 				WHERE id = {$image} ";
 	$result = db_query($mysqli, $sql);
 	while ($row = $result->fetch_assoc()):
@@ -54,7 +54,7 @@ foreach ($flaggedImages as $key=>$image):
 
 	// Find approved status of this order
 	$sql = "SELECT cataloguing_approved 
-				FROM dimli.order 
+				FROM $DB_NAME.order 
 				WHERE id = {$order} ";
 	$result = db_query($mysqli, $sql);
 	while ($row = $result->fetch_assoc()):

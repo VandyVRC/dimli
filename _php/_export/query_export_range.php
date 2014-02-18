@@ -10,7 +10,7 @@ require_priv('priv_csv_export');
 $first = $_GET['firstExportRecord'];
 $last = $_GET['lastExportRecord'];
 
-	$sql = "SELECT id FROM dimli.image 
+	$sql = "SELECT id FROM $DB_NAME.image 
 				WHERE legacy_id = '{$first}'";
 		$result = db_query($mysqli, $sql);	
 
@@ -24,7 +24,7 @@ $last = $_GET['lastExportRecord'];
 				$first = 0;
 			}
 
-		$sql = "SELECT id FROM dimli.image 
+		$sql = "SELECT id FROM $DB_NAME.image 
 				WHERE legacy_id = '{$last}'";	
 			$result = db_query($mysqli, $sql);	
 			

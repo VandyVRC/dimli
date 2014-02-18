@@ -18,7 +18,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 	//  Delete this Work record
 	//---------------------------
 	
-	$sql = "DELETE FROM dimli.work 
+	$sql = "DELETE FROM $DB_NAME.work 
 				WHERE id = {$work_trim}";
 
 	$deleted_res = db_query($mysqli, $sql);
@@ -27,7 +27,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 
 	foreach ($tables as $table) {
 
-		$sql = "DELETE FROM dimli.{$table} 
+		$sql = "DELETE FROM $DB_NAME.{$table} 
 					WHERE related_works = {$work} ";
 
 		$res = db_query($mysqli, $sql);
@@ -37,7 +37,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 	//  Free any Image record related to this Work
 	//----------------------------------------------
 	
-	$sql = "UPDATE dimli.image 
+	$sql = "UPDATE $DB_NAME.image 
 				SET related_works = '' 
 				WHERE related_works = {$work} ";
 
@@ -61,7 +61,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO dimli.activity
+	$sql = "INSERT INTO $DB_NAME.activity
 						SET UserID = '{$_SESSION['user_id']}',
 							RecordType = 'Work',
 							RecordNumber = {$work_trim},

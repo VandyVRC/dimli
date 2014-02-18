@@ -34,7 +34,7 @@ elseif ($recordType == 'createNewWork')
 if (!empty($recordNum) && $recordNum != '')
 {
 	// Remove old title info
-	$query = "DELETE FROM dimli.title 
+	$query = "DELETE FROM $DB_NAME.title 
 					WHERE related_".$field_type."s = '{$recordNum}' ";
 					
 	$result = db_query($mysqli, $query);
@@ -44,7 +44,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.title VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.title VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -52,7 +52,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'titleType' . $i)) {
 	
-			$query = " UPDATE dimli.title 
+			$query = " UPDATE $DB_NAME.title 
 						SET
 							title_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -64,7 +64,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'title' . $i)) {
 		
-			$query = " UPDATE dimli.title 
+			$query = " UPDATE $DB_NAME.title 
 						SET
 							title_text = '{$value}'
 						WHERE
@@ -74,7 +74,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'titleDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.title 
+			$query = " UPDATE $DB_NAME.title 
 						SET
 							display = '{$value}'
 						WHERE
@@ -96,7 +96,7 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.agent WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.agent WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -104,7 +104,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.agent VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.agent VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -112,7 +112,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'agentAttribution' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							agent_attribution = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -124,7 +124,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'agent' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							agent_text = '{$value}'
 						WHERE
@@ -134,7 +134,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'agentId' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							agent_getty_id = '{$value}'
 						WHERE
@@ -144,7 +144,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'agentType' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							agent_type = '{$value}'
 						WHERE
@@ -154,7 +154,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'agentRole' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							agent_role = '{$value}'
 						WHERE
@@ -164,7 +164,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'agentDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.agent 
+			$query = " UPDATE $DB_NAME.agent 
 						SET
 							display = '{$value}'
 						WHERE
@@ -186,7 +186,7 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.date WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.date WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -194,7 +194,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.date VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.date VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 		
@@ -202,7 +202,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'dateType' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							date_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -214,7 +214,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'dateRange' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							date_range = '1'
 						WHERE
@@ -224,7 +224,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'circaDate' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							date_circa = '1'
 						WHERE
@@ -234,7 +234,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'startDate' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							date_text = '{$value}'
 						WHERE
@@ -244,7 +244,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'startDateEra' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							date_era = '{$value}'
 						WHERE
@@ -254,7 +254,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'endDate' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							enddate_text = '{$value}'
 						WHERE
@@ -264,7 +264,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'endDateEra' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							enddate_era = '{$value}'
 						WHERE
@@ -274,7 +274,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'dateDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.date 
+			$query = " UPDATE $DB_NAME.date 
 						SET
 							display = '{$value}'
 						WHERE
@@ -296,7 +296,7 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.material WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.material WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -304,7 +304,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.material VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.material VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -312,7 +312,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'materialType' . $i)) {
 		
-			$query = " UPDATE dimli.material 
+			$query = " UPDATE $DB_NAME.material 
 						SET
 							material_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -324,7 +324,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'material' . $i)) {
 		
-			$query = " UPDATE dimli.material 
+			$query = " UPDATE $DB_NAME.material 
 						SET
 							material_text = '{$value}'
 						WHERE
@@ -334,7 +334,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'materialId' . $i)) {
 		
-			$query = " UPDATE dimli.material 
+			$query = " UPDATE $DB_NAME.material 
 						SET
 							material_getty_id = '{$value}'
 						WHERE
@@ -344,7 +344,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'materialDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.material 
+			$query = " UPDATE $DB_NAME.material 
 						SET
 							display = '{$value}'
 						WHERE
@@ -366,7 +366,7 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.technique WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.technique WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -374,7 +374,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.technique VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.technique VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -382,7 +382,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'technique' . $i)) {
 		
-			$query = " UPDATE dimli.technique 
+			$query = " UPDATE $DB_NAME.technique 
 						SET
 							technique_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -394,7 +394,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'techniqueId' . $i)) {
 		
-			$query = " UPDATE dimli.technique 
+			$query = " UPDATE $DB_NAME.technique 
 						SET
 							technique_getty_id = '{$value}'
 						WHERE
@@ -404,7 +404,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'techniqueDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.technique 
+			$query = " UPDATE $DB_NAME.technique 
 						SET
 							display = '{$value}'
 						WHERE
@@ -426,7 +426,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.work_type WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.work_type WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -434,7 +434,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.work_type VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.work_type VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -442,7 +442,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'workType' . $i)) {
 		
-			$query = " UPDATE dimli.work_type 
+			$query = " UPDATE $DB_NAME.work_type 
 						SET
 							work_type_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -454,7 +454,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'workTypeId' . $i)) {
 		
-			$query = " UPDATE dimli.work_type 
+			$query = " UPDATE $DB_NAME.work_type 
 						SET
 							work_type_getty_id = '{$value}'
 						WHERE
@@ -464,7 +464,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'workTypeDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.work_type 
+			$query = " UPDATE $DB_NAME.work_type 
 						SET
 							display = '{$value}'
 						WHERE
@@ -486,7 +486,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.culture WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.culture WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -494,7 +494,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.culture VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.culture VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -502,7 +502,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'culturalContext' . $i)) {
 		
-			$query = " UPDATE dimli.culture 
+			$query = " UPDATE $DB_NAME.culture 
 						SET
 							culture_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -514,7 +514,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'culturalContextId' . $i)) {
 		
-			$query = " UPDATE dimli.culture 
+			$query = " UPDATE $DB_NAME.culture 
 						SET
 							culture_getty_id = '{$value}'
 						WHERE
@@ -524,7 +524,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'culturalContextDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.culture 
+			$query = " UPDATE $DB_NAME.culture 
 						SET
 							display = '{$value}'
 						WHERE
@@ -546,7 +546,7 @@ while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.style_period WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.style_period WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -554,7 +554,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.style_period VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.style_period VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -562,7 +562,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'stylePeriod' . $i)) {
 		
-			$query = " UPDATE dimli.style_period 
+			$query = " UPDATE $DB_NAME.style_period 
 						SET
 							style_period_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -574,7 +574,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'stylePeriodId' . $i)) {
 		
-			$query = " UPDATE dimli.style_period
+			$query = " UPDATE $DB_NAME.style_period
 						SET
 							style_period_getty_id = '{$value}'
 						WHERE
@@ -584,7 +584,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'stylePeriodDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.style_period 
+			$query = " UPDATE $DB_NAME.style_period 
 						SET
 							display = '{$value}'
 						WHERE
@@ -606,7 +606,7 @@ while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.location WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -614,7 +614,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.location VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -622,7 +622,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'location' . $i)) {
 		
-			$query = " UPDATE dimli.location 
+			$query = " UPDATE $DB_NAME.location 
 						SET
 							location_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -634,7 +634,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'locationId' . $i)) {
 		
-			$query = " UPDATE dimli.location
+			$query = " UPDATE $DB_NAME.location
 						SET
 							location_getty_id = '{$value}'
 						WHERE
@@ -644,7 +644,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
 		
-			$query = " UPDATE dimli.location
+			$query = " UPDATE $DB_NAME.location
 						SET
 							location_name_type = '{$value}'
 						WHERE
@@ -654,7 +654,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'locationType' . $i)) {
 		
-			$query = " UPDATE dimli.location
+			$query = " UPDATE $DB_NAME.location
 						SET
 							location_type = '{$value}'
 						WHERE
@@ -664,7 +664,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.location 
+			$query = " UPDATE $DB_NAME.location 
 						SET
 							display = '{$value}'
 						WHERE
@@ -686,7 +686,7 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.edition WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.edition WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -694,7 +694,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.edition VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.edition VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -702,7 +702,7 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'stateEditionType' . $i)) {
 		
-			$query = " UPDATE dimli.edition 
+			$query = " UPDATE $DB_NAME.edition 
 						SET
 							edition_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -714,7 +714,7 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'stateEdition' . $i)) {
 		
-			$query = " UPDATE dimli.edition
+			$query = " UPDATE $DB_NAME.edition
 						SET
 							edition_text = '{$value}'
 						WHERE
@@ -736,7 +736,7 @@ while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.measurements WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.measurements WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -744,7 +744,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.measurements VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.measurements VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -752,7 +752,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 	
 		if ($key == $abbr.'measurementType' . $i) {
 		
-			$query = " UPDATE dimli.measurements 
+			$query = " UPDATE $DB_NAME.measurements 
 						SET
 							measurements_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -765,7 +765,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'measurementField1_' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							measurements_text = '{$value}'
 						WHERE
@@ -776,7 +776,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'commonMeasurementList1_' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							measurements_unit = '{$value}'
 						WHERE
@@ -787,7 +787,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'measurementField2_' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							measurements_text_2 = '{$value}'
 						WHERE
@@ -798,7 +798,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'commonMeasurementList2_' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							measurements_unit_2 = '{$value}'
 						WHERE
@@ -809,7 +809,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'inchesValue' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							inches_value = '{$value}'
 						WHERE
@@ -820,7 +820,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'areaMeasurementList' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							area_unit = '{$value}'
 						WHERE
@@ -831,7 +831,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'days' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							duration_days = '{$value}'
 						WHERE
@@ -842,7 +842,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'hours' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							duration_hours = '{$value}'
 						WHERE
@@ -853,7 +853,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'minutes' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							duration_minutes = '{$value}'
 						WHERE
@@ -865,7 +865,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'seconds' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							duration_seconds = '{$value}'
 						WHERE
@@ -876,7 +876,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'fileSize' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							filesize_unit = '{$value}'
 						WHERE
@@ -887,7 +887,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'resolutionWidth' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							resolution_width = '{$value}'
 						WHERE
@@ -898,7 +898,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'resolutionHeight' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							resolution_height = '{$value}'
 						WHERE
@@ -909,7 +909,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'weightUnit' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							weight_unit = '{$value}'
 						WHERE
@@ -920,7 +920,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'otherMeasurementDescription' . $i)) {
 		
-			$query = " UPDATE dimli.measurements
+			$query = " UPDATE $DB_NAME.measurements
 						SET
 							measurements_description = '{$value}'
 						WHERE
@@ -930,7 +930,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'measurementDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.measurements 
+			$query = " UPDATE $DB_NAME.measurements 
 						SET
 							display = '{$value}'
 						WHERE
@@ -952,7 +952,7 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.subject WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.subject WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -960,7 +960,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.subject VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.subject VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -968,7 +968,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'subjectType' . $i)) {
 		
-			$query = " UPDATE dimli.subject 
+			$query = " UPDATE $DB_NAME.subject 
 						SET
 							subject_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -980,7 +980,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'subject' . $i)) {
 		
-			$query = " UPDATE dimli.subject
+			$query = " UPDATE $DB_NAME.subject
 						SET
 							subject_text = '{$value}'
 						WHERE
@@ -990,7 +990,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'subjectId' . $i)) {
 		
-			$query = " UPDATE dimli.subject
+			$query = " UPDATE $DB_NAME.subject
 						SET
 							subject_getty_id = '{$value}'
 						WHERE
@@ -1000,7 +1000,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'subjectDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.subject 
+			$query = " UPDATE $DB_NAME.subject 
 						SET
 							display = '{$value}'
 						WHERE
@@ -1022,7 +1022,7 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.inscription WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.inscription WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -1030,7 +1030,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.inscription VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.inscription VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -1038,7 +1038,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'inscriptionType' . $i)) {
 		
-			$query = " UPDATE dimli.inscription 
+			$query = " UPDATE $DB_NAME.inscription 
 						SET
 							inscription_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -1050,7 +1050,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'workInscription' . $i)) {
 		
-			$query = " UPDATE dimli.inscription
+			$query = " UPDATE $DB_NAME.inscription
 						SET
 							inscription_text = '{$value}'
 						WHERE
@@ -1060,7 +1060,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'workInscriptionAuthor' . $i)) {
 		
-			$query = " UPDATE dimli.inscription
+			$query = " UPDATE $DB_NAME.inscription
 						SET
 							inscription_author = '{$value}'
 						WHERE
@@ -1070,7 +1070,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'workInscriptionLocation' . $i)) {
 		
-			$query = " UPDATE dimli.inscription
+			$query = " UPDATE $DB_NAME.inscription
 						SET
 							inscription_location = '{$value}'
 						WHERE
@@ -1080,7 +1080,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'inscriptionDisplay' . $i)) {
 		
-			$query = " UPDATE dimli.inscription 
+			$query = " UPDATE $DB_NAME.inscription 
 						SET
 							display = '{$value}'
 						WHERE
@@ -1102,7 +1102,7 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM dimli.rights WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.rights WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
@@ -1110,7 +1110,7 @@ $i = 0;
 
 while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.rights VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.rights VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -1118,7 +1118,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'rightsType' . $i)) {
 		
-			$query = " UPDATE dimli.rights 
+			$query = " UPDATE $DB_NAME.rights 
 						SET
 							rights_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -1130,7 +1130,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'rightsHolder' . $i)) {
 		
-			$query = " UPDATE dimli.rights
+			$query = " UPDATE $DB_NAME.rights
 						SET
 							rights_holder = '{$value}'
 						WHERE
@@ -1140,7 +1140,7 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'rightsText' . $i)) {
 		
-			$query = " UPDATE dimli.rights
+			$query = " UPDATE $DB_NAME.rights
 						SET
 							rights_text = '{$value}'
 						WHERE
@@ -1162,14 +1162,14 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = isnerQ("DELETE FROM dimli.source WHERE related_".$field_type."s = '{$recordNum}'");
+	$query = isnerQ("DELETE FROM $DB_NAME.source WHERE related_".$field_type."s = '{$recordNum}'");
 }
 
 $i = 0;
 
 while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 
-	$sql = "INSERT INTO dimli.source VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.source VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
@@ -1177,7 +1177,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 	
 		if (strstr($key, $abbr.'sourceNameType' . $i)) {
 		
-			$query = " UPDATE dimli.source 
+			$query = " UPDATE $DB_NAME.source 
 						SET
 							source_name_type = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
@@ -1189,7 +1189,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'sourceName' . $i)) {
 		
-			$query = " UPDATE dimli.source
+			$query = " UPDATE $DB_NAME.source
 						SET
 							source_name_text = '{$value}'
 						WHERE
@@ -1199,7 +1199,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'sourceType' . $i)) {
 		
-			$query = " UPDATE dimli.source
+			$query = " UPDATE $DB_NAME.source
 						SET
 							source_type = '{$value}'
 						WHERE
@@ -1209,7 +1209,7 @@ while ($i < countCatRows($_SESSION['sourceArray'][$recordType])) {
 		
 		} elseif (strstr($key, $abbr.'source' . $i)) {
 		
-			$query = " UPDATE dimli.source
+			$query = " UPDATE $DB_NAME.source
 						SET
 							source_text = '{$value}'
 						WHERE

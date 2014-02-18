@@ -4,7 +4,7 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 
 $sql = "SELECT title_text 
-			FROM dimli.title 
+			FROM $DB_NAME.title 
 			WHERE related_images = '{$imageId}' 
 			ORDER BY id ASC 
 			LIMIT 1 ";

@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
 		//  Check user credentials against the database
 		//-----------------------------------------------
 
-		$sql = "SELECT * FROM dimli.user 
+		$sql = "SELECT * FROM $DB_NAME.user 
 					WHERE username = '{$username}' 
 						AND crypted_password = '{$password}' ";
 

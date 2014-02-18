@@ -17,7 +17,7 @@ $newImageId = $_POST['imageNum'];
 
 $imageNum= ltrim($_POST['imageNum'], '0');
 
-	$sql = "UPDATE dimli.image
+	$sql = "UPDATE $DB_NAME.image
 				SET legacy_id = '{$newImageId}'
 				WHERE id = '{$imageNum}' ";
 

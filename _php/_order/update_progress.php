@@ -21,7 +21,7 @@ $UnixTime = time(TRUE);
 if ($processToUpdate == 'progress_dig'
 	&& $_SESSION['priv_digitize'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET order_digitized = '{$status}',
 					order_digitized_by = '{$_SESSION['username']}',
 					order_digitized_on = '{$todaysDate}',
@@ -33,7 +33,7 @@ if ($processToUpdate == 'progress_dig'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -51,7 +51,7 @@ if ($processToUpdate == 'progress_dig'
 elseif ($processToUpdate == 'progress_edi'
 	&& $_SESSION['priv_edit'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET images_edited = '{$status}',
 					images_edited_by = '{$_SESSION['username']}',
 					images_edited_on = '{$todaysDate}',
@@ -63,7 +63,7 @@ elseif ($processToUpdate == 'progress_edi'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -81,7 +81,7 @@ elseif ($processToUpdate == 'progress_edi'
 elseif ($processToUpdate == 'progress_exp'
 	&& $_SESSION['priv_exportImages'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET images_exported = '{$status}',
 					images_exported_by = '{$_SESSION['username']}',
 					images_exported_on = '{$todaysDate}',
@@ -93,7 +93,7 @@ elseif ($processToUpdate == 'progress_exp'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -111,7 +111,7 @@ elseif ($processToUpdate == 'progress_exp'
 elseif ($processToUpdate == 'progress_del'
 	&& $_SESSION['priv_deliver'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET images_delivered = '{$status}',
 					images_delivered_by = '{$_SESSION['username']}',
 					images_delivered_on = '{$todaysDate}',
@@ -123,7 +123,7 @@ elseif ($processToUpdate == 'progress_del'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -141,7 +141,7 @@ elseif ($processToUpdate == 'progress_del'
 elseif ($processToUpdate == 'progress_cat'
 	&& $_SESSION['priv_catalog'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET images_catalogued = '{$status}',
 					images_catalogued_by = '{$_SESSION['username']}',
 					images_catalogued_on = '{$todaysDate}',
@@ -153,7 +153,7 @@ elseif ($processToUpdate == 'progress_cat'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -171,7 +171,7 @@ elseif ($processToUpdate == 'progress_cat'
 elseif ($processToUpdate == 'progress_app'
 	&& $_SESSION['priv_approve'] == 1)
 {
-	$sql = "UPDATE dimli.order
+	$sql = "UPDATE $DB_NAME.order
 				SET cataloguing_approved = '{$status}',
 					cataloguing_approved_by = '{$_SESSION['username']}',
 					cataloguing_approved_on = '{$todaysDate}',
@@ -183,7 +183,7 @@ elseif ($processToUpdate == 'progress_app'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO dimli.activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -199,7 +199,7 @@ elseif ($processToUpdate == 'progress_app'
 //-----------------------------------------------
 
 $sql = "SELECT * 
-			FROM dimli.order 
+			FROM $DB_NAME.order 
 			WHERE id = '{$orderId}' ";
 
 $result5 = db_query($mysqli, $sql);
@@ -253,7 +253,7 @@ $orderComplete = (
 //  Update the "complete" status of the modified order
 //-------------------------------------------------------
 
-$sql = "UPDATE dimli.order 
+$sql = "UPDATE $DB_NAME.order 
 			SET complete = '{$orderComplete}' 
 			WHERE id = '{$orderId}' ";
 

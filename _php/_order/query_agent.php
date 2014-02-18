@@ -4,7 +4,7 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 
 $sql = "SELECT agent_text 
-			FROM dimli.agent 
+			FROM $DB_NAME.agent 
 			WHERE related_images = '{$imageId}' ";
 
 $result_c = db_query($mysqli, $sql);
@@ -36,7 +36,7 @@ else
 $trimmed_imageId = ltrim($imageId, '0');
 
 $sql = "SELECT related_works 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE id = '{$trimmed_imageId}' 
 			LIMIT 1 ";
 
@@ -67,7 +67,7 @@ if ($assoc_work != 'Work not found') {
 	$assoc_work = create_six_digits($assoc_work);
 
 	$sql = "SELECT * 
-				FROM dimli.agent 
+				FROM $DB_NAME.agent 
 				WHERE related_works = '{$assoc_work}' ";
 
 	$result_agent = db_query($mysqli, $sql);

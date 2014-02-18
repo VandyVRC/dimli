@@ -16,7 +16,7 @@ $imageId = $_POST['image_id'];
 
 // Update the flagged status of the clicked image record
 
-$sql = "UPDATE dimli.image 
+$sql = "UPDATE $DB_NAME.image 
 			SET flagged_for_export = '{$newStatus}' 
 			WHERE id = '{$imageId}' ";
 
@@ -25,7 +25,7 @@ $result_updateFlag = db_query($mysqli, $sql);
 // Re-query flagged status
 
 $sql = "SELECT flagged_for_export 
-			FROM dimli.image 
+			FROM $DB_NAME.image 
 			WHERE id = '{$imageId}' 
 			LIMIT 1 ";
 

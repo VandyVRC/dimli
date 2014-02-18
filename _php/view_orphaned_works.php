@@ -30,7 +30,7 @@ require_priv('priv_catalog');
 $works = array();
 
 $sql = "SELECT * 
-			FROM dimli.work 
+			FROM $DB_NAME.work 
 			WHERE related_images = '' ";
 
 $result = db_query($mysqli, $sql);
@@ -46,7 +46,7 @@ foreach ($works as $workNum)
 	Find 
 	*/
 	$sql = "SELECT title_text 
-				FROM dimli.title 
+				FROM $DB_NAME.title 
 				WHERE related_works = {$workNum} LIMIT 1 ";
 
 	$title_res = db_query($mysqli, $sql);
@@ -67,7 +67,7 @@ foreach ($works as $workNum)
 
 
 	$sql = "SELECT agent_text 
-				FROM dimli.agent 
+				FROM $DB_NAME.agent 
 				WHERE related_works = {$workNum} LIMIT 1 ";
 
 	$agent_res = db_query($mysqli, $sql);
@@ -90,7 +90,7 @@ foreach ($works as $workNum)
 	$workNum6 = str_pad($workNum, 6, '0', STR_PAD_LEFT);
 
 	$sql = "SELECT * 
-				FROM dimli.location 
+				FROM $DB_NAME.location 
 				WHERE location_getty_id = 'work{$workNum6}' ";
 
 	$used_res = db_query($mysqli, $sql);

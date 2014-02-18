@@ -13,7 +13,7 @@ if (isset($_POST['order']) && isset($_POST['uid']) && isset($_POST['username']))
 	$uid = 		$_POST['uid'];
 	$username = $_POST['username'];
 
-	$sql = "UPDATE dimli.order 
+	$sql = "UPDATE $DB_NAME.order 
 				SET assigned_to = {$uid} 
 				WHERE id = {$order} ";
 

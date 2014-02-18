@@ -10,7 +10,7 @@ if ($_SESSION['workNum'] != 'None')
 // Related work already exists
 {
 
-	$sql = "UPDATE dimli.image
+	$sql = "UPDATE $DB_NAME.image
 				SET related_works = '{$_SESSION['workNum']}',
 					description = '{$imageDescription}',
 					catalogued = '1',
@@ -28,7 +28,7 @@ elseif ($_SESSION['workNum'] == 'None')
 // There is NO existing related work
 {
 
-	$sql = "UPDATE dimli.image
+	$sql = "UPDATE $DB_NAME.image
 				SET related_works = '{$newWorkNum}',
 					description = '{$imageDescription}',
 					catalogued = '1',
@@ -47,7 +47,7 @@ elseif ($_SESSION['workNum'] == 'None')
 //  Log action
 //--------------
 
-$sql = "INSERT INTO dimli.activity
+$sql = "INSERT INTO $DB_NAME.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Image',
 				RecordNumber = {$recordNum},

@@ -8,7 +8,7 @@ confirm_logged_in();
 require_priv('priv_users_read');
 
 $sql = "SELECT * 
-			FROM dimli.user 
+			FROM $DB_NAME.user 
 			ORDER BY last_name ASC ";
 
 $result = db_query($mysqli, $sql); ?>
