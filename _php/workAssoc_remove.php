@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -58,3 +59,4 @@ if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 }
 
 $_SESSION['workNum'] = 'None';
+

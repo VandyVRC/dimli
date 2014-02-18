@@ -44,7 +44,9 @@ require_priv('priv_users_create'); ?>
 
 		<select name="department">
 
+
                       <option value="Library">Library</option>
+
 			<option value="History of Art">History of Art</option>
 			<option value="Classical Studies">Classical Studies</option>
 			<option value="Other">Other</option>
@@ -64,7 +66,8 @@ require_priv('priv_users_create'); ?>
 
 		<br>
 
-		<div class="inline label">Username:</div>
+		<div class="inline label" id="username">Username:</div>
+
 
 		<input type="text"
 			name="username"
@@ -73,8 +76,7 @@ require_priv('priv_users_create'); ?>
 
 		<br>
 
-		<div class="inline label">Password:</div>
-
+		<div class="inline label" id="password">Password:</div>
 		<input type="password"
 			name="password"
 			maxlength="15"
@@ -85,7 +87,8 @@ require_priv('priv_users_create'); ?>
 
 		<div class="inline label"></div>	
 
-		<div class="inline" 
+		<div class="inline" id="minchar"
+
 			style="font-size: 0.7em; margin-left: 10px;"
 			>minimum 6 charcters</div>
 
@@ -145,3 +148,4 @@ $('#registerNewUser_submit').click(
 	});
 
 </script>
+

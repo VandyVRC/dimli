@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -42,3 +43,4 @@ $sql = "UPDATE $DB_NAME.work
 $result_trimLeadingComma = db_query($mysqli, $sql);
 
 $_SESSION['workNum'] = $workNum;
+

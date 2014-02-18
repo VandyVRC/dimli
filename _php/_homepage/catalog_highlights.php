@@ -3,7 +3,6 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
-
 confirm_logged_in();
 
 for ($i=0; $i<1000; $i++):
@@ -18,7 +17,6 @@ for ($i=0; $i<1000; $i++):
 		endwhile;
 		if ($catd == 1) break;
 	endif;
-    // echo "$i: $id<br/>";
 endfor;
 
 $sql = "SELECT image.id, 

@@ -10,7 +10,7 @@ require_priv('priv_orders_create');
 if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails'])) {
 
 	// Create empty array to store repository data
-	$_SESSION['newOrderDetails']['client'] = '';
+	$_SESSION['newOrderDetails']['patron'] = '';
 	$_SESSION['newOrderDetails']['department'] = '';
 	$_SESSION['newOrderDetails']['email'] = '';
 	$_SESSION['newOrderDetails']['dateNeeded'] = '';
@@ -21,6 +21,25 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 	$_SESSION['newOrderDetails']['source'] = '';
 	$_SESSION['newOrderDetails'][''] = '';
 }
+
+//---------------------------------------------------------
+//  Create array of all existing patrons and users for auto-suggest
+//---------------------------------------------------------
+
+$sql = "SELECT DISTINCT(display_name), (department), (email) 
+		FROM $DB_NAME.user ";
+
+	$result = db_query($mysqli, $sql);
+
+	$user_arr = array();
+	while ($user = $result->fetch_assoc()) 
+	{
+		$user_arr[] = $user['display_name'];
+
+		$patron = $user['display_name'];
+
+		$fill_arr[$patron] = array('department'=>$user['department'], 'email'=> $user['email']);
+	}
 ?>
 
 <div>
@@ -29,19 +48,20 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 	<form id="createOrder_form">
 
-		<div class="inline label">Client:</div>
+		<div class="inline label">Patron:</div>
 
 		<input type="text"
-			name="client"
+			name="patron"
 			placeholder='e.g. "John Doe"'
 			style="width: 220px;"
-			value="<?php echoValue($_SESSION['newOrderDetails']['client']); ?>">
+			value="<?php echoValue($_SESSION['newOrderDetails']['patron']); ?>">
+			<div id="suggestedPatrons" class="pointer"></div>
 
 		<br>
 
 		<div class="inline label">Department:</div>
 
-		<select name="department">
+		<select name="department" id="department">
 
 			<option value=""></option>
 
@@ -244,13 +264,25 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 			$('div#createOrderFigs_module').remove();
 		});
 
+//--------------------------------------------------------
+	//  Prepare suggest_input function with arrays of users
+	//--------------------------------------------------------
+
+	var user_a = <?php echo json_encode($user_arr); ?>;
+	var filler_a = <?php echo json_encode($fill_arr); ?>;
+
+	$('input[name=patron]').keyup(
+		function()
+		{
+			
+		suggest_inputFill('patron', 2,  user_a, 'suggestedPatrons', filler_a);
+		});
 
 	//  Load jQuery's datepicker widget
 
-	$(function () {
-		$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-	});
-
+	 $(function () {
+   	 $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+   	});
 
 	//  Prohibit "Image count" higher than 200
 
@@ -261,11 +293,13 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 
 			if (count > 200)
 			{
-				alert('Each individual order must contain no more than 200 images');
+				$('span#createOrder_errors').text('200 is the maximum number of images allowed');
 				$(this).val('');
 			}
-		});
-
+			
+			else if (count >= 1)
+				$('span#createOrder_errors').text('');
+	});
 
 	//  Display text input field when "Source info" has been selected
 
@@ -286,8 +320,10 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 			}
 		});
 
-
-	//  Continue to Page & Figure assignment
+//----------------------------------------------------------
+//  Check for user existence using suggest_input array
+// Create new user or continue to page and figure assignment
+//-----------------------------------------------------------
 
 	$('button#createOrder_continue_button')
 		.click(createOrder_continue);

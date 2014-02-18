@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
@@ -32,7 +33,7 @@ if ($processToUpdate == 'progress_dig'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -62,7 +63,7 @@ elseif ($processToUpdate == 'progress_edi'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -92,7 +93,7 @@ elseif ($processToUpdate == 'progress_exp'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -122,7 +123,7 @@ elseif ($processToUpdate == 'progress_del'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -152,7 +153,7 @@ elseif ($processToUpdate == 'progress_cat'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 
@@ -182,7 +183,7 @@ elseif ($processToUpdate == 'progress_app'
 	if ($status == '1') { 
 	// User has completed this task
 
-		$sql = "INSERT INTO $DB_NAME.Activity 
+		$sql = "INSERT INTO $DB_NAME.activity 
 					SET UserID = '{$_SESSION['user_id']}', 
 						RecordType = 'Order', 
 						RecordNumber = '{$orderId}', 

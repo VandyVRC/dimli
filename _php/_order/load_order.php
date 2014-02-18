@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
@@ -16,7 +17,7 @@ $_SESSION['order'] = $_GET['order'];
 
 // Log this visit
 $UnixTime = time(TRUE);
-$sql = "INSERT INTO $DB_NAME.Activity 
+$sql = "INSERT INTO $DB_NAME.activity 
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = '{$_SESSION['order']}',
@@ -37,7 +38,7 @@ $result = db_query($mysqli, $sql);
 
 while ($row = $result->fetch_assoc()) {
 
-	$client = 		$row['requestor'];
+	$patron = 		$row['requestor'];
 	$department = 	$row['department'];
 	$email = 		$row['email'];
 	$dateCreated = $row['date_created'];
@@ -106,7 +107,6 @@ $sql = "SELECT *
 			WHERE order_id = '{$_SESSION['order']}' ";
 
 $result_orderHQ_images = db_query($mysqli, $sql);
-	
 
 //---------------------------------------------------------
 //  Fetch info about recent status updates to this order
@@ -179,6 +179,9 @@ $result = db_query($mysqli, $sql);
 #############################################################
 #####################  BEGIN CLIENT-SIDE  ###################
 #############################################################
+
+$privEdit = $_SESSION['priv_orders_create'];
+
 ?>
 
 <div class="order_nav_bar defaultCursor"></div>
@@ -215,16 +218,17 @@ $result = db_query($mysqli, $sql);
 </div>
 
 <?php endif; ?>
+<div id="date_needed">
 
 <p style="font-size: 1.2em; color: #89899c; text-align: center;">
 
 	<?php // Echo main headline at the top of the order window
 	echo $imageCount;
 	echo ' images for ';
-	echo $client;
+	echo $patron;
 	echo ' (due on '; ?>
 
-	<span id="orderDueClickable" data-due="<?php echo $dateNeeded; ?>">
+	<span id="orderDueClickable" class="pointer">
 
 	<?php
 	echo date('M j, Y', strtotime($dateNeeded)); ?>
@@ -235,50 +239,53 @@ $result = db_query($mysqli, $sql);
 	echo ')'; ?>
 
 </p>
-
+</div>
 <div id="orderView_wrapper">
 
 	<div id="orderView_imageList">
 	
 		<?php $i = 0; ?>
 		<?php while ($row = $result_orderHQ_images->fetch_assoc()):
-
+			$legId = $row['legacy_id'];
 			$imageId = create_six_digits($row['id']);
+			$fileFormat =$row['file_format'];
 
-				// Define the page/fig, or legacyId/legacyFilename values,
-				// depending on the db entry for each image record.
-				// `${page/fig}Title` is used to supply the `title`
-				// attribute value for the markup below.
-			$page = (!!$row['legacy_id'])
-				? $row['legacy_id']
-				: $row['page'];
 
-			$pageTitle = (!!$row['legacy_id'])
-				? 'Legacy ID'
-				: 'Page';
+			//Truncate Legacy Id for style intrusion if needed
 
-			$fig = (!!$row['legacy_filename'])
-				? $row['legacy_filename']
-				: $row['fig'];
+			$truncLeg = (strlen($legId) > 6) 
+			? substr($legId, 0, 6) . '...' 
+			: $legId;
+			
+			// Define the page/fig depending on the db entry for each image record. ${page/fig}Title` is used to supply the `title`attribute value for the markup below.
 
-			$figTitle = (!!$row['legacy_filename'])
-				? 'Legacy Filename'
-				: 'Fig';
+			$page = $row['page'];
+
+			$pageTitle = 'Page';
+
+			$fig = $row['fig'];
+
+			$figTitle = 'Fig';
 		?>
 	
 		<div class="orderView_imageRow defaultCursor"
 			style="position: relative;">
 		
-			<!-- Image ID -->
+			<!-- Image or Legacy ID -->
 			<div class="imageList_imageNum purple" 
-				style="display: inline-block; width: 70px;"><?php echo $imageId; ?></div>
-			
+
+				style="display: inline-block; width: 70px; cursor: pointer;"><?php echo $truncLeg;?>
+
+			<!-- Hidden Image ID -->
+			<div class="imageList_imageNum_hidden" hidden><?php echo $imageId;?></div>
+			</div>
 			<!-- Thumbnail -->
-			<div class="orderView_imageList_thumb">
+			<div class="orderView_imageList_thumb" style="cursor: pointer;">
 
 				<?php 
 				// Define filepath for thumbnail
-				$img_file = IMAGE_DIR.'thumb/'.create_six_digits($row['id']).'.jpg';
+
+				$img_file = IMAGE_DIR.'thumb/'.$legId.$fileFormat;
 				
 				if ($i == 0) { 
 				// Perform only for first image in the order
@@ -407,7 +414,7 @@ $result = db_query($mysqli, $sql);
 	var order_num = <?php echo json_encode(trim($_SESSION['order'])); ?>;
 	var order_imageCount = <?php echo json_encode($imageCount); ?>;
 
-	order_navigation();
+	order_navigation();  
 
 	closeModule_button($('div#order_module'));
 
@@ -432,20 +439,20 @@ $result = db_query($mysqli, $sql);
 		.click(
 			function(event)
 			{
-				event.stopPropagation();
+				//event.stopPropagation();
 				if ($(event.target).hasClass('flagRecord_button')
 					|| $(event.target).hasClass('deleteRecord_button'))
 				{
 
 				}
-				else
-				{
-					var imageNum = $(this).find('div.imageList_imageNum').text();
-					view_image_record(imageNum);
-					view_work_record(imageNum);
-				}
-			});
-
+		
+ 				else
+            {
+             var imageId = $(this).find('div.imageList_imageNum_hidden').text();
+             view_image_record(imageId);
+             view_work_record(imageId);
+            }
+            });
 
 	// CLICK ON THUMBNAIL TO VIEW IMAGE
 
@@ -503,45 +510,29 @@ $result = db_query($mysqli, $sql);
 		{
 			var order = '<?php echo $_SESSION['order']; ?>';
 			var uid = $(this).find(':selected').attr('data-id');
-			var username = $(this).find(':selected').val();
+			var username = $(this).find(':selected'). val();
 			order_updateCataloger(order, uid, username);
 		});
 
 
 	// CLICK ON DUE DATE TO CHANGE
 
-	// function showInputField() {
-
-	// 	function hideInputField(event) {
-	// 		if (event.target.id != 'orderDueClickable') {
-	// 			$(inputField).remove();
-	// 			$('body').unbind('click.kljasd');
-	// 			$('span#orderDueClickable').click(showInputField);
-	// 		}
-	// 	}
-
-	// 	var dueDate = $(this).attr('data-due');
-	// 	var orderNum = "<?php echo $_SESSION['order'];?>";
-	// 	var inputField = $('<input class="date" name="dueDate" style="width: 110px; margin: 0;">');
-	// 	$(this).contents().replaceWith(inputField);
-	// 	inputField.focus().val(dueDate).blur(
-	// 		function(event)
-	// 		{
-	// 			hideInputField(event);
-	// 			updateOrderDueDate(inputField.val(), orderNum);
-	// 		});
-	// 	$('span#orderDueClickable').unbind('click');
-
-	// 	// Bind click event to body in order to hide input field
-	// 	$('body').not('span#orderDueClickable').bind('click.kljasd', hideInputField);
-	// };
-
-	// $('span#orderDueClickable').click(showInputField);
 	$('span#orderDueClickable').click(function() {
-		var dueDate = $(this).attr('data-due');
-		var orderNum = "<?php echo $_SESSION['order'];?>";
-		var newDueDate = prompt("Enter a new due date:", dueDate);
-		updateOrderDueDate(newDueDate, orderNum);
+
+		if ('<?php echo $privEdit;?>' == '1') {
+
+
+		var orderNum = '<?php echo $_SESSION['order']; ?>';
+		var dateNeeded = '<?php echo $dateNeeded; ?>';
+
+		$(this).hide();
+		editDate_form(orderNum, dateNeeded);
+	
+		}
+
+		else {
+			msg(['Special privileges are required to change the order due date.'], 'error');
+		}
 	});
 
 </script>

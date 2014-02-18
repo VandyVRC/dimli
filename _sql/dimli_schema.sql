@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `ActivityType` enum('created','viewed','modified','deleted','digitized','image-edited','exported','delivered','cataloged','approved') COLLATE utf8_unicode_ci NOT NULL,
   `UnixTime` int(15) NOT NULL,
   PRIMARY KEY (`ActivityID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20236 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
@@ -53,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `agent` (
   `agent_role` text COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17336 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
@@ -69,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `culture` (
   `culture_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17764 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -90,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `date` (
   `enddate_era` enum('CE','BCE') COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15789 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `edition` (
   `edition_type` enum('Edition','Impression','State','Other') COLLATE utf8_unicode_ci NOT NULL,
   `edition_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14711 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `getty_aat` (
   `nonpref_term_text` text COLLATE utf8_unicode_ci NOT NULL,
   `nonpref_term_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34801 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -154,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `getty_tgn` (
   `getty_pref_term` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nonpref_term` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=992346 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -208,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `getty_ulan` (
   `nonpref_term_language_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nonpref_term_language` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=202722 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -219,7 +221,6 @@ CREATE TABLE IF NOT EXISTS `getty_ulan` (
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `legacy_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `legacy_filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `related_works` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `order_id` int(11) NOT NULL,
@@ -232,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   `flagged_for_export` int(1) NOT NULL DEFAULT '0',
   `last_exported` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=67460 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -250,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `inscription` (
   `inscription_location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14708 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -268,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `location_type` enum('Creation','Discovery','Exhibition','Former owner','Former repository','Former site','Installation','Intended','Owner','Performance','Publication','Repository','Site','Other') COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27173 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -285,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `material` (
   `material_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29616 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -315,8 +316,7 @@ CREATE TABLE IF NOT EXISTS `measurements` (
   `measurements_description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17841 ;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 -- --------------------------------------------------------
 
 --
@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `cataloguing_approved_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `cataloguing_approved_on` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2496 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `repository` (
   `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `images` enum('Yes','No') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2459 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `rights` (
   `rights_holder` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `rights_text` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14694 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -413,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `source` (
   `source_type` enum('Citation','ISBN','ISSN','ASIN','Open URL','URI','Vendor','Other') COLLATE utf8_unicode_ci NOT NULL,
   `source_text` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=67938 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -429,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `style_period` (
   `style_period_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17646 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -446,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `subject_getty_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15590 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -462,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `technique` (
   `technique_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24122 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `title` (
   `title_text` text COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18956 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -517,11 +517,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `priv_orders_delete` tinyint(1) NOT NULL DEFAULT '0',
   `priv_csv_import` tinyint(1) NOT NULL DEFAULT '0',
   `priv_csv_export` tinyint(1) NOT NULL DEFAULT '0',
+  `priv_image_ids_edit` tinyint(1) NOT NULL DEFAULT '0',
   `priv_images_delete` tinyint(1) NOT NULL DEFAULT '0',
   `priv_images_flag4Export` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `crypted_password`, `first_name`, `last_name`, `display_name`, `email`, `department`, `last_order`, `last_legReader`, `pref_lantern_view`, `pref_user_type`, `date_created`, `last_update`, `priv_digitize`, `priv_edit`, `priv_exportImages`, `priv_deliver`, `priv_catalog`, `priv_approve`, `priv_users_read`, `priv_users_create`, `priv_users_delete`, `priv_orders_read`, `priv_orders_create`, `priv_orders_confirmCreation`, `priv_orders_download`, `priv_orders_delete`, `priv_csv_import`, `priv_csv_export`, `priv_image_ids_edit`,`priv_images_delete`, `priv_images_flag4Export`) VALUES
+(1, 'admin', '19Dk3miSfj2Dc', 'Admin', 'Doe', 'Default Admin', 'johndoe@dimli.org', 'Other', 0, 0, 'list', 'cataloger', '2013-11-01 20:38:26', '2013-12-16 21:49:29', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 -- --------------------------------------------------------
 
 --
@@ -539,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `work` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3361 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -555,7 +562,7 @@ CREATE TABLE IF NOT EXISTS `work_type` (
   `work_type_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23078 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

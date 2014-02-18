@@ -1,5 +1,7 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
@@ -35,6 +37,7 @@ if (isset($_POST['login'])) {
 		//-----------------------------------------------
 		//  Check user credentials against the database
 		//-----------------------------------------------
+
 		$sql = "SELECT * FROM $DB_NAME.user 
 					WHERE username = '{$username}' 
 						AND crypted_password = '{$password}' ";
@@ -77,6 +80,7 @@ if (isset($_POST['login'])) {
 					'priv_orders_delete',
 					'priv_csv_import',
 					'priv_csv_export',
+					'priv_image_ids_edit',
 					'priv_images_delete',
 					'priv_images_flag4Export'
 					) as $type)
@@ -202,4 +206,5 @@ require("_php/header.php"); ?>
 
 <?php
 require("_php/footer.php");
+
 ?>

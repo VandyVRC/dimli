@@ -60,4 +60,6 @@ else
 {
 	echo 'No parentless image records were found. All image records are associated with works and accounted for!';
 }
+
 ?>
+

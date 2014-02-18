@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../../_php/_config/session.php'); 
 require_once(MAIN_DIR.'/../../../_php/_config/connection.php');
@@ -15,12 +16,11 @@ $source_name_type = $mysqli->real_escape_string($_POST['sourceNameType']);
 $source_name_text = $mysqli->real_escape_string($_POST['sourceName']);
 $source_type = $mysqli->real_escape_string($_POST['sourceType']);
 $source_text = $mysqli->real_escape_string($_POST['source']);
-$requestor = $mysqli->real_escape_string($_POST['client']);
+$requestor = $mysqli->real_escape_string($_POST['patron']);
 $department = $mysqli->real_escape_string($_POST['department']);
 $email = $mysqli->real_escape_string($_POST['email']);
 $date_needed = $mysqli->real_escape_string($_POST['dateNeeded']);
 $legacyIds = $_POST['legacyIds'];
-
 
 	// $_POST contained no value for 'imageCount'
 if (empty($_POST['imageCount'])) {
@@ -50,33 +50,38 @@ $i = 1;
 	// For each image
 while ($i <= $imageCount) {
 
-	$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
-	$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
+		$legacyId = trim($mysqli->real_escape_string($_POST['image'.$i]['legacyId']));
 
-		// User elected to supply legacy ids and filenames
-	if ($legacyIds == "true") {
-
-		$sql = "INSERT INTO $DB_NAME.image
-					SET legacy_id = '{$page}',
-						legacy_filename = '{$fig}',
-						file_format = '.jpg',
-						last_update_by = '{$_SESSION['username']}' ";
-
-	} else {
+		$page = trim($mysqli->real_escape_string($_POST['image'.$i]['page']));
+		$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
+		$fileFormat = ($_POST['image'.$i]['fileFormat']);
 
 		$sql = "INSERT INTO $DB_NAME.image
-					SET page = '{$page}',
+					SET
+						legacy_id = '{$legacyId}',
+						page = '{$page}',
 						fig = '{$fig}',
-						file_format = '.jpg',
+						file_format = '{$fileFormat}',
 						last_update_by = '{$_SESSION['username']}' ";
-
-	}
 
 	$result = db_query($mysqli, $sql);
 	
 	// Create a variable for the recently created image's ID/PK
-	$thisImage = create_six_digits($mysqli->insert_id);
+	$thisId = ($mysqli->insert_id);
+	$thisImage = create_six_digits($thisId);
 
+	// Populate blank legacy id fields with 6 digit id for image id references
+
+		if ($legacyId == ''){
+
+		$sql = "UPDATE $DB_NAME.image
+					SET legacy_id = '{$thisImage}'
+					WHERE id = '{$thisId}'";
+		
+
+		$result = db_query($mysqli, $sql);
+
+		}
 	
 	$sql = "INSERT INTO $DB_NAME.source
 					SET related_images = '{$thisImage}',
@@ -88,9 +93,28 @@ while ($i <= $imageCount) {
 	$result = db_query($mysqli, $sql);
 
 	$i++;
-
-	$thisImage = create_six_digits($thisImage++);
+	$thisId = ($thisId++);
+	$thisImage = create_six_digits($thisId++);
 }
+
+
+//---------------------------------------
+// Obtain Requestor ID - IN PROGRESS
+//--------------------------------------=-
+
+//$sql = "SELECT id
+		//	FROM $DB_NAME.user
+	//		WHERE display_name ='{$requestor}'";
+
+//	$result = db_query($mysqli, $sql);
+
+
+//	while ($row = $result->fetch_assoc()) {
+//		$requestor_id = $row['id'];
+	
+//}
+
+// requestor_id = '{$requestor_id}', - For create new order query 
 
 //---------------------
 //  CREATE NEW ORDER
@@ -133,7 +157,7 @@ $result = db_query($mysqli, $sql);
 
 $UnixTime = time(TRUE);
 
-$sql = "INSERT INTO $DB_NAME.Activity
+$sql = "INSERT INTO $DB_NAME.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = {$newOrderId},
@@ -144,7 +168,8 @@ $result = db_query($mysqli, $sql);
 
 
 // Clear array for new order details
-$_SESSION['newOrderDetails'] = array('client'=>'','department'=>'','email'=>'','dateNeeded'=>'','imageCount'=>'','sourceNameType'=>'','sourceName'=>'','sourceType'=>'','source'=>'');
+
+$_SESSION['newOrderDetails'] = array('patron'=>'','department'=>'','email'=>'','dateNeeded'=>'','imageCount'=>'','sourceNameType'=>'','sourceName'=>'','sourceType'=>'','source'=>'');
 
 // Pad the id of the new order for use in javascript below
 $newOrderId = create_four_digits($newOrderId);
@@ -152,7 +177,7 @@ $newOrderId = create_four_digits($newOrderId);
 
 <script>
 
-	var newOrder = <?php echo $newOrderId; ?>;
+	var newOrder = <?php echo $newOrderId; ?>
 
 	$(document).ready(
 		function()

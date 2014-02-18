@@ -1,4 +1,5 @@
 <?php 
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
@@ -121,3 +122,4 @@ confirm_logged_in();
 			});
 
 </script>
+

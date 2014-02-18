@@ -144,7 +144,7 @@ $sql.= (!empty($created_end)
 $sql.= (!empty($updatedBy))
 	? " AND last_update_by = '{$updatedBy}' " : '';
 				
-$sql.= " ORDER BY ".$orderBy." ".$order.", id ASC ";
+$sql.= " ORDER BY ".$orderBy." ".$order.", id ASC";
 $sql.= " LIMIT ".(($pageNum - 1) * 15).", 15 ";
 
 
@@ -240,6 +240,7 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 			<td class="orderResults_orderNum_cell">
 			
 				<?php 
+
 				echo create_four_digits($row['id']);
 				?>
 				
@@ -373,7 +374,9 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 			-->
 			
 			<?php
-			$sql = "SELECT id
+
+			$sql = "SELECT legacy_id
+
 							FROM $DB_NAME.image
 							WHERE order_id = '{$row['id']}' ";
 
@@ -381,26 +384,39 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 
 			if ($result->num_rows > 0):
 
-				while ($image = $result->fetch_assoc()):
-					$imagesArray[] = $image['id'];
-				endwhile;
-				$firstImageId = create_six_digits(min($imagesArray));
-				$lastImageId = create_six_digits(max($imagesArray));
-				unset($imagesArray); ?>
+				while ($image = $result->fetch_assoc()):		
+					$legsArray[] = $image['legacy_id'];
+				endwhile; 
+			
+				$firstImageId = reset($legsArray);
+				$lastImageId =end($legsArray);
+
+				unset($legsArray); ?>
 
 				<td style="white-space: nowrap;">
 				
-					<?php 
-					echo (!empty($firstImageId))
-						? $firstImageId.' - ' 
-						: '';
-					echo (!empty($lastImageId))
-						? $lastImageId 
-						: ''; ?>
+			
+				<?php 
 				
+				//Truncate Legacy Id for style intrusion if needed
+
+				$truncFirst = (strlen($firstImageId) > 6) 
+				? substr($firstImageId, 0, 6) . '...' 
+				: $firstImageId;
+				$truncLast = (strlen($lastImageId) > 6) 
+				? substr($lastImageId, 0, 6) . '...' 
+				: $lastImageId;
+
+				echo (!empty($truncFirst))
+				? $truncFirst.' - ' 
+				: '';
+				echo (!empty($lastImageId))
+				? $truncLast
+				: '';
+				?>				
 				</td>
 
-			<?php endif; ?>
+			<?php 	endif; ?>
 
 			<!--
 					Progress bars

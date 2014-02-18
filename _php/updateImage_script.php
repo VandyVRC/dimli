@@ -47,7 +47,7 @@ elseif ($_SESSION['workNum'] == 'None')
 //  Log action
 //--------------
 
-$sql = "INSERT INTO $DB_NAME.Activity
+$sql = "INSERT INTO $DB_NAME.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Image',
 				RecordNumber = {$recordNum},

@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
@@ -17,4 +18,5 @@ if (isset($_COOKIE[session_name()])) {
 session_destroy();
 
 header('Location: login.php');
+
 die();

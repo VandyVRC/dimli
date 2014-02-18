@@ -517,6 +517,20 @@ div.module {
   border: 1px solid #BBB;
 }
 
+div.module_right {
+	position: relative;
+	float: right;
+	min-height: 200px;
+	/*min-width: 365px;
+	max-width: 365px;*/
+	min-width: 455px;
+	max-width: 455px;
+	margin: 15px 15px 0 0;
+	padding: 5px 5px 5px 5px;
+	background-color: #FFF;
+	border: 1px solid #BBB;
+}
+
 div.module.double {
   /*min-width: 757px;
   max-width: 757px;*/
@@ -952,11 +966,16 @@ div#filter_toggle {
   text-align: center;
 }
 
-div#filter_toggle:hover {
+div#filter_toggle span[id^="go-"]:hover {
   cursor: pointer;
 }
 
+div#filter_toggle span[id^="go-"].current {
+  font-weight: 600;
+}
+
 div#filter_toggle span {
+  margin: 0 5px;
   vertical-align: middle;
   opacity: 0.8;
 }
@@ -1001,7 +1020,7 @@ div.thumb_panel img.list_thumb {
 }
 
 div.thumb_panel span.view_catalog,
-div.thumb_panel span.download_image {
+div.thumb_panel span.add_image_to_cart {
   font-size: 0.75em;
   vertical-align: middle;
   opacity: 0.7;
@@ -1012,8 +1031,8 @@ div.thumb_panel span.view_catalog {
   margin-left: 18px;
 }
 
-div.thumb_panel span.download_image {
-  margin-left: 24px;
+div.thumb_panel span.add_image_to_cart {
+  margin-left: 22px;
 }
 
 div.lanternResults_list_row div.text_panel {

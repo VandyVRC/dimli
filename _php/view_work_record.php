@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -104,7 +105,7 @@ if ($_SESSION['workNum'] != 'None')
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO $DB_NAME.Activity 
+	$sql = "INSERT INTO $DB_NAME.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Work', 
 					RecordNumber = {$_SESSION['workNum']}, 
@@ -972,6 +973,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		// "_php/_order/query_work.php"
 		{
 			$assocImg_id = create_six_digits($row['id']);
+
 			$assocImg_file = "http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_id.".jpg&amp;h=40&amp;w=53&amp;q=90";
 
 			$sql = "SELECT order_id 
@@ -1200,3 +1202,4 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		});
 
 </script>
+

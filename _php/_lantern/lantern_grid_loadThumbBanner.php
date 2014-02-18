@@ -9,25 +9,28 @@ confirm_logged_in();
 $work = $_POST['work'];
 $image = $_POST['image'];
 
-if ($work != 'None')
-{
+if ($work != 'None') {
 	$sql = "SELECT * 
 				FROM $DB_NAME.title 
 				WHERE related_works = {$work} LIMIT 1 ";
-}
-elseif ($work = 'None')
-{
+
+} elseif ($work = 'None') {
 	$sql = "SELECT title_text 
 				FROM $DB_NAME.title 
 				WHERE related_images = {$image} LIMIT 1 ";
 }
 
-$result = db_query($mysqli, $sql); confirm_query($result);
-while ($row = $result->fetch_assoc())
-{
-	$title = $row['title_text'];
+$result = db_query($mysqli, $sql);
+
+if ($result->num_rows > 0) {
+
+  while ($row = $result->fetch_assoc()) {
+  	$title = $row['title_text'];
+  }
+
+  echo (strlen($title) < 60) 
+  	? $title 
+  	: substr($title, 0, 57).'...';
+
 }
-echo (strlen($title) < 60) 
-		? $title 
-		: substr($title, 0, 57).'...';
 ?>

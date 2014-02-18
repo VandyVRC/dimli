@@ -12,7 +12,7 @@ $sql = "SELECT UserID,
 				RecordType, 
 				ActivityType, 
 				MAX(UnixTime) AS UnixTime
-			FROM $DB_NAME.Activity 
+			FROM $DB_NAME.activity 
 			WHERE UserID = {$_SESSION['user_id']}
 			AND (ActivityType != 'viewed' 
 				OR (ActivityType = 'viewed' AND RecordType = 'Order') )

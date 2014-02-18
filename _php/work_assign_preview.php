@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -39,5 +40,6 @@ $result = db_query($mysqli, $sql); ?>
 			$('div.assocImage_pref').removeClass('pref');
 			$(this).addClass('pref');
 		});
+
 
 </script>

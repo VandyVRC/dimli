@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -61,7 +62,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO $DB_NAME.Activity
+	$sql = "INSERT INTO $DB_NAME.activity
 						SET UserID = '{$_SESSION['user_id']}',
 							RecordType = 'Work',
 							RecordNumber = {$work_trim},
@@ -70,4 +71,6 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 
 	$result = db_query($mysqli, $sql);
 }
+
 ?>
+

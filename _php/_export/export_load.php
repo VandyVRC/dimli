@@ -80,22 +80,20 @@ unset($flaggedImages);
 
 	<input type="text" 
 		name="firstExportRecord" 
-		value="<?php echoValue($_SESSION['firstExportRecord']); ?>"
-		maxlength="6"><!--
+		value="<?php echoValue($_SESSION['firstExportRecord']); ?>"><!--
 
 	-->&nbsp;&nbsp;to&nbsp;&nbsp;<!--
 
 	--><input type="text" 
 		name="lastExportRecord" 
-		value="<?php echoValue($_SESSION['lastExportRecord']); ?>"
-		maxlength="6" style="margin-left: 0;">
+		value="<?php echoValue($_SESSION['lastExportRecord']); ?>" style="margin-left: 0;">
 
 	<button type="button"
 		id="exportCsv"
 		name="exportCsv">Download...</button>
 
 	<p class="subtext">- Enter the first and last image record you wish to export</p>
-	<p class="subtext">- You may enter records numbers with, or without, the leading zeros</p>
+	<p class="subtext">- For Dimli record numbers, you must include the leading zeros</p>
 	<p class="subtext">- Limit export to 10,000 records</p>
 
 </div>
@@ -127,7 +125,7 @@ unset($flaggedImages);
 	$('button#exportCsv').click(
 		function()
 		{
-			exportRecords('range')
+			query_export();
 		});
 
 	$('button#exportCsv_allFlagged')
@@ -138,9 +136,8 @@ unset($flaggedImages);
 				$('button#conf_button').click(
 					function()
 					{
-						exportRecords('flagged')
+						export_flagged();
 					});
 			}
 			);
-
 </script>

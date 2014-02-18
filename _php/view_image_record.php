@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -30,7 +31,7 @@ if (isset($_GET['imageRecord']))
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO $DB_NAME.Activity 
+	$sql = "INSERT INTO $DB_NAME.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Image', 
 					RecordNumber = {$_SESSION['imageNum']}, 
@@ -105,6 +106,7 @@ if (isset($_GET['imageRecord']))
 	$_SESSION['image']['source0'] = $Isource[0]['source'] =
 	$_SESSION['image']['updated'] = '';
 	$_SESSION['image']['legacyId'] = '';
+	$_SESSION['image']['fileFormat'] = '';
 	
 	
 	// -----------
@@ -122,8 +124,9 @@ if (isset($_GET['imageRecord']))
 		$_SESSION['image']['updated'] = 'Last updated: ' . date('D, M j, Y, h:i a', strtotime($row['last_update'])) . ' by '. $row['last_update_by'];
 
 		$_SESSION['image']['legacyId'] = $row['legacy_id'];
+		$_SESSION['image']['fileFormat'] = $row['file_format'];
 	}
-	
+	 
 	// -----------
 	//	Title
 	// -----------
@@ -449,18 +452,43 @@ if (isset($_GET['imageRecord']))
 	
 }
 
-include('../_php/_order/query_image.php'); ?>
+	// Define image_viewer parameter based on legacy id
+
+	$imageView = $_SESSION['image']['legacyId']; 
+
+	//Truncate Legacy Id for style intrusion if needed
+	$truncView = (strlen($imageView) > 25) 
+				? substr($imageView, 0, 25) . '...' 
+				: $imageView;
+
+	$privEdit = $_SESSION['priv_image_ids_edit'];	
+
+include('../_php/_order/query_image.php');?>
 
 <script>
 
-		// Add Image number to module header
-	var imageNum = $.trim(<?php echo json_encode($_SESSION['imageNum']); ?>);
-	var legacyId = <?php echo json_encode($_SESSION['image']['legacyId']); ?>;
-	var strDisplay = !!legacyId
-		? '(' + legacyId + ') ' + imageNum
-		: imageNum;
-	$('div#image_module h1').append('<div class="floatRight">' + strDisplay + '</div>');
+//Add image number to header and allow legacy id edit
 
+	var imageView = '<?php echo $imageView; ?>';
+	var truncView = '<?php echo $truncView; ?>';
+
+	var imageNum = "<?php echo $_SESSION['imageNum'];?>";
+	var orderNum = "<?php echo $_SESSION['order']; ?>";
+
+	$('div#image_module h1').append('<div id="imageId" class="floatRight">' + truncView + '</div>');
+	$('div#imageId').addClass('pointer');
+	$('div#imageId').click(function() {		 
+
+		if ('<?php echo $privEdit;?>' == '1') {
+
+			$(this).hide();
+			editId_form(imageView, imageNum, orderNum);	
+		}
+
+		else {
+			msg(['Special privileges are required to change the image id.'], 'error');
+		}
+	});
 </script>
 
 <div class="imageRecord_catalogInfo">
@@ -507,8 +535,8 @@ include('../_php/_order/query_image.php'); ?>
 		style="position: absolute; top: 0; right: 0;">
 
 		<?php 
-		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['imageNum'].'.jpg'; 
-		?>
+
+		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; ?>
 
 		<img class="catThumb"
 			src="<?php echo $imageFile; ?>">
@@ -874,10 +902,15 @@ include('../_php/_order/query_image.php'); ?>
 			open_order(orderNum);
 		});
 
+	//-----------------------
+	//  Click to view image
+	//-----------------------
+
 	$('div.imageRecord_thumb').click(
 		function()
 		{
-			image_viewer('<?php echo $_SESSION['imageNum']; ?>');
+			image_viewer(imageView);
+
 		});
 
 </script>

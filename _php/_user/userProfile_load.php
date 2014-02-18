@@ -1,8 +1,10 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_users_read');
 
@@ -41,6 +43,7 @@ while ($user = $result->fetch_assoc()):
 	$priv_orders_delete = $user['priv_orders_delete'];
 	$priv_csv_import = $user['priv_csv_import'];
 	$priv_csv_export = $user['priv_csv_export'];
+	$priv_image_ids_edit = $user['priv_image_ids_edit'];
 	$priv_images_delete = $user['priv_images_delete'];
 	$priv_images_flag4Export = $user['priv_images_flag4Export'];
 
@@ -113,6 +116,7 @@ endwhile; ?>
 
 	<select id="userProf_department"
 		name="userProf_department">
+
 
                 <option value="Library"
                         <?php echo ($department == 'Library')
@@ -244,6 +248,12 @@ endwhile; ?>
 
 		<div class="inline label">Export Data:</div>
 		<div id="priv_csv_export" class="priv_wrapper">
+			<div class="priv_left"></div>
+			<div class="priv_right"></div>
+		</div><br>
+
+		<div class="inline label">Edit Image Ids:</div>
+		<div id="priv_image_ids_edit" class="priv_wrapper">
 			<div class="priv_left"></div>
 			<div class="priv_right"></div>
 		</div><br>
@@ -416,5 +426,6 @@ endwhile; ?>
 							userProfile_changePassword(userId);
 						});
 			});
+
 
 </script>

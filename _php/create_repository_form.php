@@ -1,8 +1,10 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_catalog');
 
@@ -168,3 +170,4 @@ if (!isset($_SESSION['newRepositoryDetails']) || empty($_SESSION['newRepositoryD
 	});
 
 </script>
+
