@@ -1,9 +1,10 @@
 <?php 
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
+
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
+
 confirm_logged_in(); 
 ?>
 
@@ -75,7 +76,7 @@ confirm_logged_in();
 
 						<?php foreach ($images as $image): ?>
 
-							<img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
+							<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
 
 						<?php endforeach; ?>
 
@@ -121,3 +122,4 @@ confirm_logged_in();
 			});
 
 </script>
+

@@ -1,9 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
+
 confirm_logged_in();
 
 // Gather user's last 50 entries from activity log
@@ -122,9 +122,9 @@ $activity_r = db_query($mysqli, $sql);
 
 			--><?php echo $str; ?>
 
-			<?php if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$img.".jpg")): ?>
+			<?php if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$img.".jpg")): ?>
 
-				<img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+				<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 					style="float: right; margin-top: -15px;">
 
 			<?php elseif ($row['RecordType'] == 'Order'): ?>

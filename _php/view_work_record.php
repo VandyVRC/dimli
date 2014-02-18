@@ -1,9 +1,10 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../_php/_config/session.php');
+require_once(MAIN_DIR.'/../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_orders_read');
 
@@ -972,7 +973,8 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		// "_php/_order/query_work.php"
 		{
 			$assocImg_id = create_six_digits($row['id']);
-			$assocImg_file = "http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_id.".jpg&amp;h=40&amp;w=53&amp;q=90";
+
+			$assocImg_file = "http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_id.".jpg&amp;h=40&amp;w=53&amp;q=90";
 
 			$sql = "SELECT order_id 
 						FROM $DB_NAME.image 
@@ -1200,3 +1202,4 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		});
 
 </script>
+

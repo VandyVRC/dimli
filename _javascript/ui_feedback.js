@@ -1,3 +1,4 @@
+
 // jshint jquery: true
 
 function msg(msg_arr, type) {

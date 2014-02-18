@@ -1,9 +1,10 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_orders_read');
 
@@ -13,7 +14,6 @@ require_priv('priv_orders_read');
 //-----------------
 
 $_SESSION['order'] = $_GET['order'];
-
 
 // Log this visit
 $UnixTime = time(TRUE);
@@ -108,7 +108,6 @@ $sql = "SELECT *
 
 $result_orderHQ_images = db_query($mysqli, $sql);
 
-
 //---------------------------------------------------------
 //  Fetch info about recent status updates to this order
 //---------------------------------------------------------
@@ -180,6 +179,7 @@ $result = db_query($mysqli, $sql);
 #############################################################
 #####################  BEGIN CLIENT-SIDE  ###################
 #############################################################
+
 $privEdit = $_SESSION['priv_orders_create'];
 
 ?>
@@ -219,6 +219,7 @@ $privEdit = $_SESSION['priv_orders_create'];
 
 <?php endif; ?>
 <div id="date_needed">
+
 <p style="font-size: 1.2em; color: #89899c; text-align: center;">
 
 	<?php // Echo main headline at the top of the order window
@@ -245,7 +246,6 @@ $privEdit = $_SESSION['priv_orders_create'];
 	
 		<?php $i = 0; ?>
 		<?php while ($row = $result_orderHQ_images->fetch_assoc()):
-
 			$legId = $row['legacy_id'];
 			$imageId = create_six_digits($row['id']);
 			$fileFormat =$row['file_format'];

@@ -1,9 +1,10 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../../_php/_config/session.php'); 
+require_once(MAIN_DIR.'/../../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_orders_create');
 
@@ -20,7 +21,6 @@ $department = $mysqli->real_escape_string($_POST['department']);
 $email = $mysqli->real_escape_string($_POST['email']);
 $date_needed = $mysqli->real_escape_string($_POST['dateNeeded']);
 $legacyIds = $_POST['legacyIds'];
- 
 
 	// $_POST contained no value for 'imageCount'
 if (empty($_POST['imageCount'])) {
@@ -46,6 +46,7 @@ if (empty($_POST['imageCount'])) {
 //-------------------------------------
 
 $i = 1;
+
 	// For each image
 while ($i <= $imageCount) {
 
@@ -167,6 +168,7 @@ $result = db_query($mysqli, $sql);
 
 
 // Clear array for new order details
+
 $_SESSION['newOrderDetails'] = array('patron'=>'','department'=>'','email'=>'','dateNeeded'=>'','imageCount'=>'','sourceNameType'=>'','sourceName'=>'','sourceType'=>'','source'=>'');
 
 // Pad the id of the new order for use in javascript below

@@ -1,4 +1,3 @@
-
 var reSpecialChars = new RegExp(/[\.\/\s\,\!\@\#\$\%\^\&\*\(\)\'\"\;\:<>\`\~\-\_\=\+\{\}\[\]\|\']/);
 
   // @param  {jQueryObject}  Inputs being tracked
@@ -362,63 +361,63 @@ function order_updateCataloger(order, uid, username) {
 
 function updateOrderDueDate(orderNum) {
 
-	var newDueDate = $('input#datepicker3').val();
+  var newDueDate = $('input#datepicker3').val();
 
-	$.ajax({
-		type: 'POST',
-		data: 'newDueDate='+newDueDate+'&orderNum='+orderNum,
-		url: '_php/_order/update_due_date.php',
-		success: function(response) {
-			
-			$('span#orderDueClickable').text('').append(response);
-			$('span#orderDueClickable').show();
-			$('form#edit_date_form').remove();
-			$('span#orderDueClickable').show();
-		},
-		error: function() {
-			msg(['Failed to change the due date of this order'], 'error');
-		}
-	});
+  $.ajax({
+    type: 'POST',
+    data: 'newDueDate='+newDueDate+'&orderNum='+orderNum,
+    url: '_php/_order/update_due_date.php',
+    success: function(response) {
+      
+      $('span#orderDueClickable').text('').append(response);
+      $('span#orderDueClickable').show();
+      $('form#edit_date_form').remove();
+      $('span#orderDueClickable').show();
+    },
+    error: function() {
+      msg(['Failed to change the due date of this order'], 'error');
+    }
+  });
 }
 
 function editId_form(imageView, imageNum, orderNum){
 
-	$.ajax({
-		type: 'POST',
-		data: 'imageView='+imageView+'&imageNum='+imageNum+'&orderNum='+orderNum,
-		url: '_php/edit_id_form.php',
-		success: function(response) {			
-		
-			$('div#image_module h1').append(response);
-			
-			console.log('imageView is '+imageView+' and imageNum is '+imageNum+' and orderNum is' +orderNum);
-			console.log('Form load: success')
-		},
-		
-		error: function() {
-			console.log('Form failed to load', 'error')	
-		}
-	});
+  $.ajax({
+    type: 'POST',
+    data: 'imageView='+imageView+'&imageNum='+imageNum+'&orderNum='+orderNum,
+    url: '_php/edit_id_form.php',
+    success: function(response) {     
+    
+      $('div#image_module h1').append(response);
+      
+      console.log('imageView is '+imageView+' and imageNum is '+imageNum+' and orderNum is' +orderNum);
+      console.log('Form load: success')
+    },
+    
+    error: function() {
+      console.log('Form failed to load', 'error') 
+    }
+  });
 }
 
 function editDate_form(orderNum, dateNeeded){
-	
-	$.ajax({
-		type: 'POST',
-		data:'orderNum='+orderNum+'&dateNeeded='+dateNeeded,
-		url: '_php/edit_date_form.php',
-		success: function(response) {			
+  
+  $.ajax({
+    type: 'POST',
+    data:'orderNum='+orderNum+'&dateNeeded='+dateNeeded,
+    url: '_php/edit_date_form.php',
+    success: function(response) {     
 
-			$('div#date_needed').append(response);
-			
-			console.log('orderNum is '+orderNum+' and dateNeeded is '+dateNeeded);
-			console.log('Form load: success')
-		},
-		
-		error: function() {
-			console.log('Form failed to load', 'error')	
-		}
-	});
+      $('div#date_needed').append(response);
+      
+      console.log('orderNum is '+orderNum+' and dateNeeded is '+dateNeeded);
+      console.log('Form load: success')
+    },
+    
+    error: function() {
+      console.log('Form failed to load', 'error') 
+    }
+  });
 }
 
 function recently_visited() {
@@ -649,46 +648,46 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 
 function registerNewUser_submit(formId) {
 
-	var jsonData = {};
-	var formAsJQuerySelector = 'form#' + formId;
+  var jsonData = {};
+  var formAsJQuerySelector = 'form#' + formId;
 
-	$(formAsJQuerySelector + ' input:not([type=button], [type=submit], [type=checkbox])').each(function () {
-		var name = $(this).attr('name');
-		jsonData[name] = $('input[name='+name+']').val();
-	});
-	
-	var user_type = $(formAsJQuerySelector + ' select[name=user_type]').val();
-	jsonData.user_type = user_type;
+  $(formAsJQuerySelector + ' input:not([type=button], [type=submit], [type=checkbox])').each(function () {
+    var name = $(this).attr('name');
+    jsonData[name] = $('input[name='+name+']').val();
+  });
+  
+  var user_type = $(formAsJQuerySelector + ' select[name=user_type]').val();
+  jsonData.user_type = user_type;
 
-	var department = $(formAsJQuerySelector + ' select[name=department]').val();
-	jsonData.department = department;
+  var department = $(formAsJQuerySelector + ' select[name=department]').val();
+  jsonData.department = department;
 
-	$.ajax({
-		type: 'POST',
-		data: { jsonData: jsonData },
-		url: '_php/_user/registerNewUser_submit.php',
-		success: function (response) {
-			$(body).prepend(response);
+  $.ajax({
+    type: 'POST',
+    data: { jsonData: jsonData },
+    url: '_php/_user/registerNewUser_submit.php',
+    success: function (response) {
+      $(body).prepend(response);
 
-				if ($('form#createOrder_form select')
-					.length > 0)
-				{
-					createOrder_submit();	
-					$('div#registerUser_module').remove();
-					$('div.suggestion_text').remove();
-				}
+        if ($('form#createOrder_form select')
+          .length > 0)
+        {
+          createOrder_submit(); 
+          $('div#registerUser_module').remove();
+          $('div.suggestion_text').remove();
+        }
 
-				else	
-				{
-					$('div#registerUser_module').remove();
-					usersBrowse_load();
-					console.log('File successfully loaded: registerNewUser_submit.php');
-				}
-					
-			}, error: function() {
-				console.error("Failed to load file: registerNewUser_submit.php");
-		}
-	});
+        else  
+        {
+          $('div#registerUser_module').remove();
+          usersBrowse_load();
+          console.log('File successfully loaded: registerNewUser_submit.php');
+        }
+          
+      }, error: function() {
+        console.error("Failed to load file: registerNewUser_submit.php");
+    }
+  });
 }
 
 function deleteUser_submit(userId) {
@@ -819,22 +818,22 @@ function view_image_record(record) {
 
 function editImage_id(imageNum) {
 
-	var newImageId = $('input#edit_id').val();
+  var newImageId = $('input#edit_id').val();
 
-		$.ajax({                                                       
-		type: 'POST', 
-		data: 'newImageId='+newImageId+'&imageNum='+imageNum,
-		url: '_php/edit_image_id.php',
-		success: function(response) {
+    $.ajax({                                                       
+    type: 'POST', 
+    data: 'newImageId='+newImageId+'&imageNum='+imageNum,
+    url: '_php/edit_image_id.php',
+    success: function(response) {
 
-			view_image_record(imageNum);
-			view_work_record(imageNum);
+      view_image_record(imageNum);
+      view_work_record(imageNum);
 
-		},
-		error: function() {
-			msg(['Failed to change the image id'], 'error');
-		}
-	});
+    },
+    error: function() {
+      msg(['Failed to change the image id'], 'error');
+    }
+  });
 }
 
 function image_viewer(imageNum) {
@@ -948,76 +947,76 @@ function suggest_input(inputName, minLen, searchArray, suggestionAreaId) {
 function suggest_inputFill(inputName, minLen, searchArray, suggestionAreaId, fillArray)
 {
 
-	if (
-		$('input[name='+inputName+']').val().length >= minLen
-		&& 
-		$('input[name='+inputName+']').val() != inputName
-		)
-	// User has typed at least 2 characters
-	// AND input value is NOT the same as the input's name
-	{
-		
-		console.log('function called: suggest_inputFill('+inputName+', '+searchArray+', '+suggestionAreaId+')');
+  if (
+    $('input[name='+inputName+']').val().length >= minLen
+    && 
+    $('input[name='+inputName+']').val() != inputName
+    )
+  // User has typed at least 2 characters
+  // AND input value is NOT the same as the input's name
+  {
+    
+    console.log('function called: suggest_inputFill('+inputName+', '+searchArray+', '+suggestionAreaId+')');
 
-		var typed = $('input[name='+inputName+']').val().toLowerCase();
-		console.log('User typed: "'+typed+'"');
-		var suggestions = [];
+    var typed = $('input[name='+inputName+']').val().toLowerCase();
+    console.log('User typed: "'+typed+'"');
+    var suggestions = [];
 
-		$.each(searchArray, function(index, val)
-		{
-			console.log('Array contains: "'+val+'"');
-			if (val.toLowerCase().indexOf(typed) >= 0)
-			{
-			console.log('"'+typed+'" matched "'+val+'" at position '+index);
-				suggestions.push(val); // Add this match to suggestions
-				$('div#'+suggestionAreaId).text('');
-				$.each(suggestions, function(index, val)
-				{
-					if ($('div#'+suggestionAreaId).text().indexOf(val) == -1)
-					{
-						$('div#'+suggestionAreaId).append('<div class="suggestion_text">'+val+'</div>');
-					}
-				})
-			}
-		})
-	}
+    $.each(searchArray, function(index, val)
+    {
+      console.log('Array contains: "'+val+'"');
+      if (val.toLowerCase().indexOf(typed) >= 0)
+      {
+      console.log('"'+typed+'" matched "'+val+'" at position '+index);
+        suggestions.push(val); // Add this match to suggestions
+        $('div#'+suggestionAreaId).text('');
+        $.each(suggestions, function(index, val)
+        {
+          if ($('div#'+suggestionAreaId).text().indexOf(val) == -1)
+          {
+            $('div#'+suggestionAreaId).append('<div class="suggestion_text">'+val+'</div>');
+          }
+        })
+      }
+    })
+  }
 
-	else
-	{
-		// console.log('function called, but not completed');
-		$('div#'+suggestionAreaId).text('');
-	}
-	
-	$('div.suggestion_text').click(function()
-	{
-	
-		var selectedSuggestion = $(this).text();
-		var thisSuggestionDiv = $(this)
-		.parents('div#'+suggestionAreaId);
+  else
+  {
+    // console.log('function called, but not completed');
+    $('div#'+suggestionAreaId).text('');
+  }
+  
+  $('div.suggestion_text').click(function()
+  {
+  
+    var selectedSuggestion = $(this).text();
+    var thisSuggestionDiv = $(this)
+    .parents('div#'+suggestionAreaId);
 
-		$(thisSuggestionDiv)
-			.prev('input[name='+inputName+']')
-			.val(selectedSuggestion);
+    $(thisSuggestionDiv)
+      .prev('input[name='+inputName+']')
+      .val(selectedSuggestion);
 
-		$(thisSuggestionDiv)
-			.children()
-			.remove();	
+    $(thisSuggestionDiv)
+      .children()
+      .remove();  
 
 
-		$.each(fillArray, function(index, val)
-		{
-			if ((selectedSuggestion) == (index))
-			{
-				$.each(val, function (k, v)
-				{
-		
-			$('input[name='+k+']').val(v); 	
-			console.log(''+k+' is '+v+'');
-			$('select[name= '+k+']').find('option:contains('+v+')').attr('selected', true);
-				})
-			}
-		})
-	});				
+    $.each(fillArray, function(index, val)
+    {
+      if ((selectedSuggestion) == (index))
+      {
+        $.each(val, function (k, v)
+        {
+    
+      $('input[name='+k+']').val(v);  
+      console.log(''+k+' is '+v+'');
+      $('select[name= '+k+']').find('option:contains('+v+')').attr('selected', true);
+        })
+      }
+    })
+  });       
 } 
 
 function findOrders_loadResults(pageNum, orderBy, order) {
@@ -2228,103 +2227,103 @@ function createOrder_continue() {
   var legacyIds = $('form#createOrder_form input[name="legacyIds"]')[0].checked;
   newOrder_data['legacyIds'] = legacyIds;
 
-	//console.log('form errors: '+errors); // Debugging
+  //console.log('form errors: '+errors); // Debugging
 
-	if (errors.length === 0)
-	{
-		$('.input_error').removeClass('input_error');
-		createOrder_load_pages(newOrder_data);
-		$('span#createOrder_errors').text('');
-		$('button#createOrder_continue_button').hide();
-		$('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
+  if (errors.length === 0)
+  {
+    $('.input_error').removeClass('input_error');
+    createOrder_load_pages(newOrder_data);
+    $('span#createOrder_errors').text('');
+    $('button#createOrder_continue_button').hide();
+    $('form#createOrder_form').find('input[type=text], input[type=checkbox], select')
         .attr('disabled', true);
       $('button#createOrder_continue_button').unbind('click');
-	}
-	else
-	{
-		$('span#createOrder_errors').text(errors.length+' error');
-		if (errors.length > 1) { $('span#createOrder_errors').append('s'); }
-	}
+  }
+  else
+  {
+    $('span#createOrder_errors').text(errors.length+' error');
+    if (errors.length > 1) { $('span#createOrder_errors').append('s'); }
+  }
 }
 
 function createOrder_newUser() {
 
-	var typed = $('input[name="patron"]').val();
-	console.log('User selected: "'+typed+'"');
-	var userMatch = true; 		
-	
-	$.each(user_a, (function (index, val)
-	{
-		console.log('Array contains: "'+val+'"');
-		if ((typed) === (val)){
+  var typed = $('input[name="patron"]').val();
+  console.log('User selected: "'+typed+'"');
+  var userMatch = true;     
+  
+  $.each(user_a, (function (index, val)
+  {
+    console.log('Array contains: "'+val+'"');
+    if ((typed) === (val)){
 
-		//Continue to page and figure assignment and break
-			
-			userMatch = true;	
-			createOrder_submit();
-			return false;
-		}
+    //Continue to page and figure assignment and break
+      
+      userMatch = true; 
+      createOrder_submit();
+      return false;
+    }
 
-		else{
-			console.log("no match")
-			userMatch = false;
-		}
-	}));	
-	
-	if (userMatch == false)	{
+    else{
+      console.log("no match")
+      userMatch = false;
+    }
+  }));  
+  
+  if (userMatch == false) {
 
-		// Construct the new user module
-		var $newUserModule = $('<div id="registerUser_module" class="module_right">');
-		var $newUserHeader = $('<h1>').text("Register New User");
-		$newUserModule.prepend($newUserHeader);
-		$newUserModule.append('<div class="loading_gif">')
-		
+    // Construct the new user module
+    var $newUserModule = $('<div id="registerUser_module" class="module_right">');
+    var $newUserHeader = $('<h1>').text("Register New User");
+    $newUserModule.prepend($newUserHeader);
+    $newUserModule.append('<div class="loading_gif">')
+    
 
-		// Insert the module into the DOM
-	 	$('div#module_tier4 p.clear_module').before($newUserModule);
+    // Insert the module into the DOM
+    $('div#module_tier4 p.clear_module').before($newUserModule);
 
-		// Add a close button the module's header
-		closeModule_button($('div#registerUser_module'));
+    // Add a close button the module's header
+    closeModule_button($('div#registerUser_module'));
 
-		$.ajax({
-		type: 'GET',
-		url: '_php/_user/registerNewUser_load.php',
-		success: function(response) {
-			load_module($newUserModule, response);
-			console.log("AJAX success: registerNewUser_load.php");
-			$(document).scrollTop($('#registerNewUser_submit').offset().top);
-			createOrder_newUser_fillForm();
-			},
-			error: function() {
-				console.error("AJAX error: registerNewUser_load.php");
-			}
-			});
+    $.ajax({
+    type: 'GET',
+    url: '_php/_user/registerNewUser_load.php',
+    success: function(response) {
+      load_module($newUserModule, response);
+      console.log("AJAX success: registerNewUser_load.php");
+      $(document).scrollTop($('#registerNewUser_submit').offset().top);
+      createOrder_newUser_fillForm();
+      },
+      error: function() {
+        console.error("AJAX error: registerNewUser_load.php");
+      }
+      });
 
-	}
-	//Suggested user is selected after New User module has loaded
-	$('div.suggestion_text').click (function()
-	{	
-		$('div#registerUser_module').remove()
-	});
+  }
+  //Suggested user is selected after New User module has loaded
+  $('div.suggestion_text').click (function()
+  { 
+    $('div#registerUser_module').remove()
+  });
 
-	//  User clicks "Back" to return to first step
-	$('button#createOrder_back_button').click(
-		function()
-		{
-			$('div#registerUser_module').remove()
-			});
+  //  User clicks "Back" to return to first step
+  $('button#createOrder_back_button').click(
+    function()
+    {
+      $('div#registerUser_module').remove()
+      });
 }
 
 function createOrder_newUser_fillForm() 
 {
-//Fill the New User module				
-	var emailVal = $('div#createOrder_module input[name=email]').val();
-						
-	var selectVal = $('div#createOrder_module select[name=department]').find('option:selected').val();
-					
-	$('div#registerUser_module input[name=email]').val(emailVal);
+//Fill the New User module        
+  var emailVal = $('div#createOrder_module input[name=email]').val();
+            
+  var selectVal = $('div#createOrder_module select[name=department]').find('option:selected').val();
+          
+  $('div#registerUser_module input[name=email]').val(emailVal);
 
-	$('div#registerUser_module select[name=department]').find('option:contains('+selectVal+')').attr('selected', true);					
+  $('div#registerUser_module select[name=department]').find('option:contains('+selectVal+')').attr('selected', true);         
 
   // console.log('form errors: ' + errors); // Debugging
 }
@@ -2360,80 +2359,80 @@ function createOrder_load_pages(data) {
 
 function createOrder_submit() {
 
-	var newOrder_data = {};
+  var newOrder_data = {};
 
-	$('form#createOrder_form input[type=text]').each(function()
-	// Perform on each TEXT INPUT and SELECT in the form
-	{
-		var value = $.trim($(this).val());
-		newOrder_data[$(this).attr('name')] = value;
-	});
+  $('form#createOrder_form input[type=text]').each(function()
+  // Perform on each TEXT INPUT and SELECT in the form
+  {
+    var value = $.trim($(this).val());
+    newOrder_data[$(this).attr('name')] = value;
+  });
 
-	$('form#createOrder_form select').each(function()
-	// Perform on each TEXT INPUT and SELECT in the form
-	{
-		var value = $(this).find('option:selected').val();
-		newOrder_data[$(this).attr('name')] = value;
-	});
+  $('form#createOrder_form select').each(function()
+  // Perform on each TEXT INPUT and SELECT in the form
+  {
+    var value = $(this).find('option:selected').val();
+    newOrder_data[$(this).attr('name')] = value;
+  });
 
-	var legacyIds = $('#legacyIds:checked').length > 0;
-	newOrder_data['legacyIds'] = legacyIds;
+  var legacyIds = $('#legacyIds:checked').length > 0;
+  newOrder_data['legacyIds'] = legacyIds;
 
-	var i = 1;
-	
-	$('form#createOrderFigs_form div.pageFig_row').each(function()
-	{
+  var i = 1;
+  
+  $('form#createOrderFigs_form div.pageFig_row').each(function()
+  {
 
-		var image_data = {};
+    var image_data = {};
 
-		if ($('#legacyIds:checked').length > 0) {
-				
-			newOrder_data['image'+i] = { 
-			
-				legacyId: $(this).find('input:eq(0)').val(),
-				page: '', 
-				fig: '',
-				fileFormat: $(this).find('select').val()
-			
-			};
+    if ($('#legacyIds:checked').length > 0) {
+        
+      newOrder_data['image'+i] = { 
+      
+        legacyId: $(this).find('input:eq(0)').val(),
+        page: '', 
+        fig: '',
+        fileFormat: $(this).find('select').val()
+      
+      };
 
-		console.log('image_data is'+image_data);	
-		}
+    console.log('image_data is'+image_data);  
+    }
 
-		else{
-			
-			newOrder_data['image'+i] = { 
-				legacyId: '',
-				page: $(this).find('input:eq(0)').val(), 
-				fig: $(this).find('input:eq(1)').val(),
-				fileFormat: '.jpg'
-			};
-		}	
+    else{
+      
+      newOrder_data['image'+i] = { 
+        legacyId: '',
+        page: $(this).find('input:eq(0)').val(), 
+        fig: $(this).find('input:eq(1)').val(),
+        fileFormat: '.jpg'
+      };
+    } 
 
-		i++;
+    i++;
 
-	});
+  });
 
-	$('div#createOrder_module')
-		.add('div#createOrderFigs_module')
-		.remove();
+  $('div#createOrder_module')
+    .add('div#createOrderFigs_module')
+    .remove();
 
-	console.log('newOrder_data: '+JSON.stringify(newOrder_data));
+  console.log('newOrder_data: '+JSON.stringify(newOrder_data));
 
-	$.ajax({
-		type: 'POST',
-		data: newOrder_data,
-		url: '_php/_order/_create/submit.php',
-		success: function(response)
-		{
-			$('body').append(response);
-			console.log('AJAX request success: _php/_order/_create/submit.php');
-		},
-		error: function()
-		{
-			console.log('AJAX request error: _php/_order/_create/submit.php');
-		}
-	});
+  $.ajax({
+    type: 'POST',
+    data: newOrder_data,
+    url: '_php/_order/_create/submit.php',
+    success: function(response)
+    {
+      $('body').append(response);
+      console.log('AJAX request success: _php/_order/_create/submit.php');
+    },
+    error: function()
+    {
+      console.log('AJAX request error: _php/_order/_create/submit.php');
+    }
+  });
 r
 }
 
@@ -2469,78 +2468,78 @@ function export_load() {
 }
 
 function query_export(){
-	
-	data = {};
-	errors = [];
+  
+  data = {};
+  errors = [];
 
-	$('div#exportRange_form input[type=text]').each(function()
-		{
-			var value = $.trim($(this).val());
+  $('div#exportRange_form input[type=text]').each(function()
+    {
+      var value = $.trim($(this).val());
 
-			if (value == '')
-			{
-				input_error($(this));
-				errors.push($(this).attr('name'));
-			}
-			else{
-				data[($(this).attr('name'))] = value;
-			}
-		});	
-	
-	var first = data['firstExportRecord'];
-	var last = data['lastExportRecord'];
+      if (value == '')
+      {
+        input_error($(this));
+        errors.push($(this).attr('name'));
+      }
+      else{
+        data[($(this).attr('name'))] = value;
+      }
+    }); 
+  
+  var first = data['firstExportRecord'];
+  var last = data['lastExportRecord'];
 
-	if (errors.length === 0){
+  if (errors.length === 0){
 
-	// Insert hidden module for script supporting query
-		$('div#control_panel_wide').hide();
-		var ef_mod = $('<div id="exportForm_module" class="module">');
-		$('div#module_tier5 p.clear_module').before(ef_mod);
-		$(ef_mod).hide();
+  // Insert hidden module for script supporting query
+    $('div#control_panel_wide').hide();
+    var ef_mod = $('<div id="exportForm_module" class="module">');
+    $('div#module_tier5 p.clear_module').before(ef_mod);
+    $(ef_mod).hide();
 
-		$.ajax({
-			type: 'GET',
-			url: '_php/_export/query_export_range.php',
-			data: 'firstExportRecord='+first+'&lastExportRecord='+last,
-			success: function(response)
-			{
-				$('button#exportCsv, button#exportCsv_allFlagged')
-				.replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+    $.ajax({
+      type: 'GET',
+      url: '_php/_export/query_export_range.php',
+      data: 'firstExportRecord='+first+'&lastExportRecord='+last,
+      success: function(response)
+      {
+        $('button#exportCsv, button#exportCsv_allFlagged')
+        .replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
 
-				load_module(ef_mod, response);
-				console.log('AJAX success: query_export_range.php');
-			},
-			error: function()
-			{
-				console.log('AJAX error: query_export_range.php');
-			} 
-		});
-	}
+        load_module(ef_mod, response);
+        console.log('AJAX success: query_export_range.php');
+      },
+      error: function()
+      {
+        console.log('AJAX error: query_export_range.php');
+      } 
+    });
+  }
 }
 
 function export_range(first, last){
 
-	console.log('export function called. validation in progress.');
-	
-	$('button#exportCsv, button#exportCsv_allFlagged')
-			.replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+  console.log('export function called. validation in progress.');
+  
+  $('button#exportCsv, button#exportCsv_allFlagged')
+      .replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
 
-	var type = 'range';
-			
-	window.location.href = '_php/_export/export_records.php?type='+type+'&first='+first+'&last='+last;	
+  var type = 'range';
+      
+  window.location.href = '_php/_export/export_records.php?type='+type+'&first='+first+'&last='+last;  
 }
 
 function export_flagged() {
-	
-	console.log('export function called. validation in progress.');
+  
+  console.log('export function called. validation in progress.');
 
-	var type = 'flagged';
-	console.log('valid export request - processing csv...');
+  var type = 'flagged';
+  console.log('valid export request - processing csv...');
 
-	$('button#exportCsv, button#exportCsv_allFlagged').replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+  $('button#exportCsv, button#exportCsv_allFlagged').replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
 
-	// REVISIT
-	window.location.href ='_php/_export/export_records.php?type='+type;
+  // REVISIT
+  window.location.href ='_php/_export/export_records.php?type='+type;
 }
 
 function lantern_search(text, gToggle, page) {

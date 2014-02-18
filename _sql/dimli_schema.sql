@@ -8,6 +8,7 @@
 -- PHP Version: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
 SET time_zone = "+00:00";
 
 
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `activity` (
   PRIMARY KEY (`ActivityID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `agent` (
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
@@ -317,7 +320,6 @@ CREATE TABLE IF NOT EXISTS `measurements` (
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
 -- --------------------------------------------------------
 
 --
@@ -519,6 +521,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `priv_orders_delete` tinyint(1) NOT NULL DEFAULT '0',
   `priv_csv_import` tinyint(1) NOT NULL DEFAULT '0',
   `priv_csv_export` tinyint(1) NOT NULL DEFAULT '0',
+  `priv_image_ids_edit` tinyint(1) NOT NULL DEFAULT '0',
   `priv_images_delete` tinyint(1) NOT NULL DEFAULT '0',
   `priv_images_flag4Export` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -528,9 +531,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `crypted_password`, `first_name`, `last_name`, `display_name`, `email`, `department`, `last_order`, `last_legReader`, `pref_lantern_view`, `pref_user_type`, `date_created`, `last_update`, `priv_digitize`, `priv_edit`, `priv_exportImages`, `priv_deliver`, `priv_catalog`, `priv_approve`, `priv_users_read`, `priv_users_create`, `priv_users_delete`, `priv_orders_read`, `priv_orders_create`, `priv_orders_confirmCreation`, `priv_orders_download`, `priv_orders_delete`, `priv_csv_import`, `priv_csv_export`, `priv_images_delete`, `priv_images_flag4Export`) VALUES
-(1, 'admin', '19Dk3miSfj2Dc', 'Admin', 'Doe', 'Default Admin', 'johndoe@dimli.org', 'Other', 0, 0, 'list', 'cataloger', '2013-11-01 20:38:26', '2013-12-16 21:49:29', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-
+INSERT INTO `user` (`id`, `username`, `crypted_password`, `first_name`, `last_name`, `display_name`, `email`, `department`, `last_order`, `last_legReader`, `pref_lantern_view`, `pref_user_type`, `date_created`, `last_update`, `priv_digitize`, `priv_edit`, `priv_exportImages`, `priv_deliver`, `priv_catalog`, `priv_approve`, `priv_users_read`, `priv_users_create`, `priv_users_delete`, `priv_orders_read`, `priv_orders_create`, `priv_orders_confirmCreation`, `priv_orders_download`, `priv_orders_delete`, `priv_csv_import`, `priv_csv_export`, `priv_image_ids_edit`,`priv_images_delete`, `priv_images_flag4Export`) VALUES
+(1, 'admin', '19Dk3miSfj2Dc', 'Admin', 'Doe', 'Default Admin', 'johndoe@dimli.org', 'Other', 0, 0, 'list', 'cataloger', '2013-11-01 20:38:26', '2013-12-16 21:49:29', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 -- --------------------------------------------------------
 
 --

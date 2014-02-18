@@ -1,9 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php'); 
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_orders_read');
 
@@ -383,7 +383,6 @@ if ($_SESSION['orderSearchResult']->num_rows > 0): // fox ?>
 			$result = db_query($mysqli, $sql);
 
 			if ($result->num_rows > 0):
-			
 
 				while ($image = $result->fetch_assoc()):		
 					$legsArray[] = $image['legacy_id'];

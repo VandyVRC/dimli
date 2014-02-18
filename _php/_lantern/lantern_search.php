@@ -1,9 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 
 /*
@@ -451,6 +451,7 @@ foreach ($results_arr as $id=>$arr) {
 
 
 /*
+
   Reorder the results array in order of relevance
   Function by Tom Haigh on Stackoverflow.com
   http://stackoverflow.com/questions/2699086/sort-multidimensional-array-by-value-2
@@ -499,3 +500,4 @@ if ($page == 1)
 <?php
 }
 ?>
+

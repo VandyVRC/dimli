@@ -1,9 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_users_create'); ?>
 
@@ -44,6 +44,9 @@ require_priv('priv_users_create'); ?>
 
 		<select name="department">
 
+
+                      <option value="Library">Library</option>
+
 			<option value="History of Art">History of Art</option>
 			<option value="Classical Studies">Classical Studies</option>
 			<option value="Other">Other</option>
@@ -65,6 +68,7 @@ require_priv('priv_users_create'); ?>
 
 		<div class="inline label" id="username">Username:</div>
 
+
 		<input type="text"
 			name="username"
 			maxlength="15"
@@ -73,7 +77,6 @@ require_priv('priv_users_create'); ?>
 		<br>
 
 		<div class="inline label" id="password">Password:</div>
-
 		<input type="password"
 			name="password"
 			maxlength="15"
@@ -85,6 +88,7 @@ require_priv('priv_users_create'); ?>
 		<div class="inline label"></div>	
 
 		<div class="inline" id="minchar"
+
 			style="font-size: 0.7em; margin-left: 10px;"
 			>minimum 6 charcters</div>
 
@@ -144,3 +148,4 @@ $('#registerNewUser_submit').click(
 	});
 
 </script>
+

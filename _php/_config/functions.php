@@ -1,4 +1,5 @@
 <?php
+
 function check_required_fields($required_array) {
   $post_array = (isset($_POST['json'])) 
     ? $_POST['json'] 
@@ -56,6 +57,7 @@ function isnerQ($query) {
 // Returns a result object if successful
 // Else dies and displays the SQL error and the query string that failed
 function db_query($mysqli, $sql) {
+
   $result = $mysqli->query($sql);
   if (!$result) {
     $message = 'SQL error: '.$mysqli->errno.' '.$mysqli->error.'<br>';
@@ -100,8 +102,8 @@ function create_six_digits($int) {
 
 // Require specific privilege to access page
 function require_priv($req_priv) {
-  $urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-  if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
+
+  if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 
   if (logged_in() && $_SESSION[$req_priv] != '1') {
     exit();
@@ -117,6 +119,7 @@ function require_priv($req_priv) {
 
 // String starts with
 function startsWith($haystack, $needle) {
+
   $length = strlen($needle);
   return !strncmp($haystack, $needle, strlen($needle));
 }
@@ -128,6 +131,7 @@ function endsWith($str, $sub) {
 
 // Is set and equals
 function setEqual($var, $value) {
+
   if (isset($var)) {
     if ($var == $value) {
       return TRUE;
@@ -141,6 +145,7 @@ function setEqual($var, $value) {
 
 // Echo if variable is set
 function echoValue($var) {
+
   if (isset($var) && !empty($var)) {
     echo htmlentities(stripslashes($var));
   }
@@ -152,6 +157,7 @@ function echoValue($var) {
 // For PHP-driven default selections in lists
 //----------------------------------------------------
 function selectedOption($var, $value) {
+
   if (isset($var) && $var == $value) {
     echo 'selected="selected"';
   } else {
@@ -187,6 +193,7 @@ function printHierarchy($hierarchy, $tooltip) {
 // Then calculate the number of cataloguing rows assigned to that type
 //----------------------------------------------------------------------
 function countCatRows($array) {
+
   $countTracker = array();
 
   foreach ($array as $key => $value) {
@@ -401,6 +408,7 @@ function list_privileges()
     'priv_orders_delete'=>'delete orders',
     'priv_csv_import'=>'import csv data',
     'priv_csv_export'=>'export csv data',
+    'priv_image_ids_edit' => 'edit image ids',
     'priv_images_delete'=>'delete images',
     'priv_images_flag4Export'=>'flag images for export'
     );
@@ -460,6 +468,7 @@ function checkRemoteFile($url)
 
 function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent)
 {
+
   $arr = array();
 
   $sql = "SELECT * 
@@ -722,6 +731,7 @@ function lantern_list_display_subject($mysqli, $recordType, $recordNum)
 
 function lantern_list_display_inscription($mysqli, $recordType, $recordNum)
 {
+
   $arr = array();
 
   $sql = "SELECT * 
@@ -790,6 +800,7 @@ function lantern_list_display_source($mysqli, $recordType, $recordNum)
 
 function lantern_list_display_titles($mysqli, $title_arr, $searches_arr)
 {
+
   ?><div class="highlightable" style="margin-bottom: 2px; padding-left: 15px; text-indent: -15px;"><?php
 
     // Display first listed title no matter what
@@ -831,105 +842,108 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr)
 
 function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches_arr, $parent)
 {
-  $agent_arr = array();
+	$agent_arr = array();
 
-  $sql = "SELECT agent_text 
-        FROM $DB_NAME.agent 
-        WHERE related_".$recordType."s = '{$recordNum}' ";
+	$sql = "SELECT agent_text 
+				FROM $DB_NAME.agent 
+				WHERE related_".$recordType."s = '{$recordNum}' ";
 
-  $res = db_query($mysqli, $sql);
+	$res = db_query($mysqli, $sql);
 
-  while ($row = $res->fetch_assoc())
-  {
-    $agent_arr[] = $row['agent_text'];
-  }
+	while ($row = $res->fetch_assoc())
+	{
+		$agent_arr[] = $row['agent_text'];
+	}
 
-  if ($recordType == 'work')
-  {
-    echo ($agent_arr[0] != '') ? $agent_arr[0].'<br>' : 'Unknown Agent';
-  }
-  elseif ($recordType == 'image')
-  {
-    if (!empty($agent_arr[0]))
-    {
-      echo $agent_arr[0].'<br>';
-    }
-    elseif  (empty($agent_arr[0]))
-    {
-      if ($parent != 'none')
-      {
-        $agent_arr = array();
+	if ($recordType == 'work')
+	{
+		echo ($agent_arr[0] != '') ? $agent_arr[0].'<br>' : 'Unknown Agent';
+	}
+	elseif ($recordType == 'image')
+	{
+		if (!empty($agent_arr[0]))
+		{
+			echo $agent_arr[0].'<br>';
+		}
+		elseif  (empty($agent_arr[0]))
+		{
+			if ($parent != 'none')
+			{
+				$agent_arr = array();
 
-        $sql = "SELECT agent_text 
-              FROM $DB_NAME.agent 
-              WHERE related_works = {$parent} ";
+				$sql = "SELECT agent_text 
+							FROM $DB_NAME.agent 
+							WHERE related_works = {$parent} ";
 
-        $res2 = db_query($mysqli, $sql);
+				$res2 = db_query($mysqli, $sql);
 
-        while ($row = $res2->fetch_assoc())
-        {
-          $agent_arr[] = $row['agent_text'];
-        }
-        echo $agent_arr[0].'<br>';
-      }
-      else
-      {
-        echo 'unknown';
-      } 
-    }
-  }
+				while ($row = $res2->fetch_assoc())
+				{
+					$agent_arr[] = $row['agent_text'];
+				}
+				echo $agent_arr[0].'<br>';
+			}
+			else
+			{
+				echo 'unknown';
+			}	
+		}
+	}
 
-  // If Agent is one of the field types that returned a result
-  if (in_array('agent', $searches_arr))
-  {
-    // Display additional agents if they contain a search term
-    $agent_done = false;
-    foreach ($searches_arr as $search)
-    {
-      if ($search == 'agent' && !$agent_done)
-      {
-        if (count($agent_arr) < 2)
-          continue; // Break if fewer than 2 Agents
+	// If Agent is one of the field types that returned a result
+	if (in_array('agent', $searches_arr))
+	{
+		// Display additional agents if they contain a search term
+		$agent_done = false;
+		foreach ($searches_arr as $search)
+		{
+			if ($search == 'agent' && !$agent_done)
+			{
+				if (count($agent_arr) < 2)
+					continue; // Break if fewer than 2 Agents
 
-        foreach ($agent_arr as $agent)
-        {
-          if ($agent == $agent_arr[0])
-            continue; // Ignore the primary agent (already displayed)
+				foreach ($agent_arr as $agent)
+				{
+					if ($agent == $agent_arr[0])
+						continue; // Ignore the primary agent (already displayed)
 
-          foreach ($_SESSION['lantern_terms_arr'] as $term)
-          {
-            if (stristr($agent, $term) && !$agent_done)
-            {
-              echo $agent.'<br>';
-            }
-          }
-        }
-        $agent_done = true;
-      }
-    }
-  }
+					foreach ($_SESSION['lantern_terms_arr'] as $term)
+					{
+						if (stristr($agent, $term) && !$agent_done)
+						{
+							echo $agent.'<br>';
+						}
+					}
+				}
+				$agent_done = true;
+			}
+		}
+	}
 }
 
-function get_related_images($mysqli, $workNum) {
-  $workNum = str_pad((string)$workNum, 6, '0', STR_PAD_LEFT);
-  $rel_images = array();
+function get_related_images($mysqli, $workNum)
+{
+	$workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
+	$rel_images = array();
 
-  $sql = "SELECT id 
-        FROM $DB_NAME.image 
-        WHERE related_works = '{$workNum}' ";
+	$sql = "SELECT id 
+				FROM $DB_NAME.image 
+				WHERE related_works = '{$workNum}' ";
 
-  $res = db_query($mysqli, $sql);
+	$res = db_query($mysqli, $sql);
 
-  while ($row = $res->fetch_assoc()) {
-    $rel_images[] = str_pad((string)$row['id'], 6, '0', STR_PAD_LEFT);
-  }
+	while ($row = $res->fetch_assoc())
+	{
+		$rel_images[] = str_pad((string)$row['id'],6,'0',STR_PAD_LEFT);
+	}
 
-  foreach ($rel_images as $img) { ?>
+	foreach ($rel_images as $img) { ?>
 
-    <img class="related_thumb" src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60" data-image="<?php echo $img; ?>">
+		<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60">
 
-  <?php
-  }
+	<?php
+	}
+
 }
 
 function print_r_pre($array)

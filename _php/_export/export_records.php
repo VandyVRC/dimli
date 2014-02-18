@@ -1,9 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_csv_export');
 
@@ -248,7 +248,7 @@ while ($row = $result->fetch_assoc())
 		}
 
 		$result_agent->free();
-		
+
 		// Define final string of unique, non-preferred agent names
 		$super_nonprefAgent_string = preg_replace('/; $/', '', implode('; ', $super_nonprefTerms_array));
 		
@@ -1241,5 +1241,3 @@ $sql = "UPDATE $DB_NAME.image
 $result_lastExported = db_query($mysqli, $sql);
 
 ?>
-
-

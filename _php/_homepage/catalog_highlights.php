@@ -1,6 +1,5 @@
 <?php 
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
@@ -58,7 +57,7 @@ $title_res->free();
 
 		<div class="inner_wrapper">
 
-			<img class="highlight_image" src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/<?php echo$id;?>.jpg&amp;h=400&amp;q=90">
+			<img class="highlight_image" src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/<?php echo$id;?>.jpg&amp;h=400&amp;q=90">
 
 			<div class="banner">
 
