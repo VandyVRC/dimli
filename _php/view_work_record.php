@@ -584,24 +584,18 @@ include('../_php/_order/query_work.php'); ?>
 		style="position: absolute; top: 0; right: 0;">
 
 		<?php
-		if (
-			isset($work_thumb_id) && 
-			!in_array($work_thumb_id, array('','0')) &&
-			file_exists('../'.$work_thumb_file)
-			) 
-		{
+		
+		if (isset($prefLegId)) {
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" src="<?php echo $prefLegId; ?>"
-			onclick="image_viewer('<?php echo $work_thumb_id; ?>');">
+		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
+			onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 		<?php
 		}
-		elseif (
-			$_SESSION['workNum'] != 'None' &&
-			$_SESSION['workNum'] != ''
-			)
+
+		else
 		{
 		?>
 
