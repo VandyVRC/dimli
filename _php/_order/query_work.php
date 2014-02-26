@@ -693,7 +693,7 @@ if ($_SESSION['workNum'] != 'None') {
 
 				while ($row = $result_prefLegId->fetch_assoc()){
 				$prefLegId = $row['legacy_id'];
-				$work_thumb_file = $IMAGE_DIR.'thumb/'.$prefLegId.'.jpg';
+				$work_thumb_file = $webroot.'/'.$image_src.'/thumb/'.$prefLegId.'.jpg';
 				}
 	}
 
