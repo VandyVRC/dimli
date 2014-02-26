@@ -535,13 +535,29 @@ include('../_php/_order/query_image.php');?>
 		style="position: absolute; top: 0; right: 0;">
 
 		<?php 
+				// Define filepath for thumbnail
 
-		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; ?>
+				$img_file = $webroot.'/'.$image_src.'/thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; 
 
-		<img class="catThumb"
-			src="<?php echo $imageFile; ?>">
+				// Perform only for first image in the order
+					$thumbs_available = checkRemoteFile($img_file);
+		
+				
+				if ($thumbs_available) { 
+				// If imagepath of first image was found ?>
 
-	</div>
+					<img style="vertical-align: top; height: 100%;"
+						src="<?php echo $img_file; ?>">
+
+				<?php } else { ?>
+
+					<img style="vertical-align: top; height: 100%;" 
+						src="_assets/_images/_missing.jpg">
+
+				<?php } ?>
+
+			</div>
+
 
 	<p class="clear"></p>
 	

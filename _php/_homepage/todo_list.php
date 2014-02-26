@@ -93,7 +93,15 @@ confirm_logged_in();
 				<div class="inner_row grey" 
 					style="font-size: 0.80em;">
 
-					<?php echo $row['image_count'].' image'; 
+					<?php 
+
+					$truncImage = (strlen($image) > 6) 
+    				? substr($image, 0, 6) . '...' 
+   				: $image;
+
+
+
+					echo $row['image_count'].' truncImage'; 
 
 					echo ($row['image_count'] > 1) 
 						? 's' 

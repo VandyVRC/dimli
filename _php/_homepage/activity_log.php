@@ -113,10 +113,14 @@ else {
 				while ($image = $result_LegId->fetch_assoc()){
 				
 				$legId = $image['legacy_id'];
+
+
+			$truncLeg = (strlen($legId) > 6) 
+    		? substr($legId, 0, 6) . '...' 
+   		: $legId;
 					
 				}
 			}
-
 
 			$recNo = ($row['RecordType']=="Order") 
 			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT) 
@@ -131,7 +135,7 @@ else {
 			
 			$recNoWithLeg = ($row['RecordType']=="Order") 
 			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT).' ' 
-			: $legId.' ' ;
+			: $truncLeg.' ' ;
 			
 			$str.= $recNoWithLeg;
 			$str.= '</span>';
