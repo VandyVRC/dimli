@@ -585,7 +585,7 @@ include('../_php/_order/query_work.php'); ?>
 
 		<?php
 		
-		if (isset($prefLegId)) {
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0')) && checkRemoteFile($webroot.'/'.$image_src.'thumb/'.$prefLegId.'.jpg')) {
 		// IF a preferred image is assigned for this work record
 		?>
 
@@ -595,7 +595,8 @@ include('../_php/_order/query_work.php'); ?>
 		<?php
 		}
 
-		else
+		else if ($_SESSION['workNum'] != 'None' &&
+ -			$_SESSION['workNum'] != '')
 		{
 		?>
 
