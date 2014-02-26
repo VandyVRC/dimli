@@ -15,13 +15,27 @@ $sql = "UPDATE $DB_NAME.work
 			SET preferred_image = '{$image}'
 			WHERE id = '{$work}' ";
 
-$result = db_query($mysqli, $sql); ?>
+$result = db_query($mysqli, $sql); 
+
+		
+		$sql ="SELECT legacy_id 
+					FROM $DB_NAME.image 
+					WHERE id ='{$image}'";
+
+					$result_prefLegId = db_query($mysqli, $sql);
+
+				while ($row = $result_prefLegId->fetch_assoc()){
+				$prefLegId = $row['legacy_id'];
+				}
+
+
+				?>
 
 <div class="workRecord_thumb defaultCursor"
 	style="position: absolute; top: 0; right: 0;">
 
-	<img src="mdidimages/HoAC/thumb/<?php echo $image; ?>.jpg"
-	onclick="image_viewer('<?php echo $image; ?>');">
+	<img src="mdidimages/HoAC/thumb/<?php echo $prefLegId; ?>.jpg"
+	onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 </div>
 
@@ -33,13 +47,12 @@ $result = db_query($mysqli, $sql); ?>
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-				.find('a.assocImage_open')
+				.find('div.assocImage_jump')
 				.text();
 
 			work_assign_preview(image, '<?php echo $_SESSION['workNum'];?>');
 			$('div.assocImage_pref').removeClass('pref');
 			$(this).addClass('pref');
 		});
-
 
 </script>

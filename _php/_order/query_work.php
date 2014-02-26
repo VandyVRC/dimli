@@ -684,7 +684,17 @@ if ($_SESSION['workNum'] != 'None') {
 	while ($row = $result_prefImage->fetch_assoc())
 	{
 		$work_thumb_id = $row['preferred_image'];
-		$work_thumb_file = 'mdidimages/HoAC/thumb/'.$work_thumb_id.'.jpg';
+
+		$sql ="SELECT legacy_id 
+					FROM $DB_NAME.image 
+					WHERE id ='{$work_thumb_id}'";
+
+					$result_prefLegId = db_query($mysqli, $sql);
+
+				while ($row = $result_prefLegId->fetch_assoc()){
+				$prefLegId = $row['legacy_id'];
+				$work_thumb_file = 'mdidimages/HoAC/thumb/'.$prefLegId.'.jpg';
+				}
 	}
 
 	//-------------------------
@@ -696,7 +706,6 @@ if ($_SESSION['workNum'] != 'None') {
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result_assocImages = db_query($mysqli, $sql);
-
 	$associatedImages_ct = $result_assocImages->num_rows;
 
 } 

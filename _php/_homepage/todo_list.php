@@ -50,7 +50,7 @@ confirm_logged_in();
 			$imgs_ava_res->free();
 
 			// Fetch all image ids associated with this order
-			$sql = "SELECT id 
+			$sql = "SELECT legacy_id 
 						FROM $DB_NAME.image 
 						WHERE order_id = {$row['id']} 
 						LIMIT 3 ";
@@ -61,7 +61,7 @@ confirm_logged_in();
 
 			while ($img_row = $result->fetch_assoc()):
 
-				$images[] = str_pad($img_row['id'], 6, '0', STR_PAD_LEFT);
+				$images[] = $img_row['legacy_id'];
 
 			endwhile; ?>
 

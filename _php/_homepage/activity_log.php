@@ -28,122 +28,160 @@ $activity_r = db_query($mysqli, $sql);
 
 <div id="activity_log">
 
-<?php if ($activity_r->num_rows <= 0):
+<?php 
+
+if ($activity_r->num_rows <= 0){
 // Current user has NO ACTIVITY logged ?>
 
 	<br>
 	<p style="font-size: 0.9em; opacity: 0.6; margin-bottom: 20px;">Welcome to Dimli, <?php echo $_SESSION['first_name']; ?>.<br><br>In the future, your recent activity will be displayed here along the left-hand side of your profile page.</p>
 
-<?php else:
-// Current user DOES HAVE some activity logged ?>
+<?php
+} 
 
-	<?php $i = 0; ?>
-	<?php while ($row = $activity_r->fetch_assoc()):
-	// For each logged action ?>
+else {
+// Current user DOES HAVE some activity logged ?
 
-		<?php if ($i >= 16) break; 
-		// Show no more than 16 rows ?>
+ 	$i = 0; 
 
-		<?php $pref_image = ''; ?>
+	while ($row = $activity_r->fetch_assoc()) {
+
+	// For each logged action 
+
+		if ($i >= 16) break; 
+		// Show no more than 16 rows
 
 
-		<?php if ($row['RecordType'] == 'Order'):
-		// Action was performed on an Order ?>
+		if ($row['RecordType'] == 'Order'){
+		// Action was performed on an Order
 
-			<?php $sql = "SELECT * FROM $DB_NAME.order 
+			$sql = "SELECT * FROM $DB_NAME.order 
 								WHERE id = {$row['RecordNumber']} ";
-			$orderInfo = db_query($mysqli, $sql); ?>
+			
+			$orderInfo = db_query($mysqli, $sql); 
 
-			<?php if ($orderInfo->num_rows <= 0) continue; ?>
+		if ($orderInfo->num_rows <= 0) continue; 
 
-			<?php while ($order = $orderInfo->fetch_assoc()):
+				while ($order = $orderInfo->fetch_assoc()){
 
 				$patron = (strlen($order['requestor']) > 25)
 					? substr($order['requestor'], 0, 25) . '..'
 					: $order['requestor'];
 
 				$imgCount = $order['image_count'];
-
-			endwhile; ?>
-
-		<?php endif; ?>
+			}
+		}
 
 
-		<?php if ($row['RecordType'] == 'Work'):
-		// Action was performed on an Work ?>
+		if ($row['RecordType'] == 'Work'){
+		// Action was performed on an Work 
 
-			<?php $sql = "SELECT preferred_image 
+		$sql = "SELECT preferred_image 
 								FROM $DB_NAME.work 
 								WHERE id = {$row['RecordNumber']} ";
-			$workInfo = db_query($mysqli, $sql); ?>
+			
+			$workInfo = db_query($mysqli, $sql);
 
-			<?php while ($work = $workInfo->fetch_assoc()):
+			while ($work = $workInfo->fetch_assoc()){
 
-				$pref_image = $work['preferred_image'];
+			$pref_image = $work['preferred_image'];
 
-			endwhile; ?>
+				$sql = "SELECT legacy_id 
+						FROM $DB_NAME.image 
+						WHERE id = {$work['preferred_image']}";
 
-			<?php $img = $pref_image; ?>
+					$result_pref_imageId = db_query($mysqli, $sql);
 
-		<?php endif; ?>
+					while ($row = $result_pref_imageId->fetch_assoc()){
+				
+				$pref_imageId = $row['legacy_id'];
+				
+				}
+ 			}	
+ 		}		
 
 
-		<?php if ($row['RecordType'] == 'Image'): ?>
+		if ($row['RecordType'] == 'Image') {
+				// Action was performed on an Work 
+					
+		$sql = "SELECT legacy_id 
+						FROM $DB_NAME.image 
+						WHERE id = {$row['RecordNumber']} ";
 
-			<?php $img = str_pad($row['RecordNumber'], 6, '0', STR_PAD_LEFT); ?>
+					$result_LegId = db_query($mysqli, $sql);
 
-		<?php endif; ?>
+				while ($image = $result_LegId->fetch_assoc()){
+				
+				$legId = $image['legacy_id'];
+					
+				}
+			}
 
 
-		<?php $str = '<span class="">'; ?>
-		<?php $str.= ($row['UserID']==$_SESSION['user_id'])
+			$recNo = ($row['RecordType']=="Order") 
+			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT) 
+			: $row['RecordNumber'];	
+
+		 	$str = '<span class="">';
+			$str.= ($row['UserID']==$_SESSION['user_id'])
 			? ' You '
-			: ' -- '; ?>
-		<?php $str.= $row['ActivityType'].' '; ?>
-		<?php $str.= $row['RecordType'].' '; ?>
-		<?php $recNo = ($row['RecordType']=="Order") 
+			: ' -- '; 
+			$str.= $row['ActivityType'].' ';
+			$str.= $row['RecordType'].' ';
+			
+			$recNoWithLeg = ($row['RecordType']=="Order") 
 			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT).' ' 
-			: str_pad($row['RecordNumber'], 6, '0', STR_PAD_LEFT).' '; ?>
-		<?php $str.= $recNo; ?>
-		<?php $str.= '</span>'; ?>
-		<?php $str.= '<br><span class="" style="font-size: 0.75em; color: #999;">'; ?>
+			: $legId.' ' ;
+			
+			$str.= $recNoWithLeg;
+			$str.= '</span>';
+			$str.= '<br><span class="" style="font-size: 0.75em; color: #999;">';
+			$str.= date('Y-m-d H:i:s', $row['UnixTime']); // REVISIT 
+			// Should be changed to a human-readbale timestamp 
+		 	$str.= '</span>'; ?>
 
-		<?php $str.= date('Y-m-d H:i:s', $row['UnixTime']); // REVISIT 
-		// Should be changed to a human-readbale timestamp ?>
+			<div class="row defaultCursor" 
 
-		<?php $str.= '</span>'; ?>
-
-		<div class="row defaultCursor" 
 			data-type="<?php echo $row['RecordType']; ?>"
-			data-pref-image="<?php echo ($pref_image!='') 
-											? $pref_image 
+
+			data-pref-image="<?php echo ($pref_image !='') 
+											? $pref_imageId 
 											: 'none'; ?>"
 			data-id="<?php echo $recNo; ?>"><!--
 
-			--><?php echo $str; ?>
+			--><?php echo $str;
 
-			<?php if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$img.".jpg")): ?>
+				
+			if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$legId.".jpg")){ ?>
 
-				<img src="http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $img; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+					<img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 					style="float: right; margin-top: -15px;">
 
-			<?php elseif ($row['RecordType'] == 'Order'): ?>
+				<?php }
 
-				<div style="float: right; margin-top: -15px;">
+				else if ($row['RecordType'] == 'Order') { ?>
 
-					<span style="display: inline; vertical-align: middle; font-size: 15px;"><?php echo $imgCount; ?></span>
-					<img style="height: 25px; vertical-align: middle; margin-left: 3px;" src="_assets/_images/photos.png">
+						<div style="float: right; margin-top: -15px;">
 
-				</div>
+						<span style="display: inline; vertical-align: middle; font-size: 15px;"><?php echo $imgCount; ?></span>
 
-			<?php endif; ?>
+						<img style="height: 25px; vertical-align: middle; margin-left: 3px;" src="_assets/_images/photos.png">
 
-		</div>
+					</div>
 
-	<?php $i ++; ?>
-	<?php endwhile; ?>
 
-<?php endif; ?>
+		<?php } ?>
+			
+			</div>
+
+		<?php 
+		
+	
+
+		$i ++; 
+	}
+}
+	?>
 
 </div>
 

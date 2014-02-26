@@ -1121,7 +1121,7 @@ function work_assign_preview(image, work) {
 
   var lengthsOk = image.length == 6 && work.length == 6;
   var typesOk = $.isNumeric(image) && $.isNumeric(work);
-  var allOk = lengthsOk && typesOk;
+ var allOk = lengthsOk && typesOk;
 
   if (!allOk) {
     return;

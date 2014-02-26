@@ -593,7 +593,7 @@ include('../_php/_order/query_work.php'); ?>
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
+		<img class="catThumb" src="<?php echo $prefLegId; ?>"
 			onclick="image_viewer('<?php echo $work_thumb_id; ?>');">
 
 		<?php
@@ -972,9 +972,15 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		// Iterate results from query performed in 
 		// "_php/_order/query_work.php"
 		{
-			$assocImg_id = create_six_digits($row['id']);
 
-			$assocImg_file = "http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_id.".jpg&amp;h=40&amp;w=53&amp;q=90";
+			$assocImg_id = create_six_digits($row['id']);
+			$assocImg_legId = $row['legacy_id'];
+
+			$truncView = (strlen($assocImg_legId) > 6) 
+    				? substr($assocImg_legId, 0, 6) . '...' 
+   				: $assocImg_legId;
+
+			$assocImg_file = "http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_legId.".jpg&amp;h=40&amp;w=53&amp;q=90";
 
 			$sql = "SELECT order_id 
 						FROM $DB_NAME.image 
@@ -1005,11 +1011,14 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 				<div class="assocImage_order"
 					style="display: none;"><?php echo $assocImg_order; ?></div>
 
+				<div class="assocImage_jump"
+					style="display: none;"><?php echo $assocImg_id; ?></div>	
+				
 				<div class="purple mediumWeight"
-					style="padding-right: 5px;">
+					style="width: 50px; padding-right: 5px;">
 
 					<a class="assocImage_open"
-						title="Jump to record"><?php echo $assocImg_id; ?></a>
+						title="Jump to record"><?php echo $truncView; ?></a>
 
 				</div>
 
@@ -1151,7 +1160,9 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 								.text();
 			open_order(order);
 
-			var imageNum = $(this).text();
+			var imageNum = $(this).parents('div.work_assocImage_row')
+								.find('div.assocImage_jump')
+								.text();
 			view_image_record(imageNum);
 			view_work_record(imageNum);
 		});
@@ -1163,7 +1174,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-								.find('a.assocImage_open')
+								.find('div.assocImage_jump')
 								.text();
 			image_viewer(image);
 		});
@@ -1175,7 +1186,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-								.find('a.assocImage_open')
+								.find('div.assocImage_jump')
 								.text();
 			var pref_image = '<?php echo $work_thumb_id;?>';
 			if (image == pref_image)
@@ -1191,7 +1202,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-								.find('a.assocImage_open')
+								.find('div.assocImage_jump')
 								.text();
 			work_assign_preview(
 				image, 
