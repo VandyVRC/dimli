@@ -30,7 +30,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php'); ?>
 
 <script>
 
-var urlBase = 'http://digmedia.library.vanderbilt.edu/mdidimages/HoAC/';
+var urlBase = '<?php echo $image_dir; ?>';
 var portY = window.innerHeight;
 var portX = window.innerWidth;
 var wrapper = document.getElementById('slideshow_wrap');

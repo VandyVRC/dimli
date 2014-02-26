@@ -151,10 +151,10 @@ else {
 
 			--><?php echo $str;
 
-				
-			if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile("http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/".$legId.".jpg")){ ?>
+			if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg")){ ?>
 
-					<img src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+
 					style="float: right; margin-top: -15px;">
 
 				<?php }

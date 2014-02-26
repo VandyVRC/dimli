@@ -5,45 +5,46 @@ require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 
-for ($i=0; $i<1000; $i++):
-	$id = rand(1, 70000);
-	$sql = "SELECT * FROM $DB_NAME.image 
-				WHERE id = {$id} ";
-	$result = db_query($mysqli, $sql);
-	if ($result->num_rows > 0):
-		while ($row = $result->fetch_assoc()):
-			$id = str_pad($row['id'], 6, '0', STR_PAD_LEFT);
-			$catd = $row['catalogued'];
-		endwhile;
-		if ($catd == 1) break;
-	endif;
-endfor;
+$sql = "SELECT * FROM $DB_NAME.image 
+            WHERE catalogued = 1 ";
+$result = db_query($mysqli, $sql);
+if ($result->num_rows > 0):
 
-$sql = "SELECT image.id, 
-				image.related_works, 
-				title.related_works, 
-				title.title_text, 
-				agent.related_works, 
-				agent.agent_text 
-			FROM $DB_NAME.image 
-			INNER JOIN $DB_NAME.title 
-			ON image.id = {$id}
-				AND image.related_works = title.related_works 
-			INNER JOIN $DB_NAME.agent 
-			ON image.id = {$id} 
-				AND image.related_works = agent.related_works
-			LIMIT 1 ";
+    while ($row = $result->fetch_assoc()):
+        $highlight_options[] = $row;
+    endwhile;
 
-$title_res = db_query($mysqli, $sql);
+    $random_key = rand(0, count($highlight_options)-1);
+    $id = $highlight_options[$random_key]['id'];
+    
+    $sql = "SELECT image.id, 
+                image.legacy_id,
+                image.related_works, 
+                title.related_works, 
+                title.title_text, 
+                agent.related_works, 
+                agent.agent_text 
+                FROM $DB_NAME.image 
+                INNER JOIN $DB_NAME.title 
+                ON image.id = {$id}
+                    AND image.related_works = title.related_works 
+                INNER JOIN $DB_NAME.agent 
+                ON image.id = {$id} 
+                    AND image.related_works = agent.related_works
+                LIMIT 1 ";
 
-while ($row = $title_res->fetch_assoc()):
+    $title_res = db_query($mysqli, $sql);
 
-	$title = $row['title_text'];
-	$agent = $row['agent_text'];
+    while ($row = $title_res->fetch_assoc()):
 
-endwhile;
+        $title = $row['title_text'];
+        $agent = $row['agent_text'];
+        if ($row['legacy_id'] != NULL) $filename = $row['legacy_id'];
+        else $filename = $id;
 
-$title_res->free();
+    endwhile;
+
+    $title_res->free();
 
 ?>
 
@@ -57,7 +58,7 @@ $title_res->free();
 
 		<div class="inner_wrapper">
 
-			<img class="highlight_image" src="http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/<?php echo$id;?>.jpg&amp;h=400&amp;q=90">
+			<img class="highlight_image" src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $filename; ?>.jpg&amp;h=400&amp;q=90">
 
 			<div class="banner">
 
@@ -79,3 +80,5 @@ $title_res->free();
 	$('div#catalog_highlights .outer_wrapper').delay(400).fadeIn(800);
 
 </script>
+
+<?php endif; ?>

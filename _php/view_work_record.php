@@ -974,13 +974,15 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		{
 
 			$assocImg_id = create_six_digits($row['id']);
+
 			$assocImg_legId = $row['legacy_id'];
 
 			$truncView = (strlen($assocImg_legId) > 6) 
     				? substr($assocImg_legId, 0, 6) . '...' 
    				: $assocImg_legId;
 
-			$assocImg_file = "http://$DB_NAME.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/medium/".$assocImg_legId.".jpg&amp;h=40&amp;w=53&amp;q=90";
+			$assocImg_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$assocImg_legId.".jpg&amp;h=40&amp;w=53&amp;q=90";
+
 
 			$sql = "SELECT order_id 
 						FROM $DB_NAME.image 

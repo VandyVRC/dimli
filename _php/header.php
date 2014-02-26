@@ -11,7 +11,8 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <title>dimli</title>
+
+  <title><?php echo $site_title; ?></title>
 
 <!-- Roboto font -->
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' 
@@ -42,7 +43,9 @@ header('Content-type: text/html; charset=utf-8'); ?>
     <ul id="nav_list">
 
       <a href="index.php">
-        <li class="nav_item">dimli</li>
+
+        <li class="nav_item"><?php echo $site_title; ?></li>
+        
       </a>
 
     <?php if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) { ?>
