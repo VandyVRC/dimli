@@ -55,30 +55,55 @@ All data created by, and imported into, DIMLI will reside within these tables an
     define('DB_PASS', '{yourDatabasePassword}');
     define('DB_NAME', '{yourDatabaseName}');
 
-    /* 
-    DEFINE IMAGE FILEPATH
-    ---------------------
-    Define the filepath for the directory that stores your JPG archive 
-    Examples:
-       "../MyImageFiles/"
-       "http://hosted.image.repository.edu/images/" */
+    $DB_NAME = DB_NAME;
 
-    define('IMAGE_DIR', '{filepathOfYourImageDirectory}');
+    
+    ROOT DOMAIN OF YOUR DIMLI DIRECTORY 
+    ----------------------------------------------
+        Examples:
+        "http://dimli.library.vanderbilt.edu"
+        "http://mywebsite.com"  */
+
+    define('webroot','{yourDomain}');
+    $webroot = webroot;
     
     /*
+    DEFINE SITE TITLE
+    ----------------------------------------------
+        Example:
+
+        "dimli: Library Exhibits" */
+
+    define('site_title', 'dimli');
+    $site_title = site_title;
+
+       /*
     DEFINE ENCRYPTION SALT
     ----------------------
     Define a salt parameter to pass into the crypt function */
 
     define('SALT', '19ReXiNSuLaRuM23');
-    
-    /*
+
+    /* 
+    DEFINE IMAGE FOLDER FOR TIMTHUMB PLUGIN
+    ----------------------------------------
+        Examples:
+       "MyImageFiles/"
+       "images/"
+       "exhibits/images/"    - note necessary forward slash */
+
+    define('image_src', '{imagesFolderOrPath}');
+    $image_src = image_src;
+
+    /* 
     OTHER CONSTANTS
     ---------------
     */
+    
     define('DIR', dirname(__DIR__).'/');
 
-3) Replace each of the sections in the above code that are wrapped in `{` and `}` with the appropriate values for your server environment.
+
+3) Replace each of the sections in the above code that are wrapped in `{` and `}` (replacing brackets but leaving single quotation marks) with the appropriate values for your server environment.
 
 4) Save and allow `_php/_config/constants.inc.php` to remain at this directory location. It will be required by several files in the application at large.
 
