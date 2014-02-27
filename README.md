@@ -84,6 +84,15 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
     define('SALT', '19ReXiNSuLaRuM23');
 
+    DEFINE IMAGE FILEPATH
+    ---------------------
+    Define the filepath for the directory that stores your JPG archive 
+    Examples:
+   "../MyImageFiles/"
+   "http://hosted.image.repository.edu/images/" */
+
+    define('IMAGE_DIR', '{filepathOfYourImageDirectory}');
+
     /* 
     DEFINE IMAGE FOLDER FOR TIMTHUMB PLUGIN
     ----------------------------------------
