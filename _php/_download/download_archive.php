@@ -26,7 +26,7 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
     while ($row = $result->fetch_assoc()):
     
         // Build array of filepaths/names for images to archive
-        $imagesToArchive[] = MAIN_DIR.'/mdidimages/HoAC/'.$size.'/'.create_six_digits($row['id']).'.jpg';
+        $imagesToArchive[] = $webroot.$image_src.$size.'/'.create_six_digits($row['legacy_id']).'.jpg';
 
     endwhile;
 

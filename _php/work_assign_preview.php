@@ -34,7 +34,7 @@ $result = db_query($mysqli, $sql);
 <div class="workRecord_thumb defaultCursor"
 	style="position: absolute; top: 0; right: 0;">
 
-	<img src="mdidimages/HoAC/thumb/<?php echo $prefLegId; ?>.jpg"
+	<img src="<?php echo $webroot.'/'.$image_src; ?>thumb/<?php echo $prefLegId; ?>.jpg"
 	onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 </div>
