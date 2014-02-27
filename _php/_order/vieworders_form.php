@@ -17,10 +17,17 @@ $findOrders_inputNames = array('orderNum_start', 'orderNum_end', 'created_start'
 
 foreach ($findOrders_inputNames as $inputName)
 {
+
+
 	$_SESSION['findOrders_'.$inputName] =
 		(isset($_SESSION['findOrders_'.$inputName]))
 		? $_SESSION['findOrders_'.$inputName]
 		: '';
+
+	$_SESSION['findOrders_'.$inputName] =
+	($_SESSION['findOrders_'.$inputName]=='undefined')
+	? ''
+	: $_SESSION['findOrders_'.$inputName];
 }
 
 // Set orderNum_range to "no" by default
@@ -89,26 +96,29 @@ while ($user = $result->fetch_assoc()) {
 
 	<input type="checkbox"
 		name="orderNum_range"
+		value="<?php echo $_SESSION['findOrders_orderNum_range']; ?>"
 		<?php echo ($_SESSION['findOrders_orderNum_range'] == 'yes') 
 			? 'checked="checked"' 
 			: ''; ?>
-		value="yes">&nbsp;Order Range<br>
+		>&nbsp;Order Range<br>
 
 	<hr />
 
 	<input type="checkbox" 
 		name="show_incomplete"
-		<?php echo ($_SESSION['findOrders_showIncomplete'] == 'yes') 
+		value="<?php echo $_SESSION['findOrders_showIncomplete'];?>"
+			<?php echo ($_SESSION['findOrders_showIncomplete'] == 'yes') 
 			? 'checked="checked"' 
 			: ''; ?>
-		value="yes">&nbsp;Show incomplete<br>
+		>&nbsp;Show incomplete<br>
 
 	<input type="checkbox" 
 		name="show_complete" 
+		value="<?php echo $_SESSION['findOrders_showComplete'];?>"
 		<?php echo ($_SESSION['findOrders_showComplete'] == 'yes') 
 			? 'checked="checked"' 
 			: ''; ?>
-		value="yes">&nbsp;Show complete<hr />
+		>&nbsp;Show complete<hr />
 
 	<div class="mediumWeight" style="margin-top: 15px;">Patron</div>
 
@@ -123,11 +133,6 @@ while ($user = $result->fetch_assoc()) {
 	<select class="blank" name="department">
 
 		<option id="blank" value="">- Department -</option>
-
-                <option id="library"
-                        value="Library"
-                        <?php selectedOption($_SESSION['findOrders_department'], 'Library'); ?>
-                        >Library</option>
 
 		<option id="historyOfArt" 
 			value="History of Art" 
