@@ -156,10 +156,13 @@ else {
 
 			data-type="<?php echo $row['RecordType']; ?>"
 
+			<?php if ($row['RecordType'] == "Work") { ?>
+			
 			data-pref-image="<?php echo ($pref_image !='') 
 											? $pref_image 
 											: 'none'; ?>"
-			
+			<?php } ?>
+
 			data-id="<?php echo $row['RecordNumber']; ?>"
 			
 			<?php echo $str;
@@ -172,7 +175,7 @@ else {
 
 	<?php }
 
-			else if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) { ?>
+			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) { ?>
 
 						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $pref_imageId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
@@ -180,7 +183,7 @@ else {
 	<?php }
 					
 			
-			else if ($row['RecordType'] == 'Order') { ?>
+			if ($row['RecordType'] == 'Order') { ?>
 
 				 <div style="float: right; margin-top: -15px;">
 

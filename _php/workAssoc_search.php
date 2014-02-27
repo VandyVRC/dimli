@@ -195,7 +195,19 @@ if (!empty($matchingWorks)) {
 			$work_thumb_id = $work_thumb['preferred_image'];
 		}
 
-		$thumb_file = IMAGE_DIR.'thumb/'.create_six_digits($work_thumb_id).'.jpg';
+		$sql = "SELECT legacy_id
+					FROM $DB_NAME.image
+					WHERE id = {$work_thumb_id} ";
+
+		$leg_id_res = db_query($mysqli, $sql);
+
+		while ($leg_id = $leg_id_res->fetch_assoc()){
+
+			$legacyId = $leg_id['legacy_id'];
+		}
+
+
+		$thumb_file = $webroot.'/'.$image_src.'thumb/'.$legacyId.'.jpg';
 
 		$sql = "SELECT title_text 
 					FROM $DB_NAME.title 
@@ -229,7 +241,7 @@ if (!empty($matchingWorks)) {
 
 			<input type="hidden" 
 				name="imageNum" 
-				value="<?php echo create_six_digits($imageId); ?>">
+				value="<?php echo $legacyId; ?>">
 		
 			<!--
 				Preview thumbnail

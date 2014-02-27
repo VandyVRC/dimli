@@ -72,8 +72,8 @@ confirm_logged_in();
 					<span class="order_id" 
 						data-order="<?php echo $row['id']; ?>">#<?php echo str_pad($row['id'], 4, '0', STR_PAD_LEFT); ?></span>
 
-					<?php if ($imgs_ava == '1'): ?>
-
+					<?php if ($imgs_ava = '1'): ?>
+		
 						<?php foreach ($images as $image): ?>
 
 							<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
@@ -85,9 +85,7 @@ confirm_logged_in();
 						<span class="grey" 
 							style="margin-left: 10px; font-size: 0.9em;"
 							>Images unavailable</span>
-
-					<?php endif; ?>
-
+		<?php endif; ?>
 				</div>
 
 				<div class="inner_row grey" 
@@ -99,9 +97,7 @@ confirm_logged_in();
     				? substr($image, 0, 6) . '...' 
    				: $image;
 
-
-
-					echo $row['image_count'].' truncImage'; 
+					echo $row['image_count']. 'image'; 
 
 					echo ($row['image_count'] > 1) 
 						? 's' 

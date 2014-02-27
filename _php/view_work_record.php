@@ -1010,6 +1010,9 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 
 				<div class="assocImage_jump"
 					style="display: none;"><?php echo $assocImg_id; ?></div>	
+
+				<div class="assocImage_view"
+					style="display: none;"><?php echo $assocImg_legId; ?></div>	
 				
 				<div class="purple mediumWeight"
 					style="width: 50px; padding-right: 5px;">
@@ -1171,7 +1174,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		function()
 		{
 			var image = $(this).parents('div.work_assocImage_row')
-								.find('div.assocImage_jump')
+								.find('div.assocImage_view')
 								.text();
 			image_viewer(image);
 		});

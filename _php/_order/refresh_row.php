@@ -20,6 +20,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 
 		<?php 
 		$imageId = create_six_digits($row['id']);
+		$legId = $row['legacy_id'];
 		echo $imageId; ?>
 
 	</div>
@@ -28,7 +29,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 	<div class="orderView_imageList_thumb">
 
 		<?php 
-		$img_file = IMAGE_DIR.'thumb/'.create_six_digits($row['id']).'.jpg';
+		$img_file = $webroot.'/'.$image_src.'thumb/'.$legId).'.jpg';
 		
 		if (checkRemoteFile($img_file)) {
 			$img_file = $img_file;
