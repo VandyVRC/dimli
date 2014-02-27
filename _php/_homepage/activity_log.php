@@ -52,96 +52,104 @@ else {
 		// Show no more than 16 rows
 
 
-		if ($row['RecordType'] == 'Order'){
+		if ($row['RecordType'] == 'Order'){	
 		// Action was performed on an Order
+
+		$recNo = str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT);
+	
 
 			$sql = "SELECT * FROM $DB_NAME.order 
 								WHERE id = {$row['RecordNumber']} ";
 			
-			$orderInfo = db_query($mysqli, $sql); 
+			$result_order = db_query($mysqli, $sql); 
 
-		if ($orderInfo->num_rows <= 0) continue; 
+			if ($result_order->num_rows <= 0) continue; 
 
-				while ($order = $orderInfo->fetch_assoc()){
-
+				while ($order = $result_order->fetch_assoc()){
 				$patron = (strlen($order['requestor']) > 25)
 					? substr($order['requestor'], 0, 25) . '..'
 					: $order['requestor'];
 
 				$imgCount = $order['image_count'];
-			}
+				}
+		
 		}
 
 
 		if ($row['RecordType'] == 'Work'){
 		// Action was performed on an Work 
 
-		$sql = "SELECT preferred_image 
-								FROM $DB_NAME.work 
-								WHERE id = {$row['RecordNumber']} ";
+		$recNo = str_pad($row['RecordNumber'], 6, '0', STR_PAD_LEFT);
 			
-			$workInfo = db_query($mysqli, $sql);
-
-			while ($work = $workInfo->fetch_assoc()){
-
-			$pref_image = $work['preferred_image'];
-
-				$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image 
-						WHERE id = {$work['preferred_image']}";
-
-					$result_pref_imageId = db_query($mysqli, $sql);
-
-					while ($row = $result_pref_imageId->fetch_assoc()){
+			$sql = "SELECT preferred_image 
+									FROM $DB_NAME.work 
+									WHERE id = {$row['RecordNumber']} ";
 				
-				$pref_imageId = $row['legacy_id'];
-				
+			$result_work = db_query($mysqli, $sql);
+
+				while ($work = $result_work->fetch_assoc()){
+				$pref_image = $work['preferred_image'];
+	 			}			
+
+	 		$sql = "SELECT legacy_id 
+							FROM $DB_NAME.image 
+							WHERE id = '{$pref_image}'";
+
+			$result_prefLeg = db_query($mysqli, $sql);
+
+				while ($pref = $result_prefLeg->fetch_assoc()){
+				$pref_imageId = $pref['legacy_id'];			
 				}
- 			}	
- 		}		
+
+		}		
 
 
 		if ($row['RecordType'] == 'Image') {
 				// Action was performed on an Work 
 					
-		$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image 
-						WHERE id = {$row['RecordNumber']} ";
+			$sql = "SELECT legacy_id 
+							FROM $DB_NAME.image 
+							WHERE id = {$row['RecordNumber']} ";
 
-					$result_LegId = db_query($mysqli, $sql);
+						$result_image = db_query($mysqli, $sql);
 
-				while ($image = $result_LegId->fetch_assoc()){
-				
-				$legId = $image['legacy_id'];
-
-
-			$truncLeg = (strlen($legId) > 6) 
-    		? substr($legId, 0, 6) . '...' 
-   		: $legId;
+					while ($image = $result_image->fetch_assoc()){
 					
-				}
+					$legId = $image['legacy_id'];
+
+				$truncLeg = (strlen($legId) > 6) 
+	    		? substr($legId, 0, 6) . '...' 
+	   		: $legId;	
+					}
+
+				$recNo = $truncLeg;	
+			
 			}
 
-			$recNo = ($row['RecordType']=="Order") 
-			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT) 
-			: $row['RecordNumber'];	
+		//---------------------
+		//  Begin Client Side	
+		//---------------------	
 
 		 	$str = '<span class="">';
+			
 			$str.= ($row['UserID']==$_SESSION['user_id'])
 			? ' You '
 			: ' -- '; 
+			
 			$str.= $row['ActivityType'].' ';
+			
 			$str.= $row['RecordType'].' ';
 			
-			$recNoWithLeg = ($row['RecordType']=="Order") 
-			? str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT).' ' 
-			: $truncLeg.' ' ;
 			
-			$str.= $recNoWithLeg;
+			$str.= $recNo;
+			
 			$str.= '</span>';
+			
 			$str.= '<br><span class="" style="font-size: 0.75em; color: #999;">';
+			
 			$str.= date('Y-m-d H:i:s', $row['UnixTime']); // REVISIT 
 			// Should be changed to a human-readbale timestamp 
+		 	
 		 	$str.= '</span>'; ?>
 
 			<div class="row defaultCursor" 
@@ -149,41 +157,49 @@ else {
 			data-type="<?php echo $row['RecordType']; ?>"
 
 			data-pref-image="<?php echo ($pref_image !='') 
-											? $pref_imageId 
+											? $pref_image 
 											: 'none'; ?>"
-			data-id="<?php echo $recNo; ?>"><!--
+			
+			data-id="<?php echo $row['RecordNumber']; ?>"
+			
+			<?php echo $str;
 
-			--><?php echo $str;
-
-			if (in_array($row['RecordType'], array('Work', 'Image')) && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg")){ ?>
+			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg")){ ?>
 
 				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
 					style="float: right; margin-top: -15px;">
 
-				<?php }
+	<?php }
 
-				else if ($row['RecordType'] == 'Order') { ?>
+			else if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) { ?>
 
-						<div style="float: right; margin-top: -15px;">
+						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $pref_imageId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
-						<span style="display: inline; vertical-align: middle; font-size: 15px;"><?php echo $imgCount; ?></span>
-
-						<img style="height: 25px; vertical-align: middle; margin-left: 3px;" src="_assets/_images/photos.png">
-
-					</div>
-
-
-		<?php } ?>
+						style="float: right; margin-top: -15px;">	
+	<?php }
+					
 			
-			</div>
+			else if ($row['RecordType'] == 'Order') { ?>
 
-		<?php 
-		
+				 <div style="float: right; margin-top: -15px;">
+
+				 <span style="display: inline; vertical-align: middle; font-size: 15px;"><?php echo $imgCount; ?></span>
+
+				 <img style="height: 25px; vertical-align: middle; margin-left: 3px;" src="_assets/_images/photos.png">
+				
+				</div>
 	
-
-		$i ++; 
+	<?php } ?>	
+		
+		</div>
+	
+	<?php 	
+	
 	}
+
+		$i ++; 	
+		
 }
 	?>
 
