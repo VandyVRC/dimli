@@ -29,7 +29,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 	<div class="orderView_imageList_thumb">
 
 		<?php 
-		$img_file = $webroot.'/'.$image_src.'thumb/'.$legId).'.jpg';
+		$img_file = $webroot.'/'.$image_src.'thumb/'.$legId.'.jpg';
 		
 		if (checkRemoteFile($img_file)) {
 			$img_file = $img_file;
