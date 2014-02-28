@@ -207,7 +207,7 @@ if (!empty($matchingWorks)) {
 		}
 
 
-		$thumb_file = $IMAGE_DIR.'thumb/'.$legacyId.'.jpg';
+		$thumb_file = $image_dir.'thumb/'.$legacyId.'.jpg';
 
 		$sql = "SELECT title_text 
 					FROM $DB_NAME.title 

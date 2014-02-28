@@ -92,6 +92,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
    "http://hosted.image.repository.edu/images/" */
 
     define('IMAGE_DIR', '{filepathOfYourImageDirectory}');
+    $image_dir = IMAGE_DIR;
 
     /* 
     DEFINE IMAGE FOLDER FOR TIMTHUMB PLUGIN

@@ -585,7 +585,7 @@ include('../_php/_order/query_work.php'); ?>
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0')) && checkRemoteFile($IMAGE_DIR.'thumb/'.$prefLegId.'.jpg')) {
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0')) && checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) {
 		// IF a preferred image is assigned for this work record
 		?>
 

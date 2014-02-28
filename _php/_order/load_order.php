@@ -285,7 +285,7 @@ $privEdit = $_SESSION['priv_orders_create'];
 				<?php 
 				// Define filepath for thumbnail
 
-				$img_file = $IMAGE_DIR.'/thumb/'.$legId.$fileFormat;
+				$img_file = $image_dir.'/thumb/'.$legId.$fileFormat;
 				
 				if ($i == 0) { 
 				// Perform only for first image in the order

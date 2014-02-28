@@ -537,7 +537,7 @@ include('../_php/_order/query_image.php');?>
 		<?php 
 				// Define filepath for thumbnail
 
-				$img_file = $IMAGE_DIR.'/thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; 
+				$img_file = $image_dir.'/thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; 
 
 				// Perform only for first image in the order
 					$thumbs_available = checkRemoteFile($img_file);
