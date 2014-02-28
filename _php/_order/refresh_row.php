@@ -21,7 +21,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 		<?php 
 		$imageId = create_six_digits($row['id']);
 		$legId = $row['legacy_id'];
-		echo $imageId; ?>
+		echo $legId; ?>
 
 	</div>
 
@@ -109,7 +109,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 		<!-- Delete image: button -->
 		<div class="deleteRecord_button pointer faded"
 			style="background-image: url(_assets/_images/delete_v2.png);"
-			title="Delete image <?php echo $imageId; ?>"
+			title="Delete image <?php echo $legId; ?>"
 			onclick="deleteImageRecord('<?php echo $imageId; ?>')"></div>
 
 	<?php endif; ?>
