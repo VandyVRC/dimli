@@ -327,7 +327,7 @@ ul#nav_list li:not(#nav_lantern):hover {
   cursor: pointer;
 }
 
-ul#nav_list li.nav_item span {
+ul#nav_list li.nav_item span.arrow {
   font-size: 0.5em;
   vertical-align: middle;
 }
@@ -2135,69 +2135,7 @@ p.clear_module {
   height: 0; /* only for IE */
   margin: 0;
   padding: 0;
-}
-
-/*
-  ADAPT TO WIDE BROWSER PORT
-*/
-
-@media screen and (min-width: 1200px) {
-
-  /* Below is deprecated: apdative design phased out */
-
-  /*div#header {
-    max-width: 1200px;
-  }
-
-  div#body {
-    max-width: 1200px;
-  }
-
-  div.module {
-    min-width: 565px;
-  }
-
-  div.module.double {
-    min-width: 1157px;
-  }
-
-  div.orderView_imageRow {
-    min-width: 1125px;
-  }
-
-  .content_lineText {
-    max-width: 440px;
-  }
-
-  textarea.fixedWidth {
-    width: 542px;
-  }
-
-  div.catRowTitle {
-    display: inline-block;
-  }
-
-  table.catalogUI_authorityResults {
-    width: 555px;
-  }
-
-  div#work_assocImages div.assocImage_title {
-    width: 400px;
-  }
-
-  div#lantern_results_grid img.gridThumb {
-  min-height: 141px; max-height: 141px;
-  min-width: 141px; max-width: 141px;
-  }
-
-  div.grid_dropdown_imgWrapper {
-    max-width: 550px;
-  }
-
-  div.grid_dropdown_imgWrapper img {
-    max-width: 550px;
-  }*/
-
+  line-height: 0;
 }
 
 /*
@@ -2245,4 +2183,58 @@ div.ui-datepicker {
   width: 180px;
   text-align: right;
   padding-right: 20px;
+}
+
+/*
+  BATCH DOWNLOAD
+ */
+
+#cart {
+  width: 205px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#cart:hover {
+  cursor: default;
+}
+
+#cart h2 {
+  margin: 0 0 5px 5px;
+}
+
+#cart div.footer {
+  padding: 0 5px;
+  font-size: 11px;
+}
+
+#cart span.selected {
+  float: left;
+}
+
+#cart span.all {
+  float: right;
+}
+
+#cart span.selected:hover,
+#cart span.all:hover {
+  cursor: pointer;
+}
+
+#cart div.download {
+  text-align: center;
+  padding-top: 10px;
+}
+
+#cart img.thumb {
+  margin: 5px;
+}
+
+#cart img.thumb.selected {
+  -webkit-box-shadow:  0px 0px 2px 2px #FFF;
+  box-shadow:  0px 0px 2px 1px #FFF;
+}
+
+#cart .hidden {
+  display: none;
 }

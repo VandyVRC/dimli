@@ -80,6 +80,10 @@ if (($page*$rpp)-$rpp <= count($results)) {
             title="Jump to catalog record">view catalog</span>
 
           <span class="add_image_to_cart pointer"
+            data-type="<?php echo ($arr['type'] == 'work') ? 'work' : 'image'; ?>"
+            data-num="<?php echo ($arr['type'] == 'work')
+              ? create_six_digits($id)
+              : create_six_digits($img_id); ?>"
             title="Add image to cart">add to cart</span>
 
           <?php } ?>
@@ -229,7 +233,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
           <?php
           if ($arr['type']=='work') {
-            get_related_images($mysqli, $id);
+            display_related_images($mysqli, $id);
           } ?>
 
         </div>
@@ -324,8 +328,14 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.add_image_to_cart').click(
       function () {
-        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
-        add_to_cart(imageNum);
+        var images = [];
+        var $related = $(this).parents('div.lanternResults_list_row').find('div.related_panel');
+
+        $.each($related.find('img.related_thumb'), function () {
+          images.push($(this).attr('data-image'));
+        });
+        
+        add_to_cart(images);
       });
 
 

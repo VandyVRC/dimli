@@ -910,7 +910,7 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
   }
 }
 
-function get_related_images($mysqli, $workNum) {
+function display_related_images($mysqli, $workNum) {
   $workNum = str_pad((string)$workNum, 6, '0', STR_PAD_LEFT);
   $rel_images = array();
 

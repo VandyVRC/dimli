@@ -2560,10 +2560,10 @@ function import_load() {
     success: function(response) {
       load_module(new_module, response);
       $(document).scrollTop($('body').offset().top);
-      console.log("Successfully loaded file: import_load.php");
+      console.log('Successfully loaded file: import_load.php');
     },
     error: function() {
-      console.error("Falied to load file: import_load.php");
+      console.error('Falied to load file: import_load.php');
     }
   });
 }
@@ -2580,7 +2580,85 @@ function createNewPopup(event) {
   newPopup.style.left = event.clientX+'px';
   newPopup.log(event.clientX+' '+event.clientY);
   newPopup.onmouseout = function(event) {
-    this.setTimeout
-  }
+    // this.setTimeout(function () {}, 0);
+  };
   return newPopup;
+}
+
+var $cart = $('#cart');
+var $heading = $cart.find('h2');
+var $basket = $cart.find('div.basket');
+var $footer = $cart.find('div.footer');
+var $selected = $footer.find('div.footer span.selected');
+var $all = $footer.find('span.all');
+var $download = $footer.find('div.download');
+
+function add_to_cart(images) {
+  var len = images.length;
+  var added = 0;
+
+  for (var i = 0; i < len; i++) {
+    if (isAlreadyInCart(images[i])) return;
+
+    var thumb = document.createElement('img');
+    thumb.className = 'thumb';
+    thumb.setAttribute('data-image', images[i]);
+    thumb.setAttribute('src', 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/' + images[i] + '.jpg&h=30&w=30&q=60');
+
+    $basket.append(thumb);
+    added++;
+  }
+
+  if (added) {
+    var size = $basket.find('img.thumb').length;
+
+    // Display user message
+    var msgStr = added + ' image';
+    if (added > 1) msgStr += 's';
+    msgStr += ' added to the cart';
+    msg([msgStr], 'success');
+
+    updateCartHeading();
+
+    $all.removeClass('hidden');
+    $download.removeClass('hidden');
+
+    // Hide over 40
+    if (size > 40) {
+      var $thumbs = $basket.find('img.thumb');
+      $.each($thumbs, function (index) {
+        if (index > 39) {
+          $(this).addClass('hidden');
+        }
+      });
+    }
+  }
+
+  function isAlreadyInCart(imageNum) {
+    return $basket.find('img[data-image="' + imageNum + '"]').length > 0;
+  }
+}
+
+function updateCartHeading(cart) {
+  var size = $basket.find('img.thumb').length;
+
+  if (size > 40) headingText += ' total';
+  var headingText = size + ' image';
+  if (size > 1) headingText += 's';
+  if (size > 40) headingText += ' (' + (size - 40) + ' hidden)';
+  $heading.text(headingText);
+
+  var downloadLink = document.querySelector('#cart div.download a');
+  var href;
+  if (downloadLink.href.indexOf('?') >= 0) {
+    href = downloadLink.href.substr(0, downloadLink.href.indexOf('?'));
+  } else {
+    href = downloadLink.href;
+  }
+
+  var imageList = [];
+  $.each($('#cart div.basket img.thumb'), function (index, value) {
+    imageList.push($(value).attr('data-image'));
+  });
+  downloadLink.href = href + '?images=' + imageList.join();
 }
