@@ -258,6 +258,10 @@ button {
   opacity: 1.0;
 }
 
+.eightEm {
+  font-size: 0.8em;
+}
+
 .input_error {
   background-color: #FFF0DE;
 }
@@ -582,8 +586,9 @@ div#user_module h3 {
   color: #669; 
 }
 
-div#yourOrders {
-  margin: 0 0 0 10px;
+#yourOrders,
+#yourDownloads {
+  margin: 0 0 10px 10px;
 }
 
 /*
@@ -635,11 +640,11 @@ div#todo_list div.row:hover {
   background-color: #FFF0DE;
 }
 
-div#todo_list div.row div.thumbnail_previews {
+div.thumbnail_previews {
   height: 35px;
 }
 
-div#todo_list div.row div.thumbnail_previews img {
+div.thumbnail_previews img {
   margin: 3px 3px -7px 3px;
 }
 
@@ -725,27 +730,27 @@ div#orderDelivery_list span.order_id {
   font-weight: 400;
 }
 
-div#orderDelivery_list div.download_options {
+div.download_options {
   vertical-align: top;
   margin: 5px 5px 5px 5px;
 }
 
-div#orderDelivery_list div.download_options a {
+div.download_options a {
   display: block;
   opacity: 0.8;
 }
 
-div#orderDelivery_list div.download_options a:hover {
+div.download_options a:hover {
   opacity: 1.0;
 }
 
-div#orderDelivery_list div.download_options a img {
+div.download_options a img {
   width: 26px;
   margin: 2px 0;
   vertical-align: middle;
 }
 
-div#orderDelivery_list div.download_options a span.label {
+div.download_options a span.label {
   margin-left: 3px;
   font-size: 0.8em; 
   vertical-align: middle;

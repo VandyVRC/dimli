@@ -11,12 +11,26 @@ require_priv('priv_orders_download');
 // Temporarily increase PHP memory limit
 ini_set('memory_limit', '1024M');
 
+// Construct an array of filepaths to be added to the zip archive
 $images = explode(',', $_GET['images']);
 $images = array_map('convertToFilepath', $images);
-$downloadId = 001;
 
-$filename = MAIN_DIR . '/temp/download_' . $downloadId . '.zip';
-create_zip($images, $filename, true);
+// Create the zip archive file
+$filename = MAIN_DIR . '/temp/download_' . $_SESSION['user_id'] . Time() . '.zip';
+$result = create_zip($images, $filename, true);
+
+// If the zip file was successfully created,
+// write the download to the database
+if ($result) {
+
+  $time = Time();
+  $sql = "INSERT INTO dimli.download
+          SET UserID = '{$_SESSION['user_id']}',
+              Images = '{$_GET['images']}',
+              UnixTime = '{$time}'
+          ";
+  $result = db_query($mysqli, $sql);
+}
 
 
 if (headers_sent()) {
