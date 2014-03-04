@@ -115,7 +115,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
               : $title_arr;
 
             // Display appropriate titles
-            lantern_list_display_titles($mysqli, $title_arr, $searches_arr); ?>
+            lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAME); ?>
 
           </div>
 
@@ -125,7 +125,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             style="margin-bottom: 1px; font-size: 0.9em;">
 
             <?php
-            lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent);
+            lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent, $DB_NAME);
             ?>
 
           </div>
@@ -153,7 +153,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             <span class="highlightable">
 
               <?php
-              lantern_list_display_date($mysqli, $arr['type'], $id, $parent);
+              lantern_list_display_date($mysqli, $arr['type'], $id, $parent, $DB_NAME);
                 // eg. func('work', '062261', 'none/000261')
               ?>
 
@@ -185,7 +185,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
                 <span class="highlightable"><?php
 
                   // Call appropriate function to display this field
-                  $func($mysqli, $arr['type'], $id); 
+                  $func($mysqli, $arr['type'], $id, $DB_NAME); 
                     // eg. func(mysqli connection, 'work', '000261')
               
                 ?></span>
@@ -230,7 +230,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
           <?php
           if ($arr['type']=='work') {
-            get_related_images($mysqli, $id);
+            get_related_images($mysqli, $id, $DB_NAME, $webroot, $image_src);
           } ?>
 
         </div>
