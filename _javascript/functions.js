@@ -2754,7 +2754,7 @@ function lantern_wrap_imgRows() {
   }
 }
 
-function lantern_dropdown_load(dd, row, workNum, imageNum) {
+function lantern_dropdown_load(dd, row, workNum, imageNum, legId) {
 
   $('div.grid_dropdown').addClass('doomed');
   var old_dd = $('div.grid_dropdown.doomed');
@@ -2762,7 +2762,7 @@ function lantern_dropdown_load(dd, row, workNum, imageNum) {
 
   $.ajax({
     type: 'POST',
-    data: 'workNum=' + workNum + '&imageNum=' + imageNum,
+    data: 'workNum=' + workNum + '&imageNum=' + imageNum + '&legId=' + legId,
     url: '_php/_lantern/lantern_dropdown_load.php',
     success: function (response) {
       // Add new dropdown to the DOM

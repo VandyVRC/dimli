@@ -10,7 +10,7 @@ confirm_logged_in();
 
 $workNum = $_POST['workNum'];
 $imageNum = $_POST['imageNum'];
-
+$legId = $_POST['legId'];
 
 // Should script search for a Work or Image record?
 $recordType = ($workNum == 'None') ? 'image' : 'work';
@@ -145,7 +145,7 @@ foreach ($searches_arr as $search)
 ?>
 <div class="grid_dropdown_imgWrapper">
 
-	<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $imageNum; ?>.jpg&amp;h=300&amp;q=80">
+	<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $legId; ?>.jpg&amp;h=300&amp;q=80">
 
 </div>
 
@@ -266,7 +266,7 @@ foreach ($searches_arr as $search)
 	$('div.grid_dropdown_imgWrapper img').click(
 		function()
 		{
-			image_viewer('<?php echo $imageNum;?>');
+			image_viewer('<?php echo $legId;?>');
 		});
 
 </script>

@@ -28,35 +28,45 @@ if (($page*$rpp)-$rpp <= count($results))
 			$short_id = ltrim($id, '0');
 
 			$sql = "SELECT preferred_image 
-						FROM $DB_NAME.work 
-						WHERE id = {$short_id} ";
+            FROM $DB_NAME.work 
+            WHERE id = {$short_id} ";
 
-			$res = db_query($mysqli, $sql);
+      $res = db_query($mysqli, $sql);
 
-			while ($work = $res->fetch_assoc())
-			{ 
-				$img_id = create_six_digits($work['preferred_image']);
-			}
-			$parent = 'none';
-		}
-		elseif ($arr['type']=='image')
-		{
-			$img_id = create_six_digits($id);
+      while ($work = $res->fetch_assoc()) { 
+        
+        $sql = "SELECT legacy_id 
+              FROM $DB_NAME.image 
+              WHERE id = '{$work['preferred_image']}' ";
 
-			// Find this Image's parent Work
-			$sql = "SELECT related_works 
-							FROM $DB_NAME.image 
-							WHERE id = {$id} ";
+        $result = db_query($mysqli, $sql);
 
-			$result = db_query($mysqli, $sql);
+          while ($row = $result->fetch_assoc()) {      
+       
+            $img_id = $row['legacy_id'];
+          }
+        $parent = 'none';
+      }
+     }          
 
-			while ($row = $result->fetch_assoc()) {
-				
-				$parent = (trim($row['related_works'] != '')) 
-							? $row['related_works'] 
-							: 'none';
-			}
-		}
+    elseif ($arr['type']=='image'){
+      
+      $sql = "SELECT legacy_id, related_works 
+              FROM $DB_NAME.image 
+              WHERE id = {$id} ";   
+
+      $result = db_query($mysqli, $sql);
+
+      while ($row = $result->fetch_assoc()) {
+        
+        $img_id = $row['legacy_id'];
+
+        // Find this Image's parent Work
+        $parent = (trim($row['related_works'] != '')) 
+              ? $row['related_works'] 
+              : 'none';
+      }
+    }
 
 		// If the image id of the preferred thumbnail is NOT blank, display a grid box
 		if (!in_array($img_id, array('', '0')))
@@ -69,12 +79,15 @@ if (($page*$rpp)-$rpp <= count($results))
 				<img src="<?php echo $src; ?>"
 					class="gridThumb"
 					data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
-					data-image="<?php echo create_six_digits($img_id); ?>">
+					data-work-image ="<?php echo ($arr['type'] == 'work') ? $img_id : 'None'; ?>"
+					data-image="<?php echo create_six_digits($id); ?>"
+					data-image-image="<?php echo $img_id; ?>">
 
 			</div>
 
 		<?php
 		}
+
 		$i++;
 	}
 	?>
@@ -119,13 +132,20 @@ if (($page*$rpp)-$rpp <= count($results))
 					if ($(this).find('img.gridThumb').hasClass('selected') == false)
 					{
 						var img = $(this).find('img.gridThumb');
-
 						var row = $(img).parents('div.gridRow');
 						var dd = $('<div>', { class: 'grid_dropdown' });
 						var work = $(img).attr('data-work');
 						var image = $(img).attr('data-image');
+						 
+						 if (work != 'None'){ 
+						 	var legId= $(img).attr('data-work-image');
+						 }	
 
-						lantern_dropdown_load(dd, row, work, image);
+						 else  {
+							var legId = $(img).attr('data-image-image');
+						}
+
+						lantern_dropdown_load(dd, row, work, image, legId);
 					}
 				})
 			.mouseenter(debounce(
