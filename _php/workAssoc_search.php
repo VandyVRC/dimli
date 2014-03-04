@@ -197,17 +197,19 @@ if (!empty($matchingWorks)) {
 
 		$sql = "SELECT legacy_id
 					FROM $DB_NAME.image
-					WHERE id = {$work_thumb_id} ";
+					WHERE id = '{$work_thumb_id}' ";
 
 		$leg_id_res = db_query($mysqli, $sql);
 
 		while ($leg_id = $leg_id_res->fetch_assoc()){
 
 			$legacyId = $leg_id['legacy_id'];
+
+			$thumb_file = $image_dir.'thumb/'.$legacyId.'.jpg';
 		}
 
 
-		$thumb_file = $image_dir.'thumb/'.$legacyId.'.jpg';
+		
 
 		$sql = "SELECT title_text 
 					FROM $DB_NAME.title 
@@ -350,7 +352,19 @@ if (!empty($matchingWorks)) {
 	
 	<?php } ?>
 	
-<?php } elseif (empty($matchingWorks)) { ?>
+<<?php } elseif (empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
+
+		<div>
+
+		Your search yielded no matching work records.
+
+	</div>
+	
+<?php } 
+
+	elseif
+	(empty($matchingWorks)) { ?>
+
 
 	<div>
 

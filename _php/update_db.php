@@ -420,6 +420,7 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 
 
 
+
 //----------------------
 //		WORK TYPES
 //----------------------
@@ -440,7 +441,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 
 	foreach ($_SESSION['workTypeArray'][$recordType] as $key=>$value) {
 	
-		if (strstr($key, $abbr.'workType' . $i)) {
+		if (strstr($key, $abbr.'workType' . $i) || strstr($key, $abbr.'builtworkType' . $i )) {
 		
 			$query = " UPDATE $DB_NAME.work_type 
 						SET
@@ -477,258 +478,6 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 	}
 	$i ++;
 }
-
-
-
-//------------------------------
-//		CULTURAL CONTEXTS
-//------------------------------
-
-if (!empty($recordNum) && $recordNum != '')
-{
-	$query = " DELETE FROM $DB_NAME.culture WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = db_query($mysqli, $query);
-}
-
-$i = 0;
-
-while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
-
-	$sql = "INSERT INTO $DB_NAME.culture VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
-
-	foreach ($_SESSION['culturalContextArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'culturalContext' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.culture 
-						SET
-							culture_text = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'culturalContextId' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.culture 
-						SET
-							culture_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'culturalContextDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.culture 
-						SET
-							display = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
-	}
-	$i ++;
-}
-
-
-
-//--------------------------
-//		STYLE PERIODS
-//--------------------------
-
-if (!empty($recordNum) && $recordNum != '')
-{
-	$query = " DELETE FROM $DB_NAME.style_period WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = db_query($mysqli, $query);
-}
-
-$i = 0;
-
-while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
-
-	$sql = "INSERT INTO $DB_NAME.style_period VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
-
-	foreach ($_SESSION['stylePeriodArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'stylePeriod' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.style_period 
-						SET
-							style_period_text = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'stylePeriodId' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.style_period
-						SET
-							style_period_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'stylePeriodDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.style_period 
-						SET
-							display = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
-	}
-	$i ++;
-}
-
-
-
-//---------------------
-//		LOCATIONS
-//---------------------
-
-if (!empty($recordNum) && $recordNum != '')
-{
-	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = db_query($mysqli, $query);
-}
-
-$i = 0;
-
-while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
-
-	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
-
-	foreach ($_SESSION['locationArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'location' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							location_text = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'locationId' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_name_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							display = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
-	}
-	$i ++;
-}
-
-
-
-//--------------------------
-//		STATE/EDITION
-//--------------------------
-
-if (!empty($recordNum) && $recordNum != '')
-{
-	$query = " DELETE FROM $DB_NAME.edition WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = db_query($mysqli, $query);
-}
-
-$i = 0;
-
-while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
-
-	$sql = "INSERT INTO $DB_NAME.edition VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
-
-	foreach ($_SESSION['stateEditionArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'stateEditionType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.edition 
-						SET
-							edition_type = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'stateEdition' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.edition
-						SET
-							edition_text = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
-	}
-	$i ++;
-}
-
-
 
 //-----------------------
 //		MEASUREMENTS
@@ -944,33 +693,31 @@ while ($i < countCatRows($_SESSION['measurementsArray'][$recordType])) {
 	$i ++;
 }
 
-
-
-//--------------------
-//		SUBJECTS
-//--------------------
+//------------------------------
+//		CULTURAL CONTEXTS
+//------------------------------
 
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM $DB_NAME.subject WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.culture WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
 $i = 0;
 
-while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
+while ($i < countCatRows($_SESSION['culturalContextArray'][$recordType])) {
 
-	$sql = "INSERT INTO $DB_NAME.subject VALUES () ";
+	$sql = "INSERT INTO $DB_NAME.culture VALUES () ";
 	$res = db_query($mysqli, $sql);
 	$currentId = $mysqli->insert_id;
 
-	foreach ($_SESSION['subjectArray'][$recordType] as $key=>$value) {
+	foreach ($_SESSION['culturalContextArray'][$recordType] as $key=>$value) {
 	
-		if (strstr($key, $abbr.'subjectType' . $i)) {
+		if (strstr($key, $abbr.'culturalContext' . $i)) {
 		
-			$query = " UPDATE $DB_NAME.subject 
+			$query = " UPDATE $DB_NAME.culture 
 						SET
-							subject_type = '{$value}',
+							culture_text = '{$value}',
 							related_".$field_type."s = '{$recordNum}'
 						WHERE
 							id = '{$currentId}'
@@ -978,29 +725,19 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 			$result = db_query($mysqli, $query);
 			// echo $query.'<br>';
 		
-		} elseif (strstr($key, $abbr.'subject' . $i)) {
+		} elseif (strstr($key, $abbr.'culturalContextId' . $i)) {
 		
-			$query = " UPDATE $DB_NAME.subject
+			$query = " UPDATE $DB_NAME.culture 
 						SET
-							subject_text = '{$value}'
+							culture_getty_id = '{$value}'
 						WHERE
 							id = '{$currentId}'
 					";
 			$result = db_query($mysqli, $query);
 		
-		} elseif (strstr($key, $abbr.'subjectId' . $i)) {
+		} elseif (strstr($key, $abbr.'culturalContextDisplay' . $i)) {
 		
-			$query = " UPDATE $DB_NAME.subject
-						SET
-							subject_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'subjectDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.subject 
+			$query = " UPDATE $DB_NAME.culture 
 						SET
 							display = '{$value}'
 						WHERE
@@ -1014,7 +751,345 @@ while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
 	$i ++;
 }
 
+//--------------------------
+//		STYLE PERIODS
+//--------------------------
 
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.style_period WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['stylePeriodArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.style_period VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['stylePeriodArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'stylePeriod' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.style_period 
+						SET
+							style_period_text = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'stylePeriodId' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.style_period
+						SET
+							style_period_getty_id = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'stylePeriodDisplay' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.style_period 
+						SET
+							display = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
+
+//---------------------
+//		LOCATIONS
+//---------------------
+
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['locationArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'location' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							location_text = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'locationId' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_getty_id = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_name_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							display = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
+
+//---------------------
+//		Built Work
+//---------------------
+/*
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['builtWorkArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['builtWorkArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'builtWork' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							location_text = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'builtWorkId' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_getty_id = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_name_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							display = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
+
+//---------------------
+//		Related Works
+//---------------------
+
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['locationArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'location' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							location_text = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'locationId' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_getty_id = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_name_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location
+						SET
+							location_type = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.location 
+						SET
+							display = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
+*/
+//--------------------------
+//		STATE/EDITION
+//--------------------------
+
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.edition WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['stateEditionArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.edition VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['stateEditionArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'stateEditionType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.edition 
+						SET
+							edition_type = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'stateEdition' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.edition
+						SET
+							edition_text = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
 
 //------------------------
 //		INSCRIPTIONS
@@ -1094,7 +1169,73 @@ while ($i < countCatRows($_SESSION['inscriptionArray'][$recordType])) {
 	$i ++;
 }
 
+//--------------------
+//		SUBJECTS
+//--------------------
 
+if (!empty($recordNum) && $recordNum != '')
+{
+	$query = " DELETE FROM $DB_NAME.subject WHERE related_".$field_type."s = '{$recordNum}' ";
+	$result = db_query($mysqli, $query);
+}
+
+$i = 0;
+
+while ($i < countCatRows($_SESSION['subjectArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.subject VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['subjectArray'][$recordType] as $key=>$value) {
+	
+		if (strstr($key, $abbr.'subjectType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.subject 
+						SET
+							subject_type = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+			// echo $query.'<br>';
+		
+		} elseif (strstr($key, $abbr.'subject' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.subject
+						SET
+							subject_text = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'subjectId' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.subject
+						SET
+							subject_getty_id = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'subjectDisplay' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.subject 
+						SET
+							display = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
 
 //------------------
 //		RIGHTS
@@ -1153,8 +1294,6 @@ while ($i < countCatRows($_SESSION['rightsArray'][$recordType])) {
 	}
 	$i ++;
 }
-
-
 
 //----------------------
 //		WORK SOURCE

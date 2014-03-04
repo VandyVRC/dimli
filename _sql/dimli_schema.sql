@@ -366,6 +366,20 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `relation`
+--
+
+CREATE TABLE IF NOT EXISTS `relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `related_works` text COLLATE utf8_unicode_ci NOT NULL,
+  `related_images` text COLLATE utf8_unicode_ci NOT NULL,
+  `relation_type` enum('Related to','Part of','Formerly part of','Component of','Partner in set with','Preparatory for','Study for','Cartoon for','Model for','Plan for','Counter proof for','Printing plate for','Relief for','Prototype for','Designed for','Mate of','Pendant of','Exhibited at','Copy after','Depicts','Derived from','Facsimile of','Replica of','Version of') COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `repository`
 --
 
@@ -430,6 +444,26 @@ CREATE TABLE IF NOT EXISTS `style_period` (
   `related_images` text COLLATE utf8_unicode_ci NOT NULL,
   `style_period_getty_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `style_period_text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specific_location`
+--
+
+CREATE TABLE IF NOT EXISTS `specific_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `related_works` text COLLATE utf8_unicode_ci NOT NULL,
+  `related_images` text COLLATE utf8_unicode_ci NOT NULL,
+  `speicfic_location_type` enum('Address','Zip','LatLng','Note') COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_zip` int(10) COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_lat` float(10) COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_long` float(10) COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -540,7 +574,7 @@ INSERT INTO `user` (`id`, `username`, `crypted_password`, `first_name`, `last_na
 
 CREATE TABLE IF NOT EXISTS `work` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `legacy_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `related_works` text COLLATE utf8_unicode_ci NOT NULL,
   `related_images` text COLLATE utf8_unicode_ci NOT NULL,
   `preferred_image` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,

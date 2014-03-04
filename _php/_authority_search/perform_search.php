@@ -193,7 +193,46 @@ if (!empty($fieldVal)) {
 	  ##                 ##
 	  #####################*/
 
-	if (strstr($fieldName, 'workType')) {
+	
+	if (strstr($fieldName, 'builtworkType')) {
+
+		$fieldVal = preg_replace("/[^A-Za-z0-9\s]/"," ", $fieldVal);
+		// Remove all non-alphanumeric characters from the input string
+		
+		$fieldVal = trim(preg_replace("/ +/"," ", $fieldVal));
+		// Limit the space between words to one single space
+		
+		$workTypeArray = explode(' ', $fieldVal);
+		// Explode the string into an array
+
+		// Build SQL query
+		$sql = "SELECT * 
+					FROM $DB_NAME.getty_aat 
+					WHERE hierarchy REGEXP 'Built Environment' ";
+		
+			if (!empty($workTypeArray)) {
+		
+				foreach ($workTypeArray as $workType) {
+			
+				// $workType = preg_replace('/\([^)]+\)/', '', $workType);
+					$sql.= " AND (english_pref_term REGEXP '{$workType}' OR pref_term_text REGEXP '{$workType}' OR nonpref_term_text REGEXP '{$workType}' OR pref_term_qualifier REGEXP '{$workType}') ";			
+				}			
+			}
+		
+		$sql.= " AND record_type != 'Guide term' ";
+		$sql.= " ORDER BY popularity DESC, pref_term_text ";
+
+		if ($result = $mysqli->query($sql)) {
+
+			$resultCount = $result->num_rows;
+			$message = $resultCount . ' results from the Getty AAT';
+
+			include('workType_results.php');
+
+		}	
+	}	
+
+	else if (strstr($fieldName, 'workType')) {
 		
 		$fieldVal = preg_replace("/[^A-Za-z0-9\s]/"," ", $fieldVal);
 		// Remove all non-alphanumeric characters from the input string
@@ -236,7 +275,6 @@ if (!empty($fieldVal)) {
 			echo "SQL error: ".$mysqli->errno." ".$mysqli->error;
 
 		}
-		
 	}
 
 	/*###################
@@ -405,18 +443,36 @@ if (!empty($fieldVal)) {
 		$result_repository = $mysqli->query($sql);
 		
 		$resultCount_repository = $result_repository->num_rows;
+}
 
-		//-----------------------------
-		//		QUERY BUILT WORKS
-		//-----------------------------
+/*####################
+	  ##                ##
+	  ##   Built Works  ##
+	  ##                ##
+	  ####################*/
+
+	if (strstr($fieldName, 'builtWork')) {
+
+		$fieldVal = preg_replace("/[^A-Za-z0-9\s]/"," ", $fieldVal);
+		// Remove all non-alphanumeric characters from the input string
+		
+		$fieldVal = trim(preg_replace("/ +/"," ", $fieldVal));
+		// Limit the space between words to one single space
+		
+		$builtWorkArray = explode(' ', $fieldVal);
+		// Explode the string into an array
+
+		//---------------------------
+		//		QUERY Built Works
+		//---------------------------
 
 		$sql = "SELECT * 
 					FROM $DB_NAME.title 
 					WHERE ( related_works != '' ) ";
 
-		foreach ($locationArray as $location) {
+		foreach ($builtWorkArray as $builtWork) {
 		
-			$sql .= " AND ( title_text REGEXP '{$location}' ) ";
+			$sql .= " AND ( title_text REGEXP '{$builtWork}' ) ";
 		
 		}
 
@@ -432,39 +488,26 @@ if (!empty($fieldVal)) {
 		
 		}
 
-		$builtWorkIds_filteredOnce = array();
-		
-		// Initilize array of work types that can appropriately be called "built works"
-		$acceptableWorkTypes = array(
-			'buildings (structures)',
-			'churches (buildings)',
-			'cathedrals (buildings)',
-			'temples (buildings)',
-			'villas',
-			'hospitals (buildings for pilgrims)',
-			'funerary buildings',
-			'mosques (buildings)',
-			'art museums (buildings)',
-			'art galleries (buildings)',
-			'hippodromes (Greek sports buildings)',
-			'international museums (buildings)',
-			'landmark buildings',
-			'monastic churches (buildings)',
-			'museums (buildings)',
-			'national museums (buildings)',
-			'pilgrimage churches (buildings)',
-			'amphitheaters (built works)',
-			'theaters (buildings)',
-			'caves',
-			'cave architecture',
-			'cave churches',
-			'cave dwellings',
-			'cave temples',
-			'ducal palaces',
-			'tombs'
-			);
+			$builtWorkIds_filteredOnce = array();
 
-		// For each work id returned so far
+		// Query and initilize array of work types that can   
+		// appropriately be called "built works"	
+		
+		$sql = "SELECT  pref_term_text
+					FROM $DB_NAME.getty_aat 
+					WHERE ( hierarchy REGEXP 'Built Environment' ) ";
+
+		$result_acceptableWorkTypes = $mysqli->query($sql);
+			
+
+			$acceptableWorkTypes = array();
+
+			while ($row = $result_acceptableWorkTypes->fetch_assoc()) {
+		
+				$acceptableWorkTypes[] = $row['pref_term_text'];
+			}	
+		
+			// For each work id returned so far
 		foreach ($builtWorkIds as $id):
 		
 			// Find its "work type" attributes
@@ -480,7 +523,7 @@ if (!empty($fieldVal)) {
 					// Add the work id to the filtered array
 					$builtWorkIds_filteredOnce[] = $row['related_works'];
 
-				}
+				}	
 
 			endwhile;
 
@@ -492,21 +535,20 @@ if (!empty($fieldVal)) {
 		// Reset array keys
 		$builtWorkIds_filteredOnce = array_values($builtWorkIds_filteredOnce);
 
-		$message = '<a href="#authorityResults_location_tgn">';
-		$message .= $resultCount_tgn . ' TGN results';
-		$message .= '</a>, ';
-		$message .= '<a href="#authorityResults_location_repository">';
-		$message .= $resultCount_repository;
-		$message .= ($resultCount_repository > 1) ? ' repositories' : ' repository';
-		$message .= '</a>, ';
-		$message .= '<a href="#authorityResults_location_builtWork">';
+		$message = '<a href="#authorityResults_location_builtWork">';
 		$message .= count($builtWorkIds_filteredOnce);
 		$message .= (count($builtWorkIds_filteredOnce) != 1) ? ' built works' : ' built work';
 		$message .= '</a>';
 		
-		include('location_results.php');
+		include('builtWork_results.php');
 
 	}
+
+	/*####################
+	  ##                ##
+	  ## Related Works  ##
+	  ##                ##
+	  ####################*/
 
 	/*##################
 	  ##              ##

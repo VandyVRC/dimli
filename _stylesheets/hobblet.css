@@ -1534,19 +1534,18 @@ img.catThumb:hover {
 
 .content_lineTitle {
   display: inline-block;
-  min-width: 7em;
-  max-width: 7em;
+  min-width: 8.5em;
+  max-width: 8.5em;
   line-height: 1.25em;
 }
 
 .content_lineText {
   display: inline-block;
   /*max-width: 240px;*/
-  max-width: 325px;
+  max-width: 290px;
   line-height: 1.25em;
   word-wrap: normal;
 }
-
 div.module_footer {
   min-height: 14px;
   margin: 0 -5px -5px -5px;
@@ -1676,6 +1675,7 @@ div.workAssoc_results_cell {
   display: block;
   width: auto;
   margin-bottom: 3px;
+  padding-top: 2px;
 }
 
 div.workAssoc_results_rowZoom {
@@ -1798,7 +1798,7 @@ div.catRowTitle {
   /*display: none;*/
   display: inline-block;
   position: relative;
-  width: 6em;
+  width: 7.75em;
   text-transform: capitalize;
 }
 

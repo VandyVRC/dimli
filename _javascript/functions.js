@@ -1418,6 +1418,70 @@ function displayMeasurements() {
   });
 }
 
+function displaySpecificLocation(){
+
+  var selectedSpecificLocationType = $(this).find('option:selected').val();
+  var thisRow = $(this).parents('div.catRowWrapper');
+  var newRow = $(thisRow).next('.catRowWrapper');
+  var noteRow = $(newRow).next('.catRowWrapper');
+
+  if (selectedSpecificLocationType == "Address"){
+    $(noteRow).slideUp('fast');
+    $(newRow).slideDown('fast');
+    $(newRow).find('[id*=specificLocationAddress]').show();
+    $(newRow).find('[id*=specificLocationZip]').show();
+    $(noteRow).find('[id*=specificLocationNote]').hide();
+    $(newRow).find('[id*=specificLocationLat]').hide();
+    $(newRow).find('[id*=specificLocationLong]').hide();
+  } 
+  
+  if (selectedSpecificLocationType == "LatLng"){
+    $(noteRow).slideUp('fast');
+    $(newRow).slideDown('fast');
+    $(newRow).find('[id*=specificLocationLat]').show();
+    $(newRow).find('[id*=specificLocationLong]').show();
+    $(noteRow).find('[id*=specificLocationNote]').hide();
+    $(newRow).find('[id*=specificLocationAddress]').hide();
+    $(newRow).find('[id*=specificLocationZip]').hide();
+  }
+
+
+  if (selectedSpecificLocationType == "Note"){
+    $(newRow).slideUp('fast');
+    $(noteRow).slideDown('fast');
+    $(noteRow).find('[id*=specificLocationNote]').show();
+    $(newRow).find('[id*=specificLocationLat]').hide();
+    $(newRow).find('[id*=specificLocationLong]').hide();
+    $(newRow).find('[id*=specificLocationAddress]').hide();
+    $(newRow).find('[id*=specificLocationZip]').hide();
+  }
+
+  if (selectedSpecificLocationType == "Type"){
+    $(newRow).find('[id*=specificLocationAddress]').hide();
+    $(newRow).find('[id*=specificLocationZip]').hide();
+    $(newRow).find('[id*=specificLocationLat]').hide();
+    $(newRow).find('[id*=specificLocationLong]').hide();
+    $(noteRow).find('[id*=specificLocationNote]').hide();
+    $(newRow).slideUp('fast');
+    $(noteRow).slideUp('fast');
+  }
+}
+
+function displayRelatedWorksSearch(){
+
+  var selectedRelatedWorksType = $(this).find('option:selected').val();
+  var thisRow = $(this).parents('div.catRowWrapper');
+  var newRow = $(thisRow).next('.catRowWrapper');
+
+  if (selectedRelatedWorksType == "Type"){
+  $(newRow).slideUp('fast');
+  } 
+
+  else{
+  $(newRow).slideDown('fast');
+  }
+}
+
 function resetMeasurementsRow($row) {
   $row.find('[id*=measurementFieldDiv]').hide();
   $row.find('[id*=measurementFieldDiv1]').show();
@@ -1439,6 +1503,15 @@ function resetDateRow($row) {
   $row.find('div[id*=dateRangeSpan]').hide();
   $row.find('input:checkbox[id*=dateRange]').prop('checked', false);
   $row.find('input:checkbox[id*=circaDate]').prop('checked', false);
+}
+
+function resetSpecificRow($row){
+$row.find('[id*=specificLocationAddress]').hide();
+$row.find('[id*=specificLocationZip]').hide();
+$row.find('[id*=specificLocationLat]').hide();
+$row.find('[id*=specificLocationLong]').hide();
+$row.find('[id*=specificLocationNote]').hide()
+$row.find('[id*=specificLocationRow]').hide();
 }
 
 function reincrementSectionRows($section) {
@@ -1491,9 +1564,14 @@ function addRow_v2() {
       resetDateRow($newRow);
     }
 
+    //If selected row was 'Specific Location', reset the hidden fields
+    if (thisRowTitle == 'Specific Location') {
+      resetSpecificRow($newRow);
+    }
+
     // Clear the values of the new row's input fields
     $newRow.find('input[type=text], input[type=hidden]').val('');
-    $newRow.find('select').val('');
+    $newRow.find('select option:first').attr('selected', 'selected');
 
     // Hide the new row's add/remove buttons
     $newRow.find('.addButton img, .removeButton img').hide();
@@ -1866,6 +1944,59 @@ function workAssoc_search(title, agent) {
 }
 
 function workAssoc_assoc(orderNum, workNum, imageNum) {
+  var json = {};
+  json['orderNum'] = $.trim(orderNum);
+  json['workNum'] = $.trim(workNum);
+  json['imageNum'] = $.trim(imageNum);
+
+  $.ajax({
+    type: 'GET',
+    data: { json: json },
+    url: '_php/workAssoc_assoc.php',
+    success: function(response)
+    {
+      console.log('ASSOCIATED Work-'+workNum+' & Image-'+imageNum);
+    },
+    error: function()
+    {
+      console.log('ajax request failed: workAssoc_assoc');
+    },
+    complete: function()
+    {
+      open_order(orderNum);
+      view_image_record(imageNum);
+      view_work_record(imageNum);
+    }
+  });
+}
+
+function relatedWorkAssoc_search(title, agent, module) {
+  
+  $('div#workAssoc_results').remove();
+  var results_div = $('<div>', { id: 'workAssoc_results' });
+  $(+module+' div[id=workAssoc_wrapper]').after(results_div);
+
+  title = $.trim(title);
+  agent = $.trim(agent);
+
+  console.log(title+' '+agent);
+
+  $.ajax({
+    type: 'POST',
+    data: 'title='+title+'&agent='+agent,
+    url: '_php/workAssoc_search.php',
+    success: function(response)
+    { 
+      $(results_div).append(response);
+    },
+    error: function()
+    {
+      console.log('ajax request failed: workAssoc_search');
+    }
+  });
+}
+
+function relatedworkAssoc_assoc(orderNum, workNum, imageNum) {
   var json = {};
   json['orderNum'] = $.trim(orderNum);
   json['workNum'] = $.trim(workNum);

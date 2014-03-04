@@ -703,399 +703,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 		
 		
 		
-		<!-- Cultural Context -->
-		
-		<div class="catSectionWrapper workSection">
-		
-			<?php
-			
-			$rows = 0;
-			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'culturalContextId')) {
-					$rows++;
-				}
-			}
-			
-			$i = 0;
-			while ($i < $rows) {
-			
-			?>
-
-			<div class="clone_wrap">
-		
-				<div class="catRowWrapper">
-				
-					<div class="catRowTitle">
-					
-						<div class="titleText">Culture</div>
-
-						<input type="hidden"
-							id="WculturalContextDisplay<?php echo $i; ?>"
-							class="cat_display"
-							name="WculturalContextDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['work']['culturalContextDisplay'.$i])) ? $_SESSION['work']['culturalContextDisplay'.$i] : '1'; ?>">
-					
-					</div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WculturalContext<?php echo $i; ?>" 
-								class="autoWidth authoritySearch idMissing"
-								name="WculturalContext<?php echo $i; ?>" 
-								placeholder="Cultural Context"
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['culturalContext'.$i] : ''; ?>">
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="hidden" 
-								id="WculturalContextId<?php echo $i; ?>"
-								name="WculturalContextId<?php echo $i; ?>" 
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['culturalContextId'.$i] : ''; ?>">
-						
-						</div>
-					
-					</div> <!-- catCellWrapper -->
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-				
-				</div> <!-- catRowWrapper -->
-
-			</div>
-		
-			<?php $i++; } ?>
-			
-		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- Style Period -->
-		
-		<div class="catSectionWrapper workSection">
-		
-			<?php
-			
-			$rows = 0;
-			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'stylePeriodId')) {
-					$rows++;
-				}
-			}
-			
-			$i = 0;
-			while ($i < $rows) {
-			
-			?>
-
-			<div class="clone_wrap">
-		
-				<div class="catRowWrapper">
-				
-					<div class="catRowTitle">
-					
-						<div class="titleText">Style Period</div>
-
-						<input type="hidden"
-							id="WstylePeriodDisplay<?php echo $i; ?>"
-							class="cat_display"
-							name="WstylePeriodDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['work']['stylePeriodDisplay'.$i])) ? $_SESSION['work']['stylePeriodDisplay'.$i] : '1'; ?>">
-					
-					</div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WstylePeriod<?php echo $i; ?>" 
-								class="autoWidth authoritySearch idMissing"
-								name="WstylePeriod<?php echo $i; ?>" 
-								placeholder="Style Period"
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['stylePeriod'.$i] : ''; ?>">
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="hidden" 
-								id="WstylePeriodId<?php echo $i; ?>" 
-								name="WstylePeriodId<?php echo $i; ?>" 
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['stylePeriodId'.$i] : ''; ?>">
-						
-						</div>
-					
-					</div> <!-- catCellWrapper -->
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-				
-				</div> <!-- catRowWrapper -->
-
-			</div>
-		
-			<?php $i++; } ?>
-			
-		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- Location 1 -->
-		
-		<div class="catSectionWrapper  workSection">
-		
-			<?php
-			
-			$rows = 0;
-			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'locationNameType')) {
-					$rows++;
-				}
-			}
-			
-			$i = 0;
-			while ($i < $rows) {
-			
-			?>
-
-			<div class="clone_wrap">
-		
-				<div class="catRowWrapper">
-				
-					<div class="catRowTitle">
-					
-						<div class="titleText">Location</div>
-
-						<input type="hidden"
-							id="WlocationDisplay<?php echo $i; ?>"
-							class="cat_display"
-							name="WlocationDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['work']['locationDisplay'.$i])) ? $_SESSION['work']['locationDisplay'.$i] : '1'; ?>">
-					
-					</div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<input type="text" 
-								id="Wlocation<?php echo $i; ?>" 
-								class="autoWidth authoritySearch idMissing"
-								name="Wlocation<?php echo $i; ?>" 
-								placeholder="Location"
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['location'.$i] : ''; ?>">
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="hidden" 
-								id="WlocationId<?php echo $i; ?>"
-								name="WlocationId<?php echo $i; ?>" 
-								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['locationId'.$i] : ''; ?>">
-						
-						</div>
-					
-					</div> <!-- catCellWrapper -->
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-				
-				</div> <!-- catRowWrapper -->
-
-
-				
-				<!-- Location 2 -->
-				
-				<div class="catRowWrapper" style="position: relative;">
-				
-					<div class="catRowTitle"></div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<select id="WlocationType<?php echo $i; ?>" 
-								name="WlocationType<?php echo $i; ?>" 
-								title="Location type">
-							
-								<option id="blank" value="" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
-								
-								<option id="creation" value="Creation" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Creation") ? 'selected="selected"' : "" ;?>>Creation</option>
-								
-								<option id="discovery" value="Discovery" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Discovery") ? 'selected="selected"' : "" ;?>>Discovery</option>
-								
-								<option id="exhibition" value="Exhibition" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Exhibition") ? 'selected="selected"' : "" ;?>>Exhibition</option>
-								
-								<option id="formerOwner" value="Former owner" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former owner") ? 'selected="selected"' : "" ;?>>Former owner</option>
-								
-								<option id="formerRepository" value="Former repository" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former repository") ? 'selected="selected"' : "" ;?>>Former repository</option>
-								
-								<option id="formerSite" value="Former site" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former site") ? 'selected="selected"' : "" ;?>>Former site</option>
-								
-								<option id="installation" value="Installation" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Installation") ? 'selected="selected"' : "" ;?>>Installation</option>
-								
-								<option id="intended" value="Intended" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Intended") ? 'selected="selected"' : "" ;?>>Intended</option>
-								
-								<option id="owner" value="Owner" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Owner") ? 'selected="selected"' : "" ;?>>Owner</option>
-								
-								<option id="performance" value="Performance" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Performance") ? 'selected="selected"' : "" ;?>>Performance</option>
-								
-								<option id="publication" value="Publication" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Publication") ? 'selected="selected"' : "" ;?>>Publication</option>
-								
-								<option id="repository" value="Repository" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Repository") ? 'selected="selected"' : "" ;?>>Repository</option>
-								
-								<option id="site" value="Site" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Site") ? 'selected="selected"' : "" ;?>>Site</option>
-								
-								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
-							
-							</select>
-						
-						</div>
-
-						<div class="catCell">
-						
-							<select id="WlocationNameType<?php echo $i; ?>" 
-								name="WlocationNameType<?php echo $i; ?>" 
-								title="Location name type">
-							
-								<option id="blank" value="" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Name Type -</option>
-								
-								<option id="corporate" value="Corporate" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Corporate") ? 'selected="selected"' : "" ;?>>Corporate</option>
-								
-								<option id="geographic" value="Geographic" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Geographic") ? 'selected="selected"' : "" ;?>>Geographic</option>
-								
-								<option id="personal" value="Personal" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Personal") ? 'selected="selected"' : "" ;?>>Personal</option>
-								
-								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
-							
-							</select>
-						
-						</div>
-							
-					</div> <!-- catCellWrapper -->
-						
-				</div> <!-- catRowWrapper -->
-
-			</div>
-		
-			<?php $i++; } ?>
-			
-		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- Description -->
-		
-		<div class="catSectionWrapper workSection" style="padding-top: 4px; padding-bottom: 0;">
-		
-			<div class="catRowWrapper" style="height: 150px; position: relative;">
-			
-				<div class="catCellWrapper">
-				
-					<div class="catCell">
-					
-						<textarea id="Wdescription" 
-							class="fixedWidth" 
-							rows="2" 
-							name="Wdescription0" 
-							placeholder="Description"
-							style="height: 140px; overflow: hidden;"
-							><?php echo (isset($_SESSION['work']['description0'])) ? htmlspecialchars($_SESSION['work']['description0']) : ''; ?></textarea>
-					
-					</div>
-				
-				</div> <!-- catCellWrapper -->
-			
-			</div> <!-- catRowWrapper -->
-			
-		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- State / Edition -->
-		
-		<div class="catSectionWrapper workSection">
-		
-			<?php
-			
-			$rows = 0;
-			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'stateEditionType')) {
-					$rows++;
-				}
-			}
-			
-			$i = 0;
-			while ($i < $rows) {
-			
-			?>
-
-			<div class="clone_wrap">
-		
-				<div class="catRowWrapper">
-				
-					<div class="catRowTitle">
-					
-						<div class="titleText">Edition</div>
-					
-					</div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<select id="WstateEditionType<?php echo $i; ?>" 
-								name="WstateEditionType<?php echo $i; ?>" 
-								title="State/Edition type">
-							
-								<option id="blank" value="" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
-								
-								<option id="edition" value="Edition" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Edition") ? 'selected="selected"' : "" ;?>>Edition</option>
-								
-								<option id="impression" value="Impression" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Impression") ? 'selected="selected"' : "" ;?>>Impression</option>
-								
-								<option id="state" value="State" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "State") ? 'selected="selected"' : "" ;?>>State</option>
-								
-								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
-							
-							</select>
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WstateEdition<?php echo $i; ?>" 
-								class="autoWidth"
-								name="WstateEdition<?php echo $i; ?>" 
-								placeholder="State/Edition"
-								value="<?php echo (isset($_SESSION['work']['stateEdition'.$i])) ? $_SESSION['work']['stateEdition'.$i] : ''; ?>" 
-								title="State/Edition number">
-						
-						</div>
-					
-					</div> <!-- catCellWrapper -->
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-				
-				</div> <!-- catRowWrapper -->
-
-			</div>
-		
-			<?php $i++; } ?>
-			
-		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- Measurements -->
+	<!-- Measurements -->
 		
 		<div class="catSectionWrapper workSection">
 		
@@ -1449,10 +1057,845 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			<?php $i++; } ?>
 		
 		</div> <!-- catSectionWrapper -->
+
+		<!-- Cultural Context -->
+		
+		<div class="catSectionWrapper workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'culturalContextId')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) { ?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Culture</div>
+
+						<input type="hidden"
+							id="WculturalContextDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WculturalContextDisplay<?php echo $i; ?>"
+							value="1">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WculturalContext<?php echo $i; ?>" 
+								class="autoWidth authoritySearch idMissing"
+								name="WculturalContext<?php echo $i; ?>" 
+								placeholder="Cultural Context"
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['culturalContext'.$i] : ''; ?>">
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="hidden" 
+								id="WculturalContextId<?php echo $i; ?>" 
+								name="WculturalContextId<?php echo $i; ?>" 
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['culturalContextId'.$i] : ''; ?>">
+											
+						</div>
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
+		
+		<!-- Style Period -->
+		
+		<div class="catSectionWrapper workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'stylePeriodId')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Style Period</div>
+
+						<input type="hidden"
+							id="WstylePeriodDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WstylePeriodDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['stylePeriodDisplay'.$i])) ? $_SESSION['work']['stylePeriodDisplay'.$i] : '1'; ?>">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WstylePeriod<?php echo $i; ?>" 
+								class="autoWidth authoritySearch idMissing"
+								name="WstylePeriod<?php echo $i; ?>" 
+								placeholder="Style Period"
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['stylePeriod'.$i] : ''; ?>">
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="hidden" 
+								id="WstylePeriodId<?php echo $i; ?>" 
+								name="WstylePeriodId<?php echo $i; ?>" 
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['stylePeriodId'.$i] : ''; ?>">
+						
+						</div>
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
+		
+		<!-- Location 1 -->
+		
+		<div class="catSectionWrapper  workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'locationNameType')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Location</div>
+
+						<input type="hidden"
+							id="WlocationDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WlocationDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['locationDisplay'.$i])) ? $_SESSION['work']['locationDisplay'.$i] : '1'; ?>">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<input type="text" 
+								id="Wlocation<?php echo $i; ?>" 
+								class="autoWidth authoritySearch idMissing"
+								name="Wlocation<?php echo $i; ?>" 
+								placeholder="Location"
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['location'.$i] : ''; ?>">
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="hidden" 
+								id="WlocationId<?php echo $i; ?>"
+								name="WlocationId<?php echo $i; ?>" 
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['locationId'.$i] : ''; ?>">
+						
+						</div>
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+
+				<!-- Location 2 -->
+				
+				<div class="catRowWrapper" style="position: relative;">
+				
+					<div class="catRowTitle"></div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WlocationType<?php echo $i; ?>" 
+								name="WlocationType<?php echo $i; ?>" 
+								title="Location type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								
+								<option id="creation" value="Creation" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Creation") ? 'selected="selected"' : "" ;?>>Creation</option>
+								
+								<option id="discovery" value="Discovery" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Discovery") ? 'selected="selected"' : "" ;?>>Discovery</option>
+								
+								<option id="exhibition" value="Exhibition" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Exhibition") ? 'selected="selected"' : "" ;?>>Exhibition</option>
+								
+								<option id="formerOwner" value="Former owner" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former owner") ? 'selected="selected"' : "" ;?>>Former owner</option>
+								
+								<option id="formerRepository" value="Former repository" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former repository") ? 'selected="selected"' : "" ;?>>Former repository</option>
+								
+								<option id="formerSite" value="Former site" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Former site") ? 'selected="selected"' : "" ;?>>Former site</option>
+								
+								<option id="installation" value="Installation" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Installation") ? 'selected="selected"' : "" ;?>>Installation</option>
+								
+								<option id="intended" value="Intended" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Intended") ? 'selected="selected"' : "" ;?>>Intended</option>
+								
+								<option id="owner" value="Owner" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Owner") ? 'selected="selected"' : "" ;?>>Owner</option>
+								
+								<option id="performance" value="Performance" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Performance") ? 'selected="selected"' : "" ;?>>Performance</option>
+								
+								<option id="publication" value="Publication" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Publication") ? 'selected="selected"' : "" ;?>>Publication</option>
+								
+								<option id="repository" value="Repository" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Repository") ? 'selected="selected"' : "" ;?>>Repository</option>
+								
+								<option id="site" value="Site" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Site") ? 'selected="selected"' : "" ;?>>Site</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['locationType'.$i]) && $_SESSION['work']['locationType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+
+						<div class="catCell">
+						
+							<select id="WlocationNameType<?php echo $i; ?>" 
+								name="WlocationNameType<?php echo $i; ?>" 
+								title="Location name type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Name Type -</option>
+								
+								<option id="corporate" value="Corporate" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Corporate") ? 'selected="selected"' : "" ;?>>Corporate</option>
+								
+								<option id="geographic" value="Geographic" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Geographic") ? 'selected="selected"' : "" ;?>>Geographic</option>
+								
+								<option id="personal" value="Personal" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Personal") ? 'selected="selected"' : "" ;?>>Personal</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['locationNameType'.$i]) && $_SESSION['work']['locationNameType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+							
+					</div> <!-- catCellWrapper -->
+						
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
+
+		<!-- Specific Location -->
+		
+		<div class="catSectionWrapper workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'specificLocationType')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Specific Location</div>
+
+							<input type="hidden"
+							id="WspecificLocationDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WspecificLocationDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['specificLocationDisplay'.$i])) ? $_SESSION['work']['specificLocationDisplay'.$i] : '1'; ?>">
+
+						</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WspecificLocationType<?php echo $i; ?>" 
+								name="WspecificLocationType<?php echo $i; ?>" 
+								title="Specific location type">
+							
+								<option id="Type" value="Type" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								
+								<option id="Address" value="Address" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "Address") ? 'selected="selected"' : "" ;?>>Address</option>
+
+								<option id="LatLng" value="LatLng" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "LatLng") ? 'selected="selected"' : "" ;?>>LatLng</option>
+								
+								<option id="Note" value="Note" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "Note") ? 'selected="selected"' : "" ;?>>Note</option>
+							</select>
+						
+						</div>
+					</div><!-- catCellWrapper -->
+
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->	
+
+						
+				
+				<div id="specificLocationRow" class="catRowWrapper">	
+				
+	
+					<div class="catRowTitle"></div>				
+					<div class="catCellWrapper">
+
+							<div id="WspecificLocationAddress<?php echo $i; ?>" class="catCell">
+	
+								<input type="text" 
+									id="WspecificLocationAddress<?php echo $i; ?>" 
+									style="width: 14em;"
+									name="WspecificLocationAddress<?php echo $i; ?>" 
+									placeholder="Street Address"
+									value="<?php echo (isset($_SESSION['work']['specificLocationAddress'.$i])) ? $_SESSION['work']['specificLocationAddress'.$i] : ''; ?>" 
+									title="Specific location address">
+					
+							</div><!-- catCell -->
+
+							<div id="WspecificLocationZip<?php echo $i; ?>" class="catCell">
+
+								<input type="text" 
+									id="WspecificLocationZip<?php echo $i; ?>" 
+									style="width: 5.5em"
+									name="WspecificLocationZip<?php echo $i; ?>" 
+									placeholder="Postal Code"
+									value="<?php echo (isset($_SESSION['work']['specificLocationZip'.$i])) ? $_SESSION['work']['specificLocationZip'.$i] : ''; ?>" 
+									title="Specific location zip">
+
+							</div><!-- catCell -->
+
+
+						<div id="WspecificLocationLat<?php echo $i; ?>" class="catCell">
+
+							<input type="text" 
+								id="WspecificLocationLat<?php echo $i; ?>" 
+								style="width: 6.5em"
+								name="WspecificLocationLat<?php echo $i; ?>" 
+								placeholder="Latitude"
+								value="<?php echo (isset($_SESSION['work']['specificLocationLat'.$i])) ? $_SESSION['work']['specificLocationLat'.$i] : ''; ?>" 
+								title="Specific location latitude">
+
+						</div><!-- catCell -->
+
+						<div id="WspecificLocationLong<?php echo $i; ?>" class="catCell">
+				
+							<input type="text"
+								id="WspecificLocationLong<?php echo $i; ?>" 
+								style="width: 6.5em"
+								name="WspecificLocationLong<?php echo $i; ?>" 
+								placeholder="Longitude"
+								value="<?php echo (isset($_SESSION['work']['specificLocationLong'.$i])) ? $_SESSION['work']['specificLocationLong'.$i] : ''; ?>" 
+								title="Specific location longitude"> 
+
+						</div><!-- catCell -->
+
+					</div><!-- catCellWrapper -->
+				
+				</div> <!-- catRowWrapper -->
+
+				<div id="specificLocationNoteRow" class="catRowWrapper" style="height: 7em; padding-top: 6px; padding-bottom: 0; position: relative;">	
+						
+					<div class="catCellWrapper">
+
+						<div  id="WspecificLocationNote<?php echo $i; ?>" class="catCell">
+							
+							<textarea id="WspecificLocationNote<?php echo $i; ?>" 
+							class="fixedWidth" 
+							rows="2"
+							style="height: 6.5em; width: 33em; overflow: hidden;"
+							name="WspecificLocationNote<?php echo $i; ?>" 
+							placeholder="Specific Location Note"><?php echo (isset($_SESSION['work']['specificLocationNote'.$i])) ? htmlspecialchars($_SESSION['work']['specificLocationNote'.$i]) : ''; ?></textarea>
+
+						</div><!-- catCell -->
+
+					</div><!-- catCellWrapper -->
+				
+				</div> <!-- catRowWrapper -->
+			
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
+
+	<!-- Built Work -->
+	
+		<div class="catSectionWrapper  workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'builtWork')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Built Work</div>
+
+						<input type="hidden"
+							id="WbuiltWorkDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WbuiltWorkDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['builtWorkDisplay'.$i])) ? $_SESSION['work']['builtWorkDisplay'.$i] : '1'; ?>">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WbuiltWork<?php echo $i; ?>" 
+								class="autoWidth authoritySearch idMissing"
+								name="WbuiltWork<?php echo $i; ?>" 
+								placeholder="Built Work"
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['builtWork'.$i] : ''; ?>">
+						
+						</div>	
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
+
+		<!-- Related Works -->
+
+		<div class="catSectionWrapper  workSection">
+		
+			<?php
+
+			include('../_php/_order/query_work.php');
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'relationType')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Related Works</div>
+
+						<input type="hidden"
+							id="WrelatedWorkDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WrelatedWorkDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['relatedWorkDisplay'.$i])) ? $_SESSION['work']['relatedWorkDisplay'.$i] : '1'; ?>">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WrelationType<?php echo $i; ?>"
+								name="WrelationType<?php echo $i; ?>" 
+								title="relationType">
+									
+								<option id="blank" value="Type" <?php selectedOption($_SESSION['work']['relationType'.$i], ''); ?>>- Type -</option>
+								
+								<option id="relatedTo" value="Related to" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Related to'); ?>>Related to</option>
+								
+								<option id="partOf" value="Part of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Part of'); ?>>Part of</option>
+								
+								<option id="formerlyPartOf" value="Formerly part of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Formerly part of'); ?>>Formerly part of</option>
+								
+								<option id="componentOf" value="Component of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Component of'); ?>>Component of</option>
+
+								<option id="partnerInSetWith" value="Partner in set with" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Partner in set with'); ?>>Partner in set with</option>
+
+								<option id="preparatoryFor" value="Preparatory for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Preparatory for'); ?>>Preparatory for</option>
+								
+								<option id="studyFor" value="Study for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Study for'); ?>>Study for</option>
+								
+								<option id="cartoonFor" value="Cartoon for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Cartoon for'); ?>>Cartoon for</option>
+								
+								<option id="modelFor" value="Model for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Model for'); ?>>Model for</option>
+								
+								<option id="planFor" value="Plan for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Plan for'); ?>>Plan for</option>
+								
+								<option id="counterProofFor" value="Counter proof for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Counter proof for'); ?>>Counter proof for</option>
+								
+								<option id="printingPlateFor" value="Printing plate for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Printing plate for'); ?>>Printing plate for</option>
+								
+								<option id="reliefFor" value="Relief for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Relief for'); ?>>Relief for</option>
+								
+								<option id="prototypeFor" value="Prototype for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Prototype for'); ?>>Prototype for</option>
+
+								<option id="designedFor" value="Designed for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Designed for'); ?>>Designed for</option>
+
+								<option id="mateOf" value="Mate of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Mate of'); ?>>Mate of</option>
+
+								<option id="pendantOf" value="Pendant of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Pendant of'); ?>>Pendant of</option>
+
+								<option id="exhibitedAt" value="Exhibited at" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Exhibited at'); ?>>Exhibited at</option>
+
+								<option id="copyAfter" value="Copy after" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Copy after'); ?>>Copy after</option>
+
+								<option id="depicts" value="Depicts" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Depicts'); ?>>Depicts</option>
+
+								<option id="derivedFrom" value="Derived from" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Derived from'); ?>>Derived from</option>
+
+								<option id="facsimileOf" value="Facsimile of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Facsimile of'); ?>>Facsimile of</option>
+
+								<option id="replicaOf" value="Replica of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Replica of'); ?>>Replica of</option>
+
+								<option id="versionOf" value="Version of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Version of'); ?>>Version of</option>
+
+							</select>
+							
+						</div>
+						
+					<!--	<div class="catCell">
+						
+							<input type="text" 
+								id="WrelatedTo<?php //echo $i; ?>" 
+								class="autoWidth"
+								name="WrelatedTo<?php //echo $i; ?>" 
+								value="<?php //echo $_SESSION['work']['relatedTo'.$i]; ?>" 
+								maxlength="500"
+								placeholder="Related Works">
+
+						</div>-->
+								<!-- Code for child iamges -->
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+					
+				</div> <!-- catRowWrapper -->
+
+				<div id="relatedWorksSearchRow" class="catRowWrapper" style="height: auto; padding-top: 6px; padding-bottom: 0; position: relative;">
+
+				<?php $_SESSION['work']['relatedWork_search'.$i] = array('title'=>'', 'agent'=>'');?>
+					
+				
+							<div id="workAssoc_wrapper" style>
+							
+								<div id="workAssoc_searchFields">
+
+									<p>a) Search existing works:</p>
+
+									<input type="text" name="title"
+									placeholder="Title"
+									value="<?php echo $_SESSION['work']['relatedWork_search'.$i]['title']; ?>">
+									
+									<br />
+
+									<input type="text" 
+									name="agent"
+									placeholder="Agent"
+									value="<?php echo $_SESSION['work']['relatedWork_search'.$i]['agent']; ?>">
+
+									<br />
+									
+									<input type="button"
+									id="relatedWork_search_submit_button"
+									value="Search">
+
+								</div>
+
+							</div>
+
+				</div> <!-- catRowWrpper -->
+
+			</div> <!-- cloneWrap-->
+		
+			<?php $i++; } ?>
+
+		</div> <!-- catSectionWrapper -->
+		
+		<!-- State / Edition -->
+		
+		<div class="catSectionWrapper workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'stateEditionType')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+		
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Edition</div>
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WstateEditionType<?php echo $i; ?>" 
+								name="WstateEditionType<?php echo $i; ?>" 
+								title="State/Edition type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								
+								<option id="edition" value="Edition" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Edition") ? 'selected="selected"' : "" ;?>>Edition</option>
+								
+								<option id="impression" value="Impression" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Impression") ? 'selected="selected"' : "" ;?>>Impression</option>
+								
+								<option id="state" value="State" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "State") ? 'selected="selected"' : "" ;?>>State</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['stateEditionType'.$i]) && $_SESSION['work']['stateEditionType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WstateEdition<?php echo $i; ?>" 
+								class="autoWidth"
+								name="WstateEdition<?php echo $i; ?>" 
+								placeholder="State/Edition"
+								value="<?php echo (isset($_SESSION['work']['stateEdition'.$i])) ? $_SESSION['work']['stateEdition'.$i] : ''; ?>" 
+								title="State/Edition number">
+						
+						</div>
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+			
+		</div> <!-- catSectionWrapper -->
 		
 		
+		<!-- Inscription 1 -->
 		
-		<!-- Subject -->
+		<div class="catSectionWrapper workSection">
+		
+			<?php
+			
+			$rows = 0;
+			foreach ($_SESSION['work'] as $key=>$value) {
+				if (startsWith($key, 'inscriptionType')) {
+					$rows++;
+				}
+			}
+			
+			$i = 0;
+			while ($i < $rows) {
+			
+			?>
+
+			<div class="clone_wrap">
+			
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle">
+					
+						<div class="titleText">Inscription</div>
+
+						<input type="hidden"
+							id="WinscriptionDisplay<?php echo $i; ?>"
+							class="cat_display"
+							name="WinscriptionDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['inscriptionDisplay'.$i])) ? $_SESSION['work']['inscriptionDisplay'.$i] : '1'; ?>">
+					
+					</div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WinscriptionType<?php echo $i; ?>" 
+								name="WinscriptionType<?php echo $i; ?>" 
+								title="Inscription type">
+							
+								<option id="blank" value="" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],''); ?>>- Type -</option>
+								
+								<option id="signature" value="Signature" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Signature'); ?>>Signature</option>
+								
+								<option id="mark" value="Mark" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Mark'); ?>>Mark</option>
+								
+								<option id="caption" value="Caption" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Caption'); ?>>Caption</option>
+								
+								<option id="date" value="Date" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Date'); ?>>Date</option>
+								
+								<option id="text" value="Text" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Text'); ?>>Text</option>
+								
+								<option id="translation" value="Translation" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Translation'); ?>>Translation</option>
+								
+								<option id="other" value="Other" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Other'); ?>>Other</option>
+							
+							</select>
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WworkInscription<?php echo $i; ?>" 
+								class="autoWidth"
+								name="WworkInscription<?php echo $i; ?>" 
+								placeholder="Inscription text"
+								value="<?php echo htmlspecialchars($_SESSION['work']['workInscription'.$i]); ?>" 
+								maxlength="500">
+						
+						</div>
+					
+					</div> <!-- catCellWrapper -->
+					
+					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
+					<div class="addButton"><img src="_assets/_images/plus.png"></div>
+				
+				</div> <!-- catRowWrapper -->
+				
+				<!-- Inscription 2 -->
+				
+				<div class="catRowWrapper">
+				
+					<div class="catRowTitle"></div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WworkInscriptionAuthor<?php echo $i; ?>" 
+								name="WworkInscriptionAuthor<?php echo $i; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionAuthor'.$i]); ?>" 
+								maxlength="500"
+								style="width: 120px;"
+								placeholder="Inscription author">
+						
+						</div>
+						
+						<div class="catCell">
+						
+							<input type="text" 
+								id="WworkInscriptionLocation<?php echo $i; ?>" 
+								name="WworkInscriptionLocation<?php echo $i; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionLocation'.$i]); ?>" 
+								maxlength="500" 
+								placeholder="Inscription location">
+						
+						</div>
+						
+					</div> <!-- catCellWrapper -->
+				
+				</div> <!-- catRowWrapper -->
+
+			</div>
+		
+			<?php $i++; } ?>
+		
+		</div> <!-- catSectionWrapper -->
+
+				<!-- Subject -->
 
 		<div id="workSubject_section" class="catSectionWrapper workSection">
 		
@@ -1557,134 +2000,32 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			<?php $i++; } ?>
 		
 		</div> <!-- catSectionWrapper -->
-		
-		
-		
-		<!-- Inscription 1 -->
-		
-		<div class="catSectionWrapper workSection">
-		
-			<?php
-			
-			$rows = 0;
-			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'inscriptionType')) {
-					$rows++;
-				}
-			}
-			
-			$i = 0;
-			while ($i < $rows) {
-			
-			?>
 
-			<div class="clone_wrap">
+		<!-- Description -->
+		
+		<div class="catSectionWrapper workSection" style="padding-top: 4px; padding-bottom: 0;">
+		
+			<div class="catRowWrapper" style="height: 150px; position: relative;">
 			
-				<div class="catRowWrapper">
+				<div class="catCellWrapper">
 				
-					<div class="catRowTitle">
+					<div class="catCell">
 					
-						<div class="titleText">Inscription</div>
-
-						<input type="hidden"
-							id="WinscriptionDisplay<?php echo $i; ?>"
-							class="cat_display"
-							name="WinscriptionDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['work']['inscriptionDisplay'.$i])) ? $_SESSION['work']['inscriptionDisplay'.$i] : '1'; ?>">
+						<textarea id="Wdescription" 
+							class="fixedWidth" 
+							rows="2" 
+							name="Wdescription0" 
+							placeholder="Description"
+							style="height: 140px; overflow: hidden;"
+							><?php echo (isset($_SESSION['work']['description0'])) ? htmlspecialchars($_SESSION['work']['description0']) : ''; ?></textarea>
 					
 					</div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<select id="WinscriptionType<?php echo $i; ?>" 
-								name="WinscriptionType<?php echo $i; ?>" 
-								title="Inscription type">
-							
-								<option id="blank" value="" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],''); ?>>- Type -</option>
-								
-								<option id="signature" value="Signature" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Signature'); ?>>Signature</option>
-								
-								<option id="mark" value="Mark" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Mark'); ?>>Mark</option>
-								
-								<option id="caption" value="Caption" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Caption'); ?>>Caption</option>
-								
-								<option id="date" value="Date" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Date'); ?>>Date</option>
-								
-								<option id="text" value="Text" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Text'); ?>>Text</option>
-								
-								<option id="translation" value="Translation" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Translation'); ?>>Translation</option>
-								
-								<option id="other" value="Other" <?php selectedOption($_SESSION['work']['inscriptionType'.$i],'Other'); ?>>Other</option>
-							
-							</select>
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WworkInscription<?php echo $i; ?>" 
-								class="autoWidth"
-								name="WworkInscription<?php echo $i; ?>" 
-								placeholder="Inscription text"
-								value="<?php echo htmlspecialchars($_SESSION['work']['workInscription'.$i]); ?>" 
-								maxlength="500">
-						
-						</div>
-					
-					</div> <!-- catCellWrapper -->
-					
-					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
-					<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
-				</div> <!-- catRowWrapper -->
-				
-				
-				
-				<!-- Inscription 2 -->
-				
-				<div class="catRowWrapper">
-				
-					<div class="catRowTitle"></div>
-					
-					<div class="catCellWrapper">
-					
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WworkInscriptionAuthor<?php echo $i; ?>" 
-								name="WworkInscriptionAuthor<?php echo $i; ?>" 
-								value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionAuthor'.$i]); ?>" 
-								maxlength="500"
-								style="width: 120px;"
-								placeholder="Inscription author">
-						
-						</div>
-						
-						<div class="catCell">
-						
-							<input type="text" 
-								id="WworkInscriptionLocation<?php echo $i; ?>" 
-								name="WworkInscriptionLocation<?php echo $i; ?>" 
-								value="<?php echo htmlspecialchars($_SESSION['work']['workInscriptionLocation'.$i]); ?>" 
-								maxlength="500" 
-								placeholder="Inscription location">
-						
-						</div>
-						
-					</div> <!-- catCellWrapper -->
-				
-				</div> <!-- catRowWrapper -->
-
-			</div>
-		
-			<?php $i++; } ?>
-		
+				</div> <!-- catCellWrapper -->
+			
+			</div> <!-- catRowWrapper -->
+			
 		</div> <!-- catSectionWrapper -->
-		
-		
 		
 		<!-- Rights 1 -->
 		
@@ -1755,8 +2096,6 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catRowWrapper -->
 				
-				
-				
 				<!-- Rights 2 -->
 				
 				<div class="catRowWrapper">
@@ -1786,9 +2125,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			<?php $i++; } ?>
 		
 		</div> <!-- catSectionWrapper -->
-		
-		
-		
+	
 		<!-- Source 1 -->
 		
 		<div class="catSectionWrapper workSection"
@@ -1866,8 +2203,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
 					
 				</div> <!-- catRowWrapper -->
-				
-				
+			
 				
 				<!-- Source 2 -->
 					
@@ -1926,7 +2262,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			<?php $i++; } ?>
 		
 		</div> <!-- catSectionWrapper -->
-		
+
 	</div> <!-- catFormWrapper -->
 
 	<div style="margin-top: 10px;">
@@ -2002,6 +2338,23 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 
 	$('div#work_module input.autoWidth').each(autoWidth);
 
+	
+		//Hide the available specific location fields
+		
+		$('div#work_module [id*=specificLocationRow]').hide();
+		$('div#work_module [id*=specificLocationNoteRow]').hide();
+		$('div#work_module [id*=specificLocationNote]').hide();
+		$('div#work_module [id*=specificLocationLat]').hide();
+		$('div#work_module [id*=specificLocationLong]').hide();
+		$('div#work_module [id*=specificLocationAddress]').hide();
+		$('div#work_module [id*=specificLocationZip]').hide();
+	
+
+	//Show and Toggle specific location row/field on type change
+
+	$('div#work_module select[id*=specificLocationType]').change(displaySpecificLocation);
+		
+
 	// Adapt cataloging UI to the width of the browser window
 	$(window).resize(
 		function()
@@ -2009,7 +2362,34 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			$('div#work_module input.autoWidth').each(autoWidth);
 		});
 
-	
+
+	//Hide the related works search and results row
+
+	$('div#work_module [id*=relatedWorksSearchRow]').hide();
+
+
+	// SEARCH FOR RELATED WORK RECORDS (taken from work association)
+
+	function workAssoc_submit()
+	{
+		var titleTerm = $('div#workAssoc_searchFields input[name=title]').val();
+		var agentTerm = $('div#workAssoc_searchFields input[name=agent]').val();
+		workAssoc_search(titleTerm, agentTerm);
+	}
+
+	$('input#relatedWork_search_submit_button').click(workAssoc_submit);
+
+	$('div#workAssoc_searchFields input').keypress(function(e)
+	{
+		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
+		{
+			workAssoc_submit();
+		}
+	});
+
+	$('div#work_module select[id*=relationType]').change(displayRelatedWorksSearch);
+
+
 	// RESET ALL FIELDS
 
 	$('div#work_module button.catalogUI_clear')

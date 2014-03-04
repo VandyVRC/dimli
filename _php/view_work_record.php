@@ -27,74 +27,84 @@ while ($row = $workToLoad_r->fetch_assoc())
 }
 
 // Initialize SESSION work array and variables for cataloging input elements
+// Initialize SESSION work array and variables for cataloging input elements
 
 $_SESSION['work'] = array();
+	
+	$_SESSION['work']['titleType0'] = $Wtitle[0]['titleType'] =
+	$_SESSION['work']['title0'] = $Wtitle[0]['title'] =
+	$_SESSION['work']['agentAttribution0'] = $Wagent[0]['agentAttribution'] =
+	$_SESSION['work']['agent0'] = $Wagent[0]['agent'] =
+	$_SESSION['work']['agentType0'] = $Wagent[0]['agentType'] =
+	$_SESSION['work']['agentRole0'] = $Wagent[0]['agentRole'] =
+	$_SESSION['work']['agentId0'] = $Wagent[0]['agentId'] =
+	$_SESSION['work']['dateType0'] = $Wdate[0]['dateType'] =
+	$_SESSION['work']['dateRange0'] = $Wdate[0]['dateRange'] =
+	$_SESSION['work']['circaDate0'] = $Wdate[0]['circaDate'] =
+	$_SESSION['work']['startDate0'] = $Wdate[0]['startDate'] =
+	$_SESSION['work']['startDateEra0'] = $Wdate[0]['startDateEra'] =
+	$_SESSION['work']['endDate0'] = $Wdate[0]['endDate'] =
+	$_SESSION['work']['endDateEra0'] = $Wdate[0]['endDateEra'] =
+	$_SESSION['work']['materialType0'] = $Wmaterial[0]['materialType'] =
+	$_SESSION['work']['material0'] = $Wmaterial[0]['material'] =
+	$_SESSION['work']['materialId0'] = $Wmaterial[0]['materialId'] =
+	$_SESSION['work']['technique0'] = $Wtechnique[0]['technique'] =
+	$_SESSION['work']['techniqueId0'] = $Wtechnique[0]['techniqueId'] =
+	$_SESSION['work']['workType0'] = $WworkType[0]['workType'] =
+	$_SESSION['work']['workTypeId0'] = $WworkType[0]['workTypeId'] =	
+	$_SESSION['work']['measurementType0'] = $Wmeasurements[0]['measurementType'] =
+	$_SESSION['work']['measurementField1_0'] = $Wmeasurements[0]['measurementField1_'] =
+	$_SESSION['work']['commonMeasurementList1_0'] = $Wmeasurements[0]['commonMeasurementList1_'] =
+	$_SESSION['work']['measurementField2_0'] = $Wmeasurements[0]['measurementField2_'] =
+	$_SESSION['work']['commonMeasurementList2_0'] = $Wmeasurements[0]['commonMeasurementList2_'] =
+	$_SESSION['work']['inchesValue0'] = $Wmeasurements[0]['inchesValue'] =
+	$_SESSION['work']['areaMeasurementList0'] = $Wmeasurements[0]['areaMeasurementList'] =
+	$_SESSION['work']['days0'] = $Wmeasurements[0]['days'] =
+	$_SESSION['work']['hours0'] = $Wmeasurements[0]['hours'] =
+	$_SESSION['work']['minutes0'] = $Wmeasurements[0]['minutes'] =
+	$_SESSION['work']['seconds0'] = $Wmeasurements[0]['seconds'] =
+	$_SESSION['work']['fileSize0'] = $Wmeasurements[0]['fileSize'] =
+	$_SESSION['work']['resolutionWidth0'] = $Wmeasurements[0]['resolutionWidth'] =
+	$_SESSION['work']['resolutionHeight0'] = $Wmeasurements[0]['resolutionHeight'] =
+	$_SESSION['work']['weightUnit0'] = $Wmeasurements[0]['weightUnit'] =
+	$_SESSION['work']['otherMeasurementDescription0'] = $Wmeasurements[0]['otherMeasurementDescription'] =
+	$_SESSION['work']['culturalContext0'] = $WculturalContext[0]['culturalContext'] =
+	$_SESSION['work']['culturalContextId0'] = $WculturalContext[0]['culturalContextId'] =
+	$_SESSION['work']['stylePeriod0'] = $WstylePeriod[0]['stylePeriod'] =
+	$_SESSION['work']['stylePeriodId0'] = $WstylePeriod[0]['stylePeriodId'] =
+	$_SESSION['work']['location0'] = $Wlocation[0]['location'] =
+	$_SESSION['work']['locationId0'] = $Wlocation[0]['locationId'] =
+	$_SESSION['work']['locationNameType0'] = $Wlocation[0]['locationNameType'] =
+	$_SESSION['work']['locationType0'] = $Wlocation[0]['locationType'] =
+	$_SESSION['work']['specificLocationType0'] = $WspecificLocation[0]['specificLocationType'] =
+	$_SESSION['work']['specificLocationAddress0'] = $WspecificLocation[0]['specificLocationAddress'] =
+	$_SESSION['work']['specificLocationZip0'] = $WspecificLocation[0]['specificLocationZip'] =
+	$_SESSION['work']['specificLocationLat0'] = $WspecificLocation[0]['specificLocationLat'] =
+	$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[0]['specificLocationLong'] =
+	$_SESSION['work']['specificLocationNote0'] = $WspecificLocation[0]['specificLocationNote'] =
+	$_SESSION['work']['builtWork0'] = $WbuiltWork[0]['builtWork'] =
+	$_SESSION['work']['relationType0'] = $WrelatedWorks[0]['relationType'] =
+	$_SESSION['work']['relatedTo0'] = $WrelatedWorks[0]['relatedTo'] =
+	$_SESSION['work']['stateEditionType0'] = $WstateEdition[0]['stateEditionType'] =
+	$_SESSION['work']['stateEdition0'] = $WstateEdition[0]['stateEdition'] =
+	$_SESSION['work']['inscriptionType0'] = $Winscription[0]['inscriptionType'] =
+	$_SESSION['work']['workInscription0'] = $Winscription[0]['workInscription'] =
+	$_SESSION['work']['workInscriptionAuthor0'] = $Winscription[0]['workInscriptionAuthor'] =
+	$_SESSION['work']['workInscriptionLocation0'] = $Winscription[0]['workInscriptionLocation'] =
+	$_SESSION['work']['subjectType0'] = $Wsubject[0]['subjectType'] =
+	$_SESSION['work']['subject0'] = $Wsubject[0]['subject'] =
+	$_SESSION['work']['subjectId0'] = $Wsubject[0]['subjectId'] =
+	$_SESSION['work']['description0'] = $Wdescription =
+	$_SESSION['work']['rightsType0'] = $Wrights[0]['rightsType'] =
+	$_SESSION['work']['rightsHolder0'] = $Wrights[0]['rightsHolder'] =
+	$_SESSION['work']['rightsText0'] = $Wrights[0]['rightsText'] =
+	$_SESSION['work']['sourceNameType0'] = $Wsource[0]['sourceNameType'] =
+	$_SESSION['work']['sourceName0'] = $Wsource[0]['sourceName'] =
+	$_SESSION['work']['sourceType0'] = $Wsource[0]['sourceType'] =
+	$_SESSION['work']['source0'] = $Wsource[0]['source'] =
 
-$_SESSION['work']['titleType0'] = $Wtitle[0]['titleType'] =
-$_SESSION['work']['title0'] = $Wtitle[0]['title'] =
-$_SESSION['work']['agentAttribution0'] = $Wagent[0]['agentAttribution'] =
-$_SESSION['work']['agent0'] = $Wagent[0]['agent'] =
-$_SESSION['work']['agentType0'] = $Wagent[0]['agentType'] =
-$_SESSION['work']['agentRole0'] = $Wagent[0]['agentRole'] =
-$_SESSION['work']['agentId0'] = $Wagent[0]['agentId'] =
-$_SESSION['work']['dateType0'] = $Wdate[0]['dateType'] =
-$_SESSION['work']['dateRange0'] = $Wdate[0]['dateRange'] =
-$_SESSION['work']['circaDate0'] = $Wdate[0]['circaDate'] =
-$_SESSION['work']['startDate0'] = $Wdate[0]['startDate'] =
-$_SESSION['work']['startDateEra0'] = $Wdate[0]['startDateEra'] =
-$_SESSION['work']['endDate0'] = $Wdate[0]['endDate'] =
-$_SESSION['work']['endDateEra0'] = $Wdate[0]['endDateEra'] =
-$_SESSION['work']['materialType0'] = $Wmaterial[0]['materialType'] =
-$_SESSION['work']['material0'] = $Wmaterial[0]['material'] =
-$_SESSION['work']['materialId0'] = $Wmaterial[0]['materialId'] =
-$_SESSION['work']['technique0'] = $Wtechnique[0]['technique'] =
-$_SESSION['work']['techniqueId0'] = $Wtechnique[0]['techniqueId'] =
-$_SESSION['work']['workType0'] = $WworkType[0]['workType'] =
-$_SESSION['work']['workTypeId0'] = $WworkType[0]['workTypeId'] =
-$_SESSION['work']['culturalContext0'] = $WculturalContext[0]['culturalContext'] =
-$_SESSION['work']['culturalContextId0'] = $WculturalContext[0]['culturalContextId'] =
-$_SESSION['work']['stylePeriod0'] = $WstylePeriod[0]['stylePeriod'] =
-$_SESSION['work']['stylePeriodId0'] = $WstylePeriod[0]['stylePeriodId'] =
-$_SESSION['work']['location0'] = $Wlocation[0]['location'] =
-$_SESSION['work']['locationId0'] = $Wlocation[0]['locationId'] =
-$_SESSION['work']['locationNameType0'] = $Wlocation[0]['locationNameType'] =
-$_SESSION['work']['locationType0'] = $Wlocation[0]['locationType'] =
-$_SESSION['work']['description0'] = $Wdescription =
-$_SESSION['work']['stateEditionType0'] = $WstateEdition[0]['stateEditionType'] =
-$_SESSION['work']['stateEdition0'] = $WstateEdition[0]['stateEdition'] =
-$_SESSION['work']['measurementType0'] = $Wmeasurements[0]['measurementType'] =
-$_SESSION['work']['measurementField1_0'] = $Wmeasurements[0]['measurementField1_'] =
-$_SESSION['work']['commonMeasurementList1_0'] = $Wmeasurements[0]['commonMeasurementList1_'] =
-$_SESSION['work']['measurementField2_0'] = $Wmeasurements[0]['measurementField2_'] =
-$_SESSION['work']['commonMeasurementList2_0'] = $Wmeasurements[0]['commonMeasurementList2_'] =
-$_SESSION['work']['inchesValue0'] = $Wmeasurements[0]['inchesValue'] =
-$_SESSION['work']['areaMeasurementList0'] = $Wmeasurements[0]['areaMeasurementList'] =
-$_SESSION['work']['days0'] = $Wmeasurements[0]['days'] =
-$_SESSION['work']['hours0'] = $Wmeasurements[0]['hours'] =
-$_SESSION['work']['minutes0'] = $Wmeasurements[0]['minutes'] =
-$_SESSION['work']['seconds0'] = $Wmeasurements[0]['seconds'] =
-$_SESSION['work']['fileSize0'] = $Wmeasurements[0]['fileSize'] =
-$_SESSION['work']['resolutionWidth0'] = $Wmeasurements[0]['resolutionWidth'] =
-$_SESSION['work']['resolutionHeight0'] = $Wmeasurements[0]['resolutionHeight'] =
-$_SESSION['work']['weightUnit0'] = $Wmeasurements[0]['weightUnit'] =
-$_SESSION['work']['otherMeasurementDescription0'] = $Wmeasurements[0]['otherMeasurementDescription'] =
-$_SESSION['work']['subjectType0'] = $Wsubject[0]['subjectType'] =
-$_SESSION['work']['subject0'] = $Wsubject[0]['subject'] =
-$_SESSION['work']['subjectId0'] = $Wsubject[0]['subjectId'] =
-$_SESSION['work']['inscriptionType0'] = $Winscription[0]['inscriptionType'] =
-$_SESSION['work']['workInscription0'] = $Winscription[0]['workInscription'] =
-$_SESSION['work']['workInscriptionAuthor0'] = $Winscription[0]['workInscriptionAuthor'] =
-$_SESSION['work']['workInscriptionLocation0'] = $Winscription[0]['workInscriptionLocation'] =
-$_SESSION['work']['rightsType0'] = $Wrights[0]['rightsType'] =
-$_SESSION['work']['rightsHolder0'] = $Wrights[0]['rightsHolder'] =
-$_SESSION['work']['rightsText0'] = $Wrights[0]['rightsText'] =
-$_SESSION['work']['sourceNameType0'] = $Wsource[0]['sourceNameType'] =
-$_SESSION['work']['sourceName0'] = $Wsource[0]['sourceName'] =
-$_SESSION['work']['sourceType0'] = $Wsource[0]['sourceType'] =
-$_SESSION['work']['source0'] = $Wsource[0]['source'] =
-$_SESSION['work']['updated'] = '';
-
-
+	$_SESSION['work']['updated'] = '';
+	
 if ($_SESSION['workNum'] != 'None')
 // There IS a related work in the image record
 // Retrieve info about the work
@@ -245,6 +255,38 @@ if ($_SESSION['workNum'] != 'None')
 		$i ++;
 	}
 	
+	// -------------------
+	//	Measurements
+	// -------------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.measurements 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['measurementType'.$i] = $Wmeasurements[$i]['measurementType'] = $row['measurements_type'];
+		$_SESSION['work']['measurementField1_'.$i] = $Wmeasurements[$i]['measurementField1_'] = $row['measurements_text'];
+		$_SESSION['work']['commonMeasurementList1_'.$i] = $Wmeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
+		$_SESSION['work']['measurementField2_'.$i] = $Wmeasurements[$i]['measurementField2_'] = $row['measurements_text_2'];
+		$_SESSION['work']['commonMeasurementList2_'.$i] = $Wmeasurements[$i]['commonMeasurementList2_'] = $row['measurements_unit_2'];
+		$_SESSION['work']['inchesValue'.$i] = $Wmeasurements[$i]['inchesValue'] = $row['inches_value'];
+		$_SESSION['work']['areaMeasurementList'.$i] = $Wmeasurements[$i]['areaMeasurementList'] = $row['area_unit'];
+		$_SESSION['work']['days'.$i] = $Wmeasurements[$i]['days'] = $row['duration_days'];
+		$_SESSION['work']['hours'.$i] = $Wmeasurements[$i]['hours'] = $row['duration_hours'];
+		$_SESSION['work']['minutes'.$i] = $Wmeasurements[$i]['minutes'] = $row['duration_minutes'];
+		$_SESSION['work']['seconds'.$i] = $Wmeasurements[$i]['seconds'] = $row['duration_seconds'];
+		$_SESSION['work']['fileSize'.$i] = $Wmeasurements[$i]['fileSize'] = $row['filesize_unit'];
+		$_SESSION['work']['resolutionWidth'.$i] = $Wmeasurements[$i]['resolutionWidth'] = $row['resolution_width'];
+		$_SESSION['work']['resolutionHeight'.$i] = $Wmeasurements[$i]['resolutionHeight'] = $row['resolution_height'];
+		$_SESSION['work']['weightUnit'.$i] = $Wmeasurements[$i]['weightUnit'] = $row['weight_unit'];
+		$_SESSION['work']['otherMeasurementDescription'.$i] = $Wmeasurements[$i]['otherMeasurementDescription'] = $row['measurements_description'];
+		$_SESSION['work']['measurementDisplay'.$i] = $Wtitle[$i]['measurementDisplay'] = $row['display'];
+		$i ++;
+	}
+
 	// ----------------------
 	//	Cultural Context
 	// ----------------------
@@ -301,20 +343,61 @@ if ($_SESSION['workNum'] != 'None')
 		$i ++;
 	}
 	
-	// -----------------
-	//	Description
-	// -----------------
-	
+	// -------------
+	//	Specific Location
+	// -------------
+
 	$sql = "SELECT * 
-				FROM $DB_NAME.work 
-				WHERE id = '{$_SESSION['workNum']}' ";
+				FROM $DB_NAME.specific_location 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
 	
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['description0'] = $Wdescription0 = $row['description'];
+	$i = 0; while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['specificLocationType'.$i] = $WspecificLocation[$i]['specificLocationType'] = $row['location_type'];
+		$_SESSION['work']['specificLocationAddress0'] = $WspecificLocation[$i]['specificLocationAddress'] = $row['address'];
+		$_SESSION['work']['specificLocationZip0'] = $WspecificLocation[$i]['specificLocationZip'] = $row['zip'];
+		$_SESSION['work']['specificLocationLat0'] = $WspecificLocation[$i]['specificLocationLat'] = $row['latitude'];
+		$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
+		$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
+		$_SESSION['work']['specificLocationDisplay'.$i] = $WspecificLocation[$i]['specificLocationDisplay'] = $row['display'];
+		$i ++;
 	}
+
+	// -------------
+	//	Built Work
+	// -------------
+	$workNum6 = str_pad($_SESSION['workNum'], 6, '0', STR_PAD_LEFT);
+
+	$sql = "SELECT * 
+				FROM $DB_NAME.location 
+				WHERE location_getty_id = 'work{$workNum6}' ";
+
+	$used_res = db_query($mysqli, $sql);
 	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['builtWork'.$i] = $WbuiltWork[$i]['relatedTo'] = $row['location_text'];
+	$_SESSION['work']['builtWorkDisplay'.$i] = $WbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
+		$i ++;
+	}
+	// -------------
+	//	Related Work
+	// ------------
+	$sql = "SELECT * 
+				FROM $DB_NAME.relation 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['relatedTo'.$i] = $WrelatedWorks[$i]['relatedTo'] = $row['related_to'];
+		$_SESSION['work']['relationType'.$i] = $WrelatedWorks[$i]['relationType'] = $row['relatrion_type'];
+		$_SESSION['work']['relationType'.$i] = $WrelatedWorks[$i]['relationType'] = $row['display'];
+		$i ++;
+	}
+
 	// -------------------
 	//	State/Edition
 	// -------------------
@@ -329,57 +412,6 @@ if ($_SESSION['workNum'] != 'None')
 	while ($row = $result->fetch_assoc()) {
 		$_SESSION['work']['stateEditionType'.$i] = $WstateEdition[$i]['stateEditionType'] = $row['edition_type'];
 		$_SESSION['work']['stateEdition'.$i] = $WstateEdition[$i]['stateEdition'] = $row['edition_text'];
-		$i ++;
-	}
-	
-	// -------------------
-	//	Measurements
-	// -------------------
-	
-	$sql = "SELECT * 
-				FROM $DB_NAME.measurements 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
-
-	$result = db_query($mysqli, $sql);
-	
-	$i = 0;
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['measurementType'.$i] = $Wmeasurements[$i]['measurementType'] = $row['measurements_type'];
-		$_SESSION['work']['measurementField1_'.$i] = $Wmeasurements[$i]['measurementField1_'] = $row['measurements_text'];
-		$_SESSION['work']['commonMeasurementList1_'.$i] = $Wmeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
-		$_SESSION['work']['measurementField2_'.$i] = $Wmeasurements[$i]['measurementField2_'] = $row['measurements_text_2'];
-		$_SESSION['work']['commonMeasurementList2_'.$i] = $Wmeasurements[$i]['commonMeasurementList2_'] = $row['measurements_unit_2'];
-		$_SESSION['work']['inchesValue'.$i] = $Wmeasurements[$i]['inchesValue'] = $row['inches_value'];
-		$_SESSION['work']['areaMeasurementList'.$i] = $Wmeasurements[$i]['areaMeasurementList'] = $row['area_unit'];
-		$_SESSION['work']['days'.$i] = $Wmeasurements[$i]['days'] = $row['duration_days'];
-		$_SESSION['work']['hours'.$i] = $Wmeasurements[$i]['hours'] = $row['duration_hours'];
-		$_SESSION['work']['minutes'.$i] = $Wmeasurements[$i]['minutes'] = $row['duration_minutes'];
-		$_SESSION['work']['seconds'.$i] = $Wmeasurements[$i]['seconds'] = $row['duration_seconds'];
-		$_SESSION['work']['fileSize'.$i] = $Wmeasurements[$i]['fileSize'] = $row['filesize_unit'];
-		$_SESSION['work']['resolutionWidth'.$i] = $Wmeasurements[$i]['resolutionWidth'] = $row['resolution_width'];
-		$_SESSION['work']['resolutionHeight'.$i] = $Wmeasurements[$i]['resolutionHeight'] = $row['resolution_height'];
-		$_SESSION['work']['weightUnit'.$i] = $Wmeasurements[$i]['weightUnit'] = $row['weight_unit'];
-		$_SESSION['work']['otherMeasurementDescription'.$i] = $Wmeasurements[$i]['otherMeasurementDescription'] = $row['measurements_description'];
-		$_SESSION['work']['measurementDisplay'.$i] = $Wtitle[$i]['measurementDisplay'] = $row['display'];
-		$i ++;
-	}
-	
-	// --------------
-	//	Subject
-	// --------------
-	
-	$sql = "SELECT * 
-				FROM $DB_NAME.subject 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
-
-	$result = db_query($mysqli, $sql);
-	
-	$i = 0;
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['subjectType'.$i] = $Wsubject[$i]['subjectType'] = $row['subject_type'];
-		$_SESSION['work']['subject'.$i] = $Wsubject[$i]['subject'] = $row['subject_text'];
-		$_SESSION['work']['subjectId'.$i] = $Wsubject[$i]['subjectId'] = $row['subject_getty_id'];
-		$_SESSION['work']['subjectDisplay'.$i] = $Wtitle[$i]['subjectDisplay'] = $row['display'];
 		$i ++;
 	}
 	
@@ -401,6 +433,39 @@ if ($_SESSION['workNum'] != 'None')
 		$_SESSION['work']['workInscriptionLocation'.$i] = $Winscription[$i]['workInscriptionLocation'] = $row['inscription_location'];
 		$_SESSION['work']['inscriptionDisplay'.$i] = $Wtitle[$i]['inscriptionDisplay'] = $row['display'];
 		$i ++;
+	}
+
+	// --------------
+	//	Subject
+	// --------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.subject 
+				WHERE related_works = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['subjectType'.$i] = $Wsubject[$i]['subjectType'] = $row['subject_type'];
+		$_SESSION['work']['subject'.$i] = $Wsubject[$i]['subject'] = $row['subject_text'];
+		$_SESSION['work']['subjectId'.$i] = $Wsubject[$i]['subjectId'] = $row['subject_getty_id'];
+		$_SESSION['work']['subjectDisplay'.$i] = $Wtitle[$i]['subjectDisplay'] = $row['display'];
+		$i ++;
+	}
+
+	// -----------------
+	//	Description
+	// -----------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.work 
+				WHERE id = '{$_SESSION['workNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['description0'] = $Wdescription0 = $row['description'];
 	}
 	
 	// --------------
@@ -491,7 +556,7 @@ include('../_php/_order/query_work.php'); ?>
 					<input type="text" 
 						name="agent"
 						placeholder="Agent"
-						value="<?php echo $_SESSION['workAssoc_search']['title']; ?>">
+						value="<?php echo $_SESSION['workAssoc_search']['agent']; ?>">
 
 					<br>
 
@@ -585,7 +650,8 @@ include('../_php/_order/query_work.php'); ?>
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0')) && checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) {
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
+		{
 		// IF a preferred image is assigned for this work record
 		?>
 
@@ -742,6 +808,28 @@ include('../_php/_order/query_work.php'); ?>
 		?></div>
 
 	</div>
+
+	<!--
+		Measurements
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Measure:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workMeasurements)) {
+				foreach ($workMeasurements as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
 	
 	<!--
 		Cultural Contexts
@@ -808,17 +896,69 @@ include('../_php/_order/query_work.php'); ?>
 		?></div>
 
 	</div>
-	
+
 	<!--
-		Description
+		Specific Location
 	-->
-	
+
 	<div class="content_line">
 
-		<div class="content_lineTitle">Description:</div>
+		<div class="content_lineTitle">Specific Location:</div>
 
 		<div class="content_lineText"><?php
-			echo (!empty($workDescription)) ? $workDescription : '--';
+			if (!empty($workSpecificLocations)) {
+				foreach ($workSpecificLocations as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Built Work
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Built Work:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workBuiltWork)) {
+				foreach ($workBuiltWork as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Related Works
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Related Works:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workRelatedWorks)) {
+				foreach ($workRelatedWorks as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
 		?></div>
 
 	</div>
@@ -840,18 +980,18 @@ include('../_php/_order/query_work.php'); ?>
 		?></div>
 
 	</div>
-
+	
 	<!--
-		Measurements
+		Inscriptions
 	-->
 	
 	<div class="content_line">
 
-		<div class="content_lineTitle">Measure:</div>
+		<div class="content_lineTitle">Inscription:</div>
 
 		<div class="content_lineText"><?php
-			if (!empty($workMeasurements)) {
-				foreach ($workMeasurements as $datum) {
+			if (!empty($workInscriptions)) {
+				foreach ($workInscriptions as $datum) {
 					foreach ($datum as $disp=>$toggle) {
 						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
 						echo $disp . '<br>';
@@ -884,29 +1024,21 @@ include('../_php/_order/query_work.php'); ?>
 		?></div>
 
 	</div>
-	
+
 	<!--
-		Inscriptions
+		Description
 	-->
 	
 	<div class="content_line">
 
-		<div class="content_lineTitle">Inscription:</div>
+		<div class="content_lineTitle">Description:</div>
 
 		<div class="content_lineText"><?php
-			if (!empty($workInscriptions)) {
-				foreach ($workInscriptions as $datum) {
-					foreach ($datum as $disp=>$toggle) {
-						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
-						echo $disp . '<br>';
-						echo ($toggle=='0') ? '</span>' : '';
-					}
-				}
-			}
+			echo (!empty($workDescription)) ? $workDescription : '--';
 		?></div>
 
 	</div>
-	
+
 	<!--
 		Rights
 	-->
@@ -1059,6 +1191,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 ?>
 
 <script>
+
 
 	/*
 	Break Work and Image association
@@ -1213,4 +1346,3 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 		});
 
 </script>
-

@@ -167,7 +167,8 @@ else {
 			
 			<?php echo $str;
 
-			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg")){ ?>
+			if ($row['RecordType'] == 'Image') // && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg"))
+			{ ?>
 
 				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
@@ -175,7 +176,8 @@ else {
 
 	<?php }
 
-			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) { ?>
+			if ($row['RecordType'] == 'Work')// && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) 
+			{ ?>
 
 						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $pref_imageId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
@@ -199,10 +201,10 @@ else {
 	
 	<?php 	
 	
-	}
+	
 
 		$i ++; 	
-		
+	}	
 }
 	?>
 

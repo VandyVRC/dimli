@@ -13,11 +13,7 @@ require_priv('priv_catalog');
 // --------------------------------
 
 $_SESSION['titleArray']=$_SESSION['agentArray']=$_SESSION['dateArray']=
-$_SESSION['materialArray']=$_SESSION['techniqueArray']=$_SESSION['workTypeArray']=
-$_SESSION['culturalContextArray']=$_SESSION['stylePeriodArray']=$_SESSION['locationArray']=
-$_SESSION['descriptionArray']=$_SESSION['stateEditionArray']=$_SESSION['measurementsArray']=
-$_SESSION['subjectArray']=$_SESSION['inscriptionArray']=$_SESSION['rightsArray']= 
-$_SESSION['sourceArray']= array();
+$_SESSION['materialArray']=$_SESSION['techniqueArray']=$_SESSION['workTypeArray']=$_SESSION['measurementsArray']=$_SESSION['culturalContextArray']=$_SESSION['stylePeriodArray']=$_SESSION['locationArray']=$_SESSION['builtWorkArray']=$_SESSION['relatedWorksArray']=$_SESSION['stateEditionArray']= $_SESSION['inscriptionArray']=$_SESSION['subjectArray']=$_SESSION['descriptionArray']=$_SESSION['rightsArray']=$_SESSION['sourceArray']=array();
 
 foreach ($_POST['json'] as $key => $value) {
 
@@ -80,6 +76,16 @@ foreach ($_POST['json'] as $key => $value) {
 		} elseif (substr($key, 0, 2) == 'NW') {
 			$_SESSION['workTypeArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
+
+	} elseif (preg_match('/(Measure|measure|inches|days|hours|minutes|seconds|fileSize|resolution|weight)/', $key)) {
+	
+		if (substr($key, 0, 1) == 'W') {
+			$_SESSION['measurementsArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 1) == 'I') {
+			$_SESSION['measurementsArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 2) == 'NW') {
+			$_SESSION['measurementsArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+		}	
 		
 	} elseif (preg_match('/culturalContext/', $key)) {
 	
@@ -110,15 +116,25 @@ foreach ($_POST['json'] as $key => $value) {
 		} elseif (substr($key, 0, 2) == 'NW') {
 			$_SESSION['locationArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
-		
-	} elseif (preg_match('/description/', $key)) {
+
+	} elseif (preg_match('/builtWork/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['descriptionArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+			$_SESSION['builtWorkArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['descriptionArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+			$_SESSION['builtWorkArray']['image'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['descriptionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+			$_SESSION['builtWorkArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+		}
+
+	} elseif (preg_match('/relatedWorks/', $key)) {
+	
+		if (substr($key, 0, 1) == 'W') {
+			$_SESSION['relatedWorksArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 1) == 'I') {
+			$_SESSION['relatedWorksArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 2) == 'NW') {
+			$_SESSION['relatedWorksArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/stateEdition/', $key)) {
@@ -131,26 +147,6 @@ foreach ($_POST['json'] as $key => $value) {
 			$_SESSION['stateEditionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
-	} elseif (preg_match('/(Measure|measure|inches|days|hours|minutes|seconds|fileSize|resolution|weight)/', $key)) {
-	
-		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['measurementsArray']['work'][$key] = trim($mysqli->real_escape_string($value));
-		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['measurementsArray']['image'][$key] = trim($mysqli->real_escape_string($value));
-		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['measurementsArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
-		}
-		
-	} elseif (preg_match('/subject/', $key)) {
-	
-		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['subjectArray']['work'][$key] = trim($mysqli->real_escape_string($value));
-		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['subjectArray']['image'][$key] = trim($mysqli->real_escape_string($value));
-		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['subjectArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
-		}
-		
 	} elseif (preg_match('/(Inscription|inscription)/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
@@ -160,7 +156,27 @@ foreach ($_POST['json'] as $key => $value) {
 		} elseif (substr($key, 0, 2) == 'NW') {
 			$_SESSION['inscriptionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
+
+	} elseif (preg_match('/subject/', $key)) {
+	
+		if (substr($key, 0, 1) == 'W') {
+			$_SESSION['subjectArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 1) == 'I') {
+			$_SESSION['subjectArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 2) == 'NW') {
+			$_SESSION['subjectArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+		}		
 		
+	} elseif (preg_match('/description/', $key)) {
+	
+		if (substr($key, 0, 1) == 'W') {
+			$_SESSION['descriptionArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 1) == 'I') {
+			$_SESSION['descriptionArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 2) == 'NW') {
+			$_SESSION['descriptionArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+		}
+
 	} elseif (preg_match('/rights/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
@@ -185,9 +201,9 @@ foreach ($_POST['json'] as $key => $value) {
 
 }
 
-$title = $agent = $date = $material = $technique = $workType = $culturalContext = $stylePeriod = $location = $description = $stateEdition = $measurements = $subject = $inscription = $rights = $source = array();
+$title = $agent = $date = $material = $technique = $workType = $measurements = $culturalContext = $stylePeriod = $location = $builtWork = $relatedWorks = $stateEdition = $inscription = $subject = $description = $rights = $source = array();
 
-$dataTypes = array('title','agent','date','material','technique','workType','culturalContext','stylePeriod','location','description','stateEdition','measurements','subject','inscription','rights','source');
+$dataTypes = array('title','agent','date','material','technique','workType','measurements','culturalContext','stylePeriod','location','builtWork','relatedWorks','stateEdition','inscription','subject','description','rights','source');
 
 $work = $image = $createNewWork = array();
 
@@ -270,4 +286,3 @@ else
 
 	require_once('../_php/updateImage_script.php');
 }
-

@@ -42,7 +42,7 @@ if (isset($_GET['imageRecord']))
 
 	$_SESSION['image'] = array();
 	
-	$_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
+$_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	$_SESSION['image']['title0'] = $Ititle[0]['title'] =
 	$_SESSION['image']['agentAttribution0'] = $Iagent[0]['agentAttribution'] =
 	$_SESSION['image']['agent0'] = $Iagent[0]['agent'] =
@@ -62,18 +62,7 @@ if (isset($_GET['imageRecord']))
 	$_SESSION['image']['technique0'] = $Itechnique[0]['technique'] =
 	$_SESSION['image']['techniqueId0'] = $Itechnique[0]['techniqueId'] =
 	$_SESSION['image']['workType0'] = $IworkType[0]['workType'] =
-	$_SESSION['image']['workTypeId0'] = $IworkType[0]['workTypeId'] =
-	$_SESSION['image']['culturalContext0'] = $IculturalContext[0]['culturalContext'] =
-	$_SESSION['image']['culturalContextId0'] = $IculturalContext[0]['culturalContextId'] =
-	$_SESSION['image']['stylePeriod0'] = $IstylePeriod[0]['stylePeriod'] =
-	$_SESSION['image']['stylePeriodId0'] = $IstylePeriod[0]['stylePeriodId'] =
-	$_SESSION['image']['location0'] = $Ilocation[0]['location'] =
-	$_SESSION['image']['locationId0'] = $Ilocation[0]['locationId'] =
-	$_SESSION['image']['locationNameType0'] = $Ilocation[0]['locationNameType'] =
-	$_SESSION['image']['locationType0'] = $Ilocation[0]['locationType'] =
-	$_SESSION['image']['description0'] = $Idescription =
-	$_SESSION['image']['stateEditionType0'] = $IstateEdition[0]['stateEditionType'] =
-	$_SESSION['image']['stateEdition0'] = $IstateEdition[0]['stateEdition'] =
+	$_SESSION['image']['workTypeId0'] = $IworkType[0]['workTypeId'] =	
 	$_SESSION['image']['measurementType0'] = $Imeasurements[0]['measurementType'] =
 	$_SESSION['image']['measurementField1_0'] = $Imeasurements[0]['measurementField1_'] =
 	$_SESSION['image']['commonMeasurementList1_0'] = $Imeasurements[0]['commonMeasurementList1_'] =
@@ -86,17 +75,37 @@ if (isset($_GET['imageRecord']))
 	$_SESSION['image']['minutes0'] = $Imeasurements[0]['minutes'] =
 	$_SESSION['image']['seconds0'] = $Imeasurements[0]['seconds'] =
 	$_SESSION['image']['fileSize0'] = $Imeasurements[0]['fileSize'] =
-	$_SESSION['image']['resolutionWidth0'] = $Imeasurements[0]['resolutionWidth'] =
+	$_SESSION['image']['resolutioWidth0'] = $Imeasurements[0]['resolutioWidth'] =
 	$_SESSION['image']['resolutionHeight0'] = $Imeasurements[0]['resolutionHeight'] =
 	$_SESSION['image']['weightUnit0'] = $Imeasurements[0]['weightUnit'] =
 	$_SESSION['image']['otherMeasurementDescription0'] = $Imeasurements[0]['otherMeasurementDescription'] =
-	$_SESSION['image']['subjectType0'] = $Isubject[0]['subjectType'] =
-	$_SESSION['image']['subject0'] = $Isubject[0]['subject'] =
-	$_SESSION['image']['subjectId0'] = $Isubject[0]['subjectId'] =
+	$_SESSION['image']['culturalContext0'] = $IculturalContext[0]['culturalContext'] =
+	$_SESSION['image']['culturalContextId0'] = $IculturalContext[0]['culturalContextId'] =
+	$_SESSION['image']['stylePeriod0'] = $IstylePeriod[0]['stylePeriod'] =
+	$_SESSION['image']['stylePeriodId0'] = $IstylePeriod[0]['stylePeriodId'] =
+	$_SESSION['image']['location0'] = $Ilocation[0]['location'] =
+	$_SESSION['image']['locationId0'] = $Ilocation[0]['locationId'] =
+	$_SESSION['image']['locationNameType0'] = $Ilocation[0]['locationNameType'] =
+	$_SESSION['image']['locationType0'] = $Ilocation[0]['locationType'] =
+	$_SESSION['image']['specificLocationType0'] = $IspecificLocation[0]['specificLocationType'] =
+	$_SESSION['image']['specificLocationAddress0'] = $IspecificLocation[0]['specificLocationAddress'] =
+	$_SESSION['image']['specificLocationZip0'] = $IspecificLocation[0]['specificLocationZip'] =
+	$_SESSION['image']['specificLocationLat0'] = $IspecificLocation[0]['specificLocationLat'] =
+	$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[0]['specificLocationLong'] =
+		$_SESSION['image']['specificLocationNote0'] = $IspecificLocation[0]['specificLocationNote'] =
+	$_SESSION['image']['builtWork0'] = $IbuiltWork[0]['builtWork'] =
+	$_SESSION['image']['relationType0'] = $IrelatedWorks[0]['relationType'] =
+	$_SESSION['image']['relatedTo0'] = $IrelatedWorks[0]['relatedTo'] =
+	$_SESSION['image']['stateEditionType0'] = $IstateEdition[0]['stateEditionType'] =
+	$_SESSION['image']['stateEdition0'] = $IstateEdition[0]['stateEdition'] =
 	$_SESSION['image']['inscriptionType0'] = $Iinscription[0]['inscriptionType'] =
 	$_SESSION['image']['workInscription0'] = $Iinscription[0]['workInscription'] =
 	$_SESSION['image']['workInscriptionAuthor0'] = $Iinscription[0]['workInscriptionAuthor'] =
 	$_SESSION['image']['workInscriptionLocation0'] = $Iinscription[0]['workInscriptionLocation'] =
+	$_SESSION['image']['subjectType0'] = $Isubject[0]['subjectType'] =
+	$_SESSION['image']['subject0'] = $Isubject[0]['subject'] =
+	$_SESSION['image']['subjectId0'] = $Isubject[0]['subjectId'] =
+	$_SESSION['image']['description0'] = $Idescription =
 	$_SESSION['image']['rightsType0'] = $Irights[0]['rightsType'] =
 	$_SESSION['image']['rightsHolder0'] = $Irights[0]['rightsHolder'] =
 	$_SESSION['image']['rightsText0'] = $Irights[0]['rightsText'] =
@@ -243,6 +252,38 @@ if (isset($_GET['imageRecord']))
 		$_SESSION['image']['workTypeDisplay'.$i] = $Ititle[$i]['workTypeDisplay'] = $row['display'];
 		$i ++;
 	}
+
+	// -------------------
+	//	Measurements
+	// -------------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.measurements 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['image']['measurementType'.$i] = $Imeasurements[$i]['measurementType'] = $row['measurements_type'];
+		$_SESSION['image']['measurementField1_'.$i] = $Imeasurements[$i]['measurementField1_'] = $row['measurements_text'];
+		$_SESSION['image']['commonMeasurementList1_'.$i] = $Imeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
+		$_SESSION['image']['measurementField2_'.$i] = $Imeasurements[$i]['measurementField2_'] = $row['measurements_text_2'];
+		$_SESSION['image']['commonMeasurementList2_'.$i] = $Imeasurements[$i]['commonMeasurementList2_'] = $row['measurements_unit_2'];
+		$_SESSION['image']['inchesValue'.$i] = $Imeasurements[$i]['inchesValue'] = $row['inches_value'];
+		$_SESSION['image']['areaMeasurementList'.$i] = $Imeasurements[$i]['areaMeasurementList'] = $row['area_unit'];
+		$_SESSION['image']['days'.$i] = $Imeasurements[$i]['days'] = $row['duration_days'];
+		$_SESSION['image']['hours'.$i] = $Imeasurements[$i]['hours'] = $row['duration_hours'];
+		$_SESSION['image']['minutes'.$i] = $Imeasurements[$i]['minutes'] = $row['duration_minutes'];
+		$_SESSION['image']['seconds'.$i] = $Imeasurements[$i]['seconds'] = $row['duration_seconds'];
+		$_SESSION['image']['fileSize'.$i] = $Imeasurements[$i]['fileSize'] = $row['filesize_unit'];
+		$_SESSION['image']['resolutionWidth'.$i] = $Imeasurements[$i]['resolutionWidth'] = $row['resolution_width'];
+		$_SESSION['image']['resolutionHeight'.$i] = $Imeasurements[$i]['resolutionHeight'] = $row['resolution_height'];
+		$_SESSION['image']['weightUnit'.$i] = $Imeasurements[$i]['weightUnit'] = $row['weight_unit'];
+		$_SESSION['image']['otherMeasurementDescription'.$i] = $Imeasurements[$i]['otherMeasurementDescription'] = $row['measurements_description'];
+		$_SESSION['image']['measurementDisplay'.$i] = $Ititle[$i]['measurementDisplay'] = $row['display'];
+		$i ++;
+	}
 	
 	// ----------------------
 	//	Cultural Context
@@ -300,20 +341,63 @@ if (isset($_GET['imageRecord']))
 		$i ++;
 	}
 	
-	// -----------------
-	//	Description
-	// -----------------
-	
+	// -------------
+	//	Specific Location
+	// -------------
+
 	$sql = "SELECT * 
-				FROM $DB_NAME.image 
-				WHERE id = '{$_SESSION['imageNum']}' ";
+				FROM $DB_NAME.specific_location 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
 	
+	$i = 0;
 	while ($row = $result->fetch_assoc()) {
-		$_SESSION['image']['description0'] = $Idescription0 = $row['description'];
+		$_SESSION['image']['specificLocationType'.$i] = $IspecificLocation[$i]['specificLocationType'] = $row['location_type'];
+		$_SESSION['image']['specificLocationAddress0'] = $IspecificLocation[$i]['specificLocationAddress'] = $row['address'];
+		$_SESSION['image']['specificLocationZip0'] = $IspecificLocation[$i]['specificLocationZip'] = $row['zip'];
+		$_SESSION['image']['specificLocationLat0'] = $IspecificLocation[$i]['specificLocationLat'] = $row['latitude'];
+		$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
+		$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
+		$_SESSION['image']['specificLocationDisplay'.$i] = $Ititle[$i]['specificLocationDisplay'] = $row['display'];
+		$i ++;
 	}
+
+	// -------------
+	//	Built Work
+	// -------------
+	$workNum6 = create_six_digits($_SESSION['workNum'], 6, '0', STR_PAD_LEFT);
+
+	$sql = "SELECT * 
+				FROM $DB_NAME.location 
+				WHERE location_getty_id = 'work{$workNum6}' ";
+
+	$used_res = db_query($mysqli, $sql);
 	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['builtWork'.$i] = $WbuiltWork[$i]['relatedTo'] = $row['location_text'];
+	$_SESSION['work']['builtWorkDisplay'.$i] = $WbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
+		$i ++;
+	}
+
+	// -------------
+	//	Related Work
+	// ------------
+	$sql = "SELECT * 
+				FROM $DB_NAME.relation 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['image']['relatedTo'.$i] = $IrelatedWorks[$i]['relatedTo'] = $row['related_to'];
+		$_SESSION['image']['relationType'.$i] = $IrelatedWorks[$i]['relationType'] = $row['relatrion_type'];
+		$_SESSION['image']['relationType'.$i] = $IrelatedWorks[$i]['relationType'] = $row['display'];
+		$i ++;
+	}
+
 	// -------------------
 	//	State/Edition
 	// -------------------
@@ -330,57 +414,7 @@ if (isset($_GET['imageRecord']))
 		$_SESSION['image']['stateEdition'.$i] = $IstateEdition[$i]['stateEdition'] = $row['edition_text'];
 		$i ++;
 	}
-	
-	// -------------------
-	//	Measurements
-	// -------------------
-	
-	$sql = "SELECT * 
-				FROM $DB_NAME.measurements 
-				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
-	$result = db_query($mysqli, $sql);
-	
-	$i = 0;
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['image']['measurementType'.$i] = $Imeasurements[$i]['measurementType'] = $row['measurements_type'];
-		$_SESSION['image']['measurementField1_'.$i] = $Imeasurements[$i]['measurementField1_'] = $row['measurements_text'];
-		$_SESSION['image']['commonMeasurementList1_'.$i] = $Imeasurements[$i]['commonMeasurementList1_'] = $row['measurements_unit'];
-		$_SESSION['image']['measurementField2_'.$i] = $Imeasurements[$i]['measurementField2_'] = $row['measurements_text_2'];
-		$_SESSION['image']['commonMeasurementList2_'.$i] = $Imeasurements[$i]['commonMeasurementList2_'] = $row['measurements_unit_2'];
-		$_SESSION['image']['inchesValue'.$i] = $Imeasurements[$i]['inchesValue'] = $row['inches_value'];
-		$_SESSION['image']['areaMeasurementList'.$i] = $Imeasurements[$i]['areaMeasurementList'] = $row['area_unit'];
-		$_SESSION['image']['days'.$i] = $Imeasurements[$i]['days'] = $row['duration_days'];
-		$_SESSION['image']['hours'.$i] = $Imeasurements[$i]['hours'] = $row['duration_hours'];
-		$_SESSION['image']['minutes'.$i] = $Imeasurements[$i]['minutes'] = $row['duration_minutes'];
-		$_SESSION['image']['seconds'.$i] = $Imeasurements[$i]['seconds'] = $row['duration_seconds'];
-		$_SESSION['image']['fileSize'.$i] = $Imeasurements[$i]['fileSize'] = $row['filesize_unit'];
-		$_SESSION['image']['resolutionWidth'.$i] = $Imeasurements[$i]['resolutionWidth'] = $row['resolution_width'];
-		$_SESSION['image']['resolutionHeight'.$i] = $Imeasurements[$i]['resolutionHeight'] = $row['resolution_height'];
-		$_SESSION['image']['weightUnit'.$i] = $Imeasurements[$i]['weightUnit'] = $row['weight_unit'];
-		$_SESSION['image']['otherMeasurementDescription'.$i] = $Imeasurements[$i]['otherMeasurementDescription'] = $row['measurements_description'];
-		$_SESSION['image']['measurementDisplay'.$i] = $Ititle[$i]['measurementDisplay'] = $row['display'];
-		$i ++;
-	}
-	
-	// --------------
-	//	Subject
-	// --------------
-	
-	$sql = "SELECT * 
-				FROM $DB_NAME.subject 
-				WHERE related_images = '{$_SESSION['imageNum']}' ";
-
-	$result = db_query($mysqli, $sql);
-	
-	$i = 0;
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['image']['subjectType'.$i] = $Isubject[$i]['subjectType'] = $row['subject_type'];
-		$_SESSION['image']['subject'.$i] = $Isubject[$i]['subject'] = $row['subject_text'];
-		$_SESSION['image']['subjectId'.$i] = $Isubject[$i]['subjectId'] = $row['subject_getty_id'];
-		$_SESSION['image']['subjectDisplay'.$i] = $Ititle[$i]['subjectDisplay'] = $row['display'];
-		$i ++;
-	}
 	
 	// -----------------
 	//	Inscription
@@ -402,6 +436,39 @@ if (isset($_GET['imageRecord']))
 		$i ++;
 	}
 	
+	// --------------
+	//	Subject
+	// --------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.subject 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['image']['subjectType'.$i] = $Isubject[$i]['subjectType'] = $row['subject_type'];
+		$_SESSION['image']['subject'.$i] = $Isubject[$i]['subject'] = $row['subject_text'];
+		$_SESSION['image']['subjectId'.$i] = $Isubject[$i]['subjectId'] = $row['subject_getty_id'];
+		$_SESSION['image']['subjectDisplay'.$i] = $Ititle[$i]['subjectDisplay'] = $row['display'];
+		$i ++;
+	}
+
+	// -----------------
+	//	Description
+	// -----------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.image 
+				WHERE id = '{$_SESSION['imageNum']}' ";
+
+	$result = db_query($mysqli, $sql);
+	
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['image']['description0'] = $Idescription0 = $row['description'];
+	}
+
 	// --------------
 	//	Rights
 	// --------------
@@ -489,6 +556,7 @@ include('../_php/_order/query_image.php');?>
 			msg(['Special privileges are required to change the image id.'], 'error');
 		}
 	});
+
 </script>
 
 <div class="imageRecord_catalogInfo">
@@ -535,29 +603,13 @@ include('../_php/_order/query_image.php');?>
 		style="position: absolute; top: 0; right: 0;">
 
 		<?php 
-				// Define filepath for thumbnail
 
-				$img_file = $image_dir.'/thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; 
+		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; ?>
 
-				// Perform only for first image in the order
-					$thumbs_available = checkRemoteFile($img_file);
-		
-				
-				if ($thumbs_available) { 
-				// If imagepath of first image was found ?>
+		<img class="catThumb"
+			src="<?php echo $imageFile; ?>">
 
-					<img style="vertical-align: top; height: 100%;"
-						src="<?php echo $img_file; ?>">
-
-				<?php } else { ?>
-
-					<img style="vertical-align: top; height: 100%;" 
-						src="_assets/_images/_missing.jpg">
-
-				<?php } ?>
-
-			</div>
-
+	</div>
 
 	<p class="clear"></p>
 	
@@ -692,6 +744,28 @@ include('../_php/_order/query_image.php');?>
 		?></div>
 
 	</div>
+
+	<!--
+		Measurements
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Measure:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($imageMeasurements)) {
+				foreach ($imageMeasurements as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
 	
 	<!--
 		Cultural Contexts
@@ -760,19 +834,70 @@ include('../_php/_order/query_image.php');?>
 	</div>
 	
 	<!--
-		Description
+		Specific Location
 	-->
-	
+
 	<div class="content_line">
 
-		<div class="content_lineTitle">Description:</div>
+		<div class="content_lineTitle">Specific Location:</div>
 
 		<div class="content_lineText"><?php
-			echo (!empty($imageDescription)) ? $imageDescription : 'None';
+			if (!empty($imageSpecificLocations)) {
+				foreach ($imageSpecificLocations as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
 		?></div>
 
 	</div>
 
+	<!--
+		Built Work
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Built Work:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($imageBuiltWork)) {
+				foreach ($imageBuiltWork as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Related Works
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Related Works:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($imageRelatedWorks)) {
+				foreach ($imageRelatedWorks as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>	
 	<!--
 		State/Edition
 	-->
@@ -785,50 +910,6 @@ include('../_php/_order/query_image.php');?>
 			if (!empty($imageEditions)) {
 				foreach ($imageEditions as $disp) {
 					echo $disp . '<br>';
-				}
-			}
-		?></div>
-
-	</div>
-	
-	<!--
-		Measurements
-	-->
-	
-	<div class="content_line">
-
-		<div class="content_lineTitle">Measure:</div>
-
-		<div class="content_lineText"><?php
-			if (!empty($imageMeasurements)) {
-				foreach ($imageMeasurements as $datum) {
-					foreach ($datum as $disp=>$toggle) {
-						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
-						echo $disp . '<br>';
-						echo ($toggle=='0') ? '</span>' : '';
-					}
-				}
-			}
-		?></div>
-
-	</div>
-	
-	<!--
-		Subjects
-	-->
-	
-	<div class="content_line">
-
-		<div class="content_lineTitle">Subject:</div>
-
-		<div class="content_lineText"><?php
-			if (!empty($imageSubjects)) {
-				foreach ($imageSubjects as $datum) {
-					foreach ($datum as $disp=>$toggle) {
-						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
-						echo $disp . '<br>';
-						echo ($toggle=='0') ? '</span>' : '';
-					}
 				}
 			}
 		?></div>
@@ -853,6 +934,42 @@ include('../_php/_order/query_image.php');?>
 					}
 				}
 			}
+		?></div>
+
+	</div>
+
+		<!--
+		Subjects
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Subject:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($imageSubjects)) {
+				foreach ($imageSubjects as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Description
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Description:</div>
+
+		<div class="content_lineText"><?php
+			echo (!empty($imageDescription)) ? $imageDescription : 'None';
 		?></div>
 
 	</div>
@@ -928,5 +1045,7 @@ include('../_php/_order/query_image.php');?>
 			image_viewer(imageView);
 
 		});
+
+
 
 </script>
