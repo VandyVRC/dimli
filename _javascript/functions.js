@@ -2649,16 +2649,11 @@ function updateCartHeading(cart) {
   $heading.text(headingText);
 
   var downloadLink = document.querySelector('#cart div.download a');
-  var href;
-  if (downloadLink.href.indexOf('?') >= 0) {
-    href = downloadLink.href.substr(0, downloadLink.href.indexOf('?'));
-  } else {
-    href = downloadLink.href;
-  }
-
   var imageList = [];
+
   $.each($('#cart div.basket img.thumb'), function (index, value) {
     imageList.push($(value).attr('data-image'));
   });
-  downloadLink.href = href + '?images=' + imageList.join();
+  
+  downloadLink.setAttribute('href', '_php/_download/download_cart.php?new=true&images=' + imageList.join());
 }

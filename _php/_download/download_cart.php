@@ -11,17 +11,21 @@ require_priv('priv_orders_download');
 // Temporarily increase PHP memory limit
 ini_set('memory_limit', '1024M');
 
+// If download is triggered from the cart, save a record.
+// If download is triggered from the welcome page, don't save a record.
+$saveDownload = $_GET['new'] === 'true';
+
 // Construct an array of filepaths to be added to the zip archive
 $images = explode(',', $_GET['images']);
 $images = array_map('convertToFilepath', $images);
 
 // Create the zip archive file
 $filename = MAIN_DIR . '/temp/download_' . $_SESSION['user_id'] . Time() . '.zip';
-$result = create_zip($images, $filename, true);
+$result = create_zip($images, $filename);
 
 // If the zip file was successfully created,
 // write the download to the database
-if ($result) {
+if ($result && $saveDownload) {
 
   $time = Time();
   $sql = "INSERT INTO dimli.download
@@ -30,8 +34,8 @@ if ($result) {
               UnixTime = '{$time}'
           ";
   $result = db_query($mysqli, $sql);
-}
 
+}
 
 if (headers_sent()) {
   echo 'HTTP header already sent';
@@ -39,7 +43,7 @@ if (headers_sent()) {
 } else {
   if (!is_file($filename)) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-    echo 'File not found';
+    echo 'File not found: ' . $filename;
 
   } elseif (!is_readable($filename)) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
@@ -66,48 +70,22 @@ if (headers_sent()) {
 }
 
 /**
- * Create a zip archive of given files,
- * and return whether the resulting archive file exists or not
+ * Creates a zip archive of a given array of filepaths
+ * @param {Array}  $files       - the filepaths to be included in the archive
+ * @param {String} $destination - the filepath destination of the resulting archive
  */
-function create_zip($files = array(), $destination = '', $overwrite = false) {
+function create_zip($files = array(), $destination = '') {
 
-  // File already exists, and not overwriting
-  if (file_exists($destination) && !$overwrite) {
-    return false;
+  // Create zip acrhive
+  $archive = new PclZip($destination);
+  $v_list = $archive->create($files, PCLZIP_OPT_REMOVE_ALL_PATH);
+
+  // Error handling (supplied by pclzip documentation)
+  if (($v_result_list = $archive->extract()) == 0) {
+    die("Error : ".$archive->errorInfo(true));
   }
 
-  $valid_files = array();
-
-  if (is_array($files)) {
-    foreach ($files as $file) {
-      if (file_exists($file)) {
-        $valid_files[] = $file;
-      }
-    }
-  }
-
-  // Files are valid
-  if (count($valid_files)) {
-    // Create archive
-    $zip = new ZipArchive();
-    if ($zip->open($destination, $overwrite ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== true) {
-      return false;
-    }
-
-    foreach($valid_files as $file) {
-      $zip->addFile($file,$file);
-    }
-
-    // Debugging
-    // echo 'The zip archive contains ', $zip->numFiles, ' files. Status of ', $zip->status;
-
-    $zip->close();
-    return file_exists($destination);
-
-  } else {
-    return false;
-
-  }
+  return $archive;
 }
 
 /**
@@ -117,5 +95,5 @@ function create_zip($files = array(), $destination = '', $overwrite = false) {
  * Used above with array_map()
  */
 function convertToFilepath($value) {
-  return MAIN_DIR . '/mdidimages/HoAC/full/' . $value . '.jpg';
+  return 'http://dimli.library.vanderbilt.edu/mdidimages/HoAC/full/' . $value . '.jpg';
 }

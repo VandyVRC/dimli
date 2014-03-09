@@ -55,7 +55,7 @@ for ($i = 0; $i < count($images); $i++) {
             ?></span>
           </div>
           <div class="download_options floatRight">
-            <a href="_php/_download/download_cart.php?images=<?php echo implode(',', $images); ?>">
+            <a href="_php/_download/download_cart.php?new=false&amp;images=<?php echo implode(',', $images); ?>">
               <img src="_assets/_images/zip.png">
               <span class="label">Full ZIP</span>
             </a>

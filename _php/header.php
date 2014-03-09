@@ -251,12 +251,19 @@ header('Content-type: text/html; charset=utf-8'); ?>
               <span class="all hidden">Empty cart</span>
               <p class="clear"></p>
               <div class="download hidden">
-                <a href="_php/_download/download_cart.php">download zip archive</a>
+                <a href="">download zip archive</a>
               </div>
             </div>
           </div>
         </div>
       </li>
+
+      <script>
+      var downloadCartLink = document.querySelector('#cart div.download a');
+      downloadCartLink.addEventListener('click', function () {
+        window.location = downloadCartLink.href;
+      });
+      </script
         
       <?php } ?>
 
