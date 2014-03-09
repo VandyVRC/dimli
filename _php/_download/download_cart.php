@@ -95,5 +95,5 @@ function create_zip($files = array(), $destination = '') {
  * Used above with array_map()
  */
 function convertToFilepath($value) {
-  return 'http://dimli.library.vanderbilt.edu/mdidimages/HoAC/full/' . $value . '.jpg';
+  return IMAGE_DIR . 'full/' . $value . '.jpg';
 }
