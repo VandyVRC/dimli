@@ -21,7 +21,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     // Determine the preferred thumbnail image for this record
     // And assign a parent Work, if available
-    if ($arr['type']=='work') {
+    if ($arr['type']=='work'){
 
       $short_id = ltrim($id, '0');
 
@@ -29,38 +29,48 @@ if (($page*$rpp)-$rpp <= count($results)) {
             FROM $DB_NAME.work 
             WHERE id = {$short_id} ";
 
-      $r = db_query($mysqli, $sql);
+      $res = db_query($mysqli, $sql);
 
-      if ($r->num_rows >= 1) {
-        while ($work = $r->fetch_assoc()) { 
-          $img_id = create_six_digits($work['preferred_image']);
+      while ($work = $res->fetch_assoc()) { 
+
+        $prefImage = $work['preferred_image'];
+        
+        $sql = "SELECT legacy_id 
+              FROM $DB_NAME.image 
+              WHERE id = '{$prefImage}' ";
+
+        $result = db_query($mysqli, $sql);
+
+          while ($row = $result->fetch_assoc()) {      
+       
+            $img_id = $row['legacy_id'];
+          }
+        $parent = 'none';
         }
-      }
-      $parent = 'none';
+    
+     }          
 
-    } elseif ($arr['type']=='image') {
-
-      $img_id = create_six_digits($id);
-
-      // Find this Image's parent Work and Order Number
-      $sql = "SELECT related_works, 
-                order_id, 
-                catalogued 
-            FROM $DB_NAME.image 
-            WHERE id = {$id} ";
-
-      $parent = db_query($mysqli, $sql);
-
-      $parent = $parent->fetch_array();
-
-      $parent = (trim($parent['related_works'] != '')) 
-        ? $parent['related_works'] 
-        : 'none';
-
-    }
+    elseif ($arr['type']=='image'){
       
+      $sql = "SELECT legacy_id, related_works 
+              FROM $DB_NAME.image 
+              WHERE id = {$id} ";   
+
+      $result = db_query($mysqli, $sql);
+
+      while ($row = $result->fetch_assoc()) {
+        
+        $img_id = $row['legacy_id'];
+
+        // Find this Image's parent Work
+        $parent = (trim($row['related_works'] != '')) 
+              ? $row['related_works'] 
+              : 'none';
+      }
+    }
+
     // If the image id of the preferred thumbnail is NOT blank, display a result row
-    if (!in_array($img_id, array('', '0'))) {
+    if (!empty($prefImage)) {
 
       $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
     ?>
@@ -72,8 +82,8 @@ if (($page*$rpp)-$rpp <= count($results)) {
           <img src="<?php echo $src; ?>"
             class="list_thumb"
             title="Click to preview"
-            data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
-            data-image="<?php echo create_six_digits($img_id); ?>">
+            data="<?php echo ($arr['type'] == 'work') ? $prefImage : create_six_digits($id); ?>"
+            data-image="<?php echo $img_id; ?>">
 
           <?php if ($_SESSION['priv_orders_read']=='1') { ?>
 
@@ -316,7 +326,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.view_catalog').click(
       function () {
-        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+        var imageNum = $(this).siblings('img.list_thumb').attr('data');
         view_image_record(imageNum);
         view_work_record(imageNum);
       });
@@ -325,7 +335,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.add_image_to_cart').click(
       function () {
-        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+        var imageNum = $(this).siblings('img.list_thumb').attr('data');
         add_to_cart(imageNum);
       });
 

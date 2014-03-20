@@ -91,6 +91,8 @@ else {
 				$pref_image = $work['preferred_image'];
 	 			}			
 
+	 		if (!empty($pref_image)) {
+
 	 		$sql = "SELECT legacy_id 
 							FROM $DB_NAME.image 
 							WHERE id = '{$pref_image}'";
@@ -101,8 +103,12 @@ else {
 				$pref_imageId = $pref['legacy_id'];			
 				}
 
-		}		
+		}
 
+		else { 
+		$pref_image ='';	
+			}	
+	}
 
 		if ($row['RecordType'] == 'Image') {
 				// Action was performed on an Work 
@@ -112,6 +118,8 @@ else {
 							WHERE id = {$row['RecordNumber']} ";
 
 						$result_image = db_query($mysqli, $sql);
+
+				if ($result_image->num_rows > 0){	
 
 					while ($image = $result_image->fetch_assoc()){
 					
@@ -123,6 +131,11 @@ else {
 					}
 
 				$recNo = $truncLeg;	
+			}
+
+			 else{
+			 	$legId ='';
+			 }
 			
 			}
 
@@ -141,7 +154,7 @@ else {
 			$str.= $row['RecordType'].' ';
 			
 			
-			$str.= $recNo;
+			if (isset($recNo)){ $str.= $recNo;}
 			
 			$str.= '</span>';
 			
@@ -154,20 +167,34 @@ else {
 
 			<div class="row defaultCursor" 
 
-			data-type="<?php echo $row['RecordType']; ?>"
+			data-type="<?php 
+			if ($row['ActivityType'] == 'deleted'){
+			echo '';	
+			}
+			else if ($row['RecordType'] == 'Image' && $legId == ''){
+			echo '';
+			}
+			else if ($row['RecordType'] == 'Work' && $pref_image == ''){
+			echo '';
+			}
+			else{
+			echo $row['RecordType'];
+			}
+			?>"
 
 			<?php if ($row['RecordType'] == "Work") { ?>
 			
-			data-pref-image="<?php echo ($pref_image !='') 
+			data-pref-image="<?php echo (!empty($pref_image)) 
 											? $pref_image 
-											: 'none'; ?>"
+											: ''; ?>"
 			<?php } ?>
 
 			data-id="<?php echo $row['RecordNumber']; ?>"
 			
 			<?php echo $str;
 
-			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg")){ ?>
+			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg"))
+			{ ?>
 
 				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
@@ -175,7 +202,8 @@ else {
 
 	<?php }
 
-			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_imageId.".jpg")) { ?>
+			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_image.".jpg")) 
+			{ ?>
 
 						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $pref_imageId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
 
@@ -199,10 +227,10 @@ else {
 	
 	<?php 	
 	
-	}
+	
 
 		$i ++; 	
-		
+	}	
 }
 	?>
 
