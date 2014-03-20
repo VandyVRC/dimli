@@ -923,23 +923,29 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
 
 function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 {
-	$workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
-	$rel_images = array();
+  $workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
+  $rel_images = array();
 
-	$sql = "SELECT id 
-				FROM $DB_NAME.image 
-				WHERE related_works = '{$workNum}' ";
+  $sql = "SELECT legacy_id 
+        FROM $DB_NAME.image 
+        WHERE related_works = '{$workNum}' ";
 
-	$res = db_query($mysqli, $sql);
+  $res = db_query($mysqli, $sql);
 
-	while ($row = $res->fetch_assoc())
-	{
-		$rel_images[] = str_pad((string)$row['id'],6,'0',STR_PAD_LEFT);
-	}
+  while ($row = $res->fetch_assoc())
+  {
+    $rel_images[] = $row['legacy_id'];
+  }
 
-	foreach ($rel_images as $img) { ?>
+  foreach ($rel_images as $img) { 
 
-		<img src="<?php echo $webroot;?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $img; ?>.jpg&amp;h=42&amp;w=42&amp;q=60">
+          $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$img.".jpg&amp;h=42&amp;w=42&amp;q=60";?>
+
+
+        <img src="<?php echo $src; ?>"
+            class="related_thumb"
+            title="Click to preview"
+            data-image="<?php echo $img; ?>">
 
 	<?php
 	}
