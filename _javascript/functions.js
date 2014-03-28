@@ -1542,7 +1542,7 @@ function reincrementSectionRows($section) {
    $section.find('div.clone_wrap').each(function() {
 
     // For each select list and input element
-      $(this).find('select, input').each(function() {
+      $(this).find('select, input, textarea').each(function() {
 
         // Update input ids
         var idRoot = $(this).attr('id').slice(0, -1);
@@ -1621,6 +1621,7 @@ function addRow_v2() {
     if (thisRowTitle == 'Specific Location') {
       $newRow.find('div#specificLocationRow').hide();
       $newRow.find('div#specificLocationNoteRow').hide();
+      $newRow.find('textarea[id*=specificLocationNote]').val('');
     }
 
   // If there are already ten rows of this type, do not allow another to be added

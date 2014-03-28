@@ -1403,7 +1403,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 					<div class="catRowTitle"></div>				
 					<div class="catCellWrapper">
 
-							<div id="WspecificLocationAddress<?php echo $i; ?>" class="catCell">
+							<div id="WspecificLocationAddress" class="catCell">
 	
 								<input type="text" 
 									id="WspecificLocationAddress<?php echo $i; ?>" 
@@ -1415,7 +1415,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 					
 							</div><!-- catCell -->
 
-							<div id="WspecificLocationZip<?php echo $i; ?>" class="catCell">
+							<div id="WspecificLocationZip" class="catCell">
 
 								<input type="text" 
 									id="WspecificLocationZip<?php echo $i; ?>" 
@@ -1428,7 +1428,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							</div><!-- catCell -->
 
 
-						<div id="WspecificLocationLat<?php echo $i; ?>" class="catCell">
+						<div id="WspecificLocationLat" class="catCell">
 
 							<input type="text" 
 								id="WspecificLocationLat<?php echo $i; ?>" 
@@ -1440,7 +1440,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 
 						</div><!-- catCell -->
 
-						<div id="WspecificLocationLong<?php echo $i; ?>" class="catCell">
+						<div id="WspecificLocationLong" class="catCell">
 				
 							<input type="text"
 								id="WspecificLocationLong<?php echo $i; ?>" 
@@ -1461,7 +1461,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 						
 					<div class="catCellWrapper"> 
 
-						<div  id="WspecificLocationNote<?php echo $i; ?>" class="catCell">
+						<div  id="WspecificLocationNote" class="catCell">
 							
 							<textarea id="WspecificLocationNote<?php echo $i; ?>" 
 							class="fixedWidth" 

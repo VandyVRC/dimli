@@ -28,7 +28,7 @@ require_priv('priv_catalog'); ?>
 			foreach ($_SESSION['image'] as $key=>$value) {
 				if (startsWith($key, 'titleType')) {
 					$rows++;
-				}
+				} 
 			}
 			
 			$i = 0;
@@ -1884,7 +1884,7 @@ require_priv('priv_catalog'); ?>
 					<div class="catRowTitle"></div>				
 					<div class="catCellWrapper">
 
-							<div id="IspecificLocationAddress<?php echo $i; ?>" class="catCell">
+							<div id="IspecificLocationAddress" class="catCell">
 	
 								<input type="text" 
 									id="IspecificLocationAddress<?php echo $i; ?>" 
@@ -1896,7 +1896,7 @@ require_priv('priv_catalog'); ?>
 					
 							</div><!-- catCell -->
 
-							<div id="IspecificLocationZip<?php echo $i; ?>" class="catCell">
+							<div id="IspecificLocationZip" class="catCell">
 
 								<input type="text" 
 									id="IspecificLocationZip<?php echo $i; ?>" 
@@ -1909,7 +1909,7 @@ require_priv('priv_catalog'); ?>
 							</div><!-- catCell -->
 
 
-						<div id="IspecificLocationLat<?php echo $i; ?>" class="catCell">
+						<div id="IspecificLocationLat" class="catCell">
 
 							<input type="text" 
 								id="IspecificLocationLat<?php echo $i; ?>" 
@@ -1921,7 +1921,7 @@ require_priv('priv_catalog'); ?>
 
 						</div><!-- catCell -->
 
-						<div id="IspecificLocationLong<?php echo $i; ?>" class="catCell">
+						<div id="IspecificLocationLong" class="catCell">
 				
 							<input type="text"
 								id="IspecificLocationLong<?php echo $i; ?>" 
@@ -1942,7 +1942,7 @@ require_priv('priv_catalog'); ?>
 
 					<div class="catCellWrapper">
 
-						<div  id="IspecificLocationNote<?php echo $i; ?>" class="catCell">
+						<div  id="IspecificLocationNote" class="catCell">
 							
 							<textarea id="IspecificLocationNote<?php echo $i; ?>" 
 							class="fixedWidth" 

@@ -4,7 +4,7 @@ require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
-confirm_logged_in();
+confirm_logged_in(); 
 require_priv('priv_catalog');
 
 if (!isset($_SESSION['createNewWork']))
@@ -1457,7 +1457,7 @@ if (!isset($_SESSION['createNewWork']))
 					<div class="catRowTitle"></div>				
 					<div class="catCellWrapper">
 
-							<div id="NWspecificLocationAddress<?php echo $i; ?>" class="catCell">
+							<div id="NWspecificLocationAddress" class="catCell">
 	
 								<input type="text" 
 									id="NWspecificLocationAddress<?php echo $i; ?>" 
@@ -1469,7 +1469,7 @@ if (!isset($_SESSION['createNewWork']))
 					
 							</div><!-- catCell -->
 
-							<div id="NWspecificLocationZip<?php echo $i; ?>" class="catCell">
+							<div id="NWspecificLocationZip" class="catCell">
 
 								<input type="text" 
 									id="NWspecificLocationZip<?php echo $i; ?>" 
@@ -1482,7 +1482,7 @@ if (!isset($_SESSION['createNewWork']))
 							</div><!-- catCell -->
 
 
-						<div id="NWspecificLocationLat<?php echo $i; ?>" class="catCell">
+						<div id="NWspecificLocationLat" class="catCell">
 
 							<input type="text" 
 								id="NWspecificLocationLat<?php echo $i; ?>" 
@@ -1494,7 +1494,7 @@ if (!isset($_SESSION['createNewWork']))
 
 						</div><!-- catCell -->
 
-						<div id="NWspecificLocationLong<?php echo $i; ?>" class="catCell">
+						<div id="NWspecificLocationLong" class="catCell">
 				
 							<input type="text"
 								id="NWspecificLocationLong<?php echo $i; ?>" 
@@ -1514,7 +1514,7 @@ if (!isset($_SESSION['createNewWork']))
 
 					<div class="catCellWrapper">
 
-						<div  id="NWspecificLocationNote<?php echo $i; ?>" class="catCell">
+						<div  id="NWspecificLocationNote" class="catCell">
 							
 							<textarea id="NWspecificLocationNote<?php echo $i; ?>" 
 							class="fixedWidth" 
