@@ -77,13 +77,14 @@ All data created by, and imported into, DIMLI will reside within these tables an
     define('site_title', 'dimli');
     $site_title = site_title;
 
-       /*
+    /*
     DEFINE ENCRYPTION SALT
     ----------------------
     Define a salt parameter to pass into the crypt function */
 
     define('SALT', '19ReXiNSuLaRuM23');
 
+    /*
     DEFINE IMAGE FILEPATH
     ---------------------
     Define the filepath for the directory that stores your JPG archive 
@@ -111,7 +112,6 @@ All data created by, and imported into, DIMLI will reside within these tables an
     */
     
     define('DIR', dirname(__DIR__).'/');
-
 
 3) Replace each of the sections in the above code that are wrapped in `{` and `}` (replacing brackets but leaving single quotation marks) with the appropriate values for your server environment.
 
