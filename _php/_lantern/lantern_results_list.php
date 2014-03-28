@@ -339,7 +339,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.add_image_to_cart').click(
       function () {
-
+        
         var images = [];
         var $related = $(this).parents('div.lanternResults_list_row').find('div.related_panel');
 

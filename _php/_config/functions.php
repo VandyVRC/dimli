@@ -923,14 +923,14 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
 
 function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 {
-	$workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
-	$rel_images = array();
+  $workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
+  $rel_images = array();
 
 	$sql = "SELECT legacy_id 
 				FROM $DB_NAME.image 
 				WHERE related_works = '{$workNum}' ";
 
-	$res = db_query($mysqli, $sql);
+  $res = db_query($mysqli, $sql);
 
 	while ($row = $res->fetch_assoc())
 	{

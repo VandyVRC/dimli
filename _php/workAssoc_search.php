@@ -229,11 +229,12 @@ if (!empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
 
 		$culture_result = db_query($mysqli, $sql); 
 
-		if ($prefImage != '') { $i =0;?>	
+		if ($prefImage != '') { $i =0;?> 
 		
 			<div class="workAssoc_results_row">
 		
 				<input type="hidden" 
+
 					id="workNum<?php echo $i;?>"
 					name="workNum<?php echo $i;?>"
 					value="<?php echo $workId; ?>">
@@ -246,6 +247,7 @@ if (!empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
 				<input type="hidden" 
 					id="imageView<?php echo $i;?>" 
 					name="imageView<?php echo $i;?>" 
+
 					value="<?php echo $legacyId; ?>">
 			
 				<!--
