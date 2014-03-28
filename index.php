@@ -67,9 +67,11 @@ require("_php/header.php"); ?>
 
 				<!-- 
 						Download Your Orders (Faculty & Patrons)
+						View Your Image Downloads (Faculty & Patrons)
 				 -->
 				<div class="floatLeft">
 					<?php include('_php/_homepage/your_orders.php'); ?>
+					<?php include('_php/_homepage/your_downloads.php'); ?>
 				</div>
 
 			<?php endif; ?>

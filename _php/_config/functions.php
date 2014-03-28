@@ -941,12 +941,10 @@ function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 
     		  $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$img.".jpg&amp;h=42&amp;w=42&amp;q=60";?>
 
-
         <img src="<?php echo $src; ?>"
             class="related_thumb"
             title="Click to preview"
             data-image="<?php echo $img; ?>">
-
 
 	<?php
 	}

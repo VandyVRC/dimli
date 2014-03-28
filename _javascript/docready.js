@@ -151,5 +151,53 @@ $(document).ready(function () {
       }
     });
   });
-  
+
+  //---------------------
+  // Batch Download Cart
+  //---------------------
+
+  var $cart = $('#cart');
+  var $heading = $cart.find('h2');
+  var $removeSelected = $cart.find('div.footer span.selected');
+  var $emptyCart = $cart.find('div.footer span.all');
+  var $download = $cart.find('div.footer div.download');
+
+  $removeSelected.click(function () {
+    $('#cart div.basket img.thumb.selected').remove();
+    updateCartHeading(); // Defined in `_javascript/functions.js`
+    $removeSelected.addClass('hidden');
+
+    if ($('#cart div.basket img.thumb').length < 1) {
+      $emptyCart.addClass('hidden');
+      $download.addClass('hidden');
+      $heading.text('Your cart is empty');
+    }
+  });
+
+  $emptyCart.click(function () {
+    $('#cart div.basket img.thumb').remove();
+    $('#cart h2').text('Your cart is empty');
+    $(this).addClass('hidden');
+    $download.addClass('hidden');
+  });
+
+  // Selection toggling
+  $('#cart div.basket').click(function (event) {
+    var $target = $(event.target);
+
+    if ($target.hasClass('thumb')) {
+      if ($target.hasClass('selected')) {
+        $target.removeClass('selected');
+      } else {
+        $target.addClass('selected');
+      }
+
+      if ($('#cart div.basket img.thumb.selected').length > 0) {
+        $removeSelected.removeClass('hidden');
+      } else {
+        $removeSelected.addClass('hidden');
+      }
+    }
+  });
+
 });

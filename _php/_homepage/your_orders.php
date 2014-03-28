@@ -154,10 +154,10 @@ confirm_logged_in(); ?>
 
 					<?php $order = str_pad($row['id'], 4, '0', STR_PAD_LEFT); ?>
 
-					<a href="_php/_download/download_archive.php?order=<?php echo$order;?>&amp;size=medium"
+					<a href="_php/_download/download_archive.php?order=<?php echo $order; ?>&amp;size=medium"
 						class="download_medium"
 						title="Download ZIP archive of medium-sized JPGs"
-						data-order="<?php echo$order;?>">
+						data-order="<?php echo $order; ?>">
 
 						<img src="_assets/_images/zip.png">
 						<span class="label">Medium ZIP</span><br>
@@ -166,10 +166,10 @@ confirm_logged_in(); ?>
 					<?php 
 					if (file_exists(MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx')): ?>
 
-					<a href="_php/_download/download_ppt.php?order=<?php echo$order;?>"
+					<a href="_php/_download/download_ppt.php?order=<?php echo $order; ?>"
 						class="download_ppt"
 						title="Download PowerPoint file"
-						data-order="<?php echo$order;?>">
+						data-order="<?php echo $order; ?>">
 
 						<img src="_assets/_images/ppt.png">
 						<span class="label">PPT</span>
@@ -177,10 +177,10 @@ confirm_logged_in(); ?>
 
 					<?php endif; ?>
 
-					<a href="_php/_download/download_archive.php?order=<?php echo$order;?>&amp;size=full"
+					<a href="_php/_download/download_archive.php?order=<?php echo $order; ?>&amp;size=full"
 						class="download_full" 
 						title="Download ZIP archive of full-sized JPGs"
-						data-order="<?php echo$order;?>">
+						data-order="<?php echo $order; ?>">
 
 						<img src="_assets/_images/zip.png">
 						<span class="label">Full ZIP</span>
@@ -215,21 +215,18 @@ confirm_logged_in(); ?>
 	<script id="yourOrders_script">
 
 		$('div.showMore span').click(
-			function()
-			{
+			function () {
 				$(this).replaceWith('<div class="loading_gif">');
 
 				$.ajax({
 					type: 'POST',
 					data: 'limit=none',
 					url: '_php/_homepage/your_orders.php',
-					success: function(response)
-					{
-						$('div#yourOrders').replaceWith(response);
+					success: function (response) {
+						$('#yourOrders').replaceWith(response);
 					},
-					error: function()
-					{
-						console.log("AJAX error: your_orders.php");
+					error: function () {
+						console.error("AJAX error: your_orders.php");
 					}
 				});
 			});

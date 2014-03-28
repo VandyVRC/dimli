@@ -57,7 +57,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
        -->
 
       <li class="nav_item">admin
-        <span>&nbsp;&#9660;</span>
+        <span class="arrow">&nbsp;&#9660;</span>
 
         <div class="nav_dropdown">
 
@@ -88,7 +88,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
        -->
 
       <li class="nav_item">curate
-        <span>&nbsp;&#9660;</span>
+        <span class="arrow">&nbsp;&#9660;</span>
 
         <div class="nav_dropdown">
 
@@ -139,7 +139,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
        -->
 
       <li class="nav_item">orders
-        <span>&nbsp;&#9660;</span>
+        <span class="arrow">&nbsp;&#9660;</span>
 
         <div class="nav_dropdown">
 
@@ -170,7 +170,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
        -->
 
       <li class="nav_item">build
-        <span>&nbsp;&#9660;</span>
+        <span class="arrow">&nbsp;&#9660;</span>
 
         <div class="nav_dropdown">
 
@@ -205,13 +205,11 @@ header('Content-type: text/html; charset=utf-8'); ?>
         <div class="nav_dropdown defaultPointer"
           style="margin-left: -100px; padding: 15px;">
 
-          <div style="font-size: 0.8em; text-align: center;">Feature operable, but incomplete</div>
-
           <input type="search"
             id="lantern_search"
             placeholder="" autofocus
             style="margin: 0;"
-            value="">
+            value="san vitale">
 
           <div style="margin: 20px 0 8px 0; font-size: 0.75em; color: #E6E6FA; position: relative;"
             title="Feature not yet available">
@@ -221,11 +219,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
               style="margin: 0; vertical-align: bottom;"
               disabled class="fadedMore">
 
-            <span class="fadedMore" style="font-size: 1.0em;">
-
-              Extra kerosene! (takes much longer)
-
-            </span>
+            <span class="fadedMore" style="font-size: 1.0em;">Extra kerosene! (takes much longer)</span>
 
             <button type="button"
               style="position: absolute; right: 0; margin: 0; padding: 2px 25px; margin-top: -7px; border-radius: 3px; font-size: 1.3em; font-weight: 400;"
@@ -238,6 +232,34 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
       </li>
 
+      <!--
+        BATCH DOWNLOAD
+       -->
+
+      <li class="nav_item">cart
+        <div class="nav_dropdown">
+          <div id="cart">
+            <h2>Your cart is empty</h2>
+            <div class="basket"></div>
+            <div class="footer">
+              <span class="selected hidden">Remove selected</span>
+              <span class="all hidden">Empty cart</span>
+              <p class="clear"></p>
+              <div class="download hidden">
+                <a href="">download zip archive</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <script>
+      var downloadCartLink = document.querySelector('#cart div.download a');
+      downloadCartLink.addEventListener('click', function () {
+        window.location = downloadCartLink.href;
+      });
+      </script
+        
       <?php } ?>
 
     <?php } // If logged in ?>
