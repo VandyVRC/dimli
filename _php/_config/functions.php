@@ -945,7 +945,7 @@ function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
         <img src="<?php echo $src; ?>"
             class="related_thumb"
             title="Click to preview"
-            data-image-image="<?php echo $img; ?>">
+            data-image="<?php echo $img; ?>">
 
 
 	<?php

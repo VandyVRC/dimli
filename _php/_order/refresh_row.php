@@ -21,8 +21,16 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 		<?php 
 		$imageId = create_six_digits($row['id']);
 		$legId = $row['legacy_id'];
-		echo $legId; ?>
+		echo $legId; 
+		$fileFormat =$row['file_format'];	
 
+			//Truncate Legacy Id for style intrusion if needed
+			$truncLeg = (strlen($legId) > 6) 
+			? substr($legId, 0, 6) . '...' 
+			: $legId;?>
+
+			<!-- Hidden Image ID -->
+	<div class="imageList_imageNum_hidden" hidden><?php echo $imageId;?></div>
 	</div>
 
 	<!-- Thumbnail -->

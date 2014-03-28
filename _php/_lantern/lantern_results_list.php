@@ -32,10 +32,12 @@ if (($page*$rpp)-$rpp <= count($results)) {
       $res = db_query($mysqli, $sql);
 
       while ($work = $res->fetch_assoc()) { 
+
+        $prefImage = $work['preferred_image'];
         
         $sql = "SELECT legacy_id 
               FROM $DB_NAME.image 
-              WHERE id = '{$work['preferred_image']}' ";
+              WHERE id = '{$prefImage}' ";
 
         $result = db_query($mysqli, $sql);
 
@@ -44,7 +46,8 @@ if (($page*$rpp)-$rpp <= count($results)) {
             $img_id = $row['legacy_id'];
           }
         $parent = 'none';
-      }
+        }
+    
      }          
 
     elseif ($arr['type']=='image'){
@@ -67,7 +70,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
     }
 
     // If the image id of the preferred thumbnail is NOT blank, display a result row
-    if (!in_array($img_id, array('', '0'))) {
+    if (!empty($prefImage)) {
 
       $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
     ?>
@@ -79,9 +82,8 @@ if (($page*$rpp)-$rpp <= count($results)) {
           <img src="<?php echo $src; ?>"
             class="list_thumb"
             title="Click to preview"
-            data-work="<?php echo ($arr['type'] == 'work') ? create_six_digits($id) : 'None'; ?>"
-            data-image="<?php echo create_six_digits($id); ?>"
-            data-image-image="<?php echo $img_id; ?>">
+            data="<?php echo ($arr['type'] == 'work') ? $prefImage : create_six_digits($id); ?>"
+            data-image="<?php echo $img_id; ?>">
 
           <?php if ($_SESSION['priv_orders_read']=='1') { ?>
 
@@ -324,7 +326,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.view_catalog').click(
       function () {
-        var imageNum = $(this).siblings('img.list_thumb').attr('data-image');
+        var imageNum = $(this).siblings('img.list_thumb').attr('data');
         view_image_record(imageNum);
         view_work_record(imageNum);
       });
@@ -333,7 +335,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('span.add_image_to_cart').click(
       function () {
-        var imageNum = $(this).siblings('img.list_thumb').attr('data-image-image');
+        var imageNum = $(this).siblings('img.list_thumb').attr('data');
         add_to_cart(imageNum);
       });
 
@@ -342,7 +344,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     $('img.list_thumb, img.related_thumb').click(
       function () {
-        var img = $(this).attr('data-image-image');
+        var img = $(this).attr('data-image');
         image_viewer(img);
       });
 

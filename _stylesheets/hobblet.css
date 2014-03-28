@@ -65,6 +65,7 @@ h1:hover {
   cursor: default;
 }
 
+
 hr {
   height: 0px;
   border: none;
@@ -515,20 +516,6 @@ div.module {
   padding: 5px 5px 5px 5px;
   background-color: #FFF;
   border: 1px solid #BBB;
-}
-
-div.module_right {
-	position: relative;
-	float: right;
-	min-height: 200px;
-	/*min-width: 365px;
-	max-width: 365px;*/
-	min-width: 455px;
-	max-width: 455px;
-	margin: 15px 15px 0 0;
-	padding: 5px 5px 5px 5px;
-	background-color: #FFF;
-	border: 1px solid #BBB;
 }
 
 div.module.double {
@@ -1612,6 +1599,7 @@ div#workAssoc_createNew {
   padding-bottom: 15px;
   text-align: center;
   border-top: 1px dotted #CCC;
+  margin-top: 6px;
 }
 
 div#workAssoc_searchFields p,
@@ -1653,9 +1641,6 @@ div.workAssoc_results_row {
   border-top: 1px dotted #CCC;
 }
 
-div.workAssoc_results_row:last-child {
-  border-bottom: 1px dotted #CCC;
-}
 
 div.workAssoc_results_col1 {
   margin: 10px;
@@ -1675,7 +1660,7 @@ div.workAssoc_results_cell {
   display: block;
   width: auto;
   margin-bottom: 3px;
-  padding-top: 2px;
+  line-height: 1.2em;
 }
 
 div.workAssoc_results_rowZoom {
@@ -1764,7 +1749,6 @@ div.catRowWrapper {
   position: relative;
   height: 2em;
   width: 100%;
-  margin: 0;
   padding: 0;
   line-height: 2em;
   vertical-align: middle;
@@ -1926,7 +1910,6 @@ input[type=text].authorityLoading {
   background-position: right;
   background-size: 23px;
 }
-
 /*
   CREATE NEW REPOSITORY
   CREATE NEW ORDER
@@ -2136,7 +2119,10 @@ div.popup {
 
 div#footer_wide {
   min-height: 40px;
-  min-width: 100%;
+  margin-left: 40%;
+  margin-top: 2%;
+  color: #669;
+  font-size: .90em;
 }
 
 /*

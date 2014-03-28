@@ -143,6 +143,7 @@ foreach ($searches_arr as $search)
 	}
 }
 ?>
+
 <div class="grid_dropdown_imgWrapper">
 
 	<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $legId; ?>.jpg&amp;h=300&amp;q=80">
@@ -151,111 +152,120 @@ foreach ($searches_arr as $search)
 
 <div class="grid_dropdown_infoWrapper">
 
-	<!-- 
-		TITLE
-	 -->
+<?php 
+	if (!empty($recordInfo['title_text']['0'])) {	?>
 
-	<div class="grid_dropdown_title">
+		<!-- 
+			TITLE
+		 -->
 
-		<?php 
-		echo $recordInfo['title_text']['0']; 
-		?>
+		<div class="grid_dropdown_title">
 
-	</div>
+			<?php 
+			echo $recordInfo['title_text']['0']; 
+			?>
 
-	<!-- 
-		AGENT
-	 -->
-
-	<div class="grid_dropdown_agent">
+		</div>
 
 		<?php 
-		echo (!in_array($recordInfo['agent_attribution']['0'], array('None','')))
-			? $recordInfo['agent_attribution']['0'].' '
-			: '';
-		echo $recordInfo['agent_text']['0']; 
-		?>
+		
+		if (!empty($recordInfo['agent_text']['0'])){	?>
 
-	</div>
+			<!-- 
+				AGENT
+			 -->
 
-	<!-- 
-		DATE
-	 -->
+			<div class="grid_dropdown_agent">
 
-	<div class="grid_dropdown_date">
+				<?php 
+				echo $recordInfo['agent_text']['0']; 
+				?>
 
-		<?php 
-		echo $recordInfo['date_text']['0'];
-		echo (
-			($recordInfo['date_range']['0'] == '1' &&
-			$recordInfo['date_era']['0'] != $recordInfo['enddate_era']['0']) ||
-			$recordInfo['date_range']['0'] != '1'
-			)
-			? ' '.$recordInfo['date_era']['0']
-			: '';
-		echo ($recordInfo['date_range']['0'] == '1')
-			? ' - '.$recordInfo['enddate_text']['0'].' '.$recordInfo['enddate_era']['0']
-			: '';
-		?>
+			</div>	
 
-	</div>
+			<!-- 
+				DATE
+			 -->
 
-	<!-- 
-		CULTURAL CONTEXT
-	 -->
+			<div class="grid_dropdown_date">
 
-	<div class="grid_dropdown_culture">
+				<?php 
+			
+				echo $recordInfo['date_text']['0'];
 
-		<?php
-		$i = 0;
-		foreach ($recordInfo['culture_text'] as $culture)
-		{
-			echo ($i != 0)?'; ':'';
-			echo $culture;
-			$i++;
-		}
-		?>
+				if (!empty($recordInfo['date_text']['0'])){
+				echo (
+					($recordInfo['date_range']['0'] == '1' &&
+					$recordInfo['date_era']['0'] != $recordInfo['enddate_era']['0']) ||
+					$recordInfo['date_range']['0'] != '1'
+					)
+					? ' '.$recordInfo['date_era']['0']
+					: '';
+					echo ($recordInfo['date_range']['0'] == '1')
+					? ' - '.$recordInfo['enddate_text']['0'].' '.$recordInfo['enddate_era']['0']
+					: '';
+				}
 
-	</div>
+				?>
 
-	<!-- 
-		MATERIAL
-	 -->
+			</div>
 
-	<div class="grid_dropdown_material">
+			<!-- 
+				CULTURAL CONTEXT
+			 -->
 
-		<?php
-		$i = 0;
-		foreach ($recordInfo['material_text'] as $material)
-		{
-			echo ($i != 0)?'; ':'';
-			echo $material;
-			// echo ' ('.$recordInfo['material_type'][$i].')';
-			$i++;
-		}
-		?>
+			<div class="grid_dropdown_culture">
 
-	</div>
+				<?php
+				$i = 0;
+				foreach ($recordInfo['culture_text'] as $culture)
+				{
+					echo ($i != 0)?'; ':'';
+					echo $culture;
+					$i++;
+				}
+				?>
 
-	<!-- 
-		LOCATION
-	 -->
+			</div>
 
-	<div class="grid_dropdown_location">
+			<!-- 
+				MATERIAL
+			 -->
 
-		<?php
-		$i = 0;
-		foreach ($recordInfo['location_text'] as $location)
-		{
-			echo $recordInfo['location_type'][$i].': ';
-			echo $location.'<br>';
-			$i++;
-		}
-		?>
+			<div class="grid_dropdown_material">
 
-	</div>
+				<?php
+				$i = 0;
+				foreach ($recordInfo['material_text'] as $material)
+				{
+					echo ($i != 0)?'; ':'';
+					echo $material;
+					// echo ' ('.$recordInfo['material_type'][$i].')';
+					$i++;
+				}
+				?>
 
-	<div><pre><?php //print_r($recordInfo);?></pre></div>
+			</div>
+
+			<!-- 
+				LOCATION
+			 -->
+
+			<div class="grid_dropdown_location">
+
+				<?php
+				$i = 0;
+				foreach ($recordInfo['location_text'] as $location)
+				{
+					echo (!empty($location)) ? $recordInfo['location_type'][$i].': ' : '';
+					echo $location.'<br>';
+					$i++;
+				}
+				?>
+
+			</div>
+		<?php }
+	}	?>
 
 </div>
 

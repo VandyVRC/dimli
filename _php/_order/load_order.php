@@ -100,7 +100,7 @@ while ($row = $result->fetch_assoc()) {
 
 //---------------------
 //  Fetch image info
-//---------------------
+//--------------------- 
 
 $sql = "SELECT * 
 			FROM $DB_NAME.image 
@@ -469,7 +469,7 @@ $privEdit = $_SESSION['priv_orders_create'];
 		.click(
 			function() 
 			{
-				event.stopPropagation();
+				
 				var image = $.trim($(this).parents('.orderView_imageRow').find('.imageList_imageNum').text());
 				image_viewer(image);
 			});

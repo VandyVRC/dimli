@@ -1,13 +1,11 @@
 	<p class="clear"></p>
 
-	</div> <!-- body -->
-
+</div> <!-- body -->
 </div> <!-- body_wide -->
-
 <div id="footer_wide">
-	
+<a href="http://vanderbilt.edu" target="_blank">Created by Vanderbilt University</a><br /><br />
+<a href="http://form.jotform.us/form/40855277993167" target="_blank" style ="margin-left: 3%">Submit a Bug Report</a>	
 </div>
-
 <p class="clear"></p>
 
 <!--
@@ -34,4 +32,4 @@ if (isset($mysqli)) {
 
 // Show GLOBAL array, if username = "isnerms"
 // showGlobals('isnerms');
-?>
+?> 
