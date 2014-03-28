@@ -24,7 +24,7 @@ if (strlen($_POST['workNum']) == 6 && is_numeric($_POST['workNum']))
 
 	$deleted_res = db_query($mysqli, $sql);
 
-	$tables = array('agent','culture','date','edition','inscription','location','material','measurements','rights','source','style_period','subject','technique','title','work_type');
+	$tables = array('agent','culture','date','edition','inscription','location', 'specific_location', 'relation','material','measurements','rights','source','style_period','subject','technique','title','work_type');
 
 	foreach ($tables as $table) {
 

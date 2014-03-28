@@ -266,166 +266,6 @@ while ($imageWorkType = $result_imageWorkTypes->fetch_assoc()) {
 
 }
 
-//--------------------------
-//	 Query Cultural Contexts
-//--------------------------
-
-$sql = "SELECT * 
-			FROM $DB_NAME.culture 
-			WHERE related_images = '{$_SESSION['imageNum']}' ";
-
-$result_imageCultures = db_query($mysqli, $sql);
-
-$imageCultures = array();
-
-while ($culture = $result_imageCultures->fetch_assoc()) {
-
-	$culture_AID = $culture['culture_getty_id'];
-	
-	$display_temp = '';
-	$display_temp.= ($culture_AID == '') 
-		? '<span class="mediumWeight purple">[UD]</span> ' 
-		: '';
-	$display_temp.= (!empty($culture['culture_text'])) 
-		? $culture['culture_text'] 
-		: '';
-	
-	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
-	{ 
-		$display_temp = '--'; 
-	}
-
-	$imageCultures[] = array($display_temp=>$culture['display']);
-
-}
-
-//----------------------
-//	 Query Style Periods
-//----------------------
-
-$sql = "SELECT * 
-			FROM $DB_NAME.style_period 
-			WHERE related_images = '{$_SESSION['imageNum']}' ";
-
-$result_imageStylePeriods = db_query($mysqli, $sql);
-
-$imageStylePeriods = array();
-
-while ($stylePeriod = $result_imageStylePeriods->fetch_assoc()) {
-
-	$stylePeriod_AID = $stylePeriod['style_period_getty_id'];
-	
-	$display_temp = '';
-	$display_temp.= ($stylePeriod_AID == '') 
-		? '<span class="mediumWeight purple">[UD]</span> ' 
-		: '';
-
-	$display_temp.= (!empty($stylePeriod['style_period_text'])) 
-		? $stylePeriod['style_period_text'] 
-		: '';
-	
-	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
-	{ 
-		$display_temp = '--'; 
-	}
-
-	$imageStylePeriods[] = array($display_temp=>$stylePeriod['display']);
-
-}
-
-//------------------
-//	 Query Locations
-//------------------
-
-$sql = "SELECT * 
-			FROM $DB_NAME.location 
-			WHERE related_images = '{$_SESSION['imageNum']}' ";
-
-$result_imageLocations = db_query($mysqli, $sql);
-
-$imageLocations = array();
-
-while ($location = $result_imageLocations->fetch_assoc()) {
-
-	$location_AID = $location['location_getty_id'];
-	
-	$display_temp = '';
-	$display_temp .= ($location_AID == '') 
-		? '<span class="mediumWeight purple">[UD]</span> ' 
-		: '';
-
-	$display_temp .= (!empty($location['location_type'])) 
-		? $location['location_type'].': ' 
-		: '';
-
-	$display_temp .= (!empty($location['location_text'])) 
-		? $location['location_text'] 
-		: '';
-
-	$display_temp .= (!empty($location['location_name_type'])) 
-		? ' ('.$location['location_name_type'].')' 
-		: '';
-	
-	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
-	{ 
-		$display_temp = '--'; 
-	}
-
-	$imageLocations[] = array($display_temp=>$location['display']);
-
-}
-
-//--------------------
-//	 Query Description
-//--------------------
-
-$trimmed_id = ltrim($_SESSION['imageNum'], '0');
-
-$sql = "SELECT description 
-			FROM $DB_NAME.image 
-			WHERE id = '{$trimmed_id}' ";
-
-$result_imageDescription = db_query($mysqli, $sql);
-
-while ($description = $result_imageDescription->fetch_assoc()) {
-
-	$imageDescription = (!empty($description['description']) || $description['description'] != '') 
-		? $description['description'] 
-		: '--';
-		
-}
-
-//----------------------
-//	 Query State/Edition
-//----------------------
-
-$sql = "SELECT * 
-			FROM $DB_NAME.edition 
-			WHERE related_images = '{$_SESSION['imageNum']}' ";
-
-$result_imageEditions = db_query($mysqli, $sql);
-
-$imageEditions = array();
-
-while ($edition = $result_imageEditions->fetch_assoc()) {
-
-	$display_temp = '';
-	$display_temp.= (!empty($edition['edition_text'])) 
-		? $edition['edition_text'].': ' 
-		: '';
-
-	$display_temp.= (!empty($edition['edition_type'])) 
-		? ' ('.$edition['edition_type'].')' 
-		: '';
-
-	if (trim($display_temp) == '') { 
-		$display_temp = '--'; 
-	}
-
-	$imageEditions[] = $display_temp;
-
-}
-
 //----------------------
 //	 Query Measurements
 //----------------------
@@ -529,41 +369,237 @@ while ($measure = $result_imageMeasurements->fetch_assoc()) {
 
 }
 
-//-----------------
-//	 Query Subjects
-//-----------------
+//--------------------------
+//	 Query Cultural Contexts
+//--------------------------
 
 $sql = "SELECT * 
-			FROM $DB_NAME.subject 
+			FROM $DB_NAME.culture 
 			WHERE related_images = '{$_SESSION['imageNum']}' ";
 
-$result_imageSubjects = db_query($mysqli, $sql);
+$result_imageCultures = db_query($mysqli, $sql);
 
-$imageSubjects = array();
+$imageCultures = array();
 
-while ($subject = $result_imageSubjects->fetch_assoc()) {
+while ($culture = $result_imageCultures->fetch_assoc()) {
 
-	$subject_AID = $subject['subject_getty_id'];
+	$culture_AID = $culture['culture_getty_id'];
 	
 	$display_temp = '';
-	$display_temp.= ($subject_AID == '') 
+	$display_temp.= ($culture_AID == '') 
 		? '<span class="mediumWeight purple">[UD]</span> ' 
 		: '';
-
-	$display_temp.= (!empty($subject['subject_text'])) 
-		? $subject['subject_text'] 
-		: '';
-
-	$display_temp.= (!empty($subject['subject_type'])) 
-		? ' ('.$subject['subject_type'].')' 
+	$display_temp.= (!empty($culture['culture_text'])) 
+		? $culture['culture_text'] 
 		: '';
 	
 	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
 	{ 
 		$display_temp = '--'; 
 	}
+
+	$imageCultures[] = array($display_temp=>$culture['display']);
+
+}
+
+//----------------------
+//	 Query Style Periods
+//----------------------
+
+$sql = "SELECT * 
+			FROM $DB_NAME.style_period 
+			WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+$result_imageStylePeriods = db_query($mysqli, $sql);
+
+$imageStylePeriods = array();
+
+while ($stylePeriod = $result_imageStylePeriods->fetch_assoc()) {
+
+	$stylePeriod_AID = $stylePeriod['style_period_getty_id'];
 	
-	$imageSubjects[] = array($display_temp=>$subject['display']);
+	$display_temp = '';
+	$display_temp.= ($stylePeriod_AID == '') 
+		? '<span class="mediumWeight purple">[UD]</span> ' 
+		: '';
+
+	$display_temp.= (!empty($stylePeriod['style_period_text'])) 
+		? $stylePeriod['style_period_text'] 
+		: '';
+	
+	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
+	{ 
+		$display_temp = '--'; 
+	}
+
+	$imageStylePeriods[] = array($display_temp=>$stylePeriod['display']);
+
+}
+
+//------------------
+//	 Query Locations
+//------------------
+
+$sql = "SELECT * 
+			FROM $DB_NAME.location 
+			WHERE related_images = '{$_SESSION['imageNum']}' 
+			AND location_getty_id NOT REGEXP 'work' ";
+
+$result_imageLocations = db_query($mysqli, $sql);
+
+$imageLocations = array();
+
+while ($location = $result_imageLocations->fetch_assoc()) {
+
+	$location_AID = $location['location_getty_id'];
+
+	$display_temp = '';
+
+			$display_temp.= ($location_AID == '') 
+				? '<span class="mediumWeight purple">[UD]</span> ' 
+				: '';
+
+			$display_temp.= (!empty($location['location_type'])) 
+				? $location['location_type'].': ' 
+				: '';
+
+			$display_temp.= (!empty($location['location_text'])) 
+				? $location['location_text'] 
+				: '';
+
+			$display_temp.= (!empty($location['location_name_type'])) 
+				? ' ('.$location['location_name_type'].')' 
+				: '';
+
+		if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
+		{ 
+			$display_temp = '--'; 
+		}
+
+	$imageLocations[] = array($display_temp=>$location['display']);
+
+}
+		
+
+	//---------------------------
+	//	 Query Specific Location
+	//---------------------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.specific_location 
+				WHERE related_images = '{$_SESSION['imageNum']}' ";
+	
+	$result_specificLocation = db_query($mysqli, $sql);
+
+	$imageSpecificLocations = array();
+
+	while ($specific = $result_specificLocation->fetch_assoc()) {
+
+		$display_temp = '';
+
+		$display_temp.= (!empty($specific['specific_location_address'])) 
+			? $specific['specific_location_address'].', ' 
+			: '';
+
+		$display_temp.= (!empty($specific['specific_location_zip'])) 
+			? $specific['specific_location_zip'] 
+			: '';
+
+		$display_temp.= (!empty($specific['specific_location_lat'])) 
+			? $specific['specific_location_lat'].', '  
+			: '';
+
+		$display_temp.= (!empty($specific['specific_location_long'])) 
+			? $specific['specific_location_long'] 
+			: '';
+
+		$display_temp.= (!empty($specific['specific_location_note'])) 
+			? $specific['specific_location_note'] 
+			: '';		
+
+		if ($display_temp == '') { 
+			$display_temp = '--'; 
+		}
+
+		$imageSpecificLocations[] =  array($display_temp=>$specific['display']);
+	}
+
+
+	//---------------------------
+	//	 Query Built Work
+	//---------------------------
+	
+	$sql = "SELECT * 
+				FROM $DB_NAME.location 
+				WHERE related_images = '{$_SESSION['imageNum']}'
+				AND location_getty_id REGEXP 'work' ";
+
+	$result_builtWork = db_query($mysqli, $sql);
+	$imageBuiltWork = array();	
+
+	if ($result_builtWork->num_rows <1){
+
+		$display_temp = '--'; 
+		$builtWork['display'] = '1';
+
+		$imageBuiltWork[] = array($display_temp=>$builtWork['display']);		
+	}
+
+	else{
+		
+		while ($builtWork = $result_builtWork->fetch_assoc()) {
+	
+				$display_temp ='';
+
+				$display_temp.= (!empty($builtWork['location_type'])) 
+					? $builtWork['location_type'].': ' 
+					: '';
+
+				$display_temp.= (!empty($builtWork['location_text'])) 
+					? $builtWork['location_text'] 
+					: '';
+
+				$display_temp.= (!empty($builtWork['location_name_type'])) 
+					? ' ('.$builtWork['location_name_type'].')'
+
+					: '';	
+
+				if ($display_temp == ''){ 
+				$display_temp = '--'; 
+				}
+
+				$imageBuiltWork[] = array($display_temp=>$builtWork['display']);	
+			}
+		}	
+
+//----------------------
+//	 Query State/Edition
+//----------------------
+
+$sql = "SELECT * 
+			FROM $DB_NAME.edition 
+			WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+$result_imageEditions = db_query($mysqli, $sql);
+
+$imageEditions = array();
+
+while ($edition = $result_imageEditions->fetch_assoc()) {
+
+	$display_temp = '';
+	$display_temp.= (!empty($edition['edition_text'])) 
+		? $edition['edition_text'].': ' 
+		: '';
+
+	$display_temp.= (!empty($edition['edition_type'])) 
+		? ' ('.$edition['edition_type'].')' 
+		: '';
+
+	if (trim($display_temp) == '') { 
+		$display_temp = '--'; 
+	}
+
+	$imageEditions[] = $display_temp;
 
 }
 
@@ -604,6 +640,64 @@ while ($inscription = $result_imageInscriptions->fetch_assoc()) {
 
 	$imageInscriptions[] = array($display_temp=>$inscription['display']);
 
+}
+
+//-----------------
+//	 Query Subjects
+//-----------------
+
+$sql = "SELECT * 
+			FROM $DB_NAME.subject 
+			WHERE related_images = '{$_SESSION['imageNum']}' ";
+
+$result_imageSubjects = db_query($mysqli, $sql);
+
+$imageSubjects = array();
+
+while ($subject = $result_imageSubjects->fetch_assoc()) {
+
+	$subject_AID = $subject['subject_getty_id'];
+	
+	$display_temp = '';
+	$display_temp.= ($subject_AID == '') 
+		? '<span class="mediumWeight purple">[UD]</span> ' 
+		: '';
+
+	$display_temp.= (!empty($subject['subject_text'])) 
+		? $subject['subject_text'] 
+		: '';
+
+	$display_temp.= (!empty($subject['subject_type'])) 
+		? ' ('.$subject['subject_type'].')' 
+		: '';
+	
+	if ($display_temp == '' || $display_temp == '<span class="mediumWeight purple">[UD]</span> ') 
+	{ 
+		$display_temp = '--'; 
+	}
+	
+	$imageSubjects[] = array($display_temp=>$subject['display']);
+
+}
+
+//--------------------
+//	 Query Description
+//--------------------
+
+$trimmed_id = ltrim($_SESSION['imageNum'], '0');
+
+$sql = "SELECT description 
+			FROM $DB_NAME.image 
+			WHERE id = '{$trimmed_id}' ";
+
+$result_imageDescription = db_query($mysqli, $sql);
+
+while ($description = $result_imageDescription->fetch_assoc()) {
+
+	$imageDescription = (!empty($description['description']) || $description['description'] != '') 
+		? $description['description'] 
+		: '--';
+		
 }
 
 //--------------------

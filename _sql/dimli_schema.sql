@@ -372,8 +372,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 CREATE TABLE IF NOT EXISTS `relation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `related_works` text COLLATE utf8_unicode_ci NOT NULL,
-  `related_images` text COLLATE utf8_unicode_ci NOT NULL,
-  `relation_type` enum('Related to','Part of','Formerly part of','Component of','Partner in set with','Preparatory for','Study for','Cartoon for','Model for','Plan for','Counter proof for','Printing plate for','Relief for','Prototype for','Designed for','Mate of','Pendant of','Exhibited at','Copy after','Depicts','Derived from','Facsimile of','Replica of','Version of') COLLATE utf8_unicode_ci NOT NULL,
+  `relation_type` enum('relatedTo','partOf','formerlyPartOf','componentOf','partnerInSetWith','preparatoryFor','studyFor','cartoonFor','modelFor','planFor','counterProofFor','printingPlateFor','reliefFor','prototypeFor','designedFor','mateOf','pendantOf','exhibitedAt','copyAfter','depicts','derivedFrom','facsimileOf','replicaOf','versionOf', 'relatedTo','largerContextFor','formerlyLargerContextFor','componentIs','partnerInSetWith','basedOn','studyIs','cartoonIs','modelIs','planIs','counterProofIs','printingPlateIs','impressionIs','prototypeIs','contextIs','mateOf','pendantOf','venueFor','copyIs','depictedIn','sourceFor','facsimileIs','relplicaIs','versionIs','imageIs') COLLATE utf8_unicode_ci NOT NULL,
+  `relation_id` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

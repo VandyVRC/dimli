@@ -67,7 +67,7 @@ if (isset($_GET['deadImage']))
 		//  Remove the deleted image's cataloging info
 		//----------------------------------------------
 
-		$tables = array('agent','culture','date','edition','inscription','location','material','measurements','rights','source','style_period','subject','technique','title','work_type');
+		$tables = array('agent','culture','date','edition','inscription','location', 'specific_location','material','measurements','rights','source','style_period','subject','technique','title','work_type');
 
 		foreach ($tables as $table) {
 

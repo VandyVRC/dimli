@@ -88,8 +88,6 @@ while ($i < countCatRows($_SESSION['titleArray'][$recordType])) {
 	$i ++;
 }
 	
-
-
 //------------------
 //		AGENTS
 //------------------
@@ -177,8 +175,6 @@ while ($i < countCatRows($_SESSION['agentArray'][$recordType])) {
 	}
 	$i ++;
 }
-
-
 
 //------------------
 //		DATES
@@ -288,8 +284,6 @@ while ($i < countCatRows($_SESSION['dateArray'][$recordType])) {
 	$i ++;
 }
 
-
-
 //---------------------
 //		MATERIALS
 //---------------------
@@ -358,8 +352,6 @@ while ($i < countCatRows($_SESSION['materialArray'][$recordType])) {
 	$i ++;
 }
 
-
-
 //----------------------
 //		TECHNIQUES
 //----------------------
@@ -418,9 +410,6 @@ while ($i < countCatRows($_SESSION['techniqueArray'][$recordType])) {
 	$i ++;
 }
 
-
-
-
 //----------------------
 //		WORK TYPES
 //----------------------
@@ -441,7 +430,7 @@ while ($i < countCatRows($_SESSION['workTypeArray'][$recordType])) {
 
 	foreach ($_SESSION['workTypeArray'][$recordType] as $key=>$value) {
 	
-		if (strstr($key, $abbr.'workType' . $i) || strstr($key, $abbr.'builtworkType' . $i )) {
+		if (strstr($key, $abbr.'workType' . $i)) {
 		
 			$query = " UPDATE $DB_NAME.work_type 
 						SET
@@ -888,161 +877,318 @@ while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
 }
 
 //---------------------
-//		Built Work
+//		SPECIFIC LOCATIONS
 //---------------------
-/*
+
 if (!empty($recordNum) && $recordNum != '')
 {
-	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
+	$query = " DELETE FROM $DB_NAME.specific_location WHERE related_".$field_type."s = '{$recordNum}' ";
 	$result = db_query($mysqli, $query);
 }
 
+$i = 0;
+
+while ($i < countCatRows($_SESSION['specificLocationArray'][$recordType])) {
+
+	$sql = "INSERT INTO $DB_NAME.specific_location VALUES () ";
+	$res = db_query($mysqli, $sql);
+	$currentId = $mysqli->insert_id;
+
+	foreach ($_SESSION['specificLocationArray'][$recordType] as $key=>$value) {
+
+		if (strstr($key, $abbr.'specificLocationType' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_type = '{$value}',
+							related_".$field_type."s = '{$recordNum}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'specificLocationAddress' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_address = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'specificLocationZip' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_zip = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		} elseif (strstr($key, $abbr.'specificLocationLat' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_lat = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+
+		elseif (strstr($key, $abbr.'specificLocationLong' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_long = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+
+		elseif (strstr($key, $abbr.'specificLocationNote' . $i)) {
+		
+			$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_note = '{$value}'
+						WHERE
+							id = '{$currentId}'
+					";
+			$result = db_query($mysqli, $query);
+		
+		}
+	
+	}
+	$i ++;
+}
+
+//---------------------
+//	 BUILT WORK
+//---------------------
+
+if (!empty($recordNum) && $recordNum != '')
+
+{
+	$query = " DELETE FROM $DB_NAME.location 
+					WHERE related_".$field_type."s = '{$recordNum}' 
+					AND location_getty_id  REGEXP 'work' ";
+	
+	$result = db_query($mysqli, $query);
+}
+	
 $i = 0;
 
 while ($i < countCatRows($_SESSION['builtWorkArray'][$recordType])) {
 
-	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
+			$sql = "INSERT INTO $DB_NAME.location VALUES () ";
+			$res = db_query($mysqli, $sql);
+			$currentId = $mysqli->insert_id;
 
-	foreach ($_SESSION['builtWorkArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'builtWork' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							location_text = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'builtWorkId' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_name_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							display = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
-	}
+		foreach ($_SESSION['builtWorkArray'][$recordType] as $key=>$value) {
+			
+			if (strstr($key, $abbr.'builtWork'. $i) && ($value == '')) {
+
+				$sql = "DELETE FROM $DB_NAME.location  
+							WHERE id = '{$currentId}' ";
+					
+					$res = db_query($mysqli, $sql);
+					
+				break; 
+				continue;}	
+
+				else if (strstr($key, $abbr.'builtWork'. $i)) {
+				
+					$query = " UPDATE $DB_NAME.location 
+								SET
+									location_text = '{$value}',
+									related_".$field_type."s = '{$recordNum}'
+								WHERE
+									id = '{$currentId}'
+							";
+					$result = db_query($mysqli, $query);
+					// echo $query.'<br>';
+				}
+			
+				 else	if (strstr($key, $abbr.'builtWorkId'. $i)) {
+				
+					$query = " UPDATE $DB_NAME.location
+								SET
+									location_getty_id = '{$value}'
+								WHERE
+									id = '{$currentId}'
+							";
+					$result = db_query($mysqli, $query);
+				
+					} elseif (strstr($key, $abbr.'builtWorkNameType' . $i)) {
+				
+					$query = " UPDATE $DB_NAME.location
+								SET
+									location_name_type = '{$value}'
+								WHERE
+									id = '{$currentId}'
+							";
+					$result = db_query($mysqli, $query);
+				
+					} elseif (strstr($key, $abbr.'builtWorkType'. $i)) {
+				
+					$query = " UPDATE $DB_NAME.location
+								SET
+									location_type = '{$value}'
+								WHERE
+									id = '{$currentId}'
+							";
+					$result = db_query($mysqli, $query);
+				
+					} elseif (strstr($key, $abbr.'builtWorkDisplay'.$i)) {
+				
+					$query = " UPDATE $DB_NAME.location 
+								SET
+									display = '{$value}'
+								WHERE
+									id = '{$currentId}'
+							";
+					$result = db_query($mysqli, $query);
+				
+					}
+				}	
 	$i ++;
 }
-
 //---------------------
-//		Related Works
+//		Relation
 //---------------------
 
-if (!empty($recordNum) && $recordNum != '')
-{
-	$query = " DELETE FROM $DB_NAME.location WHERE related_".$field_type."s = '{$recordNum}' ";
-	$result = db_query($mysqli, $query);
-}
+if ($recordType == 'work' || $recordType == 'createNewWork'){
+	if (!empty($recordNum) && $recordNum != '')
+	{
+		$query = " DELETE FROM $DB_NAME.relation WHERE related_works = '{$recordNum}' ";
 
-$i = 0;
+		$result = db_query($mysqli, $query);
 
-while ($i < countCatRows($_SESSION['locationArray'][$recordType])) {
+		$query = " DELETE FROM $DB_NAME.relation WHERE relation_id = '{$recordNum}' ";
 
-	$sql = "INSERT INTO $DB_NAME.location VALUES () ";
-	$res = db_query($mysqli, $sql);
-	$currentId = $mysqli->insert_id;
-
-	foreach ($_SESSION['locationArray'][$recordType] as $key=>$value) {
-	
-		if (strstr($key, $abbr.'location' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							location_text = '{$value}',
-							related_".$field_type."s = '{$recordNum}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-			// echo $query.'<br>';
-		
-		} elseif (strstr($key, $abbr.'locationId' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_getty_id = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationNameType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_name_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationType' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location
-						SET
-							location_type = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		} elseif (strstr($key, $abbr.'locationDisplay' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.location 
-						SET
-							display = '{$value}'
-						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
-		}
-	
+		$result = db_query($mysqli, $query);
 	}
-	$i ++;
+
+	$i = 0;
+
+	while ($i < countCatRows($_SESSION['relationArray'][$recordType])) {
+
+		$sql = "INSERT INTO $DB_NAME.relation VALUES () ";
+		$res = db_query($mysqli, $sql);
+		$currentId = $mysqli->insert_id;
+
+		$sql = "INSERT INTO $DB_NAME.relation VALUES () ";
+		$relRes = db_query($mysqli, $sql);
+		$relationId = $mysqli->insert_id;
+
+		foreach ($_SESSION['relationArray'][$recordType] as $key=>$value) {
+		
+			if (strstr($key, $abbr.'relationType' . $i)) {
+			
+				$query = " UPDATE $DB_NAME.relation
+							SET
+								relation_type = '{$value}',
+								related_works = '{$recordNum}'
+							WHERE
+								id = '{$currentId}'
+						";
+				$result = db_query($mysqli, $query);
+					
+					switch ($value) {
+					case '':
+					$inverse = '';
+					break;
+					
+					case 'relatedTo': $inverse = 'relatedTo'; break;
+					case 'partOf': $inverse = 'largerContextFor'; break;
+					case 'formerlyPartOf': $inverse  = 'formerlyLargerContextFor'; break;
+					case 'componentOf': $inverse = 'componentIs'; break;
+					case 'partnerInSetWith': $inverse  = 'partnerInSetWith'; break;
+					case 'preparatoryFor': $inverse = 'basedOn'; break;
+					case 'studyFor': $inverse = 'studyIs'; break;
+					case 'cartoonFor': $inverse = 'cartoonIs'; break;
+					case 'modelFor': $inverse = 'modelIs'; break;
+					case 'planFor': $inverse = 'planIs'; break;
+					case 'counterProofFor': $inverse = 'counterProofIs'; break;
+					case 'printingPlateFor': $inverse = 'printingPlateIs'; break;
+					case 'reliefFor': $inverse = 'impressionIs'; break;
+					case 'prototypeFor': $inverse = 'prototypeIs'; break;
+					case 'designedFor': $inverse = 'contextIs'; break;
+					case 'mateOf': $inverse = 'mateOf'; break;
+					case 'pendantOf': $inverse = 'pendantOf'; break;
+					case 'exhibitedAt': $inverse = 'venueFor'; break;
+					case 'copyAfter': $inverse = 'copyIs'; break;
+					case 'depicts': $inverse = 'depictedIn'; break;
+					case 'derivedFrom': $inverse = 'sourceFor'; break;
+					case 'facsimileOf': $inverse = 'facsimileIs'; break;
+					case 'replicaOf': $inverse = 'relplicaIs'; break;
+					case 'versionOf': $inverse = 'versionIs'; break;
+					case 'imageOf': $inverse = 'imageIs'; break;
+					case 'largerContextFor': $inverse = 'partOf'; break;
+					case 'formerlyLargerContextFor': $inverse = 'formerlyPartOf'; break;
+					case 'componentIs': $inverse = 'componentOf'; break;
+					case 'basedOn': $inverse = 'preparatoryFor'; break;
+					case 'studyIs': $inverse = 'studyFor'; break;
+					case 'cartoonIs': $inverse = 'cartoonFor'; break;
+					case 'modelIs': $inverse = 'modelFor'; break;
+					case 'planIs': $inverse = 'planFor'; break;
+					case 'counterProofIs': $inverse = 'counterProofFor'; break;
+					case 'printingPlateIs': $inverse = 'printingPlateFor'; break;
+					case 'impressionIs': $inverse = 'reliefFor'; break;
+					case 'prototypeIs': $inverse = 'prototypeFor'; break;
+					case 'contextIs': $inverse = 'designedFor'; break;
+					case 'venueFor': $inverse = 'exhibitedAt'; break;
+					case 'copyIs': $inverse = 'copyAfter'; break;
+					case 'depictedIn': $inverse = 'depicts'; break;
+					case 'sourceFor': $inverse = 'derivedFrom'; break;
+					case 'facsimileIs': $inverse = 'facsimileOf'; break;
+					case 'relplicaIs': $inverse = 'replicaOf'; break;
+					case 'versionIs': $inverse = 'versionOf'; break;
+					case 'imageIs': $inverse = 'imageOf'; break;
+				}		
+				
+			$query = " UPDATE $DB_NAME.relation 
+						SET
+						relation_type = '{$inverse}', 
+						relation_id = '{$recordNum}' 
+						WHERE id = '{$relationId}' ";
+
+				$result = db_query($mysqli, $query);
+
+			} elseif (strstr($key, $abbr.'relatedTo' . $i)) {
+			
+				$query = " UPDATE $DB_NAME.relation
+							SET
+								relation_id = '{$value}'
+							WHERE
+								id = '{$currentId}'
+						";
+				$result = db_query($mysqli, $query);			
+
+				$query = " UPDATE $DB_NAME.relation
+							SET related_works = '{$value}'
+							WHERE id = '{$relationId}' ";
+
+				$result = db_query($mysqli, $query);
+			}
+		
+			$query = "DELETE FROM $DB_NAME.relation
+						WHERE related_works = '{$value}'
+						AND relation_type ='' ";
+
+						$result = db_query($mysqli, $query);
+
+		}
+
+		$i ++;
+	}
 }
-*/
+
 //--------------------------
 //		STATE/EDITION
 //--------------------------

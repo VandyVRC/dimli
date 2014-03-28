@@ -194,45 +194,7 @@ if (!empty($fieldVal)) {
 	  #####################*/
 
 	
-	if (strstr($fieldName, 'builtworkType')) {
-
-		$fieldVal = preg_replace("/[^A-Za-z0-9\s]/"," ", $fieldVal);
-		// Remove all non-alphanumeric characters from the input string
-		
-		$fieldVal = trim(preg_replace("/ +/"," ", $fieldVal));
-		// Limit the space between words to one single space
-		
-		$workTypeArray = explode(' ', $fieldVal);
-		// Explode the string into an array
-
-		// Build SQL query
-		$sql = "SELECT * 
-					FROM $DB_NAME.getty_aat 
-					WHERE hierarchy REGEXP 'Built Environment' ";
-		
-			if (!empty($workTypeArray)) {
-		
-				foreach ($workTypeArray as $workType) {
-			
-				// $workType = preg_replace('/\([^)]+\)/', '', $workType);
-					$sql.= " AND (english_pref_term REGEXP '{$workType}' OR pref_term_text REGEXP '{$workType}' OR nonpref_term_text REGEXP '{$workType}' OR pref_term_qualifier REGEXP '{$workType}') ";			
-				}			
-			}
-		
-		$sql.= " AND record_type != 'Guide term' ";
-		$sql.= " ORDER BY popularity DESC, pref_term_text ";
-
-		if ($result = $mysqli->query($sql)) {
-
-			$resultCount = $result->num_rows;
-			$message = $resultCount . ' results from the Getty AAT';
-
-			include('workType_results.php');
-
-		}	
-	}	
-
-	else if (strstr($fieldName, 'workType')) {
+	if (strstr($fieldName, 'workType')) {
 		
 		$fieldVal = preg_replace("/[^A-Za-z0-9\s]/"," ", $fieldVal);
 		// Remove all non-alphanumeric characters from the input string
@@ -407,7 +369,7 @@ if (!empty($fieldVal)) {
 		
 		if (!empty($locationArray)) {
 		
-			foreach ($locationArray as $location) {
+			foreach ($locationArray as $location) { 
 			
 				$sql.= " AND (english_pref_term REGEXP '{$location}' OR getty_pref_term REGEXP '{$location}' OR nonpref_term REGEXP '{$location}' OR pref_place_type REGEXP '{$location}') ";
 				
@@ -443,9 +405,15 @@ if (!empty($fieldVal)) {
 		$result_repository = $mysqli->query($sql);
 		
 		$resultCount_repository = $result_repository->num_rows;
+
+		$message = '<a href="#authorityResults_location_repository">';	
+		$message .= $resultCount_repository.' ';
+		$message .= ($resultCount_repository != 1) ? 'repositories' : 'repository';	
+		$message .= '</a>';
+		include('location_results.php');
 }
 
-/*####################
+	/*####################
 	  ##                ##
 	  ##   Built Works  ##
 	  ##                ##
@@ -535,20 +503,13 @@ if (!empty($fieldVal)) {
 		// Reset array keys
 		$builtWorkIds_filteredOnce = array_values($builtWorkIds_filteredOnce);
 
-		$message = '<a href="#authorityResults_location_builtWork">';
-		$message .= count($builtWorkIds_filteredOnce);
-		$message .= (count($builtWorkIds_filteredOnce) != 1) ? ' built works' : ' built work';
-		$message .= '</a>';
 		
-		include('builtWork_results.php');
+		$message = count($builtWorkIds_filteredOnce);
+		$message .= (count($builtWorkIds_filteredOnce) != 1) ? ' built works' : ' built work';
+
+			include('builtWork_results.php');
 
 	}
-
-	/*####################
-	  ##                ##
-	  ## Related Works  ##
-	  ##                ##
-	  ####################*/
 
 	/*##################
 	  ##              ##

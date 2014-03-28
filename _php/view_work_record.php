@@ -26,7 +26,7 @@ while ($row = $workToLoad_r->fetch_assoc())
 			: 'None';
 }
 
-// Initialize SESSION work array and variables for cataloging input elements
+
 // Initialize SESSION work array and variables for cataloging input elements
 
 $_SESSION['work'] = array();
@@ -83,8 +83,15 @@ $_SESSION['work'] = array();
 	$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[0]['specificLocationLong'] =
 	$_SESSION['work']['specificLocationNote0'] = $WspecificLocation[0]['specificLocationNote'] =
 	$_SESSION['work']['builtWork0'] = $WbuiltWork[0]['builtWork'] =
-	$_SESSION['work']['relationType0'] = $WrelatedWorks[0]['relationType'] =
-	$_SESSION['work']['relatedTo0'] = $WrelatedWorks[0]['relatedTo'] =
+	$_SESSION['work']['builtWorkId0'] = $WbuiltWork[0]['builtWorkId'] =
+	$_SESSION['work']['builtWorkNameType0'] = $WbuiltWork[0]['builtWorkNameType'] =
+	$_SESSION['work']['builtWorkType0'] = $WbuiltWork[0]['builtWorkType'] =
+	$_SESSION['work']['relationType0'] = $Wrelation[0]['relationType'] =
+	$_SESSION['work']['relatedTo0'] = $Wrelation[0]['relatedTo'] =
+	$_SESSION['work']['relationImageId0'] = $Wrelation[0]['relationImageId'] =
+	$_SESSION['work']['relationImage0'] = $Wrelation[0]['relationImage'] =
+	$_SESSION['work']['relationTitle0'] = $Wrelation[0]['relationTitle'] =
+	$_SESSION['work']['relationAgent0'] = $Wrelation[0]['relationAgent'] =
 	$_SESSION['work']['stateEditionType0'] = $WstateEdition[0]['stateEditionType'] =
 	$_SESSION['work']['stateEdition0'] = $WstateEdition[0]['stateEdition'] =
 	$_SESSION['work']['inscriptionType0'] = $Winscription[0]['inscriptionType'] =
@@ -329,7 +336,8 @@ if ($_SESSION['workNum'] != 'None')
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.location 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$_SESSION['workNum']}' 
+				AND NOT location_getty_id REGEXP 'work' ";
 
 	$result = db_query($mysqli, $sql);
 	
@@ -353,34 +361,39 @@ if ($_SESSION['workNum'] != 'None')
 
 	$result = db_query($mysqli, $sql);
 	
-	$i = 0; while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['specificLocationType'.$i] = $WspecificLocation[$i]['specificLocationType'] = $row['location_type'];
-		$_SESSION['work']['specificLocationAddress0'] = $WspecificLocation[$i]['specificLocationAddress'] = $row['address'];
-		$_SESSION['work']['specificLocationZip0'] = $WspecificLocation[$i]['specificLocationZip'] = $row['zip'];
-		$_SESSION['work']['specificLocationLat0'] = $WspecificLocation[$i]['specificLocationLat'] = $row['latitude'];
-		$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
-		$_SESSION['work']['specificLocationLong0'] = $WspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
-		$_SESSION['work']['specificLocationDisplay'.$i] = $WspecificLocation[$i]['specificLocationDisplay'] = $row['display'];
+	$i = 0;
+	while ($row = $result->fetch_assoc()) {
+		$_SESSION['work']['specificLocationType'.$i] = $WspecificLocation[$i]['specificLocationType'] = $row['specific_location_type'];
+		$_SESSION['work']['specificLocationAddress'.$i] = $WspecificLocation[$i]['specificLocationAddress'] = $row['specific_location_address'];
+		$_SESSION['work']['specificLocationZip'.$i] = $WspecificLocation[$i]['specificLocationZip'] = $row['specific_location_zip'];
+		$_SESSION['work']['specificLocationLat'.$i] = $WspecificLocation[$i]['specificLocationLat'] = $row['specific_location_lat'];
+		$_SESSION['work']['specificLocationLong'.$i] = $WspecificLocation[$i]['specificLocationLong'] = $row['specific_location_long'];
+		$_SESSION['work']['specificLocationNote'.$i] = $WspecificLocation[$i]['specificLocationNote'] = $row['specific_location_note'];
+		$_SESSION['work']['specificLocationDisplay'.$i] = $Wtitle[$i]['specificLocationDisplay'] = $row['display'];
 		$i ++;
 	}
 
 	// -------------
 	//	Built Work
 	// -------------
-	$workNum6 = str_pad($_SESSION['workNum'], 6, '0', STR_PAD_LEFT);
 
-	$sql = "SELECT * 
+	$sql = "SELECT *
 				FROM $DB_NAME.location 
-				WHERE location_getty_id = 'work{$workNum6}' ";
+				WHERE related_works = '{$_SESSION['workNum']}' 
+				AND location_getty_id REGEXP 'work' ";
 
-	$used_res = db_query($mysqli, $sql);
+	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
 	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['builtWork'.$i] = $WbuiltWork[$i]['relatedTo'] = $row['location_text'];
-	$_SESSION['work']['builtWorkDisplay'.$i] = $WbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
+		$_SESSION['work']['builtWork'.$i] = $WbuiltWork[$i]['builtWork']= $row['location_text']; 
+		$_SESSION['work']['builtWorkId'.$i] = $WbuiltWork[$i]['builtWorkId'] = $row['location_getty_id'];
+		$_SESSION['work']['builtWorkNameType'.$i] = $WbuiltWork[$i]['builtWorkNameType'] = $row['location_name_type'];
+		$_SESSION['work']['builtWorkType'.$i] = $WbuiltWork[$i]['builtWorkType'] = $row['location_type'];
+		$_SESSION['work']['builtWorkDisplay'.$i] =$WbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
 		$i ++;
 	}
+
 	// -------------
 	//	Related Work
 	// ------------
@@ -392,12 +405,69 @@ if ($_SESSION['workNum'] != 'None')
 	
 	$i = 0;
 	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['relatedTo'.$i] = $WrelatedWorks[$i]['relatedTo'] = $row['related_to'];
-		$_SESSION['work']['relationType'.$i] = $WrelatedWorks[$i]['relationType'] = $row['relatrion_type'];
-		$_SESSION['work']['relationType'.$i] = $WrelatedWorks[$i]['relationType'] = $row['display'];
-		$i ++;
-	}
+		$_SESSION['work']['relationType'.$i] = $Wrelation[$i]['relationType'] = $row['relation_type'];
+		$_SESSION['work']['relatedTo'.$i] = $Wrelation[$i]['relatedTo'] = $row['relation_id'];
+		$_SESSION['work']['relationDisplay'.$i] = $Wrelation[$i]['relationDisplay'] = $row['display'];
+	
+		$getRelated = $row['relation_id'];
 
+		if(!empty($row['relation_id'])){
+
+			$sql = "SELECT preferred_image 
+							FROM $DB_NAME.work
+							WHERE id = '{$getRelated}' 
+							LIMIT 1 " ;
+
+				$result_getPref = db_query($mysqli, $sql); 	
+
+				while ($getPreferred = $result_getPref->fetch_assoc()) {
+
+					$preferredImage = $getPreferred['preferred_image'];
+				$_SESSION['work']['relationImageId'.$i] = $Wrelation[$i]['relationImageId'] = $getPreferred['preferred_image'];	
+				}		
+
+			if (!empty($preferredImage)) {	
+
+			$sql = "SELECT legacy_id 
+						FROM $DB_NAME.image
+						WHERE id = '{$preferredImage}' ";	
+
+				$result_getLeg	= db_query($mysqli, $sql); 
+				
+				while ($getLegacy = $result_getLeg->fetch_assoc()) {
+
+				$_SESSION['work']['relationImage'.$i] = $Wrelation[$i]['relationImage'] = $getLegacy['legacy_id'];
+				
+				}
+			}
+										
+
+			$sql = "SELECT title_text
+					FROM $DB_NAME.title
+					WHERE related_works = '{$getRelated}'
+					LIMIT 1 " ;
+
+				$result_getTitle = db_query($mysqli, $sql); 	
+
+				while ($getRelatedTitle = $result_getTitle->fetch_assoc()) {
+
+				$_SESSION['work']['relationTitle'.$i] = $Wrelation[$i]['relationTitle'] = $getRelatedTitle['title_text'];
+				}
+
+			$sql = "SELECT agent_text
+					FROM $DB_NAME.agent
+					WHERE related_works = '{$getRelated}'
+					LIMIT 1 ";	
+
+				$result_getAgent = db_query($mysqli, $sql); 	
+
+				while ($getRelatedAgent = $result_getAgent->fetch_assoc()) {
+
+				$_SESSION['work']['relationAgent'.$i] = $Wrelation[$i]['relationAgent'] = $getRelatedAgent['agent_text'];
+				}	
+		}		
+	$i ++;
+	}
 	// -------------------
 	//	State/Edition
 	// -------------------
@@ -516,15 +586,7 @@ elseif ($_SESSION['workNum'] == 'None')
 	
 include('../_php/_order/query_work.php'); ?>
 
-<script>
-
-	var workNum = $.trim(<?php echo json_encode($_SESSION['workNum']); ?>);
-	// console.log(workNum+' added to the header of the work record'); // Debug
-	$('div#work_module h1').append('<div class="floatRight">' + workNum + '</div>');
-
-</script>
-
-<div class="workRecord_catalogInfo">
+<div id="workRecord_catalogInfo" class="workRecord_catalogInfo">
 						
 	<?php
 	if ($_SESSION['workNum']=='None') 
@@ -908,11 +970,13 @@ include('../_php/_order/query_work.php'); ?>
 		<div class="content_lineText"><?php
 			if (!empty($workSpecificLocations)) {
 				foreach ($workSpecificLocations as $datum) {
+					
 					foreach ($datum as $disp=>$toggle) {
 						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
 						echo $disp . '<br>';
 						echo ($toggle=='0') ? '</span>' : '';
 					}
+				  
 				}
 			}
 		?></div>
@@ -950,11 +1014,11 @@ include('../_php/_order/query_work.php'); ?>
 		<div class="content_lineTitle">Related Works:</div>
 
 		<div class="content_lineText"><?php
-			if (!empty($workRelatedWorks)) {
-				foreach ($workRelatedWorks as $datum) {
+		if (!empty($workRelation)) {
+				foreach ($workRelation as $datum) {
 					foreach ($datum as $disp=>$toggle) {
 						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
-						echo $disp . '<br>';
+						echo '<div class="related defaultCursor">'.$disp.'<br></div>';
 						echo ($toggle=='0') ? '</span>' : '';
 					}
 				}
@@ -1165,9 +1229,10 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 
 				<div style="display: inline-block; width: 290px; padding-right: 5px;">
 
-					<?php foreach ($assocImg_title_arr as $title)
-					{
-						echo '<div class="assocImage_title">'.$title.'</div>';
+					<?php foreach ($assocImg_title_arr as $title){
+						echo '<div class="assocImage_title">'.(strlen($title) <= 46) 
+								? $title 
+								: substr($title, 0, 43) .'</div>';
 					}
 					?>
 
@@ -1176,7 +1241,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 				<div class="assocImage_pref pointer"
 					title="Set as preferred image"></div>
 
-			</div>
+			</div>`
 
 		<?php
 		}
@@ -1192,10 +1257,15 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 
 <script>
 
+	//Append Work Number to Module Heade
+	var workNum = $.trim(<?php echo json_encode($_SESSION['workNum']);?>);
+	// console.log(workNum+' added to the header of the work record'); // Debug
 
-	/*
-	Break Work and Image association
-	*/
+
+	$('div#work_module h1').append('<div class="floatRight">' + workNum + '</div>');
+	
+
+	//	Break Work and Image association
 	$('a#workAssoc_remove').click(
 		function()
 		{
@@ -1309,9 +1379,26 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			var image = $(this).parents('div.work_assocImage_row')
 								.find('div.assocImage_view')
 								.text();
+
+
 			image_viewer(image);
 		});
 
+	//RELATED WORK IMAGE PREVIEW
+	$('img.relatedWork_image').click(
+		function()
+		{
+			var imageView = $(this).next('input[id=imageView]').val();
+			image_viewer(imageView);
+		});
+	
+	//RELATED WORK RECORD PREVIEW
+	$('div.related_title').click(function(){
+	
+		var record = $(this).prev('input[id=imageNum]').val();
+		view_relation_work_record(record);
+
+	})
 	
 	// HIGHLIGHT PREFERRED ASSOCIATED IMAGE CHECKBOX
 

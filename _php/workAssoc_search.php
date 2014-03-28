@@ -152,9 +152,19 @@ if (!empty($matchingWorks)) {
 	// Remove duplicate IDs from list of results
 	
 }
-?>
 
-<?php if (!empty($matchingWorks)) { ?>
+if (!empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
+
+	<div id="workAssoc_results_header" class="defaultCursor">
+
+		Click a related work below 
+		<span class="close pointer" 
+			style="color: #669; font-size: 1.2em;">&nbsp;x&nbsp;</span>
+
+</div>
+<?php }
+
+ else if (!empty($matchingWorks)) { ?>
 
 	<div id="workAssoc_results_header" class="defaultCursor">
 
@@ -164,40 +174,27 @@ if (!empty($matchingWorks)) {
 
 	</div>
 
-	<?php foreach ($matchingWorks as $workId) { 
+	<?php }
 
-		$query = "SELECT id 
-						FROM $DB_NAME.image 
-						WHERE related_works = '{$workId}' ";
 
-		$result = db_query($mysqli, $query);
+	if (!empty($matchingWorks)) { 
 
-		if ($result->num_rows > 0)
-		{
-			while ($row = $result->fetch_assoc())
-			{
-				$imageId = $row['id'];
-			}
-		}
-		else
-		{
-			$imageId = '0';
-		}
+	 foreach ($matchingWorks as $workId) { 
 			
 		$sql = "SELECT preferred_image 
 					FROM $DB_NAME.work 
 					WHERE id = {$workId} ";
 
-		$work_thumb_res = db_query($mysqli, $sql);
+		$result = db_query($mysqli, $sql);
 
-		while ($work_thumb = $work_thumb_res->fetch_assoc())
-		{
-			$work_thumb_id = $work_thumb['preferred_image'];
-		}
+			while ($work_thumb = $result->fetch_assoc())
+			{
+				$prefImage = $work_thumb['preferred_image'];
+			}
 
 		$sql = "SELECT legacy_id
 					FROM $DB_NAME.image
-					WHERE id = '{$work_thumb_id}' ";
+					WHERE id = '{$prefImage}' ";
 
 		$leg_id_res = db_query($mysqli, $sql);
 
@@ -205,11 +202,8 @@ if (!empty($matchingWorks)) {
 
 			$legacyId = $leg_id['legacy_id'];
 
-			$thumb_file = $image_dir.'thumb/'.$legacyId.'.jpg';
+			$prefImage_file = $image_dir.'thumb/'.$legacyId.'.jpg';
 		}
-
-
-		
 
 		$sql = "SELECT title_text 
 					FROM $DB_NAME.title 
@@ -233,126 +227,135 @@ if (!empty($matchingWorks)) {
 					FROM $DB_NAME.culture 
 					WHERE related_works = '{$workId}' LIMIT 2 ";
 
-		$culture_result = db_query($mysqli, $sql); ?>
+		$culture_result = db_query($mysqli, $sql); 
 
-		<div class="workAssoc_results_row">
+		if ($prefImage != '') { $i =0;?>	
 		
-			<input type="hidden" 
-				name="workNum" 
-				value="<?php echo $workId; ?>">
-
-			<input type="hidden" 
-				name="imageNum" 
-				value="<?php echo $legacyId; ?>">
+			<div class="workAssoc_results_row">
 		
-			<!--
-				Preview thumbnail
-			-->
-			
-			<div class="workAssoc_results_col1">
+				<input type="hidden" 
+					id="workNum<?php echo $i;?>"
+					name="workNum<?php echo $i;?>"
+					value="<?php echo $workId; ?>">
 
-				<img src="<?php echo $thumb_file; ?>"
-					class="workAssoc_thumb"
-					title="Preview this image"
-					style="display: inline-block; width: 92px; height: 72px;">
+				<input type="hidden" 
+					id="imageNum<?php echo $i;?>"
+					name="imageNum<?php echo $i;?>"
+					value="<?php echo $prefImage; ?>">
 
-			</div>
-
-			<div class="workAssoc_results_col2 defaultCursor">
+				<input type="hidden" 
+					id="imageView<?php echo $i;?>" 
+					name="imageView<?php echo $i;?>" 
+					value="<?php echo $legacyId; ?>">
 			
 				<!--
-					Work title
+					Preview thumbnail
 				-->
 				
-				<div class="workAssoc_results_cell mediumWeight"
-					style="line-height: 1.2em;">
+				<div class="workAssoc_results_col1">
 
-					<?php
-					while ($row = $title_result->fetch_assoc())
-					{
-						echo '<span title="'.$row['title_text'].'">';
-						echo (strlen($row['title_text']) <= 46) 
-							? $row['title_text'] . '<br>'
-							: substr($row['title_text'], 0, 43) . '...<br>';
-						echo '</span>';
-					}
-					?>
+					<img src="<?php echo $prefImage_file; ?>"
+						class="workAssoc_thumb"
+						title="Preview this image"
+						style="display: inline-block; width: 92px; height: 72px;">
 
 				</div>
-				
-				<!--
-					Agent
-				-->
-				
-				<div class="workAssoc_results_cell">
 
-					<?php
-					while ($row = $agent_result->fetch_assoc())
-					{
-						echo $row['agent_text'] . '<br>';
-					} ?>
-
-				</div>
+				<div class="workAssoc_results_col2 defaultCursor">
 				
-				<!--
-					Date
-				-->
-				
-				<div class="workAssoc_results_cell"
-					style="font-size: 0.9em;">
-				
-					<?php if ($date_result->num_rows != 0) { ?>
-					<!-- If a date exists in the database -->
+					<!--
+						Work title
+					-->
 					
-						<?php while ($row = $date_result->fetch_assoc()) { ?>
-							
-							<?php echo ($row['date_circa'] == '1') ? 'ca.' : ''; ?>
-							<?php echo $row['date_text']; ?>
-							<?php echo ((!empty($row['date_text'])) && ($row['date_range'] == 0 || ($row['date_range'] == 1 && $row['date_era'] != $row['enddate_era']))) ? $row['date_era'] : ''; ?>
-							<?php echo ($row['date_range'] == '1') ? ' - ' : ''; ?>
-							<?php echo ($row['date_range'] == '1') ? $row['enddate_text'] : ''; ?>
-							<?php echo ($row['date_range'] == '1') ? $row['enddate_era'] : ''; ?>
-							<?php echo (!empty($row['date_text'])) ? '(' . $row['date_type'] . ')' : ''; ?>
-							<?php if ($date_result->num_rows == 2) { ?><br><?php } ?>
+					<div class="workAssoc_results_cell mediumWeight">
+
+						<?php
+						while ($row = $title_result->fetch_assoc())
+						{
+							echo '<span title="'.$row['title_text'].'">';
+							echo (strlen($row['title_text']) <= 46) 
+								? $row['title_text'] . '<br>'
+								: substr($row['title_text'], 0, 43) . '...<br>';
+							echo '</span>';
+						}
+						?>
+
+					</div>
+					
+					<!--
+						Agent
+					-->
+					
+					<div class="workAssoc_results_cell">
+
+						<?php
+						while ($row = $agent_result->fetch_assoc())
+						{
+							echo $row['agent_text'] . '<br>';
+						} ?>
+
+					</div>
+					
+					<!--
+						Date
+					-->
+					
+					<div class="workAssoc_results_cell"
+						style="font-size: 0.9em;">
+					
+						<?php if ($date_result->num_rows != 0) { ?>
+						<!-- If a date exists in the database -->
+						
+							<?php while ($row = $date_result->fetch_assoc()) { ?>
+								
+								<?php echo ($row['date_circa'] == '1') ? 'ca.' : ''; ?>
+								<?php echo $row['date_text']; ?>
+								<?php echo ((!empty($row['date_text'])) && ($row['date_range'] == 0 || ($row['date_range'] == 1 && $row['date_era'] != $row['enddate_era']))) ? $row['date_era'] : ''; ?>
+								<?php echo ($row['date_range'] == '1') ? ' - ' : ''; ?>
+								<?php echo ($row['date_range'] == '1') ? $row['enddate_text'] : ''; ?>
+								<?php echo ($row['date_range'] == '1') ? $row['enddate_era'] : ''; ?>
+								<?php echo (!empty($row['date_text'])) ? '(' . $row['date_type'] . ')' : ''; ?>
+								<?php if ($date_result->num_rows == 2) { ?><br><?php } ?>
+								
+							<?php } ?>
 							
 						<?php } ?>
-						
-					<?php } ?>
 
-				</div>
-				
-				<!--
-					Culture
-				-->
-				
-				<div class="workAssoc_results_cell"
-					style="font-size: 0.9em;">
-				
-					<?php 
-					if ($culture_result->num_rows != 0) {
+					</div>
 					
-						$culture_i = 1;
-						while ($row = $culture_result->fetch_assoc()) 
-						{
-							if ($culture_i == 2)
+					<!--
+						Culture
+					-->
+					
+					<div class="workAssoc_results_cell"
+						style="font-size: 0.9em;">
+					
+						<?php 
+						if ($culture_result->num_rows != 0) {
+						
+							$culture_i = 1;
+							while ($row = $culture_result->fetch_assoc()) 
 							{
-								echo ', ';
+								if ($culture_i == 2)
+								{
+									echo ', ';
+								}
+								echo $row['culture_text'];
+								$culture_i++;
 							}
-							echo $row['culture_text'];
-							$culture_i++;
 						}
-					}
-					?>
+						?>
+
+					</div>
 
 				</div>
-
-			</div>
-			
-		</div> <!-- workAssoc_results_row -->
+				
+			</div> <!-- workAssoc_results_row -->
+<?php	}	
 	
-	<?php } ?>
+	 } 
 	
-<<?php } elseif (empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
+ } else if (empty($matchingWorks) && 'catalog_work.php' == true ) { ?>
 
 		<div>
 
@@ -362,8 +365,7 @@ if (!empty($matchingWorks)) {
 	
 <?php } 
 
-	elseif
-	(empty($matchingWorks)) { ?>
+	else if (empty($matchingWorks)) { ?>
 
 
 	<div>
@@ -372,7 +374,8 @@ if (!empty($matchingWorks)) {
 
 	</div>
 	
-<?php } ?>
+<?php } 
+?>
 
 <script>
 
@@ -386,31 +389,42 @@ if (!empty($matchingWorks)) {
 			$(this).removeClass('row_highlight');
 		});
 
+
 	$('div.workAssoc_results_row:not(img)').click(
 		function(event)
 		{
 			var row = $(this);
-			var workNum = $(row).find('input[name=workNum]').val();
+			var thisRow = $(this).parents('div.clone_wrap');
+			var workNum = $(row).find('input[name*=workNum]').val();
 			var imageNum = "<?php echo $_SESSION['imageNum']; ?>";
 			var orderNum = "<?php echo $_SESSION['order']; ?>";
-			workAssoc_assoc(orderNum, workNum, imageNum);
-		});
 
+			if (thisRow.length){
+				$(row).removeClass('row_highlight');    
+				relationAssoc_assoc(row, workNum);
+			}
+
+			else{
+
+				workAssoc_assoc(orderNum, workNum, imageNum);
+				
+			}
+
+		});
+			
 	$('img.workAssoc_thumb').click(
 		function(event)
 		{
 			event.stopPropagation();
 
-			var imageNum = 
-				$(this)
-				.parents('div.workAssoc_results_row')
-				.find('input[name=imageNum]')
-				.val();
-
-			image_viewer(imageNum);
-				
+			var imageView = $(this).parents('div.workAssoc_results_row')
+			.find('input[name*=imageView]').val();
+			
+			image_viewer(imageView);	
 		});
 
+
+	var imageNum = $(this).parents('div.workAssoc_results_row').find('input[name*=imageNum]').val();
 	$('div#workAssoc_results_header span.close').click(
 		function()
 		{

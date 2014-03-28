@@ -118,7 +118,7 @@ $(document).ready(function () {
 
   $('div#nav_createOrder').click(createOrder_load_form);
 
-  $('div#nav_createWork').click(createWork);
+  $('div#nav_createWork').click(createBuiltWork);
 
   $('div#nav_createRepository').click(createRepository);
 

@@ -39,7 +39,7 @@ if (!isset($_SESSION['createNewWork']))
 	$_SESSION['createNewWork']['commonMeasurementList2_0'] = $NWmeasurements[0]['commonMeasurementList2_'] =
 	$_SESSION['createNewWork']['inchesValue0'] = $NWmeasurements[0]['inchesValue'] =
 	$_SESSION['createNewWork']['areaMeasurementList0'] = $NWmeasurements[0]['areaMeasurementList'] =
-	$_SESSION['createNewWork']['days0'] = $NWmeasurements[0]['days'] =
+	$_SESSION['createNewWork']['days0'] = $NWmeasurementDisplayasurements[0]['days'] =
 	$_SESSION['createNewWork']['hours0'] = $NWmeasurements[0]['hours'] =
 	$_SESSION['createNewWork']['minutes0'] = $NWmeasurements[0]['minutes'] =
 	$_SESSION['createNewWork']['seconds0'] = $NWmeasurements[0]['seconds'] =
@@ -63,8 +63,15 @@ if (!isset($_SESSION['createNewWork']))
 	$_SESSION['createNewWork']['specificLocationLong0'] = $NWspecificLocation[0]['specificLocationLong'] =
 	$_SESSION['createNewWork']['specificLocationNote0'] = $NWspecificLocation[0]['specificLocationNote'] =
 	$_SESSION['createNewWork']['builtWork0'] = $NWbuiltWork[0]['builtWork'] =
-	$_SESSION['createNewWork']['relationType0'] = $NWrelatedWorks[0]['relationType'] =
-	$_SESSION['createNewWork']['relatedTo0'] = $NWrelatedWorks[0]['relatedTo'] =
+	$_SESSION['createNewWork']['builtWorkId0'] = $NWbuiltWork[0]['builtWorkId'] =
+	$_SESSION['createNewWork']['builtWorkNameType0'] = $NWbuiltWork[0]['builtWorkNameType'] =
+	$_SESSION['createNewWork']['builtWorkType0'] = $NWbuiltWork[0]['builtWorkType'] =
+	$_SESSION['createNewWork']['relationType0'] = $NWrelation[0]['relationType'] =
+	$_SESSION['createNewWork']['relatedTo0'] = $NWrelation[0]['relatedTo'] =
+	$_SESSION['createNewWork']['relationImageId0'] = $NWrelation[0]['relationImageId'] =
+	$_SESSION['createNewWork']['relationImage0'] = $NWrelation[0]['relationImage'] =
+	$_SESSION['createNewWork']['relationTitle0'] = $NWrelation[0]['relationTitle'] =
+	$_SESSION['createNewWork']['relationAgent0'] = $NWrelation[0]['relationAgent'] =
 	$_SESSION['createNewWork']['stateEditionType0'] = $NWstateEdition[0]['stateEditionType'] =
 	$_SESSION['createNewWork']['stateEdition0'] = $NWstateEdition[0]['stateEdition'] =
 	$_SESSION['createNewWork']['inscriptionType0'] = $NWinscription[0]['inscriptionType'] =
@@ -84,9 +91,6 @@ if (!isset($_SESSION['createNewWork']))
 	$_SESSION['createNewWork']['source0'] = $NWsource[0]['source'] =
 	$_SESSION['createNewWork']['updated'] = '';
 }
-
-$builtWork = $_GET['createBuiltWork'];
-?>
 
 ?>
 
@@ -731,8 +735,8 @@ $builtWork = $_GET['createBuiltWork'];
 							<input type="text" 
 								id="NWworkType<?php echo $i; ?>" 
 								class="autoWidth authoritySearch idMissing"
-								name="<?php echo ($builtWork === 'true') ? 'NWbuiltworkType' : 'NWworkType' ?><?php echo $i; ?>" 
-								placeholder="<?php echo ($builtWork === 'true') ? 'Built Work Type' : 'Work Type' ?>"
+								name="NWworkType<?php echo $i; ?>" 
+								placeholder= "Work Type"
 								value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['workType'.$i] : ''; ?>">
 						
 						</div>
@@ -1388,10 +1392,6 @@ $builtWork = $_GET['createBuiltWork'];
 
 		<!-- Specific Location -->
 		
-				<!-- Specific Location -->
-		
-		<!-- Specific Location -->
-		
 		<div class="catSectionWrapper workSection">
 		
 			<?php
@@ -1420,7 +1420,7 @@ $builtWork = $_GET['createBuiltWork'];
 							id="NWspecificLocationDisplay<?php echo $i; ?>"
 							class="cat_display"
 							name="NWspecificLocationDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['createNewWork']['specificLocationDisplay'.$i])) ? $_SESSION['createNewWork']['specificLocationDisplay'.$i] : '1'; ?>">
+							value="1">
 
 						</div>
 					
@@ -1432,7 +1432,7 @@ $builtWork = $_GET['createBuiltWork'];
 								name="NWspecificLocationType<?php echo $i; ?>" 
 								title="Specific location type">
 							
-								<option id="Type" value="Type" <?php echo(isset($_SESSION['createNewWork']['specificLocationType'.$i]) && $_SESSION['createNewWork']['specificLocationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								<option id="blank" value="" <?php echo(isset($_SESSION['createNewWork']['specificLocationType'.$i]) && $_SESSION['createNewWork']['specificLocationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
 								
 								<option id="Address" value="Address" <?php echo(isset($_SESSION['createNewWork']['specificLocationType'.$i]) && $_SESSION['createNewWork']['specificLocationType'.$i] == "Address") ? 'selected="selected"' : "" ;?>>Address</option>
 
@@ -1488,9 +1488,9 @@ $builtWork = $_GET['createBuiltWork'];
 								id="NWspecificLocationLat<?php echo $i; ?>" 
 								style="width: 7em"
 								name="NWspecificLocationLat<?php echo $i; ?>" 
-								placeholder="Latitude"
+								placeholder="Temporarily"
 								value="<?php echo (isset($_SESSION['createNewWork']['specificLocationLat'.$i])) ? $_SESSION['createNewWork']['specificLocationLat'.$i] : ''; ?>" 
-								title="Specific location latitude">
+								title="Specific location latitude" disabled>
 
 						</div><!-- catCell -->
 
@@ -1500,9 +1500,9 @@ $builtWork = $_GET['createBuiltWork'];
 								id="NWspecificLocationLong<?php echo $i; ?>" 
 								style="width: 7em"
 								name="NWspecificLocationLong<?php echo $i; ?>" 
-								placeholder="Longitude"
+								placeholder="Disabled"
 								value="<?php echo (isset($_SESSION['createNewWork']['specificLocationLong'.$i])) ? $_SESSION['createNewWork']['specificLocationLong'.$i] : ''; ?>" 
-								title="Specific location longitude"> 
+								title="Specific location longitude" disabled> 
 
 						</div><!-- catCell -->
 
@@ -1510,7 +1510,7 @@ $builtWork = $_GET['createBuiltWork'];
 				
 				</div> <!-- catRowWrapper -->
 
-				<div id="specificLocationNoteRow" class="catRowWrapper" style="height: 7em; padding-top: 6px; padding-bottom: 0; position: relative;">				
+				<div id="specificLocationNoteRow" class="catRowWrapper" style="height: 7em; padding-top: 3px; padding-bottom: 0; position: relative;">				
 
 					<div class="catCellWrapper">
 
@@ -1544,7 +1544,7 @@ $builtWork = $_GET['createBuiltWork'];
 			
 			$rows = 0;
 			foreach ($_SESSION['createNewWork'] as $key=>$value) {
-				if (startsWith($key, 'builtWork')) {
+				if (startsWith($key, 'builtWorkNameType')) {
 					$rows++;
 				}
 			}
@@ -1566,11 +1566,11 @@ $builtWork = $_GET['createBuiltWork'];
 							id="NWbuiltWorkDisplay<?php echo $i; ?>"
 							class="cat_display"
 							name="NWbuiltWorkDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['createNewWork']['builtWorkDisplay'.$i])) ? $_SESSION['createNewWork']['builtWorkDisplay'.$i] : '1'; ?>">
+							value="1">
 					
 					</div>
 					
-					<div class="catCellWrapper">
+			<div class="catCellWrapper">
 					
 						<div class="catCell">
 						
@@ -1582,12 +1582,93 @@ $builtWork = $_GET['createBuiltWork'];
 								value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['builtWork'.$i] : ''; ?>">
 						
 						</div>	
+						
+						<div class="catCell">
+						
+							<input type="hidden" 
+								id="NWbuiltWorkId<?php echo $i; ?>"
+								name="NWbuiltWorkId<?php echo $i; ?>" 
+								value="<?php echo (isset($_SESSION['createNewWork'])) ? $_SESSION['createNewWork']['builtWorkId'.$i] : ''; ?>">
+						
+						</div>
 					
 					</div> <!-- catCellWrapper -->
 					
 					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
+				</div> <!-- catRowWrapper -->
+
+				<!-- Location 2 -->
+				
+				<div class="catRowWrapper" style="position: relative;">
+				
+					<div class="catRowTitle"></div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="NWbuiltWorkType<?php echo $i; ?>" 
+								name="NWbuiltWorkType<?php echo $i; ?>" 
+								title="Location type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								
+								<option id="creation" value="Creation" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Creation") ? 'selected="selected"' : "" ;?>>Creation</option>
+								
+								<option id="discovery" value="Discovery" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Discovery") ? 'selected="selected"' : "" ;?>>Discovery</option>
+								
+								<option id="exhibition" value="Exhibition" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Exhibition") ? 'selected="selected"' : "" ;?>>Exhibition</option>
+								
+								<option id="formerOwner" value="Former owner" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Former owner") ? 'selected="selected"' : "" ;?>>Former owner</option>
+								
+								<option id="formerRepository" value="Former repository" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Former repository") ? 'selected="selected"' : "" ;?>>Former repository</option>
+								
+								<option id="formerSite" value="Former site" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Former site") ? 'selected="selected"' : "" ;?>>Former site</option>
+								
+								<option id="installation" value="Installation" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Installation") ? 'selected="selected"' : "" ;?>>Installation</option>
+								
+								<option id="intended" value="Intended" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Intended") ? 'selected="selected"' : "" ;?>>Intended</option>
+								
+								<option id="owner" value="Owner" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Owner") ? 'selected="selected"' : "" ;?>>Owner</option>
+								
+								<option id="performance" value="Performance" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Performance") ? 'selected="selected"' : "" ;?>>Performance</option>
+								
+								<option id="publication" value="Publication" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Publication") ? 'selected="selected"' : "" ;?>>Publication</option>
+								
+								<option id="repository" value="Repository" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Repository") ? 'selected="selected"' : "" ;?>>Repository</option>
+								
+								<option id="site" value="Site" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Site") ? 'selected="selected"' : "" ;?>>Site</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['createNewWork']['builtWorkType'.$i]) && $_SESSION['createNewWork']['builtWorkType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+
+						<div class="catCell">
+						
+							<select id="NWbuiltWorkNameType<?php echo $i; ?>" 
+								name="NWbuiltWorkNameType<?php echo $i; ?>" 
+								title="Location name type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['createNewWork']['builtWorkNameType'.$i]) && $_SESSION['createNewWork']['builtWorkNameType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Name Type -</option>
+								
+								<option id="corporate" value="Corporate" <?php echo(isset($_SESSION['createNewWork']['builtWorkNameType'.$i]) && $_SESSION['createNewWork']['builtWorkNameType'.$i] == "Corporate") ? 'selected="selected"' : "" ;?>>Corporate</option>
+								
+								<option id="geographic" value="Geographic" <?php echo(isset($_SESSION['createNewWork']['builtWorkNameType'.$i]) && $_SESSION['createNewWork']['builtWorkNameType'.$i] == "Geographic") ? 'selected="selected"' : "" ;?>>Geographic</option>
+								
+								<option id="personal" value="Personal" <?php echo(isset($_SESSION['createNewWork']['builtWorkNameType'.$i]) && $_SESSION['createNewWork']['builtWorkNameType'.$i] == "Personal") ? 'selected="selected"' : "" ;?>>Personal</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['createNewWork']['builtWorkNameType'.$i]) && $_SESSION['createNewWork']['builtWorkNameType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+							
+					</div> <!-- catCellWrapper -->
+						
 				</div> <!-- catRowWrapper -->
 
 			</div>
@@ -1601,8 +1682,6 @@ $builtWork = $_GET['createBuiltWork'];
 		<div class="catSectionWrapper  workSection">
 		
 			<?php
-
-			include('../_php/_order/query_work.php');
 			
 			$rows = 0;
 			foreach ($_SESSION['createNewWork'] as $key=>$value) {
@@ -1625,10 +1704,10 @@ $builtWork = $_GET['createBuiltWork'];
 						<div class="titleText">Related Works</div>
 
 						<input type="hidden"
-							id="NWrelatedWorkDisplay<?php echo $i; ?>"
+							id="NWrelationDisplay<?php echo $i; ?>"
 							class="cat_display"
-							name="NWrelatedWorkDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['createNewWork']['relatedWorkDisplay'.$i])) ? $_SESSION['createNewWork']['relatedWorkDisplay'.$i] : '1'; ?>">
+							name="NWrelationDisplay<?php echo $i; ?>"
+							value="1">
 					
 					</div>
 					
@@ -1638,120 +1717,236 @@ $builtWork = $_GET['createBuiltWork'];
 						
 							<select id="NWrelationType<?php echo $i; ?>"
 								name="NWrelationType<?php echo $i; ?>" 
-								title="relationType">
-									
-								<option id="blank" value="Type" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], ''); ?>>- Type -</option>
+								title="relationType">	
+				
+								<option id="blank" value="" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], ''); ?>>- Type -</option>
 								
-								<option id="relatedTo" value="Related to" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Related to'); ?>>Related to</option>
+								<option id="relatedTo" value="relatedTo" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'relatedTo'); ?>>Related to</option>
 								
-								<option id="partOf" value="Part of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Part of'); ?>>Part of</option>
+								<option id="partOf" value="partOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'partOf'); ?>>Part of</option>
 								
-								<option id="formerlyPartOf" value="Formerly part of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Formerly part of'); ?>>Formerly part of</option>
+								<option id="formerlyPartOf" value="formerlyPartOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'formerlyPartOf'); ?>>Formerly part of</option>
 								
-								<option id="componentOf" value="Component of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Component of'); ?>>Component of</option>
+								<option id="componentOf" value="componentOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'componentOf'); ?>>Component of</option>
 
-								<option id="partnerInSetWith" value="Partner in set with" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Partner in set with'); ?>>Partner in set with</option>
+								<option id="partnerInSetWith" value="partnerInSetWith" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'partnerInSetWith'); ?>>Partner in set with</option>
 
-								<option id="preparatoryFor" value="Preparatory for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Preparatory for'); ?>>Preparatory for</option>
+								<option id="preparatoryFor" value="preparatoryFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'preparatoryFor'); ?>>Preparatory for</option>
 								
-								<option id="studyFor" value="Study for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Study for'); ?>>Study for</option>
+								<option id="studyFor" value="studyFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'studyFor'); ?>>Study for</option>
 								
-								<option id="cartoonFor" value="Cartoon for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Cartoon for'); ?>>Cartoon for</option>
+								<option id="cartoonFor" value="cartoonFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'cartoonFor'); ?>>Cartoon for</option>
 								
-								<option id="modelFor" value="Model for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Model for'); ?>>Model for</option>
+								<option id="modelFor" value="modelFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'modelFor'); ?>>Model for</option>
 								
-								<option id="planFor" value="Plan for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Plan for'); ?>>Plan for</option>
+								<option id="planFor" value="planFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'planFor'); ?>>Plan for</option>
 								
-								<option id="counterProofFor" value="Counter proof for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Counter proof for'); ?>>Counter proof for</option>
+								<option id="counterProofFor" value="counterProofFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'counterProofFor'); ?>>Counter proof for</option>
 								
-								<option id="printingPlateFor" value="Printing plate for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Printing plate for'); ?>>Printing plate for</option>
+								<option id="printingPlateFor" value="printingPlateFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'printingPlateFor'); ?>>Printing plate for</option>
 								
-								<option id="reliefFor" value="Relief for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Relief for'); ?>>Relief for</option>
+								<option id="reliefFor" value="reliefFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'reliefFor'); ?>>Relief for</option>
 								
-								<option id="prototypeFor" value="Prototype for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Prototype for'); ?>>Prototype for</option>
+								<option id="prototypeFor" value="prototypeFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'prototypeFor'); ?>>Prototype for</option>
 
-								<option id="designedFor" value="Designed for" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Designed for'); ?>>Designed for</option>
+								<option id="designedFor" value="designedFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'designedFor'); ?>>Designed for</option>
 
-								<option id="mateOf" value="Mate of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Mate of'); ?>>Mate of</option>
+								<option id="mateOf" value="mateOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'mateOf'); ?>>Mate of</option>
 
-								<option id="pendantOf" value="Pendant of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Pendant of'); ?>>Pendant of</option>
+								<option id="pendantOf" value="pendantOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'pendantOf'); ?>>Pendant of</option>
 
-								<option id="exhibitedAt" value="Exhibited at" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Exhibited at'); ?>>Exhibited at</option>
+								<option id="exhibitedAt" value="exhibitedAt" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'exhibitedAt'); ?>>Exhibited at</option>
 
-								<option id="copyAfter" value="Copy after" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Copy after'); ?>>Copy after</option>
+								<option id="copyAfter" value="copyAfter" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'copyAfter'); ?>>Copy after</option>
 
-								<option id="depicts" value="Depicts" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Depicts'); ?>>Depicts</option>
+								<option id="depicts" value="depicts" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'depicts'); ?>>Depicts</option>
 
-								<option id="derivedFrom" value="Derived from" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Derived from'); ?>>Derived from</option>
+								<option id="derivedFrom" value="derivedFrom" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'derivedFrom'); ?>>Derived from</option>
 
-								<option id="facsimileOf" value="Facsimile of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Facsimile of'); ?>>Facsimile of</option>
+								<option id="facsimileOf" value="facsimileOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'facsimileOf'); ?>>Facsimile of</option>
 
-								<option id="replicaOf" value="Replica of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Replica of'); ?>>Replica of</option>
+								<option id="replicaOf" value="replicaOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'replicaOf'); ?>>Replica of</option>
 
-								<option id="versionOf" value="Version of" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'Version of'); ?>>Version of</option>
+								<option id="versionOf" value="versionOf" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'versionOf'); ?>>Version of</option>
+								
+								<option id="largerContextFor" value="largerContextFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'largerContextFor'); ?>>Larger Context For</option>
 
-							</select>
+								<option id="formerlyLargerContextFor" value="formerlyLargerContextFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'formerlyLargerContextFor'); ?>>Formerly Larger Context For</option>
+								
+								<option id="componentIs" value="componentIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'componentIs'); ?>>Component Is</option>
+
+								<option id="basedOn" value="basedOn" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'basedOn'); ?>>Based On</option>
+								
+								<option id="studyIs" value="studyIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'studyIs'); ?>>Study Is</option>
+
+								<option id="cartoonIs" value="cartoonIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'cartoonIs'); ?>>Cartoon Is</option>
+								
+								<option id="modelIs" value="modelIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'modelIs'); ?>>Model Is</option>
+
+								<option id="planIs" value="planIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'planIs'); ?>>Plan Is</option>
+								
+								<option id="counterProofIs" value="counterProofIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'counterProofIs'); ?>>Counter Proof Is</option>
+
+								<option id="printingPlateIs" value="printingPlateIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'printingPlateIs'); ?>>Printing Plate Is</option>
+								
+								<option id="impressionIs" value="impressionIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'impressionIs'); ?>>Impression Is</option>
+
+								<option id="prototypeIs" value="prototypeIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'prototypeIs'); ?>>Prototype Is</option>
+								
+								<option id="contextIs" value="contextIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'contextIs'); ?>>Context Is</option>
+
+								<option id="venueFor" value="venueFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'venueFor'); ?>>Venue For</option>
+								
+								<option id="copyIs" value="copyIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'copyIs'); ?>>Copy Is</option>
+
+								<option id="depictedIn" value="depictedIn" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'depictedIn'); ?>>Depicted In</option>
+								
+								<option id="sourceFor" value="sourceFor" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'sourceFor'); ?>>Source For</option>
+
+								<option id="facsimileIs" value="facsimileIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'facsimileIs'); ?>>Facsimile Is</option>
+								
+								<option id="relplicaIs" value="relplicaIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'relplicaIs'); ?>>Replica Is</option>
+
+								<option id="versionIs" value="versionIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'versionIs'); ?>>Version Is</option>
+								
+								<option id="imageIs" value="imageIs" <?php selectedOption($_SESSION['createNewWork']['relationType'.$i], 'imageIs'); ?>>Image Is</option>
 							
-						</div>
-						
-					<!--	<div class="catCell">
-						
-							<input type="text" 
-								id="NWrelatedTo<?php //echo $i; ?>" 
-								class="autoWidth"
-								name="NWrelatedTo<?php //echo $i; ?>" 
-								value="<?php //echo $_SESSION['createNewWork']['relatedTo'.$i]; ?>" 
-								maxlength="500"
-								placeholder="Related Works">
+							</select>
 
-						</div>-->
-								<!-- Code for child iamges -->
+						</div>
+			
 					</div> <!-- catCellWrapper -->
 					
 					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
-				</div> <!-- catRowWrapper -->
+						
+						</div> <!-- catRowWrapper -->
 
-				<div id="relatedWorksSearchRow" class="catRowWrapper" style="height: auto; padding-top: 6px; padding-bottom: 0; position: relative;">
-
-				<?php $_SESSION['createNewWork']['relatedWork_search'.$i] = array('title'=>'', 'agent'=>'');?>
-					
+						<div id="relationSearch" class="catRowWrapper" style="height: auto; padding-top: 6px; padding-bottom: 0; position: relative;">
 				
-							<div id="workAssoc_wrapper" style>
+							<div id="workAssoc_wrapper">
 							
 								<div id="workAssoc_searchFields">
 
-									<p>a) Search existing works:</p>
+									<p>Search existing works:</p>
 
-									<input type="text" name="title"
-									placeholder="Title"
-									value="<?php echo $_SESSION['createNewWork']['relatedWork_search'.$i]['title']; ?>">
+									<input type="text" 
+									id = "NWsearchTitle<?php echo $i; ?>"
+									name="NWsearchTitle<?php echo $i; ?>"
+									placeholder="Title">
 									
 									<br />
 
 									<input type="text" 
-									name="agent"
-									placeholder="Agent"
-									value="<?php echo $_SESSION['createNewWork']['relatedWork_search'.$i]['agent']; ?>">
+									id = "NWsearchAgent<?php echo $i; ?>"
+									name="NWsearchAgent<?php echo $i; ?>"
+									placeholder="Agent">
 
 									<br />
 									
 									<input type="button"
-									id="relatedWork_search_submit_button"
+									id="NWrelationSearch_submitButton<?php echo $i; ?>"
+									name="NWrelationSearch_submitButton<?php echo $i; ?>"
 									value="Search">
 
 								</div>
 
 							</div>
+							
 
-				</div> <!-- catRowWrpper -->
+				</div> <!-- catRowWrapper -->
+				
+				<?php 
+
+				if (!empty($_SESSION['createNewWork']['relatedTo'.$i])) { ?>
+
+						<div id="NWshowRelatedTo<?php echo $i; ?>"  class="catRowWrapper" style="height: auto;">
+									
+							<div class="workAssoc_results_row">
+									
+								<!--
+								Preview thumbnail
+								-->
+								<?php 
+								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['createNewWork']['relationImage'.$i].'.jpg';	
+								?>"	
+								
+							<div class="workAssoc_results_col1">
+									<img src="<?php echo $relatedImageSrc; ?>"
+									class="relationAssoc_thumb"
+									title="Preview this image"
+									style="display: inline-block; width: 92px; height: 72px;">
+								
+									<input type="hidden"
+									id = "workNum<?php echo $i; ?>" 
+									name="workNum<?php echo $i; ?>" 
+									value="<?php echo (isset($_SESSION['createNewWork']['relationImageId'.$i])) ? $_SESSION['createNewWork']['relationImageId'.$i] : ''; ?>">
+
+									<input type="hidden"
+									id = "imageNum<?php echo $i; ?>" 
+									name="imageNum<?php echo $i; ?>" 
+									value="<?php echo (isset($_SESSION['createNewWork']['relationImage'.$i])) ? $_SESSION['createNewWork']['relationImage'.$i] : ''; ?>">
+
+								</div>
+
+							<div class="workAssoc_results_col2 defaultCursor">
+							
+								<!--
+									Work title
+								-->
+								
+							<div class="workAssoc_results_cell mediumWeight"
+									style="line-height: 1.2em;">
+
+									<?php 
+									$relatedTitle = $_SESSION['createNewWork']['relationTitle'.$i]; 
+									echo '<span title="'.$relatedTitle.'">';
+									echo (strlen($relatedTitle) <= 46) 
+										? $relatedTitle. '<br>'
+										: substr($relatedTitle, 0, 43) . '...<br>';
+									echo '</span>';
+									?>
+								
+								</div>
+
+									<!--
+									Agent
+									-->
+
+								<div class="workAssoc_results_cell">
+									<?php
+									echo $_SESSION['createNewWork']['relationAgent'.$i];
+									?>
+								</div>	
+	
+							</div>
+
+						</div> <!-- workAssoc_results_row -->
+
+					</div>				
+				
+		<?php } else {?>
+
+			
+						<div id="NWfillRelatedTo<?php echo $i; ?>" hidden>
+						
+								<input type ="text"
+								id= "NWrelatedTo<?php echo $i; ?>"
+								name = "NWrelatedTo<?php echo $i; ?>"
+								value =""
+								placehoder="Related To">
+
+						</div>	
+										
+
+				<?php }?>
 
 			</div> <!-- cloneWrap-->
 		
 			<?php $i++; } ?>
 
-		</div> <!-- catSectionWrapper -->
+		</div> <!-- catSectionWrapper -->	
+				
 		
 		<!-- State / Edition -->
 		
@@ -2341,17 +2536,13 @@ $builtWork = $_GET['createBuiltWork'];
 	// Add a CLOSE button to the module
 	closeModule_button($('div#createBuiltWork_module'));
 
-
 	catalogUI_prepFields();
 	catalogUI_prepAddRemove();
 	authorityIndicators();
 
-
 	// Perform authority search
-
 	$('div#createBuiltWork_module input.authoritySearch').keyup(debounce(function()
 	{
-		// console.log('triggered');
 		var term = $(this).val();
 		if (term.length > 2 && $.trim(term) != '')
 		{
@@ -2369,7 +2560,6 @@ $builtWork = $_GET['createBuiltWork'];
 	}, 1000));
 
 	// Toggle date range
-
 	$('div#createBuiltWork_module input[type=checkbox][id*=dateRange]').click(function() 
 	{
 		var endDate = $(this).parents('div#createBuiltWork_module div.catRowWrapper')
@@ -2379,60 +2569,43 @@ $builtWork = $_GET['createBuiltWork'];
 	});
 	
 	// Show/hide date range on load
-
 	$('div#createBuiltWork_module input[type=checkbox][id*=dateRange]')
 		.each(catalogUI_dateRange_onLoad);
 
 	$('div#createBuiltWork_module input.autoWidth').each(autoWidth);
 
-	//Hide the available specific location fields
-		
-		$('div#createBuiltWork_module [id*=specificLocationRow]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationNoteRow]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationNote]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationLat]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationLong]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationAddress]').hide();
-		$('div#createBuiltWork_module [id*=specificLocationZip]').hide();
-
-	//Show and Toggle specific location field on type change
-
-	$('div#createBuiltWork_module select[id*=specificLocationType]').change(displaySpecificLocation);
+	//Show and Toggle specific location row and fields
+	$('select[id*=specificLocationType]').each(displaySpecificLocation);
+	$('select[id*=specificLocationType]').change(displaySpecificLocation);
 
 	// Adapt cataloging UI to the width of the browser window
-
 	$(window).resize(function()
 	{
 		$('div#createBuiltWork_module input.autoWidth').each(autoWidth);
 	});
 
 	//Hide the related works search and results row
-
-	$('div#createBuiltWork_module [id*=relatedWorksSearchRow]').hide();
+	$('div#createBuiltWork_module [id=relationSearch]').hide();
+	$('div#createBuiltWork_module select[id*=relationType]').change(displayRelationSearch);
 
 	// SEARCH FOR RELATED WORK RECORDS (taken from work association)
-
-	function workAssoc_submit()
-	{
-		var titleTerm = $('div#workAssoc_searchFields input[name=title]').val();
-		var agentTerm = $('div#workAssoc_searchFields input[name=agent]').val();
-		workAssoc_search(titleTerm, agentTerm);
-	}
-
-	$('input#relatedWork_search_submit_button').click(workAssoc_submit);
-
-	$('div#workAssoc_searchFields input').keypress(function(e)
-	{
-		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
-		{
-			workAssoc_submit();
+	$('div#createBuiltWork_module input[id*=relationSearch_submitButton]').click(function(){
+		var titleTerm = $(this).parent('div').find('input[id*=searchTitle]').val();
+		var agentTerm = $(this).parent('div').find('input[id*=searchAgent]').val();
+		var module = $(this).closest('div#workAssoc_wrapper');
+		relationAssoc_search(titleTerm, agentTerm, module);	
+	});
+	
+	$('div#createBuiltWork_module div#workAssoc_searchFields input').keypress(function(e){
+		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
+		var titleTerm = $(this).parent('div').find('input[id*=searchTitle]').val();
+		var agentTerm = $(this).parent('div').find('input[id*=searchAgent]').val();
+		var module = $(this).closest('div#workAssoc_wrapper');
+		relationAssoc_search(titleTerm, agentTerm, module);
 		}
 	});
 
-	$('div#createBuiltWork_module select[id*=relationType]').change(displayRelatedWorksSearch);
-
 	// RESET ALL FIELDS
-
 	$('div#createBuiltWork_module button.catalogUI_clear')
 		.click(promptToConfirm)
 		.click(
@@ -2446,14 +2619,10 @@ $builtWork = $_GET['createBuiltWork'];
 						});
 			});
 
-
-	// Disable the browser's autocomplete feature for the cataloging UI
-	// $('div#createBuiltWork_module input').attr('autocomplete', 'off');
-
+	//Bind authority search color indicators
 	$('div#createBuiltWork_module').click(authorityIndicators);
 
 	// User clicks 'Submit'
-
 	$('button#createNewWork_submit')
 		.click(promptToConfirm)
 		.click(

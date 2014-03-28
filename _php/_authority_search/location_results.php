@@ -2,20 +2,16 @@
 
 	<div class="close floatRight pointer"></div>
 
-	<tr>
-		<td class="mediumWeight purple grey_bg" colspan="2"
-			style="border-bottom: 1px solid #FFF;">
+	<tr id="authorityResults_location_tgn" style="border-bottom: 1px solid #FFF;">
+		<td class="mediumWeight grey_bg" colspan="2" > 
+			<?php echo $resultCount_tgn;?>
+			<?php echo ($resultCount_tgn != 1) ? ' TGN terms, ': 'TGN term, '; ?>
+			<span class="mediumWeight purple grey_bg">
 			<?php echo $message; ?>
+			</span>
 		</td>
 	</tr>
-
-	<tr id="authorityResults_location_tgn">
-		<td class="mediumWeight grey_bg" 
-			colspan="2">
-			<?php echo $result->num_rows.' TGN terms'; ?>
-		</td>
-	</tr>
-
+	
 	<tbody>
 
 	<?php while ($row = $result->fetch_assoc()): ?>
@@ -79,12 +75,13 @@
 	<?php endwhile; ?>
 
 	</tbody>
-
-	<tr id="authorityResults_location_repository">
+	
+		<tr id="authorityResults_location_repository">
 		<td class="mediumWeight grey_bg"
-			style="border-top: 1px solid #FFF;" 
+			style="border-top: 1px solid #FFF; border-bottom: 1px solid #FFF;" 
 			colspan="2">
-			<?php echo $result_repository->num_rows.' repositories'; ?>
+			<?php echo $result_repository->num_rows; ?>
+			<?php echo ($result_repository->num_rows !=1) ? ' repositories' : ' repository';?>
 		</td>
 	</tr>
 

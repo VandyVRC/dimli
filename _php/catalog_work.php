@@ -8,6 +8,7 @@ confirm_logged_in();
 require_priv('priv_catalog');
 
 
+
 // Find images that are depedent upon the current work record
 
 $sql = "SELECT * 
@@ -1377,7 +1378,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								name="WspecificLocationType<?php echo $i; ?>" 
 								title="Specific location type">
 							
-								<option id="Type" value="Type" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
 								
 								<option id="Address" value="Address" <?php echo(isset($_SESSION['work']['specificLocationType'.$i]) && $_SESSION['work']['specificLocationType'.$i] == "Address") ? 'selected="selected"' : "" ;?>>Address</option>
 
@@ -1433,9 +1434,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WspecificLocationLat<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="WspecificLocationLat<?php echo $i; ?>" 
-								placeholder="Latitude"
+								placeholder="Temporarily"
 								value="<?php echo (isset($_SESSION['work']['specificLocationLat'.$i])) ? $_SESSION['work']['specificLocationLat'.$i] : ''; ?>" 
-								title="Specific location latitude">
+								title="Specific location latitude" disabled>
 
 						</div><!-- catCell -->
 
@@ -1445,9 +1446,10 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WspecificLocationLong<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="WspecificLocationLong<?php echo $i; ?>" 
-								placeholder="Longitude"
+								placeholder="Disabled"
 								value="<?php echo (isset($_SESSION['work']['specificLocationLong'.$i])) ? $_SESSION['work']['specificLocationLong'.$i] : ''; ?>" 
-								title="Specific location longitude"> 
+								title="Specific location longitude" disabled> 
+		
 
 						</div><!-- catCell -->
 
@@ -1455,9 +1457,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catRowWrapper -->
 
-				<div id="specificLocationNoteRow" class="catRowWrapper" style="height: 7em; padding-top: 6px; padding-bottom: 0; position: relative;">	
+				<div id="specificLocationNoteRow" class="catRowWrapper" style="height: 7em; padding-top: 3px; padding-bottom: 0; position: relative;">	
 						
-					<div class="catCellWrapper">
+					<div class="catCellWrapper"> 
 
 						<div  id="WspecificLocationNote<?php echo $i; ?>" class="catCell">
 							
@@ -1468,7 +1470,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							name="WspecificLocationNote<?php echo $i; ?>" 
 							placeholder="Specific Location Note"><?php echo (isset($_SESSION['work']['specificLocationNote'.$i])) ? htmlspecialchars($_SESSION['work']['specificLocationNote'.$i]) : ''; ?></textarea>
 
-						</div><!-- catCell -->
+	 				</div><!-- catCell -->
 
 					</div><!-- catCellWrapper -->
 				
@@ -1488,14 +1490,14 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			
 			$rows = 0;
 			foreach ($_SESSION['work'] as $key=>$value) {
-				if (startsWith($key, 'builtWork')) {
+				if (startsWith($key, 'builtWorkNameType')) {
 					$rows++;
 				}
 			}
 			
 			$i = 0;
 			while ($i < $rows) {
-			
+
 			?>
 
 			<div class="clone_wrap">
@@ -1526,6 +1528,15 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['builtWork'.$i] : ''; ?>">
 						
 						</div>	
+						
+						<div class="catCell">
+						
+							<input type="hidden" 
+								id="WbuiltWorkId<?php echo $i; ?>"
+								name="WbuiltWorkId<?php echo $i; ?>" 
+								value="<?php echo (isset($_SESSION['work'])) ? $_SESSION['work']['builtWorkId'.$i] : ''; ?>">
+						
+						</div>
 					
 					</div> <!-- catCellWrapper -->
 					
@@ -1534,6 +1545,78 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catRowWrapper -->
 
+				<!-- Built Work 2 -->
+				
+				<div class="catRowWrapper" style="position: relative;">
+				
+					<div class="catRowTitle"></div>
+					
+					<div class="catCellWrapper">
+					
+						<div class="catCell">
+						
+							<select id="WbuiltWorkType<?php echo $i; ?>" 
+								name="WbuiltWorkType<?php echo $i; ?>" 
+								title="Location type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Type -</option>
+								
+								<option id="creation" value="Creation" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Creation") ? 'selected="selected"' : "" ;?>>Creation</option>
+								
+								<option id="discovery" value="Discovery" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Discovery") ? 'selected="selected"' : "" ;?>>Discovery</option>
+								
+								<option id="exhibition" value="Exhibition" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Exhibition") ? 'selected="selected"' : "" ;?>>Exhibition</option>
+								
+								<option id="formerOwner" value="Former owner" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Former owner") ? 'selected="selected"' : "" ;?>>Former owner</option>
+								
+								<option id="formerRepository" value="Former repository" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Former repository") ? 'selected="selected"' : "" ;?>>Former repository</option>
+								
+								<option id="formerSite" value="Former site" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Former site") ? 'selected="selected"' : "" ;?>>Former site</option>
+								
+								<option id="installation" value="Installation" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Installation") ? 'selected="selected"' : "" ;?>>Installation</option>
+								
+								<option id="intended" value="Intended" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Intended") ? 'selected="selected"' : "" ;?>>Intended</option>
+								
+								<option id="owner" value="Owner" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Owner") ? 'selected="selected"' : "" ;?>>Owner</option>
+								
+								<option id="performance" value="Performance" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Performance") ? 'selected="selected"' : "" ;?>>Performance</option>
+								
+								<option id="publication" value="Publication" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Publication") ? 'selected="selected"' : "" ;?>>Publication</option>
+								
+								<option id="repository" value="Repository" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Repository") ? 'selected="selected"' : "" ;?>>Repository</option>
+								
+								<option id="site" value="Site" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Site") ? 'selected="selected"' : "" ;?>>Site</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['builtWorkType'.$i]) && $_SESSION['work']['builtWorkType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+
+						<div class="catCell">
+						
+							<select id="WbuiltWorkNameType<?php echo $i; ?>" 
+								name="WbuiltWorkNameType<?php echo $i; ?>" 
+								title="Location name type">
+							
+								<option id="blank" value="" <?php echo(isset($_SESSION['work']['builtWorkNameType'.$i]) && $_SESSION['work']['builtWorkNameType'.$i] == "") ? 'selected="selected"' : "" ;?>>- Name Type -</option>
+								
+								<option id="corporate" value="Corporate" <?php echo(isset($_SESSION['work']['builtWorkNameType'.$i]) && $_SESSION['work']['builtWorkNameType'.$i] == "Corporate") ? 'selected="selected"' : "" ;?>>Corporate</option>
+								
+								<option id="geographic" value="Geographic" <?php echo(isset($_SESSION['work']['builtWorkNameType'.$i]) && $_SESSION['work']['builtWorkNameType'.$i] == "Geographic") ? 'selected="selected"' : "" ;?>>Geographic</option>
+								
+								<option id="personal" value="Personal" <?php echo(isset($_SESSION['work']['builtWorkNameType'.$i]) && $_SESSION['work']['builtWorkNameType'.$i] == "Personal") ? 'selected="selected"' : "" ;?>>Personal</option>
+								
+								<option id="other" value="Other" <?php echo(isset($_SESSION['work']['builtWorkNameType'.$i]) && $_SESSION['work']['builtWorkNameType'.$i] == "Other") ? 'selected="selected"' : "" ;?>>Other</option>
+							
+							</select>
+						
+						</div>
+							
+					</div> <!-- catCellWrapper -->
+						
+				</div> <!-- catRowWrapper -->
+			
 			</div>
 		
 			<?php $i++; } ?>
@@ -1545,9 +1628,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 		<div class="catSectionWrapper  workSection">
 		
 			<?php
-
-			include('../_php/_order/query_work.php');
-			
+	
 			$rows = 0;
 			foreach ($_SESSION['work'] as $key=>$value) {
 				if (startsWith($key, 'relationType')) {
@@ -1569,127 +1650,233 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 						<div class="titleText">Related Works</div>
 
 						<input type="hidden"
-							id="WrelatedWorkDisplay<?php echo $i; ?>"
+							id="WrelationDisplay<?php echo $i; ?>"
 							class="cat_display"
-							name="WrelatedWorkDisplay<?php echo $i; ?>"
-							value="<?php echo (isset($_SESSION['work']['relatedWorkDisplay'.$i])) ? $_SESSION['work']['relatedWorkDisplay'.$i] : '1'; ?>">
+							name="WrelationDisplay<?php echo $i; ?>"
+							value="<?php echo (isset($_SESSION['work']['relationDisplay'.$i])) ? $_SESSION['work']['relationDisplay'.$i] : '1'; ?>">
 					
 					</div>
 					
 					<div class="catCellWrapper">
 					
 						<div class="catCell">
-						
+					
 							<select id="WrelationType<?php echo $i; ?>"
 								name="WrelationType<?php echo $i; ?>" 
-								title="relationType">
-									
-								<option id="blank" value="Type" <?php selectedOption($_SESSION['work']['relationType'.$i], ''); ?>>- Type -</option>
+								title="relationType">	
+				
+								<option id="blank" value="" <?php selectedOption($_SESSION['work']['relationType'.$i], ''); ?>>- Type -</option>
 								
-								<option id="relatedTo" value="Related to" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Related to'); ?>>Related to</option>
+								<option id="relatedTo" value="relatedTo" <?php selectedOption($_SESSION['work']['relationType'.$i], 'relatedTo'); ?>>Related to</option>
 								
-								<option id="partOf" value="Part of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Part of'); ?>>Part of</option>
+								<option id="partOf" value="partOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'partOf'); ?>>Part of</option>
 								
-								<option id="formerlyPartOf" value="Formerly part of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Formerly part of'); ?>>Formerly part of</option>
+								<option id="formerlyPartOf" value="formerlyPartOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'formerlyPartOf'); ?>>Formerly part of</option>
 								
-								<option id="componentOf" value="Component of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Component of'); ?>>Component of</option>
+								<option id="componentOf" value="componentOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'componentOf'); ?>>Component of</option>
 
-								<option id="partnerInSetWith" value="Partner in set with" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Partner in set with'); ?>>Partner in set with</option>
+								<option id="partnerInSetWith" value="partnerInSetWith" <?php selectedOption($_SESSION['work']['relationType'.$i], 'partnerInSetWith'); ?>>Partner in set with</option>
 
-								<option id="preparatoryFor" value="Preparatory for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Preparatory for'); ?>>Preparatory for</option>
+								<option id="preparatoryFor" value="preparatoryFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'preparatoryFor'); ?>>Preparatory for</option>
 								
-								<option id="studyFor" value="Study for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Study for'); ?>>Study for</option>
+								<option id="studyFor" value="studyFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'studyFor'); ?>>Study for</option>
 								
-								<option id="cartoonFor" value="Cartoon for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Cartoon for'); ?>>Cartoon for</option>
+								<option id="cartoonFor" value="cartoonFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'cartoonFor'); ?>>Cartoon for</option>
 								
-								<option id="modelFor" value="Model for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Model for'); ?>>Model for</option>
+								<option id="modelFor" value="modelFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'modelFor'); ?>>Model for</option>
 								
-								<option id="planFor" value="Plan for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Plan for'); ?>>Plan for</option>
+								<option id="planFor" value="planFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'planFor'); ?>>Plan for</option>
 								
-								<option id="counterProofFor" value="Counter proof for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Counter proof for'); ?>>Counter proof for</option>
+								<option id="counterProofFor" value="counterProofFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'counterProofFor'); ?>>Counter proof for</option>
 								
-								<option id="printingPlateFor" value="Printing plate for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Printing plate for'); ?>>Printing plate for</option>
+								<option id="printingPlateFor" value="printingPlateFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'printingPlateFor'); ?>>Printing plate for</option>
 								
-								<option id="reliefFor" value="Relief for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Relief for'); ?>>Relief for</option>
+								<option id="reliefFor" value="reliefFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'reliefFor'); ?>>Relief for</option>
 								
-								<option id="prototypeFor" value="Prototype for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Prototype for'); ?>>Prototype for</option>
+								<option id="prototypeFor" value="prototypeFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'prototypeFor'); ?>>Prototype for</option>
 
-								<option id="designedFor" value="Designed for" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Designed for'); ?>>Designed for</option>
+								<option id="designedFor" value="designedFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'designedFor'); ?>>Designed for</option>
 
-								<option id="mateOf" value="Mate of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Mate of'); ?>>Mate of</option>
+								<option id="mateOf" value="mateOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'mateOf'); ?>>Mate of</option>
 
-								<option id="pendantOf" value="Pendant of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Pendant of'); ?>>Pendant of</option>
+								<option id="pendantOf" value="pendantOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'pendantOf'); ?>>Pendant of</option>
 
-								<option id="exhibitedAt" value="Exhibited at" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Exhibited at'); ?>>Exhibited at</option>
+								<option id="exhibitedAt" value="exhibitedAt" <?php selectedOption($_SESSION['work']['relationType'.$i], 'exhibitedAt'); ?>>Exhibited at</option>
 
-								<option id="copyAfter" value="Copy after" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Copy after'); ?>>Copy after</option>
+								<option id="copyAfter" value="copyAfter" <?php selectedOption($_SESSION['work']['relationType'.$i], 'copyAfter'); ?>>Copy after</option>
 
-								<option id="depicts" value="Depicts" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Depicts'); ?>>Depicts</option>
+								<option id="depicts" value="depicts" <?php selectedOption($_SESSION['work']['relationType'.$i], 'depicts'); ?>>Depicts</option>
 
-								<option id="derivedFrom" value="Derived from" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Derived from'); ?>>Derived from</option>
+								<option id="derivedFrom" value="derivedFrom" <?php selectedOption($_SESSION['work']['relationType'.$i], 'derivedFrom'); ?>>Derived from</option>
 
-								<option id="facsimileOf" value="Facsimile of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Facsimile of'); ?>>Facsimile of</option>
+								<option id="facsimileOf" value="facsimileOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'facsimileOf'); ?>>Facsimile of</option>
 
-								<option id="replicaOf" value="Replica of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Replica of'); ?>>Replica of</option>
+								<option id="replicaOf" value="replicaOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'replicaOf'); ?>>Replica of</option>
 
-								<option id="versionOf" value="Version of" <?php selectedOption($_SESSION['work']['relationType'.$i], 'Version of'); ?>>Version of</option>
+								<option id="versionOf" value="versionOf" <?php selectedOption($_SESSION['work']['relationType'.$i], 'versionOf'); ?>>Version of</option>
+								
+								<option id="largerContextFor" value="largerContextFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'largerContextFor'); ?>>Larger Context For</option>
 
+								<option id="formerlyLargerContextFor" value="formerlyLargerContextFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'formerlyLargerContextFor'); ?>>Formerly Larger Context For</option>
+								
+								<option id="componentIs" value="componentIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'componentIs'); ?>>Component Is</option>
+
+								<option id="basedOn" value="basedOn" <?php selectedOption($_SESSION['work']['relationType'.$i], 'basedOn'); ?>>Based On</option>
+								
+								<option id="studyIs" value="studyIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'studyIs'); ?>>Study Is</option>
+
+								<option id="cartoonIs" value="cartoonIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'cartoonIs'); ?>>Cartoon Is</option>
+								
+								<option id="modelIs" value="modelIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'modelIs'); ?>>Model Is</option>
+
+								<option id="planIs" value="planIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'planIs'); ?>>Plan Is</option>
+								
+								<option id="counterProofIs" value="counterProofIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'counterProofIs'); ?>>Counter Proof Is</option>
+
+								<option id="printingPlateIs" value="printingPlateIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'printingPlateIs'); ?>>Printing Plate Is</option>
+								
+								<option id="impressionIs" value="impressionIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'impressionIs'); ?>>Impression Is</option>
+
+								<option id="prototypeIs" value="prototypeIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'prototypeIs'); ?>>Prototype Is</option>
+								
+								<option id="contextIs" value="contextIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'contextIs'); ?>>Context Is</option>
+
+								<option id="venueFor" value="venueFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'venueFor'); ?>>Venue For</option>
+								
+								<option id="copyIs" value="copyIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'copyIs'); ?>>Copy Is</option>
+
+								<option id="depictedIn" value="depictedIn" <?php selectedOption($_SESSION['work']['relationType'.$i], 'depictedIn'); ?>>Depicted In</option>
+								
+								<option id="sourceFor" value="sourceFor" <?php selectedOption($_SESSION['work']['relationType'.$i], 'sourceFor'); ?>>Source For</option>
+
+								<option id="facsimileIs" value="facsimileIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'facsimileIs'); ?>>Facsimile Is</option>
+								
+								<option id="relplicaIs" value="relplicaIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'relplicaIs'); ?>>Replica Is</option>
+
+								<option id="versionIs" value="versionIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'versionIs'); ?>>Version Is</option>
+								
+								<option id="imageIs" value="imageIs" <?php selectedOption($_SESSION['work']['relationType'.$i], 'imageIs'); ?>>Image Is</option>
+			
 							</select>
 							
 						</div>
-						
-					<!--	<div class="catCell">
-						
-							<input type="text" 
-								id="WrelatedTo<?php //echo $i; ?>" 
-								class="autoWidth"
-								name="WrelatedTo<?php //echo $i; ?>" 
-								value="<?php //echo $_SESSION['work']['relatedTo'.$i]; ?>" 
-								maxlength="500"
-								placeholder="Related Works">
-
-						</div>-->
-								<!-- Code for child iamges -->
+		
 					</div> <!-- catCellWrapper -->
 					
 					<div class="removeButton"><img src="_assets/_images/trash_mac.png"></div>
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
-					
+		
 				</div> <!-- catRowWrapper -->
 
-				<div id="relatedWorksSearchRow" class="catRowWrapper" style="height: auto; padding-top: 6px; padding-bottom: 0; position: relative;">
-
-				<?php $_SESSION['work']['relatedWork_search'.$i] = array('title'=>'', 'agent'=>'');?>
-					
+						<div id="relationSearch" class="catRowWrapper" style="height: auto;">
 				
-							<div id="workAssoc_wrapper" style>
+							<div id="workAssoc_wrapper">
 							
 								<div id="workAssoc_searchFields">
 
-									<p>a) Search existing works:</p>
+									<p>Search existing works:</p>
 
-									<input type="text" name="title"
-									placeholder="Title"
-									value="<?php echo $_SESSION['work']['relatedWork_search'.$i]['title']; ?>">
+									<input type="text" 
+									id = "WsearchTitle<?php echo $i; ?>"
+									name="WsearchTitle<?php echo $i; ?>"
+									placeholder="Title">
 									
 									<br />
 
 									<input type="text" 
-									name="agent"
-									placeholder="Agent"
-									value="<?php echo $_SESSION['work']['relatedWork_search'.$i]['agent']; ?>">
+									id = "WsearchAgent<?php echo $i; ?>"
+									name="WsearchAgent<?php echo $i; ?>"
+									placeholder="Agent">
 
 									<br />
 									
 									<input type="button"
-									id="relatedWork_search_submit_button"
+									id="WrelationSearch_submitButton<?php echo $i; ?>"
+									name="WrelationSearch_submitButton<?php echo $i; ?>"
 									value="Search">
 
 								</div>
 
 							</div>
 
-				</div> <!-- catRowWrpper -->
+
+				</div> <!-- catRowWrapper -->
+				
+				<?php 
+
+				if (!empty($_SESSION['work']['relatedTo'.$i])) { ?>
+
+						<div id="WshowRelatedTo<?php echo $i; ?>" class="catRowWrapper" style="height: auto; padding-top: 3px;">
+									
+							<div class="workAssoc_results_row" id="relationAsoc_results_row">
+									
+								<!--
+								Preview thumbnail
+								-->
+								<?php 
+								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['work']['relationImage'.$i].'.jpg';	
+								?>
+								
+								<div class="workAssoc_results_col1">
+									<img src="<?php echo $relatedImageSrc; ?>"
+									class="relationAssoc_thumb"
+									title="Preview this image"
+									style="display: inline-block; width: 92px; height: 72px;">
+								
+									<input type="hidden"
+									id = "imageNum<?php echo $i; ?>" 
+									name="imageNum<?php echo $i; ?>" 
+									value="<?php echo (isset($_SESSION['work']['relationImageId'.$i])) ? $_SESSION['work']['relationImageId'.$i] : ''; ?>">
+
+									<input type="hidden"
+									id = "imageView<?php echo $i; ?>" 
+									name="imageView<?php echo $i; ?>" 
+									value="<?php echo (isset($_SESSION['work']['relationImage'.$i])) ? $_SESSION['work']['relationImage'.$i] : ''; ?>">
+								</div>
+
+							<div class="workAssoc_results_col2 defaultCursor">
+							
+								<!--
+									Work title
+								-->
+								
+							<div class="workAssoc_results_cell mediumWeight"
+									style="line-height: 1.2em;">
+
+									<?php 
+									$relatedTitle = $_SESSION['work']['relationTitle'.$i]; 
+									echo '<span title="'.$relatedTitle.'">';
+									echo (strlen($relatedTitle) <= 46) 
+										? $relatedTitle.'<br>'
+										: substr($relatedTitle, 0, 43) . '...<br>';
+									echo '</span>';
+									?>
+								
+								</div>
+
+									<!--
+									Agent
+									-->
+
+								<div class="workAssoc_results_cell">
+									<?php
+									echo $_SESSION['work']['relationAgent'.$i];
+									?>
+								</div>	
+	
+							</div>
+
+						</div> <!-- workAssoc_results_row -->
+
+					</div>					
+
+				<?php }?>
+			
+				<input type ="hidden"
+				id= "WrelatedTo<?php echo $i; ?>"
+				name = "WrelatedTo<?php echo $i; ?>"
+				value ="<?php echo (isset($_SESSION['work']['relatedTo'.$i])) ? $_SESSION['work']['relatedTo'.$i] : ''; ?>"
+				placehoder="Related To">
 
 			</div> <!-- cloneWrap-->
 		
@@ -2260,7 +2447,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 			</div>
 			
 			<?php $i++; } ?>
-		
+	 
 		</div> <!-- catSectionWrapper -->
 
 	</div> <!-- catFormWrapper -->
@@ -2293,9 +2480,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 	catalogUI_prepAddRemove();
 	authorityIndicators();
 
-
 	// Perform authority search
-
 	$('div#work_module input.authoritySearch').keyup(debounce(
 		function()
 		{
@@ -2338,22 +2523,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 
 	$('div#work_module input.autoWidth').each(autoWidth);
 
-	
-		//Hide the available specific location fields
-		
-		$('div#work_module [id*=specificLocationRow]').hide();
-		$('div#work_module [id*=specificLocationNoteRow]').hide();
-		$('div#work_module [id*=specificLocationNote]').hide();
-		$('div#work_module [id*=specificLocationLat]').hide();
-		$('div#work_module [id*=specificLocationLong]').hide();
-		$('div#work_module [id*=specificLocationAddress]').hide();
-		$('div#work_module [id*=specificLocationZip]').hide();
-	
-
-	//Show and Toggle specific location row/field on type change
-
-	$('div#work_module select[id*=specificLocationType]').change(displaySpecificLocation);
-		
+	//Show and Toggle specific location row and fields
+	$('select[id*=specificLocationType]').each(displaySpecificLocation);
+	$('select[id*=specificLocationType]').change(displaySpecificLocation);
 
 	// Adapt cataloging UI to the width of the browser window
 	$(window).resize(
@@ -2363,35 +2535,52 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 		});
 
 
-	//Hide the related works search and results row
+	//Image viewer for related works
+	$('img.relationAssoc_thumb').click(function(){
+		var imageView = $(this).parent('div').find('input[name*=imageView]').val();
+		image_viewer(imageView);	
+	});
 
-	$('div#work_module [id*=relatedWorksSearchRow]').hide();
+	//View related work record
+	$('div.workAssoc_results_row').hover(
+		function()
+		{
+			$(this).addClass('row_highlight');
+		}, 
+		function()
+		{
+			$(this).removeClass('row_highlight');
+		});
 
+
+   $('div.workAssoc_results_col2').click(function(event){
+   	var workNum= $(this).parents('div.clone_wrap').find('input[name*=imageNum]').val();
+   	view_relation_work_record(workNum);
+   });
+
+	//Hide the related works search/results and fill row
+	$('div#work_module div[id=relationSearch]').hide();
+	$('div#work_module select[id*=relationType]').change(displayRelationSearch);
 
 	// SEARCH FOR RELATED WORK RECORDS (taken from work association)
+	$('div#work_module input[id*=relationSearch_submitButton]').click(function(){
+		var titleTerm = $(this).parent('div').find('input[id*=searchTitle]').val();
+		var agentTerm = $(this).parent('div').find('input[id*=searchAgent]').val();
+		var module = $(this).closest('div#workAssoc_wrapper');
+		relationAssoc_search(titleTerm, agentTerm, module);
 
-	function workAssoc_submit()
-	{
-		var titleTerm = $('div#workAssoc_searchFields input[name=title]').val();
-		var agentTerm = $('div#workAssoc_searchFields input[name=agent]').val();
-		workAssoc_search(titleTerm, agentTerm);
-	}
-
-	$('input#relatedWork_search_submit_button').click(workAssoc_submit);
-
-	$('div#workAssoc_searchFields input').keypress(function(e)
-	{
-		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
-		{
-			workAssoc_submit();
+	});
+	
+	$('div#work_module div#workAssoc_searchFields input').keypress(function(e){
+		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
+		var titleTerm = $(this).parent('div').find('input[id*=searchTitle]').val();
+		var agentTerm = $(this).parent('div').find('input[id*=searchAgent]').val();
+		var module = $(this).closest('div#workAssoc_wrapper');
+		relationAssoc_search(titleTerm, agentTerm, module);
 		}
 	});
 
-	$('div#work_module select[id*=relationType]').change(displayRelatedWorksSearch);
-
-
 	// RESET ALL FIELDS
-
 	$('div#work_module button.catalogUI_clear')
 		.click(promptToConfirm)
 		.click(
@@ -2405,14 +2594,11 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 						});
 			});
 
-	// Disable the browser's autocomplete feature for the cataloging UI
-	// $('form#catalog_form').attr('autocomplete', 'off');
-
+	//Bind authority search color indicators
 	$('div#work_module').click(authorityIndicators);
 
 
 	// TOGGLE DATA DISPLAY
-
 	$('#work_module .catRowTitle .titleText')
 		.click(
 			function()

@@ -6,14 +6,14 @@ require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 confirm_logged_in();
-require_priv('priv_catalog');
+require_priv('priv_catalog'); 
 
 // --------------------------------
 // Create arrays of each data type
 // --------------------------------
 
 $_SESSION['titleArray']=$_SESSION['agentArray']=$_SESSION['dateArray']=
-$_SESSION['materialArray']=$_SESSION['techniqueArray']=$_SESSION['workTypeArray']=$_SESSION['measurementsArray']=$_SESSION['culturalContextArray']=$_SESSION['stylePeriodArray']=$_SESSION['locationArray']=$_SESSION['builtWorkArray']=$_SESSION['relatedWorksArray']=$_SESSION['stateEditionArray']= $_SESSION['inscriptionArray']=$_SESSION['subjectArray']=$_SESSION['descriptionArray']=$_SESSION['rightsArray']=$_SESSION['sourceArray']=array();
+$_SESSION['materialArray']=$_SESSION['techniqueArray']=$_SESSION['workTypeArray']=$_SESSION['measurementsArray']=$_SESSION['culturalContextArray']=$_SESSION['stylePeriodArray']=$_SESSION['locationArray']=$_SESSION['specificLocationArray']=$_SESSION['builtWorkArray']=$_SESSION['relationArray']=$_SESSION['stateEditionArray']= $_SESSION['inscriptionArray']=$_SESSION['subjectArray']=$_SESSION['descriptionArray']=$_SESSION['rightsArray']=$_SESSION['sourceArray']=array();
 
 foreach ($_POST['json'] as $key => $value) {
 
@@ -117,6 +117,16 @@ foreach ($_POST['json'] as $key => $value) {
 			$_SESSION['locationArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 
+	} elseif (preg_match('/specificLocation/', $key)) {
+	
+		if (substr($key, 0, 1) == 'W') {
+			$_SESSION['specificLocationArray']['work'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 1) == 'I') {
+			$_SESSION['specificLocationArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+		} elseif (substr($key, 0, 2) == 'NW') {
+			$_SESSION['specificLocationArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+		}	
+
 	} elseif (preg_match('/builtWork/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
@@ -127,14 +137,12 @@ foreach ($_POST['json'] as $key => $value) {
 			$_SESSION['builtWorkArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 
-	} elseif (preg_match('/relatedWorks/', $key)) {
+	} elseif (preg_match('/relation|related/', $key)) {
 	
 		if (substr($key, 0, 1) == 'W') {
-			$_SESSION['relatedWorksArray']['work'][$key] = trim($mysqli->real_escape_string($value));
-		} elseif (substr($key, 0, 1) == 'I') {
-			$_SESSION['relatedWorksArray']['image'][$key] = trim($mysqli->real_escape_string($value));
+			$_SESSION['relationArray']['work'][$key] = trim($mysqli->real_escape_string($value));
 		} elseif (substr($key, 0, 2) == 'NW') {
-			$_SESSION['relatedWorksArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
+			$_SESSION['relationArray']['createNewWork'][$key] = trim($mysqli->real_escape_string($value));
 		}
 		
 	} elseif (preg_match('/stateEdition/', $key)) {
@@ -201,9 +209,9 @@ foreach ($_POST['json'] as $key => $value) {
 
 }
 
-$title = $agent = $date = $material = $technique = $workType = $measurements = $culturalContext = $stylePeriod = $location = $builtWork = $relatedWorks = $stateEdition = $inscription = $subject = $description = $rights = $source = array();
+$title = $agent = $date = $material = $technique = $workType = $measurements = $culturalContext = $stylePeriod = $location = $specificLocation = $builtWork = $relation = $stateEdition = $inscription = $subject = $description = $rights = $source = array();
 
-$dataTypes = array('title','agent','date','material','technique','workType','measurements','culturalContext','stylePeriod','location','builtWork','relatedWorks','stateEdition','inscription','subject','description','rights','source');
+$dataTypes = array('title','agent','date','material','technique','workType','measurements','culturalContext','stylePeriod','location','specificLocation','builtWork','relation','stateEdition','inscription','subject','description','rights','source');
 
 $work = $image = $createNewWork = array();
 
@@ -271,6 +279,7 @@ foreach ($dataTypes as $dataType) {
 	$work = $image = $createNewWork = array();
 	
 }
+
 
 ini_set('display_errors', '1');
 

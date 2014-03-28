@@ -183,10 +183,12 @@ function load_module(module, response) {
 }
 
 function open_order(orderNum) {
+  
   $('div[id$=_module]')
     .not('div#browse_orders_module')
     .not('div#work_module')
     .not('div#image_module')
+    .not('div#relation_work_module')
     .remove();
 
     // Hide control panel
@@ -198,7 +200,10 @@ function open_order(orderNum) {
   $(newModule).append('<div class="loading_gif">');
 
   $('div#module_tier2').prepend(newModule);
-  $(document).scrollTop($('body').offset().top);
+
+  $('html', 'body').animate({ 
+    scrollTop: $('div#order_module').offset().top
+    }, 2000);
 
   $.ajax({
     type: 'GET',
@@ -766,6 +771,7 @@ function deleteImageRecord(deadRecord) {
 
 function view_work_record(record) {
 
+  $('div#relation_work_module').remove();
   record = $.trim(record);
 
   if (record != 'None') {
@@ -773,7 +779,7 @@ function view_work_record(record) {
   }
 
   $('div#work_module').remove();
-
+ 
   var work_module = $('<div>', { id: 'work_module', class: 'module' });
   var work_header = $('<h1>').text('Work');
   $(work_module).append(work_header);
@@ -812,6 +818,38 @@ function view_image_record(record) {
     url: '_php/view_image_record.php',
     success: function (response) {
       load_module(image_module, response);
+    }
+  });
+}
+
+function view_relation_work_record(record) {
+
+  $('div#relation_work_module').remove();  
+
+  record = $.trim(record);
+
+  if (record != 'None') {
+    record = pad(record, 6);
+  }
+
+  var relation_work_module = $('<div>', { id: 'relation_work_module', class: 'module' });
+  var relation_work_header = $('<h1>').text('Related Work');
+
+  $(relation_work_module).append(relation_work_header);
+  $(relation_work_module).append('<div class="loading_gif">');
+
+  $('div#module_tier4').prepend(relation_work_module);
+   // Add a close button the module's header
+    closeModule_button($('div#relation_work_module')); 
+  $(document).scrollTop($('body').offset().top);
+  
+  $.ajax({
+    type: 'GET',
+    data: 'imageRecord='+record,
+    url: '_php/view_related_work_record.php',
+    success: function (response) {
+
+    load_module(relation_work_module, response); 
     }
   });
 }
@@ -1090,6 +1128,7 @@ function findOrders_reset() {
 }
 
 function catalog_work() {
+
   var xmlhttp;
   if (window.XMLHttpRequest) { // Modern browsers
     xmlhttp = new XMLHttpRequest();
@@ -1420,69 +1459,76 @@ function displayMeasurements() {
 
 function displaySpecificLocation(){
 
-  var selectedSpecificLocationType = $(this).find('option:selected').val();
+  var selected = $(this).find('option:selected').val();
   var thisRow = $(this).parents('div.catRowWrapper');
   var newRow = $(thisRow).next('.catRowWrapper');
   var noteRow = $(newRow).next('.catRowWrapper');
 
-  if (selectedSpecificLocationType == "Address"){
-    $(noteRow).slideUp('fast');
-    $(newRow).slideDown('fast');
+  if (selected == "Address"){
+    $(newRow).show();
     $(newRow).find('[id*=specificLocationAddress]').show();
     $(newRow).find('[id*=specificLocationZip]').show();
     $(noteRow).find('[id*=specificLocationNote]').hide();
     $(newRow).find('[id*=specificLocationLat]').hide();
     $(newRow).find('[id*=specificLocationLong]').hide();
+    $(noteRow).hide();
   } 
   
-  if (selectedSpecificLocationType == "LatLng"){
-    $(noteRow).slideUp('fast');
-    $(newRow).slideDown('fast');
+  if (selected == "LatLng"){
+    $(newRow).show();
     $(newRow).find('[id*=specificLocationLat]').show();
     $(newRow).find('[id*=specificLocationLong]').show();
     $(noteRow).find('[id*=specificLocationNote]').hide();
     $(newRow).find('[id*=specificLocationAddress]').hide();
     $(newRow).find('[id*=specificLocationZip]').hide();
+    $(noteRow).hide();
   }
 
-
-  if (selectedSpecificLocationType == "Note"){
-    $(newRow).slideUp('fast');
-    $(noteRow).slideDown('fast');
+  if (selected == "Note"){
+    $(newRow).hide();
     $(noteRow).find('[id*=specificLocationNote]').show();
     $(newRow).find('[id*=specificLocationLat]').hide();
     $(newRow).find('[id*=specificLocationLong]').hide();
     $(newRow).find('[id*=specificLocationAddress]').hide();
     $(newRow).find('[id*=specificLocationZip]').hide();
+    $(noteRow).show();
   }
 
-  if (selectedSpecificLocationType == "Type"){
+  if (selected == ""){
     $(newRow).find('[id*=specificLocationAddress]').hide();
     $(newRow).find('[id*=specificLocationZip]').hide();
     $(newRow).find('[id*=specificLocationLat]').hide();
     $(newRow).find('[id*=specificLocationLong]').hide();
     $(noteRow).find('[id*=specificLocationNote]').hide();
-    $(newRow).slideUp('fast');
-    $(noteRow).slideUp('fast');
+    $(newRow).hide();
+    $(noteRow).hide();
   }
 }
 
-function displayRelatedWorksSearch(){
+function displayRelationSearch(){
 
-  var selectedRelatedWorksType = $(this).find('option:selected').val();
+  var selectedRelationType = $(this).find('option:selected').val();
   var thisRow = $(this).parents('div.catRowWrapper');
   var newRow = $(thisRow).next('.catRowWrapper');
+  var row = $(this).parents('div.clone_wrap');
 
-  if (selectedRelatedWorksType == "Type"){
+
+
+  if (selectedRelationType == ""){
+  $(row).find('div.workAssoc_results_row').remove();
   $(newRow).slideUp('fast');
   } 
 
   else{
+  
+  $(row).find('div.workAssoc_results_row').remove();
   $(newRow).slideDown('fast');
+
   }
 }
 
 function resetMeasurementsRow($row) {
+
   $row.find('[id*=measurementFieldDiv]').hide();
   $row.find('[id*=measurementFieldDiv1]').show();
   $row.find('[id*=measurementType]').show();
@@ -1500,42 +1546,34 @@ function resetMeasurementsRow($row) {
 }
 
 function resetDateRow($row) {
+
   $row.find('div[id*=dateRangeSpan]').hide();
   $row.find('input:checkbox[id*=dateRange]').prop('checked', false);
   $row.find('input:checkbox[id*=circaDate]').prop('checked', false);
 }
 
-function resetSpecificRow($row){
-$row.find('[id*=specificLocationAddress]').hide();
-$row.find('[id*=specificLocationZip]').hide();
-$row.find('[id*=specificLocationLat]').hide();
-$row.find('[id*=specificLocationLong]').hide();
-$row.find('[id*=specificLocationNote]').hide()
-$row.find('[id*=specificLocationRow]').hide();
-}
-
 function reincrementSectionRows($section) {
 
-  var i = 0;
+   var i = 0;
   // For each div.clone_wrap
-  $section.find('div.clone_wrap').each(function() {
+   $section.find('div.clone_wrap').each(function() {
 
     // For each select list and input element
-    $(this).find('select, input').each(function() {
+      $(this).find('select, input').each(function() {
 
-      // Update input ids
-      var idRoot = $(this).attr('id').slice(0, -1);
-      var newId = idRoot+String(i);
-      $(this).attr('id', newId);
+        // Update input ids
+        var idRoot = $(this).attr('id').slice(0, -1);
+        var newId = idRoot+String(i);
+        $(this).attr('id', newId);
 
-      // Update input names
-      var nameRoot = $(this).attr('name').slice(0, -1);
-      var newName = nameRoot+String(i);
-      $(this).attr('name', newName);
-
-    });
+        // Update input names
+        var nameRoot = $(this).attr('name').slice(0, -1);
+        var newName = nameRoot+String(i);
+        $(this).attr('name', newName);
+      });
     i ++;
   });
+
 }
 
 // Define an array of cataloging rows than consist of two lines
@@ -1545,32 +1583,29 @@ function addRow_v2() {
 
   var $thisRow = $(this).parents('div.clone_wrap');
   var thisRowTitle = $thisRow.find('.titleText').text();
-  var $thisSection = $thisRow.parent('div.catSectionWrapper');
+  var $thisSection = $thisRow.parents('div.catSectionWrapper');
   var numRows = $thisRow.parents('div.module').find('.titleText:contains('+thisRowTitle+')').length;
 
   // If there are less than ten existing rows of this type
   if (numRows < 10) {
 
-    // Clone the selected row
+  // Clone the selected row
     var $newRow = $thisRow.clone(true);
 
-    // If selected row was 'Measure', reset the hidden fields
-    if (thisRowTitle == 'Measure') {
-      resetMeasurementsRow($newRow);
+  // If selected row was 'Related', reset the hidden fields
+    if (thisRowTitle == 'Related Works'){
+      $newRow.find('div[id=relationSearch]').hide();
+      $newRow.find('div.workAssoc_results_row').remove();
+      $newRow.find('div[id=workAssoc_results]').remove();
+      $newRow.find('select option').removeAttr('selected');
+      $newRow.find('select option:first').attr('selected', 'selected');
+      $thisRow.find('div[id*=workAssoc_results]').remove();
+      $thisRow.find('div[id=relationSearch]').hide();
     }
 
-    // If selected row was 'Date', reset the hidden fields
-    if (thisRowTitle == 'Date') {
-      resetDateRow($newRow);
-    }
-
-    //If selected row was 'Specific Location', reset the hidden fields
-    if (thisRowTitle == 'Specific Location') {
-      resetSpecificRow($newRow);
-    }
-
-    // Clear the values of the new row's input fields
+  // Clear the values of the new row's input fields
     $newRow.find('input[type=text], input[type=hidden]').val('');
+    $newRow.find('select option').removeAttr('selected');
     $newRow.find('select option:first').attr('selected', 'selected');
 
     // Hide the new row's add/remove buttons
@@ -1589,6 +1624,22 @@ function addRow_v2() {
     // Remove any lingering authority results
     $('div.resultsWrapper').remove();
 
+    // If selected row was 'Measure', reset the hidden fields
+    if (thisRowTitle == 'Measure') {
+      resetMeasurementsRow($newRow);
+    }
+
+    // If selected row was 'Date', reset the hidden fields
+    if (thisRowTitle == 'Date') {
+      resetDateRow($newRow);
+    }
+
+    //If selected row was 'Specific Location', reset the hidden fields
+    if (thisRowTitle == 'Specific Location') {
+      $newRow.find('div#specificLocationRow').hide();
+      $newRow.find('div#specificLocationNoteRow').hide();
+    }
+
   // If there are already ten rows of this type, do not allow another to be added
   } else {
     msg(['You may only create a maximum of 10 '+thisRowTitle+' rows'], 'error');
@@ -1600,7 +1651,9 @@ function removeRow_v2() {
   var $thisRow = $(this).parents('div.clone_wrap');
   var thisRowTitle = $thisRow.find('.titleText').text();
   var $thisSection = $thisRow.parent('div.catSectionWrapper');
-  var numRows = $thisRow.parents('div.module').find('.titleText:contains('+thisRowTitle+')').length;
+  var numRows = $thisRow.parents('div.module').find('.titleText').filter(function() {
+    return $(this).text() === thisRowTitle;
+}).length;
 
   // Remove any lingering authority results
   $('div.resultsWrapper').remove();
@@ -1619,7 +1672,8 @@ function removeRow_v2() {
 
   // If user is attempting to remove the last remaining row of this data type,
   // clear the row's values instead
-  } else {
+  } 
+  else {
 
     // Reset all select and input values
     $thisRow.find('input[type=text], input[type=hidden]').val('');
@@ -1628,14 +1682,31 @@ function removeRow_v2() {
     $thisRow.find('select option').removeAttr('selected');
     $thisRow.find('select option:first').attr('selected', 'selected');
 
+    if (thisRowTitle == 'Related Works' || 'Work:' ) {
+    $thisRow.find('div[id*=relationSearch]').slideUp('fast'); 
+    $thisRow.find('div[id*=workAssoc_results]').remove();
+    $thisRow.find('div.workAssoc_results_row').remove();
+    $thisRow.find('select option:first').attr('selected', 'selected');
+    }
+
     if (thisRowTitle == 'Date') {
       $thisRow.find('div[id^=dateRangeSpan]').hide();
+    }
+
+     if (thisRowTitle == 'Specific Location') {
+      $thisRow.find('[id*=specificLocationAddress]').hide();
+      $thisRow.find('[id*=specificLocationZip]').hide();
+      $thisRow.find('[id*=specificLocationLat]').hide();
+      $thisRow.find('[id*=specificLocationLong]').hide();
+      $thisRow.find('[id*=specificLocationNote]').hide()
+      $thisRow.find('[id*=specificLocationRow]').hide();
     }
 
     // Reset preferred status and appearance of the row's title text
     $thisRow.find('input.cat_display').val('1');
     $thisRow.find('div.titleText').removeClass('ital lightGrey');
   }
+
 }
 
 function catalogUI_prepAddRemove() {
@@ -1792,14 +1863,17 @@ function autoWidth() {
   // }
   // else
   // {
-    $(this).css({ width: (wrapper_width - otherElements_width) - (otherElements_count * 3) - 150 + 'px' });
+    $(this).css({ width: (wrapper_width - otherElements_width) - (otherElements_count * 3) - 176 + 'px' });
   // }  
 }
 
-function save_catalog_changes(workNum, imageNum) {
+function save_catalog_changes(imageNum, workNum) {
+  
+  $('div#relation_work_module').remove();
+  
   var json = {};
 
-  var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location','Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text'];
+  var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location', 'Street Address', 'Postal Code', 'Latitude', 'Longitude', 'Specific Location Note', 'Built Work', 'Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text'];
 
   $('form#catalog_form input:not([type=button], [type=submit], [type=checkbox]), form#catalog_form select, form#catalog_form textarea').each(function()
   {
@@ -1970,16 +2044,14 @@ function workAssoc_assoc(orderNum, workNum, imageNum) {
   });
 }
 
-function relatedWorkAssoc_search(title, agent, module) {
+function relationAssoc_search(title, agent, module) {
   
   $('div#workAssoc_results').remove();
   var results_div = $('<div>', { id: 'workAssoc_results' });
-  $(+module+' div[id=workAssoc_wrapper]').after(results_div);
+  $(module).after(results_div); 
 
   title = $.trim(title);
   agent = $.trim(agent);
-
-  console.log(title+' '+agent);
 
   $.ajax({
     type: 'POST',
@@ -1996,31 +2068,37 @@ function relatedWorkAssoc_search(title, agent, module) {
   });
 }
 
-function relatedworkAssoc_assoc(orderNum, workNum, imageNum) {
-  var json = {};
-  json['orderNum'] = $.trim(orderNum);
-  json['workNum'] = $.trim(workNum);
-  json['imageNum'] = $.trim(imageNum);
+function relationAssoc_assoc(row, workNum) {
 
-  $.ajax({
-    type: 'GET',
-    data: { json: json },
-    url: '_php/workAssoc_assoc.php',
-    success: function(response)
-    {
-      console.log('ASSOCIATED Work-'+workNum+' & Image-'+imageNum);
-    },
-    error: function()
-    {
-      console.log('ajax request failed: workAssoc_assoc');
-    },
-    complete: function()
-    {
-      open_order(orderNum);
-      view_image_record(imageNum);
-      view_work_record(imageNum);
-    }
-  });
+    var thisRow = $(row).parents('div.clone_wrap');
+    var imageView = $(row).find('input[name*=imageView]').val();
+    var imageNum = $(row).find('input[name*=imageNum]').val();
+
+    //Remove search results and enter work number into the hidden input/SESSION
+    $(thisRow).find('div[id*=relationSearch]').hide();  
+    $(thisRow).find('input[id*=relatedTo]').val(workNum);
+    $(thisRow).find('div#workAssoc_results').remove();
+    
+    //Append result from relation search to clone_wrap
+    $(thisRow).append(row);
+    $(row).css({"margin-top":"3px"});
+    $(row).removeClass('row_highlight');
+    
+    //Reinstitue hover highlight
+    $(row).hover(function(){
+      $(this).addClass('row_highlight');
+    }, function(){
+      $(this).removeClass('row_highlight');
+    });
+
+    //Display image or record on click
+    $(row).find('img.workAssoc_thumb').click(function(){
+      image_viewer(imageView);
+    });
+    $(row).find('div.workAssoc_results_col2').click(function(){
+        view_relation_work_record(imageNum);
+    });
+
 }
 
 function authorityIndicators() {
@@ -2224,7 +2302,7 @@ function createBuiltWork_submit() {
   console.log('submit function called');
   var json = {};
 
-  var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location','Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text'];
+  var blankVals = ['- Type -','- Measurement -','- Name type -','Title',"Agent role (e.g. 'artist; painter')", 'Agent','Date','Material','Technique','Work Type','Cultural Context','Style Period','Location','Description','State/Edition','Subject','Inscription text','Inscription author','Inscription location','Rights holder','Rights text','Source name','Source text', 'Built Work'];
 
   $('div#createBuiltWork_module input:not([type=submit], [type=button], [type=checkbox]), div#createBuiltWork_module select, div#createBuiltWork_module textarea').each(function()
   {
@@ -2404,8 +2482,10 @@ function createOrder_newUser() {
   if (userMatch == false) {
 
     // Construct the new user module
-    var $newUserModule = $('<div id="registerUser_module" class="module_right">');
+    var $newUserModule = $('<div id="registerUser_module" class="module">');
     var $newUserHeader = $('<h1>').text("Register New User");
+
+    $newUserModule.css({"float" : "right", "margin" :"15px 15px 0 0"});
     $newUserModule.prepend($newUserHeader);
     $newUserModule.append('<div class="loading_gif">')
     

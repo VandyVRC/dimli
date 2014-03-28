@@ -2,13 +2,6 @@
 
 	<div class="close floatRight pointer"></div>
 
-	<tr>
-		<td class="mediumWeight purple grey_bg" colspan="2"
-			style="border-bottom: 1px solid #FFF;">
-			<?php echo $message; ?>
-		</td>
-	</tr>
-
 	<tr id="authorityResults_location_builtWork">
 
 		<td class="mediumWeight grey_bg"
@@ -214,6 +207,18 @@
 				.prev('div.catRowWrapper')
 				.find('input[type=text]')
 				.val(term);
+
+			// Find authority id of the selected term
+			var authorityId = $(this).next('span.authorityId').text();
+
+			// Put authority id in the hidden field
+			$(this).parents('div.resultsWrapper')
+				.prev('div.catRowWrapper')
+				.find('input[type=hidden]:not(.cat_display)')
+				.val(authorityId);
+
+				// Update the selected term's popularity
+			catalogUI_incrementPopularity(authorityId, 'getty_tgn');
 
 			// Remove the results list
 			$(this).parents('div.resultsWrapper')

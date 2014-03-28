@@ -1,9 +1,33 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../_php/_config/session.php');
+require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
+confirm_logged_in();
+require_priv('priv_orders_read');
 
-if ($_SESSION['workNum'] != 'None') {
+// Use Image number passed from ajax request to find the associated work
+
+$sql = "SELECT related_works 
+			FROM $DB_NAME.image 
+			WHERE id = '{$_GET['imageRecord']}' LIMIT 1 ";
+
+$workToLoad_r = db_query($mysqli, $sql);
+
+// Set SESSION workNum, or set to "None" if field is blank
+
+while ($row = $workToLoad_r->fetch_assoc())
+{
+	$workNum = 
+		(!empty($row['related_works']))
+			? $row['related_works']
+			: 'None';
+}
+
+
+if ($workNum != 'None') {
 // There is an associated work for this image record
 
 	//-----------------
@@ -12,7 +36,7 @@ if ($_SESSION['workNum'] != 'None') {
 
 	$sql = "SELECT * 
 				FROM $DB_NAME.work 
-				WHERE id = '{$_SESSION['workNum']}' ";
+				WHERE id = '{$workNum}' ";
 
 	$result_workUpdates = db_query($mysqli, $sql);
 
@@ -31,7 +55,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.title 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workTitles = db_query($mysqli, $sql);
 	
@@ -61,7 +85,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.agent 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workAgents = db_query($mysqli, $sql);
 	
@@ -107,7 +131,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.date 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workDates = db_query($mysqli, $sql);
 	
@@ -155,7 +179,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.material 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workMaterials = db_query($mysqli, $sql);
 	
@@ -193,7 +217,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.technique 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workTechniques = db_query($mysqli, $sql);
 	
@@ -227,7 +251,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT *
 				FROM $DB_NAME.work_type 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workWorkTypes = db_query($mysqli, $sql);
 	
@@ -261,7 +285,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.measurements 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workMeasurements = db_query($mysqli, $sql);
 	
@@ -365,7 +389,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.culture 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workCultures = db_query($mysqli, $sql);
 	
@@ -399,7 +423,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.style_period 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workStylePeriods = db_query($mysqli, $sql);
 	
@@ -433,7 +457,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.location 
-				WHERE related_works = '{$_SESSION['workNum']}' 
+				WHERE related_works = '{$workNum}' 
 				AND location_getty_id NOT REGEXP 'work' ";
 
 	$result_workLocations = db_query($mysqli, $sql);
@@ -476,7 +500,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.specific_location 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 	
 	$result_specificLocation = db_query($mysqli, $sql);
 
@@ -519,7 +543,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.location 
-				WHERE related_works = '{$_SESSION['workNum']}'
+				WHERE related_works = '{$workNum}'
 				AND location_getty_id REGEXP 'work' ";
 
 	$result_builtWork = db_query($mysqli, $sql);
@@ -567,7 +591,7 @@ if ($_SESSION['workNum'] != 'None') {
 
 	$sql = "SELECT  relation_id, display
 				FROM $DB_NAME.relation 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_relation = db_query($mysqli, $sql);
 	
@@ -577,41 +601,7 @@ if ($_SESSION['workNum'] != 'None') {
 		
 		if (!empty($relation['relation_id'])) {
 			
-			$getRelated = $relation['relation_id'];
-
-			$sql = "SELECT preferred_image 
-							FROM $DB_NAME.work
-							WHERE id = '{$getRelated}' 
-							LIMIT 1 " ;
-
-				$result_getPref = db_query($mysqli, $sql); 	
-
-				while ($getPreferred = $result_getPref->fetch_assoc()) {
-
-					$preferredImage = $getPreferred['preferred_image'];	
-				}		
-
-			if (!empty($preferredImage)) {	
-
-			$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image
-						WHERE id = '{$preferredImage}' ";	
-
-				$result_getLeg	= db_query($mysqli, $sql); 
-				
-				while ($getLegacy = $result_getLeg->fetch_assoc()) {
-
-					$legacyId = $getLegacy['legacy_id'];
-					$imageView = '
-					<img class="relatedWork_image"
-					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.'medium/'.$legacyId.'.jpg&amp;h=40&amp;w=53&amp;q=90"
-					title="Click to preview"
-						style="max-height: 40px; max-width: 53px;">
-						<input type="hidden" id="imageView" value="'.$legacyId.'">
-						<input type="hidden" id="imageNum" value="'.$preferredImage.'">';
-				
-				}
-			}						
+			$getRelated = $relation['relation_id'];					
 
 			$sql = "SELECT title_text
 					FROM $DB_NAME.title
@@ -635,20 +625,17 @@ if ($_SESSION['workNum'] != 'None') {
 				while ($getRelatedAgent = $result_getAgent->fetch_assoc()) {
 
 					$relatedAgent = $getRelatedAgent['agent_text'];
-					$relatedAgentDisplay = (!empty($relatedAgent)) 
-						? ' ('.$relatedAgent.')'
-						: '';	
 				}	
 			}	
 
 		$display_temp = '';
-
-		$display_temp = (!empty($legacyId))
-			? $imageView
-			:'';
 			
 		$display_temp.= (!empty($relatedTitle)) 
-			? 	'<div class="related_title" style="display: inline-block; width: 200px; float: right;"><div class="assocImage_title">'.$relatedTitle.$relatedAgentDisplay.'</div></div>'		
+			? $relatedTitle 
+			: '';	
+
+		$display_temp.= (!empty($relatedAgent)) 
+			? ', '.$relatedAgent
 			: '';	
 
 		if ($display_temp == '') { 
@@ -664,7 +651,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.edition 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workEditions = db_query($mysqli, $sql);
 	
@@ -695,7 +682,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.inscription 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workInscriptions = db_query($mysqli, $sql);
 	
@@ -734,7 +721,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.subject 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workSubjects = db_query($mysqli, $sql);
 	
@@ -770,7 +757,7 @@ if ($_SESSION['workNum'] != 'None') {
 	//	 Query Description
 	//--------------------
 	
-	$trimmed_id = ltrim($_SESSION['workNum'], '0');
+	$trimmed_id = ltrim($workNum, '0');
 
 	$sql = "SELECT description 
 				FROM $DB_NAME.work 
@@ -792,7 +779,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.rights 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workRights = db_query($mysqli, $sql);
 	
@@ -827,7 +814,7 @@ if ($_SESSION['workNum'] != 'None') {
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.source 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_workSources = db_query($mysqli, $sql);
 	
@@ -866,7 +853,7 @@ if ($_SESSION['workNum'] != 'None') {
 
 	$sql = "SELECT preferred_image 
 				FROM $DB_NAME.work 
-				WHERE id = '{$_SESSION['workNum']}' ";
+				WHERE id = '{$workNum}' ";
 
 	$result_prefImage = db_query($mysqli, $sql);
 
@@ -892,16 +879,493 @@ if ($_SESSION['workNum'] != 'None') {
 
 	$sql = "SELECT * 
 				FROM $DB_NAME.image 
-				WHERE related_works = '{$_SESSION['workNum']}' ";
+				WHERE related_works = '{$workNum}' ";
 
 	$result_assocImages = db_query($mysqli, $sql);
 	$associatedImages_ct = $result_assocImages->num_rows;
 
 } 
-elseif ($_SESSION['workNum'] == 'None')
+elseif ($workNum == 'None')
 // There is no associated work for this image record
 {
 
 	$work_thumb_id = 'None';
 
 }
+
+	if ($workNum != 'None')
+	// An associated work record DOES EXIST for the current image
+	{ ?>
+
+<div id="workRecord_catalogInfo" class="workRecord_catalogInfo">
+
+	<div class="record_updateInfo grey mediumWeight">
+
+		<div style="margin-bottom: 8px;">
+			
+			CREATED:<br>
+
+			<?php echo (!empty($created)) 
+				? strtoupper(date('D, M d, Y', strtotime($created))) 
+				: '--'; ?>
+			<?php echo (!empty($created_by)) 
+				? ' by '. strtoupper($created_by) 
+				: ''; ?>
+
+		</div>
+
+		<div style="margin-bottom: 8px;">
+
+			UPDATED:<br>
+
+			<?php echo (!empty($last_update)) 
+				? strtoupper(date('D, M d, Y', strtotime($last_update))) 
+				: '--'; ?>
+			<?php echo (!empty($last_update_by)) 
+				? ' by '. strtoupper($last_update_by) 
+				: ''; ?>
+
+		</div>
+
+	</div>
+
+	<!-- 
+		THUMBNAIL PREVIEW
+	 -->
+
+	<div class="workRecord_thumb"
+		style="position: absolute; top: 0; right: 0;">
+
+		<?php
+		
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
+		{
+		// IF a preferred image is assigned for this work record
+		?>
+
+		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
+			onclick="image_viewer('<?php echo $prefLegId; ?>');">
+
+		<?php
+		}
+
+		else if ($workNum != 'None' &&
+ -			$workNum != '')
+		{
+		?>
+
+		<div class="record_thumbnail"
+			style="margin-right: 5px;">No preview</div>
+
+		<?php
+		}
+		?>
+
+	</div>
+
+	<p class="clear"></p>
+	
+	<!--
+		Title
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Title:</div>
+
+		<div class="content_lineText mediumWeight"><?php
+			if (!empty($workTitles)) {
+				foreach ($workTitles as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Agent
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Agent:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workAgents)) {
+				foreach ($workAgents as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Date
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Date:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workDates)) {
+				foreach ($workDates as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Materials
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Material:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workMaterials)) {
+				foreach ($workMaterials as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Techniques
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Technique:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workTechniques)) {
+				foreach ($workTechniques as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Work Types
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Work Type:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workWorkTypes)) {
+				foreach ($workWorkTypes as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Measurements
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Measure:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workMeasurements)) {
+				foreach ($workMeasurements as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Cultural Contexts
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Culture:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workCultures)) {
+				foreach ($workCultures as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Style Periods
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Style Period:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workStylePeriods)) {
+				foreach ($workStylePeriods as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Location
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Location:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workLocations)) {
+				foreach ($workLocations as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Specific Location
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Specific Location:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workSpecificLocations)) {
+				foreach ($workSpecificLocations as $datum) {
+					
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				  
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Built Work
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Built Work:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workBuiltWork)) {
+				foreach ($workBuiltWork as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Related Works
+	-->
+
+	<div class="content_line">
+
+		<div class="content_lineTitle">Related Works:</div>
+
+		<div class="content_lineText"><?php
+		if (!empty($workRelation)) {
+				foreach ($workRelation as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		State/Edition
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Edition:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workEditions)) {
+				foreach ($workEditions as $disp) {
+					echo $disp . '<br>';
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Inscriptions
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Inscription:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workInscriptions)) {
+				foreach ($workInscriptions as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+	
+	<!--
+		Subjects
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Subject:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workSubjects)) {
+				foreach ($workSubjects as $datum) {
+					foreach ($datum as $disp=>$toggle) {
+						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
+						echo $disp . '<br>';
+						echo ($toggle=='0') ? '</span>' : '';
+					}
+				}
+			}
+		?></div>
+
+	</div>
+
+	<!--
+		Description
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Description:</div>
+
+		<div class="content_lineText"><?php
+			echo (!empty($workDescription)) ? $workDescription : '--';
+		?></div>
+
+	</div>
+
+	<!--
+		Rights
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Rights:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workRights)) { foreach ($workRights as $rights) { echo $rights . '<br>'; } }
+		?></div>
+
+	</div>
+	
+	<!--
+		Sources
+	-->
+	
+	<div class="content_line">
+
+		<div class="content_lineTitle">Source:</div>
+
+		<div class="content_lineText"><?php
+			if (!empty($workSources)) { foreach ($workSources as $source) { echo $source . '<br>'; } }
+		?></div>
+
+	</div>
+
+<?php } ?>
+
+</div>
+
+<script>
+	//Append Work Number to Module Header
+	var workNum = $.trim(<?php echo json_encode($workNum);?>);
+	// console.log(workNum+' added to the header of the work record'); // Debug
+
+	$('div#relation_work_module h1').append('<div class="floatRight" style="margin-right: 10px;">' + workNum + '</div>');
+
+</script>

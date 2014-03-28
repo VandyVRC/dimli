@@ -12,8 +12,7 @@ if (isset($_GET['imageRecord']))
 {
 	$_SESSION['imageNum'] = $_GET['imageRecord'];
 
-	$sql = "SELECT related_works, 
-					order_id 
+	$sql = "SELECT related_works, order_id 
 				FROM $DB_NAME.image 
 				WHERE id = {$_SESSION['imageNum']} ";
 
@@ -94,8 +93,9 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[0]['specificLocationLong'] =
 		$_SESSION['image']['specificLocationNote0'] = $IspecificLocation[0]['specificLocationNote'] =
 	$_SESSION['image']['builtWork0'] = $IbuiltWork[0]['builtWork'] =
-	$_SESSION['image']['relationType0'] = $IrelatedWorks[0]['relationType'] =
-	$_SESSION['image']['relatedTo0'] = $IrelatedWorks[0]['relatedTo'] =
+	$_SESSION['image']['builtWorkId0'] = $IbuiltWork[0]['builtWorkId'] =
+	$_SESSION['image']['builtWorkNameType0'] = $IbuiltWork[0]['builtWorkNameType'] =
+	$_SESSION['image']['builtWorkType0'] = $IbuiltWork[0]['builtWorkType'] =
 	$_SESSION['image']['stateEditionType0'] = $IstateEdition[0]['stateEditionType'] =
 	$_SESSION['image']['stateEdition0'] = $IstateEdition[0]['stateEdition'] =
 	$_SESSION['image']['inscriptionType0'] = $Iinscription[0]['inscriptionType'] =
@@ -327,7 +327,8 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	
 	$sql = "SELECT * 
 				FROM $DB_NAME.location 
-				WHERE related_images = '{$_SESSION['imageNum']}' ";
+				WHERE related_images = '{$_SESSION['imageNum']}' 
+				AND NOT location_getty_id REGEXP 'work' ";
 
 	$result = db_query($mysqli, $sql);
 	
@@ -353,12 +354,12 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	
 	$i = 0;
 	while ($row = $result->fetch_assoc()) {
-		$_SESSION['image']['specificLocationType'.$i] = $IspecificLocation[$i]['specificLocationType'] = $row['location_type'];
-		$_SESSION['image']['specificLocationAddress0'] = $IspecificLocation[$i]['specificLocationAddress'] = $row['address'];
-		$_SESSION['image']['specificLocationZip0'] = $IspecificLocation[$i]['specificLocationZip'] = $row['zip'];
-		$_SESSION['image']['specificLocationLat0'] = $IspecificLocation[$i]['specificLocationLat'] = $row['latitude'];
-		$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
-		$_SESSION['image']['specificLocationLong0'] = $IspecificLocation[$i]['specificLocationLong'] = $row['longitude'];
+		$_SESSION['image']['specificLocationType'.$i] = $IspecificLocation[$i]['specificLocationType'] = $row['specific_location_type'];
+		$_SESSION['image']['specificLocationAddress'.$i] = $IspecificLocation[$i]['specificLocationAddress'] = $row['specific_location_address'];
+		$_SESSION['image']['specificLocationZip'.$i] = $IspecificLocation[$i]['specificLocationZip'] = $row['specific_location_zip'];
+		$_SESSION['image']['specificLocationLat'.$i] = $IspecificLocation[$i]['specificLocationLat'] = $row['specific_location_lat'];
+		$_SESSION['image']['specificLocationLong'.$i] = $IspecificLocation[$i]['specificLocationLong'] = $row['specific_location_long'];
+		$_SESSION['image']['specificLocationNote'.$i] = $IspecificLocation[$i]['specificLocationNote'] = $row['specific_location_note'];
 		$_SESSION['image']['specificLocationDisplay'.$i] = $Ititle[$i]['specificLocationDisplay'] = $row['display'];
 		$i ++;
 	}
@@ -366,35 +367,21 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------
 	//	Built Work
 	// -------------
-	$workNum6 = create_six_digits($_SESSION['workNum'], 6, '0', STR_PAD_LEFT);
 
 	$sql = "SELECT * 
 				FROM $DB_NAME.location 
-				WHERE location_getty_id = 'work{$workNum6}' ";
-
-	$used_res = db_query($mysqli, $sql);
-	
-	$i = 0;
-	while ($row = $result->fetch_assoc()) {
-		$_SESSION['work']['builtWork'.$i] = $WbuiltWork[$i]['relatedTo'] = $row['location_text'];
-	$_SESSION['work']['builtWorkDisplay'.$i] = $WbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
-		$i ++;
-	}
-
-	// -------------
-	//	Related Work
-	// ------------
-	$sql = "SELECT * 
-				FROM $DB_NAME.relation 
-				WHERE related_images = '{$_SESSION['imageNum']}' ";
+				WHERE related_images = '{$_SESSION['imageNum']}' 
+				AND location_getty_id REGEXP 'work' ";
 
 	$result = db_query($mysqli, $sql);
 	
 	$i = 0;
 	while ($row = $result->fetch_assoc()) {
-		$_SESSION['image']['relatedTo'.$i] = $IrelatedWorks[$i]['relatedTo'] = $row['related_to'];
-		$_SESSION['image']['relationType'.$i] = $IrelatedWorks[$i]['relationType'] = $row['relatrion_type'];
-		$_SESSION['image']['relationType'.$i] = $IrelatedWorks[$i]['relationType'] = $row['display'];
+		$_SESSION['image']['builtWork'.$i] = $IbuiltWork[$i]['builtWork']= $row['location_text']; 
+		$_SESSION['image']['builtWorkId'.$i] = $IbuiltWork[$i]['builtWorkId'] = $row['location_getty_id'];
+		$_SESSION['image']['builtWorkNameType'.$i] = $IbuiltWork[$i]['builtWorkNameType'] = $row['location_name_type'];
+		$_SESSION['image']['builtWorkType'.$i] = $IbuiltWork[$i]['builtWorkType'] = $row['location_type'];
+		$_SESSION['image']['builtWorkDisplay'.$i] =$IbuiltWork[$i]['builtWorkDisplay'] = $row['display'];
 		$i ++;
 	}
 
@@ -519,8 +506,9 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	
 }
 
-	// Define image_viewer parameter based on legacy id
 
+
+	// Define image_viewer parameter based on legacy id
 	$imageView = $_SESSION['image']['legacyId']; 
 
 	//Truncate Legacy Id for style intrusion if needed
@@ -531,7 +519,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	$privEdit = $_SESSION['priv_image_ids_edit'];	
 
 include('../_php/_order/query_image.php');?>
-
+ 
 <script>
 
 //Add image number to header and allow legacy id edit
@@ -877,27 +865,6 @@ include('../_php/_order/query_image.php');?>
 
 	</div>
 
-	<!--
-		Related Works
-	-->
-
-	<div class="content_line">
-
-		<div class="content_lineTitle">Related Works:</div>
-
-		<div class="content_lineText"><?php
-			if (!empty($imageRelatedWorks)) {
-				foreach ($imageRelatedWorks as $datum) {
-					foreach ($datum as $disp=>$toggle) {
-						echo ($toggle=='0') ? '<span class="ital lightGrey">' : '';
-						echo $disp . '<br>';
-						echo ($toggle=='0') ? '</span>' : '';
-					}
-				}
-			}
-		?></div>
-
-	</div>	
 	<!--
 		State/Edition
 	-->
