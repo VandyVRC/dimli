@@ -100,6 +100,20 @@ CREATE TABLE IF NOT EXISTS `date` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `download`
+--
+
+CREATE TABLE IF NOT EXISTS `download` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `images` text COLLATE utf8_unicode_ci NOT NULL,
+  `UnixTime` int(15) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `edition`
 --
 

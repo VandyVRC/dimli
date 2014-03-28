@@ -28,9 +28,9 @@ $result = create_zip($images, $filename);
 if ($result && $saveDownload) {
 
   $time = Time();
-  $sql = "INSERT INTO dimli.download
-          SET UserID = '{$_SESSION['user_id']}',
-              Images = '{$_GET['images']}',
+  $sql = "INSERT INTO $DB_NAME.download
+          SET user_id = '{$_SESSION['user_id']}',
+              images = '{$_GET['images']}',
               UnixTime = '{$time}'
           ";
   $result = db_query($mysqli, $sql);
@@ -96,4 +96,4 @@ function create_zip($files = array(), $destination = '') {
  */
 function convertToFilepath($value) {
   return IMAGE_DIR . 'full/' . $value . '.jpg';
-}
+} 

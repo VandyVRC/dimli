@@ -11,8 +11,8 @@ $thumb_path = 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.ph
 
 // Grab download history for the current user
 $sql = "SELECT * 
-        FROM dimli.download 
-        WHERE UserID = '{$_SESSION['user_id']}' ";
+        FROM $DB_NAME.download 
+        WHERE user_id = '{$_SESSION['user_id']}' ";
 $downloads = db_query($mysqli, $sql);
 
 /**
@@ -75,4 +75,4 @@ for ($i = 0; $i < count($images); $i++) {
 
   <script id="yourDownloads_script"></script>
 
-</div>
+</div> 
