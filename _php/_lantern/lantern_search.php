@@ -130,6 +130,22 @@ $searches_arr = array(
       ),
     'relevance_val' => 3
     ),
+  'specific_location' => array(
+    'table' => 'specific_location',
+    'fields' => array(
+      'specific_location_address', 'specific_location_note'
+      ),
+    'relevance_val' => 3
+    ),
+  'inscription' => array(
+    'table' => 'inscription',
+    'fields' => array(
+      'inscription_text',
+      'inscription_author',
+      'inscription_location'
+      ),
+    'relevance_val' => 4
+    ),
   'subject' => array(
     'table' => 'subject',
     'fields' => array(
@@ -150,15 +166,6 @@ $searches_arr = array(
       'description'
       ),
     'relevance_val' => 2
-    ),
-  'inscription' => array(
-    'table' => 'inscription',
-    'fields' => array(
-      'inscription_text',
-      'inscription_author',
-      'inscription_location'
-      ),
-    'relevance_val' => 4
     ),
   'rights' => array(
     'table' => 'rights',
@@ -257,8 +264,8 @@ foreach ($searchText_arr as $term) {
         }
       }
         
-      // echo $search_name.': '.$sql.'<br>'; // Debug
-      // print_r($searchText_arr);echo '<br><br>'; // Debug
+      //echo $search_name.': '.$sql.'<br>'; // Debug
+    //print_r($searchText_arr);echo '<br><br>'; // Debug
 
       $result = db_query($mysqli, $sql);
 
@@ -279,7 +286,7 @@ foreach ($searchText_arr as $term) {
         }
 
         // Term found in NORMAL DATA FIELD
-        elseif (in_array($arr['table'], array('title','agent','date','material','technique','work_type','culture','style_period','location','subject','inscription','rights','source'))) {
+        elseif (in_array($arr['table'], array('title','agent','date','material','technique','work_type','culture','style_period','location','specific_location','inscription','subject','rights','source'))) {
 
           if (!empty($row['related_works'])) {
             $results_arr['work'.$row['related_works']]['type'] = 'work';

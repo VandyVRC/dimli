@@ -708,12 +708,12 @@ function lantern_list_display_location($mysqli, $recordType, $recordNum, $DB_NAM
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME)
+function lantern_list_display_specific_location($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
   $sql = "SELECT * 
-        FROM $DB_NAME.subject 
+        FROM $DB_NAME.specific_location 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -721,14 +721,14 @@ function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME
   while ($row = $res->fetch_assoc())
   {
     $str = '';
-    $str .= (!empty($row['subject_text'])) ? $row['subject_text'] : '';
-    $str .= (!empty($row['subject_type'])) ? ' (' . $row['subject_type'] . ')' : '';
+    $str .= (!empty($row['specific_location_type'])) ? $row['specific_location_type'] . ': ' : '';
+    $str .= (!empty($row['specific_location_address'])) ? $row['specific_location_address'] : '';
+    $str .= (!empty($row['specific_location_note'])) ? ' (' . $row['specific_location_note'] . ')' : '';
     
     $arr[] = $str;
   }
   echo trim(implode(', ', $arr), ', ');
 }
-
 function lantern_list_display_inscription($mysqli, $recordType, $recordNum, $DB_NAME)
 {
 
@@ -747,6 +747,27 @@ function lantern_list_display_inscription($mysqli, $recordType, $recordNum, $DB_
     $str .= (!empty($row['inscription_text'])) ? '"' . $row['inscription_text'] . '"' : '';
     $str .= (!empty($row['inscription_author'])) ? ' by ' . $row['inscription_author'] : '';
     $str .= (!empty($row['inscription_location'])) ? '; Location: ' . $row['inscription_location'] : '';
+    
+    $arr[] = $str;
+  }
+  echo trim(implode(', ', $arr), ', ');
+}
+
+function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME)
+{
+  $arr = array();
+
+  $sql = "SELECT * 
+        FROM $DB_NAME.subject 
+        WHERE related_".$recordType."s = '{$recordNum}' ";
+
+  $res = db_query($mysqli, $sql);
+  
+  while ($row = $res->fetch_assoc())
+  {
+    $str = '';
+    $str .= (!empty($row['subject_text'])) ? $row['subject_text'] : '';
+    $str .= (!empty($row['subject_type'])) ? ' (' . $row['subject_type'] . ')' : '';
     
     $arr[] = $str;
   }

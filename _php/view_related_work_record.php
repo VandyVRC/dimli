@@ -603,6 +603,39 @@ if ($workNum != 'None') {
 			
 			$getRelated = $relation['relation_id'];					
 
+		$sql = "SELECT preferred_image 
+							FROM $DB_NAME.work
+							WHERE id = '{$getRelated}' 
+							LIMIT 1 " ;
+
+				$result_getPref = db_query($mysqli, $sql); 	
+
+				while ($getPreferred = $result_getPref->fetch_assoc()) {
+
+					$preferredImage = $getPreferred['preferred_image'];	
+				}		
+
+			if (!empty($preferredImage)) {	
+
+			$sql = "SELECT legacy_id 
+						FROM $DB_NAME.image
+						WHERE id = '{$preferredImage}' ";	
+
+				$result_getLeg	= db_query($mysqli, $sql); 
+				
+				while ($getLegacy = $result_getLeg->fetch_assoc()) {
+
+					$legacyId = $getLegacy['legacy_id'];
+					$imageView = '
+					<img class="relatedWork_image"
+					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.'medium/'.$legacyId.'.jpg&amp;h=40&amp;w=53&amp;q=90"
+					title="Click to preview"
+						style="max-height: 40px; max-width: 53px;">
+						<input type="hidden" id="imageView" value="'.$legacyId.'">
+						<input type="hidden" id="imageNum" value="'.$preferredImage.'">';
+				}
+			}						
+
 			$sql = "SELECT title_text
 					FROM $DB_NAME.title
 					WHERE related_works = '{$getRelated}'
@@ -625,17 +658,20 @@ if ($workNum != 'None') {
 				while ($getRelatedAgent = $result_getAgent->fetch_assoc()) {
 
 					$relatedAgent = $getRelatedAgent['agent_text'];
+					$relatedAgentDisplay = (!empty($relatedAgent)) 
+						? ' ('.$relatedAgent.')'
+						: '';	
 				}	
 			}	
 
 		$display_temp = '';
+
+		$display_temp = (!empty($legacyId))
+			? $imageView
+			:'';
 			
 		$display_temp.= (!empty($relatedTitle)) 
-			? $relatedTitle 
-			: '';	
-
-		$display_temp.= (!empty($relatedAgent)) 
-			? ', '.$relatedAgent
+			? 	'<div class="related_title" style="display: inline-block; width: 200px; float: right;"><div class="assocImage_title">'.$relatedTitle.$relatedAgentDisplay.'</div></div>'		
 			: '';	
 
 		if ($display_temp == '') { 
@@ -644,6 +680,7 @@ if ($workNum != 'None') {
 			
 		$workRelation[] = array($display_temp=>$relation['display']);	
 	}
+	
 	
 	//----------------------
 	//	 Query State/Edition
@@ -1367,5 +1404,13 @@ elseif ($workNum == 'None')
 	// console.log(workNum+' added to the header of the work record'); // Debug
 
 	$('div#relation_work_module h1').append('<div class="floatRight" style="margin-right: 10px;">' + workNum + '</div>');
+
+	//RELATED WORK IMAGE PREVIEW
+	$('img.relatedWork_image').click(
+		function()
+		{
+			var imageView = $(this).next('input[id=imageView]').val();
+			image_viewer(imageView);
+		});
 
 </script>
