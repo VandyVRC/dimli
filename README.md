@@ -104,7 +104,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
        "MyImageFiles/"
        "images/"
        "exhibits/images/"  
-       "IMAGE_DIR"          - use this if your image source is external - SEE NOTE BELOW */
+       "http://hosted.image.repository.edu/images/" - if your image source is external - SEE NOTE BELOW */
 
     define('IMAGE_SRC', '{imagesFolderOrPath}');
     $image_src = IMAGE_SRC;
