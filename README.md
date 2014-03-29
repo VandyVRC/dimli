@@ -90,21 +90,24 @@ All data created by, and imported into, DIMLI will reside within these tables an
     Define the filepath for the directory that stores your JPG archive 
     Examples:
    "../MyImageFiles/"
+   "..images/"
+   "..exhibits/images/"     
    "http://hosted.image.repository.edu/images/" */
 
     define('IMAGE_DIR', '{filepathOfYourImageDirectory}');
     $image_dir = IMAGE_DIR;
 
     /* 
-    DEFINE IMAGE FOLDER FOR TIMTHUMB PLUGIN
-    ----------------------------------------
+    DEFINE IMAGE FOLDER OR EXTERNAL SOURCE FOR TIMTHUMB PLUGIN
+    ---------------------------------------------------------
         Examples:
        "MyImageFiles/"
        "images/"
-       "exhibits/images/"    - note necessary forward slash */
+       "exhibits/images/"  
+       "IMAGE_DIR"          - use this if your image source is external - SEE NOTE BELOW */
 
-    define('image_src', '{imagesFolderOrPath}');
-    $image_src = image_src;
+    define('IMAGE_SRC', '{imagesFolderOrPath}');
+    $image_src = IMAGE_SRC;
 
     /* 
     OTHER CONSTANTS
@@ -121,6 +124,34 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 Whichever directory you chose to be your main image repository should be divided into three folders named as follows: full/, medium/ and thumb/. The size of the JPG files placed in the 'thumb/' directory should be exactly 96 pixels wide x 72 pixels high at 72 ppi. You may choose the dimensions for the 'medium/' and 'full/' JPG files as you wish. DIMLI will look in these directory locations for image files used throughout the application.
 
+
+#### Note On External Image Sources and the timthumb Plugin
+
+If your image directory exists in another location, via url, you must edit the timthumb.php file located in the timthumb folder in the plugins directory. Find the following line of code: 
+
+"if(! defined('ALLOW_EXTERNAL') )       define ('ALLOW_EXTERNAL', FALSE);"
+
+Change it to this: 
+
+"if(! defined('ALLOW_EXTERNAL') )       define ('ALLOW_EXTERNAL', TRUE);"
+
+Then add the external site name to the list of "ALLOWED SITES," found in the same file, which looks like this:
+
+if(! isset($ALLOWED_SITES)){
+   $ALLOWED_SITES = array (
+      'flickr.com',
+      'staticflickr.com',
+      'picasa.com',
+      'img.youtube.com',
+      'upload.wikimedia.org',
+      'photobucket.com',
+      'imgur.com',
+      'imageshack.us',
+      'tinypic.com',
+      'addyoursitehere.com'
+   );
+}
+
 #### Making PowerPoints Available to End-Users
 
 As you complete/deliver orders, manually add a PowerPoint file for each order to the _ppts folder. Each PowerPoint file should be named with a four-digit number matching the order number (e.g., 2363.pptx). This file will then be available for end-users to download when they visit their homepage.
@@ -128,6 +159,7 @@ As you complete/deliver orders, manually add a PowerPoint file for each order to
 #### Log In as the Default Admin
 
 username/password: `admin`/`admin`
+
 
 Export CSV Fields Explained
 ---------------------------
