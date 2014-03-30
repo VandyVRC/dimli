@@ -12,40 +12,52 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
     $order = $_GET['order'];
     $size = $_GET['size'];
 
-    // Initialize an array to hold image filenames
+    // Initialize an array to hold image filenames 
+    
     $imagesToArchive = array();
-
-    chdir(MAIN_DIR.'/../../temp');
+    $images = array();
 
     // Build query to find image ids associated with the current order number
     $sql = "SELECT * 
             FROM $DB_NAME.image 
-            WHERE order_id = {$order} ";
+            WHERE order_id = '{$order}' ";
 
     $result = db_query($mysqli, $sql);
 
     while ($row = $result->fetch_assoc()){
 
-        if (preg_match('/http:/i', $image_dir)){    
-  
-            $url = IMAGE_DIR.$size.'/'.$row['legacy_id'].'.jpg';
-            $ch = curl_init();
-            $fh = fopen($row['legacy_id'].".jpg", 'wb');
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-            curl_setopt($ch, CURLOPT_FILE, $fh);
-            $result = curl_exec($ch);
-            fclose($fh);
-            curl_close($ch); 
-            $fileName = $row['legacy_id'].'.jpg'; 
-            $imagesToArchive[] = $fileName;
+        $image = $row['legacy_id'].".jpg";
+        $images[] =$image; 
+    }
+        if (preg_match('/http:/i', $image_dir)){ 
+
+            chdir(MAIN_DIR.'/../../temp');
+
+            foreach ($images as $image){
+
+                $url = IMAGE_DIR.$size.'/'.$image;
+                $ch = curl_init();
+                $fh = fopen($image, 'wb');
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_FILE, $fh);
+                $result = curl_exec($ch);
+                fclose($fh);
+                curl_close($ch); 
+
+                $imagesToArchive[] = $image;
+            }
         }  
         else {
-            $fileName = IMAGE_DIR.$size.'/'.$row['legacy_id'].'.jpg';
-            $imagesToArchive[] = $fileName; 
+
+            foreach ($images as $image){
+
+              $fileName = IMAGE_DIR.$size.'/'.$image;
+              
+              $imagesToArchive[] = $fileName; 
+            }
         }
-    }
 
     // Temporarily increase PHP memory limit
     ini_set('memory_limit', '1024M');
