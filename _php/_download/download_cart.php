@@ -1,10 +1,9 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
-require_once(MAIN_DIR.'/_plugins/pclzip/pclzip.lib.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+require_once(MAIN_DIR.'/../../_plugins/pclzip/pclzip.lib.php');
 confirm_logged_in();
 require_priv('priv_orders_download');
 
@@ -17,11 +16,35 @@ $saveDownload = $_GET['new'] === 'true';
 
 // Construct an array of filepaths to be added to the zip archive
 $images = explode(',', $_GET['images']);
-$images = array_map('convertToFilepath', $images);
+$files = array(); 
+chdir(MAIN_DIR.'/../../temp');
+
+if (preg_match('/http:/i', $image_dir)){    
+  foreach ($images as $image){
+    $url = IMAGE_DIR.'full/'.$image.'.jpg';
+    $ch = curl_init();
+    $fh = fopen($image.".jpg", 'wb');
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_FILE, $fh);
+    $result = curl_exec($ch);
+    fclose($fh);
+    curl_close($ch); 
+    $file = $image.'.jpg'; 
+    $files[] = $file;
+  }  
+}
+else {
+ foreach ($images as $image){ 
+  $file = IMAGE_DIR.'full/'.$image.'.jpg'; 
+  $files[] = $file; 
+  }
+}
 
 // Create the zip archive file
-$filename = MAIN_DIR . '/temp/download_' . $_SESSION['user_id'] . Time() . '.zip';
-$result = create_zip($images, $filename);
+$filename = 'download_' . $_SESSION['user_id'] . Time() . '.zip';
+$result = create_zip($files, $filename);
 
 // If the zip file was successfully created,
 // write the download to the database
@@ -62,7 +85,11 @@ if (headers_sent()) {
     ini_set('memory_limit', '128M');
 
     foreach ($images as $image) {
-      unlink(MAIN_DIR.'/_php/_download/'.basename($image));
+      unlink(MAIN_DIR.'/../../_php/_download/'.basename($image));
+    }
+
+    foreach ($files as $file) {
+      unlink($file);
     }
 
     exit;
@@ -74,7 +101,7 @@ if (headers_sent()) {
  * @param {Array}  $files       - the filepaths to be included in the archive
  * @param {String} $destination - the filepath destination of the resulting archive
  */
-function create_zip($files = array(), $destination = '') {
+function create_zip($files = array(), $destination ='') {
 
   // Create zip acrhive
   $archive = new PclZip($destination);
@@ -88,12 +115,5 @@ function create_zip($files = array(), $destination = '') {
   return $archive;
 }
 
-/**
- * Converts an image filename into a filepath
- * to be passed in to create_zip()
- *
- * Used above with array_map()
- */
-function convertToFilepath($value) {
-  return IMAGE_DIR . 'full/' . $value . '.jpg';
-} 
+
+

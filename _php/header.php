@@ -209,7 +209,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
             id="lantern_search"
             placeholder="" autofocus
             style="margin: 0;"
-            value="san vitale">
+            value="">
 
           <div style="margin: 20px 0 8px 0; font-size: 0.75em; color: #E6E6FA; position: relative;"
             title="Feature not yet available">
