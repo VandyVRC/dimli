@@ -278,7 +278,9 @@ $privEdit = $_SESSION['priv_orders_create'];
 
 			<!-- Hidden Image ID -->
 			<div class="imageList_imageNum_hidden" hidden><?php echo $imageId;?></div>
+			<div class="imageList_imageView_hidden" hidden><?php echo $legId;?></div>
 			</div>
+
 			<!-- Thumbnail -->
 			<div class="orderView_imageList_thumb" style="cursor: pointer;">
 
@@ -470,7 +472,7 @@ $privEdit = $_SESSION['priv_orders_create'];
 			function() 
 			{
 				
-				var image = $.trim($(this).parents('.orderView_imageRow').find('.imageList_imageNum').text());
+				var image = $(this).parents('div.orderView_imageRow').find('div.imageList_imageView_hidden').text();
 				image_viewer(image);
 			});
 
