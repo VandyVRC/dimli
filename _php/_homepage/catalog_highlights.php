@@ -63,8 +63,8 @@ if ($result->num_rows > 0):
 			<div class="banner">
 
 				<div class="banner_text">
-					<span class="title"><?php echo htmlentities($title); ?></span><br>
-					<span class="agent"><?php echo htmlentities($agent); ?></span>
+					<span class="title"><?php echo ($title); ?></span><br>
+					<span class="agent"><?php echo($agent); ?></span>
 				</div>
 
 			</div>
