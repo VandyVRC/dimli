@@ -43,7 +43,7 @@ for ($i = 0; $i < count($images); $i++) {
     } else {
 
       while ($row = $downloads->fetch_assoc()) {
-      $images = explode(',', $row['Images']);
+      $images = explode(',', $row['images']);
       $count = count($images);
       ?>
 
