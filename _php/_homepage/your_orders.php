@@ -1,9 +1,17 @@
 <?php 
-
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+
+if (isset($_POST['limit']) &&  $_POST['limit']== 'none'){
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+}
+
+else{
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
+}
 
 confirm_logged_in(); ?>
 
@@ -162,10 +170,20 @@ confirm_logged_in(); ?>
 						<img src="_assets/_images/zip.png">
 						<span class="label">Medium ZIP</span><br>
 					</a>
-
 					<?php 
-					if (file_exists(MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx')): ?>
 
+						if (isset($_POST['limit']) &&  $_POST['limit']== 'none'){
+
+						$file = MAIN_DIR.'/../../_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+						}
+
+						else{
+
+						$file = MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+						}
+			
+					if (file_exists($file)): ?>
+					
 					<a href="_php/_download/download_ppt.php?order=<?php echo $order; ?>"
 						class="download_ppt"
 						title="Download PowerPoint file"
