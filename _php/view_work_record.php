@@ -6,7 +6,7 @@ require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 confirm_logged_in();
-require_priv('priv_orders_read');
+
 
 // Use Image number passed from ajax request to find the associated work
 
@@ -1111,7 +1111,7 @@ include('../_php/_order/query_work.php'); ?>
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($workRights)) { foreach ($workRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -1125,7 +1125,7 @@ include('../_php/_order/query_work.php'); ?>
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($workSources)) { foreach ($workSources as $source) { echo $source . '<br>'; } }
 		?></div>
 
@@ -1352,6 +1352,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			event.preventDefault();
 		});
 
+	var catPriv = '<?php echo $_SESSION['priv_catalog']?>';
 
 	// JUMP TO ASSOCIATED IMAGE RECORD
 
@@ -1361,7 +1362,10 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			var order = $(this).parents('div.work_assocImage_row')
 								.find('div.assocImage_order')
 								.text();
-			open_order(order);
+			if (catPriv == true){
+
+				open_order(order);
+			}
 
 			var imageNum = $(this).parents('div.work_assocImage_row')
 								.find('div.assocImage_jump')
@@ -1421,15 +1425,17 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 	$('div.assocImage_pref:not(.pref)').click(
 		function()
 		{
-			var image = $(this).parents('div.work_assocImage_row')
-								.find('div.assocImage_jump')
-								.text();
-			work_assign_preview(
-				image, 
-				'<?php echo $_SESSION['workNum'];?>'
-				);
-			$('div.assocImage_pref').removeClass('pref');
-			$(this).addClass('pref');
+if (catPriv == true){
+				var image = $(this).parents('div.work_assocImage_row')
+									.find('div.assocImage_jump')
+									.text();
+				work_assign_preview(
+					image, 
+					'<?php echo $_SESSION['workNum'];?>'
+					);
+				$('div.assocImage_pref').removeClass('pref');
+				$(this).addClass('pref');
+		};
 		});
 
 </script>

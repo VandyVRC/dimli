@@ -174,12 +174,12 @@ confirm_logged_in(); ?>
 
 						if (isset($_POST['limit']) &&  $_POST['limit']== 'none'){
 
-						$file = MAIN_DIR.'/../../_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+							$file = MAIN_DIR.'/../../_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
 						}
 
-						else{
+						else{	
 
-						$file = MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+							$file = MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
 						}
 			
 					if (file_exists($file)): ?>

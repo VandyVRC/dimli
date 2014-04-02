@@ -1374,7 +1374,7 @@ elseif ($workNum == 'None')
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($workRights)) { foreach ($workRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -1388,7 +1388,7 @@ elseif ($workNum == 'None')
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($workSources)) { foreach ($workSources as $source) { echo $source . '<br>'; } }
 		?></div>
 
@@ -1405,12 +1405,5 @@ elseif ($workNum == 'None')
 
 	$('div#relation_work_module h1').append('<div class="floatRight" style="margin-right: 10px;">' + workNum + '</div>');
 
-	//RELATED WORK IMAGE PREVIEW
-	$('img.relatedWork_image').click(
-		function()
-		{
-			var imageView = $(this).next('input[id=imageView]').val();
-			image_viewer(imageView);
-		});
 
 </script>

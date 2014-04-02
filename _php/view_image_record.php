@@ -6,7 +6,7 @@ require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 confirm_logged_in();
-require_priv('priv_orders_read');
+
 
 if (isset($_GET['imageRecord']))
 {
@@ -949,7 +949,7 @@ include('../_php/_order/query_image.php');?>
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($imageRights)) { foreach ($imageRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -963,7 +963,7 @@ include('../_php/_order/query_image.php');?>
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText"><?php
+		<div class="content_lineText" style="word-wrap: break-word;"><?php
 			if (!empty($imageSources)) { foreach ($imageSources as $source) { echo $source . '<br>'; } }
 		?></div>
 
