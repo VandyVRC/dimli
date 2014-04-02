@@ -194,8 +194,6 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
       <?php } ?>
 
-      <?php if ($_SESSION['priv_catalog']=='1') { ?>
-
       <!-- 
         LANTERN
        -->
@@ -260,7 +258,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
       });
       </script
         
-      <?php } ?>
+      
 
     <?php } // If logged in ?>
 

@@ -85,7 +85,6 @@ if (($page*$rpp)-$rpp <= count($results)) {
             data="<?php echo ($arr['type'] == 'work') ? $prefImage : create_six_digits($id); ?>"
             data-image="<?php echo $img_id; ?>">
 
-          <?php if ($_SESSION['priv_orders_read']=='1') { ?>
 
           <span class="view_catalog pointer"
             title="Jump to catalog record">view catalog</span>
@@ -96,8 +95,6 @@ if (($page*$rpp)-$rpp <= count($results)) {
               ? create_six_digits($id)
               : create_six_digits($img_id); ?>"
             title="Add image to cart">add to cart</span>
-
-          <?php } ?>
 
         </div>
 
