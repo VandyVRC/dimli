@@ -458,22 +458,49 @@ if (!empty($fieldVal)) {
 
 			$builtWorkIds_filteredOnce = array();
 
-		// Query and initilize array of work types that can   
-		// appropriately be called "built works"	
-		
+// Initilize array of work types that can appropriately be called "built works"
+		$acceptableWorkTypes = array(
+			'buildings (structures)',
+			'churches (buildings)',
+			'cathedrals (buildings)',
+			'temples (buildings)',
+			'villas',
+			'hospitals (buildings for pilgrims)',
+			'funerary buildings',
+			'mosques (buildings)',
+			'art museums (buildings)',
+			'art galleries (buildings)',
+			'hippodromes (Greek sports buildings)',
+			'international museums (buildings)',
+			'landmark buildings',
+			'monastic churches (buildings)',
+			'museums (buildings)',
+			'national museums (buildings)',
+			'pilgrimage churches (buildings)',
+			'amphitheaters (built works)',
+			'theaters (buildings)',
+			'caves',
+			'cave architecture',
+			'cave churches',
+			'cave dwellings',
+			'cave temples',
+			'ducal palaces',
+			'tombs'
+			);
+
+
 		$sql = "SELECT  pref_term_text
 					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'Built Environment' ) ";
 
 		$result_acceptableWorkTypes = $mysqli->query($sql);
-			
 
-			$acceptableWorkTypes = array();
 
 			while ($row = $result_acceptableWorkTypes->fetch_assoc()) {
-		
+
 				$acceptableWorkTypes[] = $row['pref_term_text'];
 			}	
+
 		
 			// For each work id returned so far
 		foreach ($builtWorkIds as $id):
