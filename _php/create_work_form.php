@@ -860,7 +860,7 @@ if (!isset($_SESSION['createNewWork']))
 							<input type="text" 
 								id="NWmeasurementField1_<?php echo $i; ?>" 
 								name="NWmeasurementField1_<?php echo $i; ?>" 
-								style="width: 4em;"
+								style="width: 2.5em;"
 								placeholder=""
 								value="<?php echo $_SESSION['createNewWork']['measurementField1_'.$i]; ?>">
 						
@@ -980,7 +980,7 @@ if (!isset($_SESSION['createNewWork']))
 									placeholder="Day"
 									value="" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -992,7 +992,7 @@ if (!isset($_SESSION['createNewWork']))
 									placeholder="Hrs"
 									value="" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1004,7 +1004,7 @@ if (!isset($_SESSION['createNewWork']))
 									placeholder="Min"
 									value="" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1016,7 +1016,7 @@ if (!isset($_SESSION['createNewWork']))
 									placeholder="Sec"
 									value="" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 						
 							</div>
 							
@@ -2324,7 +2324,7 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWrightsHolder<?php echo $i; ?>" 
 								class="autoWidth"
 								name="NWrightsHolder<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['createNewWork']['rightsHolder'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['createNewWork']['rightsHolder'.$i]); ?>" 
 								maxlength="500"
 								placeholder="Rights holder">
 						
@@ -2353,7 +2353,7 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWrightsText<?php echo $i; ?>" 
 								class="autoWidth"
 								name="NWrightsText<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['createNewWork']['rightsText'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['createNewWork']['rightsText'.$i]); ?>" 
 								maxlength="500"
 								placeholder="Rights text">
 						
@@ -2432,7 +2432,7 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWsourceName<?php echo $i; ?>" 
 								class="autoWidth"
 								name="NWsourceName<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['createNewWork']['sourceName'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['createNewWork']['sourceName'.$i]); ?>" 
 								maxlength="500" 
 								placeholder="Source name">
 						
@@ -2487,7 +2487,7 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWsource<?php echo $i; ?>" 
 								class="autoWidth"
 								name="NWsource<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['createNewWork']['source'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['createNewWork']['source'.$i]); ?>" 
 								maxlength="500" 
 								placeholder="Source text">
 						

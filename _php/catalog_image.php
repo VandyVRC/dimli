@@ -1119,7 +1119,7 @@ require_priv('priv_catalog'); ?>
 								name="ImeasurementField1_<?php echo $i; ?>"
 								placeholder="" 
 								value="<?php echo $_SESSION['image']['measurementField1_'.$i]; ?>" 
-								style="width: 4em;">
+								style="width: 2.25em;">
 						
 						</div>
 						
@@ -1293,7 +1293,7 @@ require_priv('priv_catalog'); ?>
 									placeholder="Day" 
 									value="<?php echo($_SESSION['image']['days'.$i]!='0')?$_SESSION['image']['days'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1305,7 +1305,7 @@ require_priv('priv_catalog'); ?>
 									placeholder="Hrs" 
 									value="<?php echo($_SESSION['image']['hours'.$i]!='0')?$_SESSION['image']['hours'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1317,7 +1317,7 @@ require_priv('priv_catalog'); ?>
 									placeholder="Min"
 									value="<?php echo($_SESSION['image']['minutes'.$i]!='0')?$_SESSION['image']['minutes'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1329,7 +1329,7 @@ require_priv('priv_catalog'); ?>
 									placeholder="Sec"
 									value="<?php echo($_SESSION['image']['seconds'.$i]!='0')?$_SESSION['image']['seconds'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 						
 							</div>
 							
@@ -2521,7 +2521,7 @@ require_priv('priv_catalog'); ?>
 								class="autoWidth"
 								name="IrightsHolder<?php echo $i; ?>" 
 								placeholder="Rights holder"
-								value="<?php echo $_SESSION['image']['rightsHolder'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['image']['rightsHolder'.$i]); ?>" 
 								maxlength="500">
 						
 						</div>
@@ -2550,7 +2550,7 @@ require_priv('priv_catalog'); ?>
 								class="autoWidth"
 								name="IrightsText<?php echo $i; ?>" 
 								placeholder="Rights text"
-								value="<?php echo $_SESSION['image']['rightsText'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['image']['rightsText'.$i]); ?>" 
 								maxlength="500">
 						
 						</div>
@@ -2629,7 +2629,7 @@ require_priv('priv_catalog'); ?>
 								class="autoWidth"
 								name="IsourceName<?php echo $i; ?>" 
 								placeholder="Source name"
-								value="<?php echo $_SESSION['image']['sourceName'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['image']['sourceName'.$i]); ?>" 
 								maxlength="500">
 						
 						</div>
@@ -2686,7 +2686,7 @@ require_priv('priv_catalog'); ?>
 								class="autoWidth"
 								name="Isource<?php echo $i; ?>" 
 								placeholder="Source text" 
-								value="<?php echo $_SESSION['image']['source'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['image']['source'.$i]); ?>" 
 								maxlength="500">
 						
 						</div>

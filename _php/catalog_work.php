@@ -802,7 +802,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WmeasurementField1_<?php echo $i; ?>" 
 								name="WmeasurementField1_<?php echo $i; ?>"
 								placeholder="" 
-								style="width: 4em;"
+								style="width: 2.25em;"
 								value="<?php echo $_SESSION['work']['measurementField1_'.$i]; ?>">
 						
 						</div>
@@ -921,7 +921,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 									placeholder="Day"
 									value="<?php echo($_SESSION['work']['days'.$i]!='0')?$_SESSION['work']['days'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -933,7 +933,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 									placeholder="Hrs"
 									value="<?php echo($_SESSION['work']['hours'.$i]!='0')?$_SESSION['work']['hours'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+								style="width: 1.7em;">
 							
 							</div>
 							
@@ -945,7 +945,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 									placeholder="Min"
 									value="<?php echo($_SESSION['work']['minutes'.$i]!='0')?$_SESSION['work']['minutes'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -957,7 +957,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 									placeholder="Sec"
 									value="<?php echo($_SESSION['work']['seconds'.$i]!='0')?$_SESSION['work']['seconds'.$i]:'';?>" 
 									maxlength="10" 
-									style="width: 2em;">
+									style="width: 1.7em;">
 						
 							</div>
 							
@@ -2270,7 +2270,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WrightsHolder<?php echo $i; ?>" 
 								class="autoWidth"
 								name="WrightsHolder<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['work']['rightsHolder'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['rightsHolder'.$i]); ?>" 
 								maxlength="500"
 								placeholder="Rights holder">
 						
@@ -2297,7 +2297,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WrightsText<?php echo $i; ?>" 
 								class="autoWidth"
 								name="WrightsText<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['work']['rightsText'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['rightsText'.$i]); ?>" 
 								maxlength="500"
 								placeholder="Rights text">
 						
@@ -2378,7 +2378,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WsourceName<?php echo $i; ?>" 
 								class="autoWidth"
 								name="WsourceName<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['work']['sourceName'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['sourceName'.$i]); ?>" 
 								maxlength="500" 
 								placeholder="Source name">
 						
@@ -2434,7 +2434,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="Wsource<?php echo $i; ?>" 
 								class="autoWidth"
 								name="Wsource<?php echo $i; ?>" 
-								value="<?php echo $_SESSION['work']['source'.$i]; ?>" 
+								value="<?php echo htmlspecialchars($_SESSION['work']['source'.$i]); ?>" 
 								maxlength="500" 
 								placeholder="Source text">
 						
