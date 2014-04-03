@@ -256,7 +256,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
       downloadCartLink.addEventListener('click', function () {
         window.location = downloadCartLink.href;
       });
-      </script
+      </script>
         
       
 
