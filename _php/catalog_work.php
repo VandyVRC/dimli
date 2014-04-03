@@ -969,13 +969,13 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							<select id="WfileSize<?php echo $i; ?>" 
 								name="WfileSize<?php echo $i; ?>">
 								
-								<option id="kb" value="kb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'kb') ? 'selected="selected"' : ''; ?>>KB (kilobyte)</option>
+								<option id="kb" value="kb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'kb') ? 'selected="selected"' : ''; ?>>KB</option>
 
-								<option id="mb" value="mb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'mb') ? 'selected="selected"' : ''; ?>>MB (megabyte)</option>
+								<option id="mb" value="mb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'mb') ? 'selected="selected"' : ''; ?>>MB</option>
 
-								<option id="gb" value="gb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'gb') ? 'selected="selected"' : ''; ?>>GB (gigabyte)</option>
+								<option id="gb" value="gb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'gb') ? 'selected="selected"' : ''; ?>>GB</option>
 
-								<option id="tb" value="tb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'tb') ? 'selected="selected"' : ''; ?>>TB (terabyte)</option>
+								<option id="tb" value="tb" <?php echo (isset($_SESSION['work']['fileSize'.$i]) && $_SESSION['work']['fileSize'.$i] == 'tb') ? 'selected="selected"' : ''; ?>>TB</option>
 							
 							</select>
 						

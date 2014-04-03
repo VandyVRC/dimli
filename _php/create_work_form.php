@@ -1028,11 +1028,11 @@ if (!isset($_SESSION['createNewWork']))
 							<select id="NWfileSize<?php echo $i; ?>" 
 								name="NWfileSize<?php echo $i; ?>">
 								
-								<option id="kb" value="kb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'kb') ? 'selected="selected"' : ''; ?>>KB (kilobyte)</option>
+								<option id="kb" value="kb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'kb') ? 'selected="selected"' : ''; ?>>KB</option>
 
-								<option id="mb" value="mb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'mb') ? 'selected="selected"' : ''; ?>>MB (megabyte)</option>
+								<option id="mb" value="mb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'mb') ? 'selected="selected"' : ''; ?>>MB</option>
 
-								<option id="gb" value="gb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'gb') ? 'selected="selected"' : ''; ?>>GB (gigabyte)</option>
+								<option id="gb" value="gb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'gb') ? 'selected="selected"' : ''; ?>>GB</option>
 
 								<option id="tb" value="tb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'tb') ? 'selected="selected"' : ''; ?>>TB (terabyte)</option>
 							
