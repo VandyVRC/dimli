@@ -21,8 +21,6 @@ while ($row = $result->fetch_assoc()):
 	
 	$priv = $row[$priv];
 
-	echo ($priv == '1')
-		? 'true'
-		: 'false';
+	echo $priv;
 
-endwhile;
+endwhile; 

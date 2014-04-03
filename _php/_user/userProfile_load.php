@@ -367,10 +367,9 @@ endwhile; ?>
 	$('div.priv_wrapper').each(
 		function()
 		{
-			var wrapper = $(this);
 			var userId = '<?php echo $userId;?>';
 			var priv = $(this).attr('id');
-			userProfile_readPriv(wrapper, userId, priv);
+			userProfile_readPriv($(this), userId, priv);
 		});
 
 

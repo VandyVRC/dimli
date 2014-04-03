@@ -578,14 +578,13 @@ function userProfile_readPriv(wrapper, userId, priv) {
     data: 'userId=' + userId + '&priv=' + priv,
     url: '_php/_user/userProfile_readPriv.php',
     success: function (response) {
-
-      if (response == 'true') {
-        $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
-        $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
+      if (response == 1) {
+        $(wrapper).find('div.priv_left').css({'background-color':'#669'}).text('ON');
+        $(wrapper).find('div.priv_right').css({'background-color':'#EEE'}).text('');
 
       } else {
-        $(wrapper).find('div.priv_left').css({ 'background-color': '#EEE' }).text('');
-        $(wrapper).find('div.priv_right').css({ 'background-color': '#CCC' }).text('OFF');
+        $(wrapper).find('div.priv_left').css({'background-color':'#EEE'}).text('');
+        $(wrapper).find('div.priv_right').css({'background-color':'#CCC'}).text('OFF');
       }
     }, error: function () {
       console.error('AJAX ERROR: userProfile_readPriv.php');
