@@ -97,7 +97,7 @@ confirm_logged_in();
     				? substr($image, 0, 6) . '...' 
    				: $image;
 
-					echo $row['image_count']. 'image'; 
+					echo $row['image_count']. ' image'; 
 
 					echo ($row['image_count'] > 1) 
 						? 's' 
