@@ -908,46 +908,9 @@ if (!isset($_SESSION['createNewWork']))
 									style="width: 2em;">
 								
 							</div>
-							
+
 						</div>
-						
-						<div id="NWmeasurementFieldDiv2_<?php echo $i; ?>" 
-							class="inline">
-						
-							<div class="catCell">equal to</div> <!-- "equal to" -->
-							
-							<div class="catCell">
-							
-								<input type="text" 
-									id="NWmeasurementField2_<?php echo $i; ?>" 
-									name="NWmeasurementField2_<?php echo $i; ?>" 
-									value="<?php echo $_SESSION['createNewWork']['measurementField2_'.$i]; ?>" 
-									style="width: 5em;">
-							
-							</div>
-						
-						</div>
-						
-						<div id="NWcommonMeasurement2_<?php echo $i; ?>" 
-							class="catCell">
-						
-							<select id="NWcommonMeasurementList2_<?php echo $i; ?>" 
-								name="NWcommonMeasurementList2_<?php echo $i; ?>">
-								
-								<option id="cm" value="cm" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'cm') ? 'selected="selected"' : ''; ?>>cm</option>
-								
-								<option id="m" value="m" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'm') ? 'selected="selected"' : ''; ?>>m</option>
-								
-								<option id="km" value="km" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'km') ? 'selected="selected"' : ''; ?>>km</option>
-								
-								<option id="in" value="in" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'in') ? 'selected="selected"' : ''; ?>>in</option>
-								
-								<option id="ft" value="ft" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'ft') ? 'selected="selected"' : ''; ?>>ft</option>
-							
-							</select>
-						
-						</div>
-						
+
 						<div id="NWareaMeasurement<?php echo $i; ?>" 
 							class="catCell">
 						
@@ -1110,6 +1073,53 @@ if (!isset($_SESSION['createNewWork']))
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
 				</div> <!-- catRowWrapper -->
+
+				<div class ="catRowWrapper">
+
+					<div class ="catCellWrapper">
+
+						<div class="catRowTitle"></div>
+
+							<div id="NWmeasurementFieldDiv2_<?php echo $i; ?>" 
+							class="inline">
+						
+								<div class="catCell">equal to</div> <!-- "equal to" -->
+								
+								<div class="catCell">
+								
+									<input type="text" 
+										id="NWmeasurementField2_<?php echo $i; ?>" 
+										name="NWmeasurementField2_<?php echo $i; ?>" 
+										value="<?php echo $_SESSION['createNewWork']['measurementField2_'.$i]; ?>" 
+										style="width: 5em;">
+								
+								</div>
+							
+							</div>
+							
+							<div id="NWcommonMeasurement2_<?php echo $i; ?>" 
+								class="catCell">
+							
+								<select id="NWcommonMeasurementList2_<?php echo $i; ?>" 
+									name="NWcommonMeasurementList2_<?php echo $i; ?>">
+									
+									<option id="cm" value="cm" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'cm') ? 'selected="selected"' : ''; ?>>cm</option>
+									
+									<option id="m" value="m" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'm') ? 'selected="selected"' : ''; ?>>m</option>
+									
+									<option id="km" value="km" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'km') ? 'selected="selected"' : ''; ?>>km</option>
+									
+									<option id="in" value="in" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'in') ? 'selected="selected"' : ''; ?>>in</option>
+									
+									<option id="ft" value="ft" <?php echo (isset($_SESSION['createNewWork']['commonMeasurementList2_'.$i]) && $_SESSION['createNewWork']['commonMeasurementList2_'.$i] == 'ft') ? 'selected="selected"' : ''; ?>>ft</option>
+								
+								</select>
+							
+							</div>
+							
+						</div>
+
+					</div> <!-- catRowWrapper -->	
 
 			</div>
 			

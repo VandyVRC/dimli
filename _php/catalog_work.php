@@ -851,44 +851,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							</div>
 							
 						</div>
-						
-						<div id="WmeasurementFieldDiv2_<?php echo $i; ?>" 
-							class="inline">
-						
-							<div class="catCell">equal to</div> <!-- "equal to" -->
-							
-							<div class="catCell">
-							
-								<input type="text" 
-									id="WmeasurementField2_<?php echo $i; ?>" 
-									name="WmeasurementField2_<?php echo $i; ?>" 
-									value="<?php echo $_SESSION['work']['measurementField2_'.$i]; ?>" 
-									style="width: 5em;">
-							
-							</div>
-						
-						</div>
-						
-						<div id="WcommonMeasurement2_<?php echo $i; ?>" 
-							class="catCell">
-						
-							<select id="WcommonMeasurementList2_<?php echo $i; ?>" 
-								name="WcommonMeasurementList2_<?php echo $i; ?>">
-								
-								<option id="cm" value="cm" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'cm') ? 'selected="selected"' : ''; ?>>cm</option>
-								
-								<option id="m" value="m" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'm') ? 'selected="selected"' : ''; ?>>m</option>
-								
-								<option id="km" value="km" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'km') ? 'selected="selected"' : ''; ?>>km</option>
-								
-								<option id="in" value="in" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'in') ? 'selected="selected"' : ''; ?>>in</option>
-								
-								<option id="ft" value="ft" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'ft') ? 'selected="selected"' : ''; ?>>ft</option>
-							
-							</select>
-						
-						</div>
-						
+
 						<div id="WareaMeasurement<?php echo $i; ?>" 
 							class="catCell">
 						
@@ -1053,6 +1016,53 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 				
 				</div> <!-- catRowWrapper -->
 
+				<div class ="catRowWrapper">
+
+					<div class ="catCellWrapper">
+
+						<div class="catRowTitle"></div> 
+
+							<div id="WmeasurementFieldDiv2_<?php echo $i; ?>" 
+							class="inline">
+						
+							<div class="catCell">equal to</div> <!-- "equal to" -->
+							
+							<div class="catCell">
+							
+								<input type="text" 
+									id="WmeasurementField2_<?php echo $i; ?>" 
+									name="WmeasurementField2_<?php echo $i; ?>" 
+									value="<?php echo $_SESSION['work']['measurementField2_'.$i]; ?>" 
+									style="width: 5em;">
+							
+							</div>
+						
+						</div>
+						
+						<div id="WcommonMeasurement2_<?php echo $i; ?>" 
+							class="catCell">
+						
+							<select id="WcommonMeasurementList2_<?php echo $i; ?>" 
+								name="WcommonMeasurementList2_<?php echo $i; ?>">
+								
+								<option id="cm" value="cm" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'cm') ? 'selected="selected"' : ''; ?>>cm</option>
+								
+								<option id="m" value="m" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'm') ? 'selected="selected"' : ''; ?>>m</option>
+								
+								<option id="km" value="km" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'km') ? 'selected="selected"' : ''; ?>>km</option>
+								
+								<option id="in" value="in" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'in') ? 'selected="selected"' : ''; ?>>in</option>
+								
+								<option id="ft" value="ft" <?php echo (isset($_SESSION['work']['commonMeasurementList2_'.$i]) && $_SESSION['work']['commonMeasurementList2_'.$i] == 'ft') ? 'selected="selected"' : ''; ?>>ft</option>
+							
+							</select>
+						
+						</div>
+
+					</div>		
+			
+				</div>		
+			
 			</div>
 			
 			<?php $i++; } ?>
