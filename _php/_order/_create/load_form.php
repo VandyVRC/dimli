@@ -55,7 +55,7 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 			placeholder='e.g. "John Doe"'
 			style="width: 220px;"
 			value="<?php echoValue($_SESSION['newOrderDetails']['patron']); ?>">
-			<div id="suggestedPatrons" class="pointer"></div>
+			<div id="suggestedPatrons" class="pointer" style="margin-left: 32%; width: 236px"></div>
 
 		<br>
 

@@ -214,9 +214,6 @@ function open_order(orderNum) {
     },
     error: function () {
       console.error('ajax request failed: _php/_order/load_order.php');
-    },
-    complete: function () {
-      recently_visited();
     }
   });
 }
@@ -422,38 +419,6 @@ function editDate_form(orderNum, dateNeeded){
   });
 }
 
-function recently_visited() {
-
-  $('div#recently_visited_module').remove();
-
-  var revi_module = $('<div id="recently_visited_module" class="module">');
-  var header = $('<h1>').text('Recently Visited');
-  $(revi_module).append(header);
-  $(revi_module).append('<div class="loading_gif">');
-  $(revi_module).insertAfter('div#user_module');
-
-  $.ajax({
-    type: 'GET',
-    url: '_php/_homepage/activity_log.php',
-    success: function (response) {
-      $(revi_module).find('div.loading_gif').remove();
-
-      $(revi_module)
-        .append(response)
-        .wrapInner('<div class="temp_wrapper"/>');
-
-      $('#recently_visited_module .temp_wrapper')
-        .fadeIn(500, function()
-        {
-          $(this).replaceWith($('#recently_visited_module .temp_wrapper').contents());
-        });
-    },
-    error: function () {
-      console.error('ajax request failed: recently_visited');
-    }
-  });
-}
-
 function usersBrowse_load() {
 
   $('div[id$=_module]').remove();
@@ -605,8 +570,9 @@ function userProfile_updateNames(userId) {
   }
 }
 
-function userProfile_readPriv(wrapper, userId, priv) {
+function userProfile_readPriv(wrapper, userId, priv) { 
 
+  console.log(wrapper);
   $.ajax({
     type: 'POST',
     data: 'userId=' + userId + '&priv=' + priv,
@@ -614,12 +580,12 @@ function userProfile_readPriv(wrapper, userId, priv) {
     success: function (response) {
 
       if (response == 'true') {
-        $(wrapper).find('div.priv_left').css({ backgroundColor: '#669' }).text('ON');
-        $(wrapper).find('div.priv_right').css({ backgroundColor: '#EEE' }).text('');
+        $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
+        $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
 
       } else {
-        $(wrapper).find('div.priv_left').css({ backgroundColor: '#EEE' }).text('');
-        $(wrapper).find('div.priv_right').css({ backgroundColor: '#CCC' }).text('OFF');
+        $(wrapper).find('div.priv_left').css({ 'background-color': '#EEE' }).text('');
+        $(wrapper).find('div.priv_right').css({ 'background-color': '#CCC' }).text('OFF');
       }
     }, error: function () {
       console.error('AJAX ERROR: userProfile_readPriv.php');
@@ -1195,7 +1161,7 @@ function catalog_image() {
 function displayMeasurements() {
   var selectedMeasureType = $(this).find('option:selected').val();
   var thisRow = $(this).parents('div.catRowWrapper');
-
+  var nextRow =$(thisRow).next('div.catRowWrapper');
   if (
     selectedMeasureType == 'Circumference' ||
     selectedMeasureType == 'Depth' ||
@@ -1205,14 +1171,14 @@ function displayMeasurements() {
     selectedMeasureType == 'Length' ||
     selectedMeasureType == 'Width'
   ) {
-  
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').show();
     $(thisRow).find('[id*=commonMeasurementList1_]').show();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1236,15 +1202,21 @@ function displayMeasurements() {
       $(thisRow).find('[id*=inchesMeasurement]').hide();
     }
   }
+
+  if (selectedMeasureType == ''){
+
+    $(nextRow).hide();
+  }
   
   if (selectedMeasureType == 'Area') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').show();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1256,13 +1228,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Bit depth') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').show();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1273,13 +1246,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Count') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').show();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1291,13 +1265,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Duration' || selectedMeasureType == 'Running time') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').hide();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').show();
@@ -1309,13 +1284,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'File size') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1327,13 +1303,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Resolution') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').hide();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1345,13 +1322,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Scale') {
+    $(nextRow).show();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').show();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').show();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').show();
     $(thisRow).find('[id*=commonMeasurementList1_]').show();
-    $(thisRow).find('[id*=commonMeasurement2_]').show();
-    $(thisRow).find('[id*=commonMeasurementList2_]').show();
+    $(nextRow).find('[id*=commonMeasurement2_]').show();
+    $(nextRow).find('[id*=commonMeasurementList2_]').show();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1363,13 +1341,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Size') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1381,13 +1360,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Weight') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitMeasurement]').hide();
     $(thisRow).find('[id*=commonMeasurement1_]').hide();
     $(thisRow).find('[id*=commonMeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonMeasurement2_]').hide();
-    $(thisRow).find('[id*=commonMeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonMeasurement2_]').hide();
+    $(nextRow).find('[id*=commonMeasurementList2_]').hide();
     $(thisRow).find('[id*=areaMeasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -1399,13 +1379,14 @@ function displayMeasurements() {
   }
   
   if (selectedMeasureType == 'Other') {
+    $(nextRow).hide();
     $(thisRow).find('[id*=measurementFieldDiv1_]').show();
-    $(thisRow).find('[id*=measurementFieldDiv2_]').hide();
+    $(nextRow).find('[id*=measurementFieldDiv2_]').hide();
     $(thisRow).find('[id*=bitmeasurement]').hide();
     $(thisRow).find('[id*=commonmeasurement1_]').hide();
     $(thisRow).find('[id*=commonmeasurementList1_]').hide();
-    $(thisRow).find('[id*=commonmeasurement2_]').hide();
-    $(thisRow).find('[id*=commonmeasurementList2_]').hide();
+    $(nextRow).find('[id*=commonmeasurement2_]').hide();
+    $(nextRow).find('[id*=commonmeasurementList2_]').hide();
     $(thisRow).find('[id*=areameasurement]').hide();
     $(thisRow).find('[id*=countMeasurement]').hide();
     $(thisRow).find('[id*=timeMeasurement]').hide();
@@ -2453,7 +2434,7 @@ function createOrder_newUser() {
     success: function(response) {
       load_module($newUserModule, response);
       console.log("AJAX success: registerNewUser_load.php");
-      $(document).scrollTop($('#registerNewUser_submit').offset().top);
+      $(document).scrollTop($('div#register_new_user').offset().top);
       createOrder_newUser_fillForm();
       },
       error: function() {
