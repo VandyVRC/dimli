@@ -7,7 +7,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_users_create'); ?>
 
-<div>
+<div id="register_new_user">
 	
 	<p class="instructions center_text">Enter information about the new user</p>
 

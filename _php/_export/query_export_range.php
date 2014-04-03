@@ -11,7 +11,8 @@ $first = $_GET['firstExportRecord'];
 $last = $_GET['lastExportRecord'];
 
 	$sql = "SELECT id FROM $DB_NAME.image 
-				WHERE legacy_id = '{$first}'";
+				WHERE legacy_id = '{$first}'"
+				;
 		$result = db_query($mysqli, $sql);	
 
 			if ($result->num_rows > 0){
@@ -37,7 +38,7 @@ $last = $_GET['lastExportRecord'];
 
 				$last = 0;
 			}
-?>
+?> 
 
 <script>
 var first = '<?php echo $first;?>';
@@ -58,7 +59,9 @@ else if (last == 0){
 }
 
 else{
+
 	export_range(first, last);
+	export_load();
 
 }
 	</script>		
