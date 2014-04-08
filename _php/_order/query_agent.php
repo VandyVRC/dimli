@@ -90,6 +90,7 @@ if ($assoc_work != 'Work not found') {
 		$agent_display_array[] = $agent_display_temp;
 	
 	}
+	$agent_display_short = '';
 	
 	if (!empty($agent_display_array)) {
 
