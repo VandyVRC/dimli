@@ -472,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `specific_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `related_works` text COLLATE utf8_unicode_ci NOT NULL,
   `related_images` text COLLATE utf8_unicode_ci NOT NULL,
-  `speicfic_location_type` enum('Address','Zip','LatLng','Note') COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_type` enum('Address','Zip','LatLng','Note') COLLATE utf8_unicode_ci NOT NULL,
   `specific_location_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `specific_location_zip` int(10) COLLATE utf8_unicode_ci NOT NULL,
   `specific_location_lat` float(10) COLLATE utf8_unicode_ci NOT NULL,
