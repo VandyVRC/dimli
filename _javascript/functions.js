@@ -2004,7 +2004,7 @@ function relationAssoc_search(title, agent, module) {
 
   $.ajax({
     type: 'POST',
-    data: 'title='+title+'&agent='+agent,
+    data: 'title='+title+'&agent='+agent+'&relation=yes',
     url: '_php/workAssoc_search.php',
     success: function(response)
     { 
