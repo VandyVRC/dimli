@@ -1444,9 +1444,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WspecificLocationLat<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="WspecificLocationLat<?php echo $i; ?>" 
-								placeholder="Temporarily"
+								placeholder="Latitude"
 								value="<?php echo (isset($_SESSION['work']['specificLocationLat'.$i])) ? $_SESSION['work']['specificLocationLat'.$i] : ''; ?>" 
-								title="Specific location latitude" disabled>
+								title="Specific location latitude">
 
 						</div><!-- catCell -->
 
@@ -1456,9 +1456,9 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								id="WspecificLocationLong<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="WspecificLocationLong<?php echo $i; ?>" 
-								placeholder="Disabled"
+								placeholder="Longitude"
 								value="<?php echo (isset($_SESSION['work']['specificLocationLong'.$i])) ? $_SESSION['work']['specificLocationLong'.$i] : ''; ?>" 
-								title="Specific location longitude" disabled> 
+								title="Specific location longitude"> 
 		
 
 						</div><!-- catCell -->

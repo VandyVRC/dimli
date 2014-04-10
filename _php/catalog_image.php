@@ -1925,9 +1925,9 @@ require_priv('priv_catalog'); ?>
 								id="IspecificLocationLat<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="IspecificLocationLat<?php echo $i; ?>" 
-								placeholder="Temporarily"
+								placeholder="Latitude"
 								value="<?php echo (isset($_SESSION['image']['specificLocationLat'.$i])) ? $_SESSION['image']['specificLocationLat'.$i] : ''; ?>" 
-								title="Specific location latitude" disabled>
+								title="Specific location latitude">
 
 						</div><!-- catCell -->
 
@@ -1937,9 +1937,9 @@ require_priv('priv_catalog'); ?>
 								id="IspecificLocationLong<?php echo $i; ?>" 
 								style="width: 6.5em"
 								name="IspecificLocationLong<?php echo $i; ?>" 
-								placeholder="Disabled"
+								placeholder="Longitude"
 								value="<?php echo (isset($_SESSION['image']['specificLocationLong'.$i])) ? $_SESSION['image']['specificLocationLong'.$i] : ''; ?>" 
-								title="Specific location longitude" disabled> 
+								title="Specific location longitude"> 
 
 		
 						</div><!-- catCell -->

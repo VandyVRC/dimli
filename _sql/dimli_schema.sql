@@ -476,8 +476,8 @@ CREATE TABLE IF NOT EXISTS `specific_location` (
   `specific_location_type` enum('Address','Zip','LatLng','Note') COLLATE utf8_unicode_ci NOT NULL,
   `specific_location_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `specific_location_zip` int(10) COLLATE utf8_unicode_ci NOT NULL,
-  `specific_location_lat` float(10) COLLATE utf8_unicode_ci NOT NULL,
-  `specific_location_long` float(10) COLLATE utf8_unicode_ci NOT NULL,
+  `specific_location_lat` decimal(9,6) COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `specific_location_long` decimal(9,6) COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `specific_location_note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)

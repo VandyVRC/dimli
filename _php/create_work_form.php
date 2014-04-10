@@ -1498,9 +1498,9 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWspecificLocationLat<?php echo $i; ?>" 
 								style="width: 7em"
 								name="NWspecificLocationLat<?php echo $i; ?>" 
-								placeholder="Temporarily"
+								placeholder="Latitude"
 								value="<?php echo (isset($_SESSION['createNewWork']['specificLocationLat'.$i])) ? $_SESSION['createNewWork']['specificLocationLat'.$i] : ''; ?>" 
-								title="Specific location latitude" disabled>
+								title="Specific location latitude">
 
 						</div><!-- catCell -->
 
@@ -1510,9 +1510,9 @@ if (!isset($_SESSION['createNewWork']))
 								id="NWspecificLocationLong<?php echo $i; ?>" 
 								style="width: 7em"
 								name="NWspecificLocationLong<?php echo $i; ?>" 
-								placeholder="Disabled"
+								placeholder="Longitude"
 								value="<?php echo (isset($_SESSION['createNewWork']['specificLocationLong'.$i])) ? $_SESSION['createNewWork']['specificLocationLong'.$i] : ''; ?>" 
-								title="Specific location longitude" disabled> 
+								title="Specific location longitude"> 
 
 						</div><!-- catCell -->
 

@@ -897,6 +897,7 @@ while ($i < countCatRows($_SESSION['specificLocationArray'][$recordType])) {
 	foreach ($_SESSION['specificLocationArray'][$recordType] as $key=>$value) {
 
 		if (strstr($key, $abbr.'specificLocationType' . $i)) {
+
 		
 			$query = " UPDATE $DB_NAME.specific_location
 						SET
@@ -928,27 +929,48 @@ while ($i < countCatRows($_SESSION['specificLocationArray'][$recordType])) {
 			$result = db_query($mysqli, $query);
 		
 		} elseif (strstr($key, $abbr.'specificLocationLat' . $i)) {
-		
-			$query = " UPDATE $DB_NAME.specific_location
+
+			if (empty($value))
+				{
+					$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_lat = NULL
+						WHERE
+							id = '{$currentId}'";
+					$result = db_query($mysqli, $query);
+				}
+				else
+				{
+					$query = " UPDATE $DB_NAME.specific_location
 						SET
 							specific_location_lat = '{$value}'
 						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
+							id = '{$currentId}'";
+					$result = db_query($mysqli, $query);
+				}
 		}
+
 
 		elseif (strstr($key, $abbr.'specificLocationLong' . $i)) {
 		
-			$query = " UPDATE $DB_NAME.specific_location
+				if (empty($value))
+				{
+					$query = " UPDATE $DB_NAME.specific_location
+						SET
+							specific_location_long = NULL
+						WHERE
+							id = '{$currentId}'";
+					$result = db_query($mysqli, $query);
+				}
+				else
+				{
+					$query = " UPDATE $DB_NAME.specific_location
 						SET
 							specific_location_long = '{$value}'
 						WHERE
-							id = '{$currentId}'
-					";
-			$result = db_query($mysqli, $query);
-		
+							id = '{$currentId}'";
+					$result = db_query($mysqli, $query);
+				}
 		}
 
 		elseif (strstr($key, $abbr.'specificLocationNote' . $i)) {
