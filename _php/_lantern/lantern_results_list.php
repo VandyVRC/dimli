@@ -334,7 +334,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     // ADD IMAGE TO CART
 
-    $('span.add_image_to_cart').click(
+    $('span.add_image_to_cart').click( 
       function () {
         
         var images = [];
@@ -342,7 +342,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
         $.each($related.find('img.related_thumb'), function () {
           images.push($(this).attr('data-image'));
-        }); 
+        });         
         add_to_cart(images);
       });
 

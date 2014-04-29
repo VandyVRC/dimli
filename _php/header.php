@@ -229,16 +229,21 @@ header('Content-type: text/html; charset=utf-8'); ?>
         </div>
 
       </li>
-
+    
+    <?php } ?>
+      
       <!--
         BATCH DOWNLOAD
        -->
 
-      <li class="nav_item">cart
+      <li id ="nav_cart" class="nav_item">cart
         <div class="nav_dropdown">
           <div id="cart">
             <h2>Your cart is empty</h2>
-            <div class="basket"></div>
+            <div class="basket">
+            <input type='hidden' id="basket" 
+            value ="<?php echo $_SESSION['cart']?>">
+            </div>
             <div class="footer">
               <span class="selected hidden">Remove selected</span>
               <span class="all hidden">Empty cart</span>
@@ -249,16 +254,16 @@ header('Content-type: text/html; charset=utf-8'); ?>
             </div>
           </div>
         </div>
-      </li>
-
+      </li>     
       <script>
+      
       var downloadCartLink = document.querySelector('#cart div.download a');
       downloadCartLink.addEventListener('click', function () {
         window.location = downloadCartLink.href;
       });
+
       </script>
-        
-      
+
 
     <?php } // If logged in ?>
 

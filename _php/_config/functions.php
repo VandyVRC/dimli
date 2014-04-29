@@ -261,7 +261,7 @@ function array2csv(&$array) {
    fclose($df);
    return ob_get_clean();
 }
-
+ 
 //---------------------------------
 //  Returns duplicate array values
 //---------------------------------
@@ -978,4 +978,6 @@ function print_r_pre($array)
   print_r($array);
   echo '</pre>';
 }
+
+
 ?>
