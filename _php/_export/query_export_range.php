@@ -9,6 +9,7 @@ require_priv('priv_csv_export');
 
 $first = $_GET['firstExportRecord'];
 $last = $_GET['lastExportRecord'];
+$format = $_GET['format'];
 
 	$sql = "SELECT id FROM $DB_NAME.image 
 				WHERE legacy_id = '{$first}'"
@@ -43,6 +44,7 @@ $last = $_GET['lastExportRecord'];
 <script>
 var first = '<?php echo $first;?>';
 var last = '<?php echo $last;?>';
+var format = '<?php echo $format;?>';
 
 if (first == 0){
 
@@ -60,9 +62,6 @@ else if (last == 0){
 
 else{
 
-	export_range(first, last);
-	export_load();
-
-}
-	</script>		
+	export_range(first, last, format);
+	</script>	 	
 	
