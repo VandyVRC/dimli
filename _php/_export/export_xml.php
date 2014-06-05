@@ -82,6 +82,7 @@ foreach ($fields as $field)
 {   
     $elementSets[] = $field.'Set'; 
 }
+
 $display = 'display';
 
 // set counting variables
@@ -93,7 +94,9 @@ foreach ($records as $record)
 {           
     if (preg_match('/work/', $record))
     {
-        $refNum = str_replace('work_', '', $record);
+        
+        $recordId = str_replace('work_', '', $record);
+        $refNum = $recordId;    
         $type = 'work';
         $id ='w_'.$w;
         $w++;
@@ -101,16 +104,32 @@ foreach ($records as $record)
         $elementIsWork = $domtree->createElement('work');
         $elementIsWork = $vra->appendChild($elementIsWork);    
     
-        $elementAttributes=array('dataDate'=>date('Y-m-d'), 'xml:lang'=>'English','refid'=>$refNum, 'id'=>$id); 
+        $elementAttributes=array('dataDate'=>date('Y-m-d'), 'xml:lang'=>'English','refid'=>$recordId, 'id'=>$id); 
 
         foreach ($elementAttributes as $key=>$value)                
         {   
             $elementIsWork->setAttribute($key, $value);
         }    
     }
-    else
+    elseif (preg_match('/image/', $record))
     {   
-        $refNum = str_replace('image_', '', $record);
+
+        $recordId = str_replace('image_', '', $record);
+        
+        $sql = "SELECT id
+                FROM $DB_NAME.image
+                WHERE legacy_id = '{$recordId}'";
+
+            $idResult = $mysqli->query($sql);   
+
+            while ($row = $idResult->fetch_assoc())        
+            {    
+                $thisId=$row['id']; 
+                $refNum = create_six_digits($thisId);
+            }       
+
+
+            
         $type ='image';
         $id='i_'.$i;
         $i++; 
@@ -118,12 +137,14 @@ foreach ($records as $record)
         $elementIsImage = $domtree->createElement('image');
         $elementIsImage = $elementIsWork->appendChild($elementIsImage);
         
-        $elementAttributes=array('dataDate'=>date('Y-m-d'), 'xml:lang'=>'English','refid'=>$refNum, 'id'=>$id); 
+        $elementAttributes=array('dataDate'=>date('Y-m-d'), 'xml:lang'=>'English','refid'=>$recordId, 'id'=>$id); 
         
         foreach ($elementAttributes as $key=>$value)                
         {   
             $elementIsImage->setAttribute($key, $value);
-        }       
+        } 
+
+        
     }       
         
     foreach ($elementSets as $elementSet)
@@ -395,20 +416,21 @@ foreach ($records as $record)
 
                     if (!empty($earlyDate))
                     {
-                    $early = $row['date_text'].' '.$row['date_era'];
-                    }
-                    if (!empty($lateDate))
-                    {
-                    $late = $row['enddate_text'].' '.$row['enddate_era'];
-                    }
+                        $early = $row['date_text'].' '.$row['date_era'];
+                        
+                        if (!empty($lateDate))
+                        {
+                        $late = $row['enddate_text'].' '.$row['enddate_era'];
+                        }
 
-                    if ($range == 1)
-                    {
-                        $displayText = $early.'-'.$late;
-                    }
-                    else
-                    {
-                        $displayText = $early;     
+                        if ($range == 1)
+                        {
+                            $displayText = $early.'-'.$late;
+                        }
+                        else
+                        {
+                            $displayText = $early;     
+                        }
                     }
 
                     if (!empty($displayText))
@@ -498,14 +520,14 @@ foreach ($records as $record)
             {    
                 $sql= " SELECT description
                         FROM $DB_NAME.work
-                        WHERE id = '{$refNum}'";
+                        WHERE id = '{$recordId}'";
             }
             
             else
             {
                 $sql= " SELECT description
                         FROM $DB_NAME.image
-                        WHERE legacy_id = '{$refNum}'";
+                        WHERE legacy_id = '{$recordId}'";
             }            
 
                 $descriptionResult = $mysqli->query($sql);
@@ -656,7 +678,7 @@ foreach ($records as $record)
                                 $addChildren = $addField->appendChild($domtree->createElement($key, $value)); 
                             }    
 
-                            if ($key == 'text')
+                            if ($key == 'text' && !empty($inscriptionType))
                             {
                                 $addChildren->setAttribute('type', $inscriptionType); 
                             }
@@ -710,13 +732,14 @@ foreach ($records as $record)
                     $refid = $row['location_getty_id'];
                     $nameType = strtolower($row['location_name_type']);
 
-                    if (!empty($refid))
+                 if (!empty($refid) && !preg_match('/work/', $refid))
                     {
                         $vocab = 'TGN';
                     }
                     else
                     {
                         $vocab ='';
+                        $refid ='';
                     }    
 
                     if ($p == 0) 
@@ -1058,7 +1081,7 @@ foreach ($records as $record)
             }                       
         }
         
-        elseif ($elementSet == 'relationSet')
+        elseif ($elementSet == 'relationSet' && $type == 'work')
         {
             $sql= " SELECT *
                     FROM $DB_NAME.relation 
@@ -1066,13 +1089,13 @@ foreach ($records as $record)
 
                 $relationResult = $mysqli->query($sql);   
 
-                if ($relationResult->num_rows > 0) 
+                while ($row = $relationResult->fetch_assoc())
                 {
-                    while ($row = $relationResult->fetch_assoc())
-                    {
-                        $relatedTo = $row['relation_id'];
-                        $relationType = $row['relation_type'];
-                        
+                    $relatedTo = $row['relation_id'];
+                    $relationType = $row['relation_type'];
+                    
+                    if (!empty($relatedTo))
+                     {   
                         $sql = "SELECT title_text 
                             FROM $DB_NAME.title 
                             WHERE related_works = '{$relatedTo}'";
@@ -1087,13 +1110,14 @@ foreach ($records as $record)
                                 {    
                                     $displayText = $relationType.' '.$relatedTitle;
                                 }
-                            }    
+                            } 
+                     }      
 
-                        if (!empty($displayText))
-                        {
-                            $displayTexts[] = $displayText;
-                        }       
-                    }  
+                    if (!empty($displayText))
+                    {
+                        $displayTexts[] = $displayText;
+                    }       
+                }  
 
                 $displayThis = implode('; ', $displayTexts);
 
@@ -1150,7 +1174,7 @@ foreach ($records as $record)
                                 }          
                             }
                     }
-                }
+               
         }
 
         elseif ($elementSet == 'rightsSet')
@@ -1862,7 +1886,116 @@ foreach ($records as $record)
                         }
                     }   
                 }                       
-        }                      
+        }
+
+         elseif ($elementSet == 'specificLocationSet')
+        {    
+
+            $sql="SELECT *
+                    FROM $DB_NAME.specific_location
+                    WHERE related_".$type."s = '{$refNum}'";
+
+                $specific_locationResult = $mysqli->query($sql);   
+                 
+                while ($row = $specific_locationResult->fetch_assoc())
+                {  
+                    
+                    $specific_location_type=$row['specific_location_type'];
+                    $specific_location_addZip=$row['specific_location_address'].', '.$row['specific_location_zip'];
+                    $specific_location_LatLng=$row['specific_location_lat'].', '.$row['specific_location_long'];
+                    $specific_location_note=$row['specific_location_note'];
+
+                    if (!empty($specific_location_type))
+                    {
+
+                        if ($specific_location_type == 'Address')
+                        {
+                            $displayText = $specific_location_addZip;
+                        }    
+                        
+
+                        else if ($specific_location_type == 'LatLng')
+                        {
+                            $displayText = $specific_location_LatLng;
+                        }    
+
+                        else if ($specific_location_type == 'Note')
+                        {
+                            $displayText = $specific_location_note;
+                        }    
+                    
+
+                        if (!empty($displayText))
+                        {
+                            $displayTexts[] = $displayText;
+                        }       
+                    }
+                }
+
+                $displayThis = implode('; ', $displayTexts);        
+
+            $sql="SELECT *
+                    FROM $DB_NAME.specific_location
+                    WHERE related_".$type."s = '{$refNum}'";
+
+                $specific_locationAgain = $mysqli->query($sql);   
+                 
+                while ($row = $specific_locationAgain->fetch_assoc())
+                {                         
+                    $specific_location_type=$row['specific_location_type'];
+                    $specific_location_addZip=$row['specific_location_address'].', '.$row['specific_location_zip'];
+                    $specific_location_LatLng=$row['specific_location_lat'].', '.$row['specific_location_long'];
+                    $specific_location_note=$row['specific_location_note'];
+                    $displayNum = $row['display'];
+
+                     if ($displayNum == '1') 
+                    {
+                        $pref = 'true';       
+                    }
+                    else
+                    {    
+                        $pref = 'false';
+                    }    
+                   
+
+                    if (!empty($specific_location_type))
+                    {
+                            if (preg_match('/work/', $record) && $p == 0)
+                            {    
+                                $addElementSet = $elementIsWork->appendChild($domtree->createElement($elementSet));
+                                $addDisplay = $addElementSet->appendChild($domtree->createElement('display', $displayThis));
+                                $p++;  
+                            }  
+                            
+                            if (preg_match('/image/', $record) && $p == 0)
+                            {
+                                $addElementSet = $elementIsImage->appendChild($domtree->createElement($elementSet));
+                                $addDisplay = $addElementSet->appendChild($domtree->createElement('display', $displayThis));
+                                $p++;    
+                            }
+
+                        if ($specific_location_type == 'Address')
+                        {
+                            $addField = $addElementSet->appendChild($domtree->createElement('specific_location_address', $specific_location_addZip));
+
+                            $addField->setAttribute('pref', $pref);
+                        }   
+
+                        else if ($specific_location_type == 'LatLng')
+                        {
+                            $addField = $addElementSet->appendChild($domtree->createElement('specific_location_LatLng', $specific_location_LatLng));
+                            $addField->setAttribute('pref', $pref);
+                        }   
+
+                        else if ($specific_location_type == 'Note')
+                        {
+                            $addField = $addElementSet->appendChild($domtree->createElement('specific_location_note', $specific_location_note));
+                            $addField->setAttribute('pref', $pref);
+
+                        }    
+                    }
+                }                           
+        }                                            
     }           
 }  
 

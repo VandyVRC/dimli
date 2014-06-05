@@ -48,9 +48,11 @@ header('Content-type: text/html; charset=utf-8'); ?>
         
       </a>
 
-    <?php if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) { ?>
-
-      <?php if ($_SESSION['priv_users_read']=='1') { ?>
+ <?php 
+ if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) 
+ { 
+      
+      if ($_SESSION['priv_users_read']=='1') { ?>
 
       <!-- 
         ADMIN
@@ -229,8 +231,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
         </div>
 
       </li>
-    
-    <?php } ?>
+
       
       <!--
         BATCH DOWNLOAD
@@ -265,7 +266,9 @@ header('Content-type: text/html; charset=utf-8'); ?>
       </script>
 
 
-    <?php } // If logged in ?>
+  <?php 
+  }
+   // If logged in ?>
 
     </ul>
 

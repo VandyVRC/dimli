@@ -7,7 +7,7 @@ function ErrorTracker(inputs) {
   this.countInputs = function() {
     return inputs.length;
   };
-}
+} 
 
 function exists() {
   return this.length > 0;
@@ -579,15 +579,19 @@ function userProfile_readPriv(wrapper, userId, priv) {
     url: '_php/_user/userProfile_readPriv.php',
     success: function (response) {
 
-      if (response == 'true') {
+      if (response == 'true') 
+      {
         $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
         $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
-        
-      } else {
+      } 
+
+      else 
+      {
         $(wrapper).find('div.priv_left').css({ 'background-color': '#EEE' }).text('');
-        $(wrapper).find('div.priv_right').css({ 'background-color': '#CCC' }).
+        $(wrapper).find('div.priv_right').css({ 'background-color': '#CCC' }).text('ON');
       }
-    }, error: function () {
+    }, 
+    error: function () {
       console.error('AJAX ERROR: userProfile_readPriv.php');
     }
   });
@@ -2673,13 +2677,20 @@ function export_range(first, last, format) {
 
   var type = 'range';
   
-  if (format == 'csv')
-  {    
-  window.location.href = '_php/_export/export_records.php?type='+type+'&first='+first+'&last='+last+'&fields='+fields;  
+    if (format == 'csv')
+  {  
+  window.location.href ='_php/_export/export_csv.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
   }
   else if (format =='xml')
   {
-  window.location.href = '_php/_export/export_xml.php?type='+type+'&first='+first+'&last='+last+'&fields='+fields;   
+
+  window.location.href ='_php/_export/export_xml.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
+  }
+
+  else if (format =='mdid')
+  {
+
+  window.location.href ='_php/_export/export_mdid.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
   }
 }
 
@@ -2704,15 +2715,23 @@ function export_flagged(format) {
   console.log(fields);
 
   // REVISIT
+
   if (format == 'csv')
   {  
-  window.location.href ='_php/_export/export_records.php?type='+type+'&fields='+fields;
+  window.location.href ='_php/_export/export_csv.php?type='+type+'&fields='+fields;
   }
   else if (format =='xml')
   {
 
   window.location.href ='_php/_export/export_xml.php?type='+type+'&fields='+fields; 
   }
+
+  else if (format =='mdid')
+  {
+
+  window.location.href ='_php/_export/export_mdid.php?type='+type+'&fields='+fields; 
+  }
+
 }
 
 function lantern_search(text, gToggle, page) {

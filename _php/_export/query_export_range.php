@@ -63,5 +63,6 @@ else if (last == 0){
 else{
 
 	export_range(first, last, format);
+	}
 	</script>	 	
 	

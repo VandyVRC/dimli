@@ -73,27 +73,27 @@ $_SESSION['flaggedImages'] = array_unique($flaggedImages);
 unset($flaggedImages);
 
 ?>
-
+<p class="instructions">Select field data to include in your custom CSV or XML export. These checkboxes do not apply to the MDID option, which exports a predetermined CSV file.</p>
 <div id="exportRange_form">
 <div id="export_elements">
-	<input type="checkbox" name="agent">Agent<br />
-	<input type="checkbox" name="culturalContext">Cultural Context<br />
-	<input type="checkbox" name="date">Date<br />
-	<input type="checkbox" name="description">Description<br />
-	<input type="checkbox" name="inscription">Inscription<br />
-	<input type="checkbox" name="location">Location<br />
-	<input type="checkbox" name="material">Material<br />
-	<input type="checkbox" name="measurements">Measurements<br />
-	<input type="checkbox" name="relation">Related Works<br />
-	<input type="checkbox" name="rights">Rights<br />
-	<input type="checkbox" name="source">Source<br />
-	<input type="checkbox" name="stateEdition">State/Edition<br />
-	<input type="checkbox" name="stylePeriod">Style Period<br />
-	<input type="checkbox" name="subject">Subject<br />
-	<input type="checkbox" name="technique">Technique<br />
-	<input type="checkbox" name="title">Title<br />
-	<input type="checkbox" name="worktype">Work Type<br />
-	<input type="checkbox" name="specific">Specific Location<br />
+	<input type="checkbox" class="checkbox" name="agent">Agent<br />
+	<input type="checkbox" class="checkbox" name="culturalContext">Cultural Context<br />
+	<input type="checkbox" class="checkbox" name="date">Date<br />
+	<input type="checkbox" class="checkbox" name="description">Description<br />
+	<input type="checkbox" class="checkbox" name="inscription">Inscription<br />
+	<input type="checkbox" class="checkbox" name="location">Location<br />
+	<input type="checkbox" class="checkbox" name="material">Material<br />
+	<input type="checkbox" class="checkbox" name="measurements">Measurements<br />
+	<input type="checkbox" class="checkbox" name="relation">Related Works<br />
+	<input type="checkbox" class="checkbox" name="rights">Rights<br />
+	<input type="checkbox" class="checkbox" name="source">Source<br />
+	<input type="checkbox" class="checkbox" name="stateEdition">State/Edition<br />
+	<input type="checkbox" class="checkbox" name="stylePeriod">Style Period<br />
+	<input type="checkbox" class="checkbox" name="subject">Subject<br />
+	<input type="checkbox" class="checkbox" name="technique">Technique<br />
+	<input type="checkbox" class="checkbox" name="title">Title<br />
+	<input type="checkbox" class="checkbox" name="worktype">Work Type<br />
+	<input type="checkbox" class="checkbox" name="specificLocation">Specific Location<br />
 	<br />
 </div>
 
@@ -101,7 +101,15 @@ unset($flaggedImages);
 		id="selectAll"
 		name="selectAll">Select All</button>
 
-	<p class="instructions">a) Export specific image records (.csv or .xml)</p>
+	<button type="button"
+		id="deselectAll"
+		name="deselectAll">Deselect All</button>
+
+	<div id="exportrange_form" 
+	style="border-top: 1px dotted #CCC; margin-top: 10px;">
+	</div>	
+
+	<p class="instructions">a) Export specific image records</p>
 
 	<input type="text" 
 		name="firstExportRecord" 
@@ -121,6 +129,11 @@ unset($flaggedImages);
 		id="exportXml"
 		name="exportXml">XML</button>
 
+	<button type="button"
+		id="exportMdid"
+		name="exportMdid">MDID</button>
+	
+
 	<p class="subtext">- Enter the first and last image record you wish to export</p>
 	<p class="subtext">- For Dimli record numbers, you must include the leading zeros</p>
 	<p class="subtext">- Limit export to 10,000 records</p>
@@ -130,7 +143,7 @@ unset($flaggedImages);
 <div id="exportAll_form" 
 	style="border-top: 1px dotted #CCC; margin-top: 10px;">
 
-	<p class="instructions">b) Export "Flagged &amp; Approved" image records (.csv or .xml)</p>
+	<p class="instructions">b) Export "Flagged &amp; Approved" image records</p>
 
 	<span style="padding-left: 10px;">
 
@@ -146,6 +159,10 @@ unset($flaggedImages);
 		id="exportXml_allFlagged"
 		name="exportXml_allFlagged">XML</button>	
 
+	<button type="text"
+		id="exportMdid_allFlagged"
+		name="exportMdid_allFlagged">MDID</button>		
+
 	<p class="subtext" style="margin-top: 10px;">"Flagged &amp; Approved" records include those that have been recently updated or manually flagged, and whose orders have been approved by the curator</p>
 
 </div>
@@ -155,14 +172,19 @@ unset($flaggedImages);
 	// Add close button to module
 	closeModule_button($('div#exportForm_module'));
 
+ $('button#selectAll').click(function()
+ {
 
-	$('button#selectAll').click(function()
-	{
+ 	$('div#export_elements input[type=checkbox]').prop('checked', true).each();
 
-	$('div#export_elements input[type=checkbox]').prop('checked', true).each();
-		
-	});
+   
+    });
 
+$('button#deselectAll').click(function()
+ {
+ 	$('div#export_elements input[type=checkbox]').prop('checked', false).each();
+   
+    });
 
 	$('button#exportCsv').click(
 		function()
@@ -200,5 +222,27 @@ unset($flaggedImages);
 						export_flagged('xml');
 					});
 			}
-			);	
-</script>
+			);
+
+	$('button#exportMdid').click(
+		function()
+		{
+			query_export('mdid');
+		});
+
+	$('button#exportmdid_allFlagged')
+		.click(promptToConfirm)
+		.click(
+			function()
+			{
+				$('button#conf_button').click(
+					function()
+					{
+						export_flagged('mdid');
+					});
+			}
+			);		
+
+
+
+</script> 
