@@ -7,7 +7,7 @@ function ErrorTracker(inputs) {
   this.countInputs = function() {
     return inputs.length;
   };
-}
+} 
 
 function exists() {
   return this.length > 0;
@@ -578,15 +578,20 @@ function userProfile_readPriv(wrapper, userId, priv) {
     data: 'userId=' + userId + '&priv=' + priv,
     url: '_php/_user/userProfile_readPriv.php',
     success: function (response) {
-      if (response == 1) {
-        $(wrapper).find('div.priv_left').css({'background-color':'#669'}).text('ON');
-        $(wrapper).find('div.priv_right').css({'background-color':'#EEE'}).text('');
 
-      } else {
-        $(wrapper).find('div.priv_left').css({'background-color':'#EEE'}).text('');
-        $(wrapper).find('div.priv_right').css({'background-color':'#CCC'}).text('OFF');
+      if (response == 'true') 
+      {
+        $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
+        $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
+      } 
+
+      else 
+      {
+        $(wrapper).find('div.priv_left').css({ 'background-color': '#EEE' }).text('');
+        $(wrapper).find('div.priv_right').css({ 'background-color': '#CCC' }).text('ON');
       }
-    }, error: function () {
+    }, 
+    error: function () {
       console.error('AJAX ERROR: userProfile_readPriv.php');
     }
   });
@@ -2602,7 +2607,7 @@ function export_load() {
   });
 }
 
-function query_export(){
+function query_export(format){
 
   data = {};
   errors = [];
@@ -2635,12 +2640,10 @@ function query_export(){
     $.ajax({
       type: 'GET',
       url: '_php/_export/query_export_range.php',
-      data: 'firstExportRecord='+first+'&lastExportRecord='+last,
+      data: 'firstExportRecord='+first+'&lastExportRecord='+last+'&format='+format,
       success: function(response)
       {
-        $('button#exportCsv, button#exportCsv_allFlagged')
-        .replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
-
+       
         load_module(ef_mod, response);
         console.log('AJAX success: query_export_range.php');
       },
@@ -2652,29 +2655,83 @@ function query_export(){
   }
 }
 
-function export_range(first, last){
+function export_range(first, last, format) {
 
   console.log('export function called. validation in progress.');
   
-  $('button#exportCsv, button#exportCsv_allFlagged')
-      .replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+  var fields = [];
+      
+  $('div#export_elements input[type=checkbox]').each(function() {
+     
+    {
+      if ($(this).prop('checked') == true)
+      {
+      var field = $(this).attr('name');
+      fields.push(field);
+      }
+    }
+
+  });    
+  
+  console.log(fields);
 
   var type = 'range';
-      
-  window.location.href = '_php/_export/export_records.php?type='+type+'&first='+first+'&last='+last;  
+  
+    if (format == 'csv')
+  {  
+  window.location.href ='_php/_export/export_csv.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
+  }
+  else if (format =='xml')
+  {
+
+  window.location.href ='_php/_export/export_xml.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
+  }
+
+  else if (format =='mdid')
+  {
+
+  window.location.href ='_php/_export/export_mdid.php?first='+first+'&last='+last+'&type='+type+'&fields='+fields;
+  }
 }
 
-function export_flagged() {
+function export_flagged(format) {
   
   console.log('export function called. validation in progress.');
 
   var type = 'flagged';
   console.log('valid export request - processing csv...');
 
-  $('button#exportCsv, button#exportCsv_allFlagged').replaceWith('<span class="mediumWeight purple">&nbsp;&nbsp;Preparing csv</span>');
+  var fields = [];
+      
+   $('div#export_elements input[type=checkbox]').prop('checked', true).each(function() {
+     
+    {
+      var field = $(this).attr('name');
+      fields.push(field);
+    }
+
+  });    
+  
+  console.log(fields);
 
   // REVISIT
-  window.location.href ='_php/_export/export_records.php?type='+type;
+
+  if (format == 'csv')
+  {  
+  window.location.href ='_php/_export/export_csv.php?type='+type+'&fields='+fields;
+  }
+  else if (format =='xml')
+  {
+
+  window.location.href ='_php/_export/export_xml.php?type='+type+'&fields='+fields; 
+  }
+
+  else if (format =='mdid')
+  {
+
+  window.location.href ='_php/_export/export_mdid.php?type='+type+'&fields='+fields; 
+  }
+
 }
 
 function lantern_search(text, gToggle, page) {
@@ -3061,8 +3118,13 @@ var $all = $footer.find('span.all');
 var $download = $footer.find('div.download');
 
 function add_to_cart(images) {
+  
+  console.log(images);
+  
   var len = images.length;
   var added = 0;
+
+  store_cart('add', images);
 
   for (var i = 0; i < len; i++) {
     if (isAlreadyInCart(images[i])) return;
@@ -3120,7 +3182,23 @@ function updateCartHeading(cart) {
 
   $.each($('#cart div.basket img.thumb'), function (index, value) {
     imageList.push($(value).attr('data-image'));
+    console.log(imageList);
+    store_cart('remove', imageList);
   });
   
   downloadLink.setAttribute('href', '_php/_download/download_cart.php?new=true&images=' + imageList.join());
+}
+
+function store_cart(action, images) {
+$.ajax({
+    type: 'POST',
+    data: 'action=' + action + '&images=' + images,
+    url: '_php/store_cart.php',
+    success: function (response) {
+      console.log('cart session updated')
+    },
+    error: function () {
+      console.error('AJAX ERROR: _order/update_progress.php');
+    }
+  });
 }
