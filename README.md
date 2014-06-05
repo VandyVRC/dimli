@@ -168,7 +168,7 @@ https://dl.dropboxusercontent.com/u/104573827/Getty%20Vocabularies.zip
 
 We have also included a copy of our repositories data, in case anyone might like to utilize them. 
 
-These Getty Vocabularies are too large to import via PhpMyAdmin. However, they can be imported via the MySQL command line.   
+These Getty Vocabularies are too large to import via phpMyAdmin. However, they can be imported via the MySQL command line.   
 
 
 Export CSV Fields Explained
