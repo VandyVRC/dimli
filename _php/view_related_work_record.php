@@ -628,9 +628,9 @@ if ($workNum != 'None') {
 					$legacyId = $getLegacy['legacy_id'];
 					$imageView = '
 					<img class="relatedWork_image"
-					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.'medium/'.$legacyId.'.jpg&amp;h=40&amp;w=53&amp;q=90"
+					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.$legacyId.'.jpg&amp;h=40&amp;h=40&amp;q=90"
 					title="Click to preview"
-						style="max-height: 40px; max-width: 53px;">
+						style="max-width: 53px;">
 						<input type="hidden" id="imageView" value="'.$legacyId.'">
 						<input type="hidden" id="imageNum" value="'.$preferredImage.'">';
 				}
@@ -906,8 +906,11 @@ if ($workNum != 'None') {
 
 				while ($row = $result_prefLegId->fetch_assoc()){
 				$prefLegId = $row['legacy_id'];
-				$work_thumb_file = $image_dir.'/thumb/'.$prefLegId.'.jpg';
+				$work_thumb_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$prefLegId.".jpg&amp;h=96&amp;q=60&amp;a=tl;";
 				}
+
+
+
 	}
 
 	//-------------------------
@@ -975,19 +978,18 @@ elseif ($workNum == 'None')
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.$prefLegId.'.jpg')) 
 		{
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
+		<img class="catThumb" style="max-width: 240px;"src="<?php echo $work_thumb_file; ?>"
 			onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 		<?php
 		}
 
-		else if ($workNum != 'None' &&
- -			$workNum != '')
+		else if ($workNum != 'None' && $workNum != '')
 		{
 		?>
 

@@ -1824,7 +1824,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								Preview thumbnail
 								-->
 								<?php 
-								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['work']['relationImage'.$i].'.jpg';	
+								$relatedImageSrc = $image_src.$_SESSION['work']['relationImage'.$i].'.jpg';	
 								?>
 								
 								<div class="workAssoc_results_col1">

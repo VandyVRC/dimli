@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -26,7 +25,7 @@ while ($row = $workToLoad_r->fetch_assoc())
 			: 'None';
 }
 
-
+ 
 // Initialize SESSION work array and variables for cataloging input elements
 
 $_SESSION['work'] = array();
@@ -651,7 +650,7 @@ include('../_php/_order/query_work.php'); ?>
 					class="mediumWeight" 
 					style="text-align: center; margin: 35px 0 35px 0; font-size: 1.5em; color: #CCC;"
 					>No associated work record<br>Ask a cataloger to help rectify this!</p>
-
+n
 			</div>
 
 		<?php
@@ -712,19 +711,18 @@ include('../_php/_order/query_work.php'); ?>
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.$prefLegId.'.jpg')) 
 		{
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
+		<img class="catThumb" style= "max-width: 240px;" src="<?php echo $work_thumb_file; ?>"
 			onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 		<?php
 		}
 
-		else if ($_SESSION['workNum'] != 'None' &&
- -			$_SESSION['workNum'] != '')
+		else if ($_SESSION['workNum'] != 'None' && $_SESSION['workNum'] != '')
 		{
 		?>
 
@@ -1172,7 +1170,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
     				? substr($assocImg_legId, 0, 6) . '...' 
    				: $assocImg_legId;
 
-			$assocImg_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$assocImg_legId.".jpg&amp;h=40&amp;w=53&amp;q=90";
+			$assocImg_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$assocImg_legId.".jpg&amp;h=35&amp;q=60&amp;a=tl;";
 
 
 			$sql = "SELECT order_id 
@@ -1211,23 +1209,23 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 					style="display: none;"><?php echo $assocImg_legId; ?></div>	
 				
 				<div class="purple mediumWeight"
-					style="width: 50px; padding-right: 5px;">
+					style="width: 50px;">
 
 					<a class="assocImage_open"
 						title="Jump to record"><?php echo $truncView; ?></a>
 
 				</div>
 
-				<div style="padding-right: 5px;">
+				<div style="width: 56px; height: 36px; background-color: #669;">
 
 					<img class="assocImage_preview"
 						src="<?php echo $assocImg_file; ?>"
 						title="Click to preview"
-						style="max-height: 40px; max-width: 53px;">
+						style="max-width: 56px; position: relative; display: block; margin-left: auto; margin-right: auto;">
 
 				</div>
 
-				<div style="display: inline-block; width: 290px; padding-right: 5px;">
+				<div style="display: inline-block; width: 290px;">
 
 					<?php foreach ($assocImg_title_arr as $title){
 						echo '<div class="assocImage_title">'.(strlen($title) <= 46) 

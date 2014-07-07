@@ -30,7 +30,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php'); ?>
 
 <script>
 
-var urlBase = '<?php echo $image_dir; ?>';
+var urlBase = '<?php echo $image_src; ?>';
 var portY = window.innerHeight;
 var portX = window.innerWidth;
 var wrapper = document.getElementById('slideshow_wrap');
@@ -49,7 +49,7 @@ function queueSlide(hopperArray) {
 		while (imgNum.length < 6) {
 			imgNum = '0' + imgNum;
 		}
-		if (UrlExists(urlBase+'thumb/'+imgNum+'.jpg') === true) {
+		if (UrlExists(urlBase+imgNum+'.jpg') === true) {
 			hopperArray.push(imgNum);
 			console.log("Added "+imgNum+" to the hopper: "+hopperArray);
 		} else {
@@ -72,7 +72,7 @@ function nextSlidePlease(hopperArray) {
 		}
 
 		var nextImgNum = hopperArray.splice(0, 1);
-		var imageFilepath = urlBase+'full/'+nextImgNum+'.jpg';
+		var imageFilepath = urlBase+nextImgNum+'.jpg';
 
 		loadImage(
 			imageFilepath,

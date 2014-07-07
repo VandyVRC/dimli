@@ -7,7 +7,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 
 // Path for thumbnail images
-$thumb_path = 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/';
+$thumb_path = $webroot.'/_plugins/timthumb/timthumb.php?src='.$img_src;
 
 // Grab download history for the current user
 $sql = "SELECT * 

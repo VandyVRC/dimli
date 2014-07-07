@@ -1878,7 +1878,7 @@ if (!isset($_SESSION['createNewWork']))
 								Preview thumbnail
 								-->
 								<?php 
-								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['createNewWork']['relationImage'.$i].'.jpg';	
+								$relatedImageSrc = $image_src.$_SESSION['createNewWork']['relationImage'.$i].'.jpg';	
 								?>"	
 								
 							<div class="workAssoc_results_col1">

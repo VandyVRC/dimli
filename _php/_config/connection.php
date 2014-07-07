@@ -29,3 +29,4 @@ if (!$mysqli->set_charset('utf8')) {
 
   // Set server to Central Standard Time
 date_default_timezone_set('America/Chicago');
+?>

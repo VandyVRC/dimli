@@ -193,27 +193,27 @@ else {
 			
 			<?php echo $str;
 
-			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$legId.".jpg"))
+			if ($row['RecordType'] == 'Image' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$legId.".jpg"))
 			{ ?>
 
-				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $legId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+				<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $legId; ?>.jpg&amp;h=33&amp;q=90;"
 
-					style="float: right; margin-top: -15px;">
+					style="float: right; margin-top: -16px; max-width:75px;">
 
 	<?php }
 
-			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$pref_image.".jpg")) 
+			if ($row['RecordType'] == 'Work' && checkRemoteFile($webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$pref_image.".jpg")) 
 			{ ?>
 
-						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $pref_imageId; ?>.jpg&amp;h=30&amp;w=40&amp;q=90"
+						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $pref_imageId; ?>.jpg&amp;h=35&amp;q=90;"
 
-						style="float: right; margin-top: -15px;">	
+						style="float: right; margin-top: -16px; max-width:75px;">	
 	<?php }
 					
 			
 			if ($row['RecordType'] == 'Order') { ?>
 
-				 <div style="float: right; margin-top: -15px;">
+				 <div style="float: right; margin-top: -16px; max-width:85px;">
 
 				 <span style="display: inline; vertical-align: middle; font-size: 15px;"><?php echo $imgCount; ?></span>
 
@@ -226,8 +226,6 @@ else {
 		</div>
 	
 	<?php 	
-	
-	
 
 		$i ++; 	
 	}	

@@ -1,4 +1,4 @@
-	<p class="clear"></p>
+<p class="clear"></p>
 
 </div> <!-- body -->
 </div> <!-- body_wide -->
@@ -32,4 +32,4 @@ if (isset($mysqli)) {
 
 // Show GLOBAL array, if username = "isnerms"
 // showGlobals('isnerms');
-?> 
+?>

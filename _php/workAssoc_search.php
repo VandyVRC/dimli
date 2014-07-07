@@ -203,7 +203,7 @@ if (!empty($matchingWorks)) {
 
 				$legacyId = $leg_id['legacy_id'];
 
-				$prefImage_file = $image_dir.'thumb/'.$legacyId.'.jpg';
+				$prefImage_file = $image_dir.$legacyId.'.jpg';
 			}
 
 			$sql = "SELECT title_text 

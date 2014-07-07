@@ -76,7 +76,7 @@ confirm_logged_in();
 		
 						<?php foreach ($images as $image): ?>
 
-							<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
+							<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
 
 						<?php endforeach; ?>
 

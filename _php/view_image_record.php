@@ -592,9 +592,9 @@ include('../_php/_order/query_image.php');?>
 
 		<?php 
 
-		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; ?>
+		$imageFile = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$_SESSION['image']['legacyId'].".jpg&amp;h=90&amp;q=60&amp;a=tl;";?>
 
-		<img class="catThumb"
+		<img class="catThumb" style="float: right; max-width: 240px;"
 			src="<?php echo $imageFile; ?>">
 
 	</div>

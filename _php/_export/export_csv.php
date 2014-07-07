@@ -1292,43 +1292,6 @@ while ($row = $result->fetch_assoc())
 			}
 		}		
 	}	
-		//-------------------------
-		//		Lecture Tags
-		//-------------------------
-
-		$lectureTag_array = array();
-
-		$sql = "SELECT * FROM $DB_NAME.lecture_tag 
-					WHERE related_image = '{$imageId}' ";
-
-		$result_lectureTag = db_query($mysqli, $sql);
-		
-		if ($result_lectureTag->num_rows > 0)
-		{ // Query found at least one lecture tag for this image record
-		
-			while ($tag = $result_lectureTag->fetch_assoc())
-			{ // Iterate through each lecture tag row
-			
-				$lectureTag_array[] = $tag['text'];
-			
-			}
-
-			$result_lectureTag->free();
-			
-			$lectureTag_array = array_filter($lectureTag_array, 'notEmpty');
-			$lectureTag_string = preg_replace('/; $/', '', implode('; ', $lectureTag_array));
-
-			if (trim($lectureTag_string) == '') { 
-				$lectureTag_string = 'None';
-			}
-		
-		}
-		else
-		{ // Query found no lecture tags for this image record
-		
-			$lectureTag_string = 'None';
-		
-		}
 		
 		//-------------------------
 		//		Order
@@ -1354,7 +1317,7 @@ while ($row = $result->fetch_assoc())
 		}
 		else
 		{
-		// Query found no lecture tags for this image record
+		// Query found no order for this image record
 		
 			$order_string = 'None ( !! CONTACT ADMIN !! )';
 		
@@ -1509,11 +1472,6 @@ while ($row = $result->fetch_assoc())
 			$csvArray[$i]['tags.tags'] = $subject_string;
 		}
 
-		if (!empty($lectureTag_string))
-		{	
-			$csvArray[$i]['vu.courselecture'] = $lectureTag_string;
-		}
-		
 		if (!empty($order_string))
 		{	
 			$csvArray[$i]['order'] = $order_string;
@@ -1540,7 +1498,7 @@ function encode_items($csvArray)
     return $csvArray;
 }
 
-header("Content-type: text/csv; ");
+header("Content-type: text/csv; charset=UTF-8 ");
 header("Content-Disposition: attachment; filename={$filename}");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");

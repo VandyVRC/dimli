@@ -73,7 +73,7 @@ if (($page*$rpp)-$rpp <= count($results))
 		// If the image id of the preferred thumbnail is NOT blank, display a grid box
 		if (!empty($prefImage)) {
 		
-			$src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$img_id.".jpg&amp;h=153&amp;w=153&amp;q=70";
+			$src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$img_id.".jpg&amp;h=153&amp;w=153&amp;q=70";
 		?>
 
 			<div class="gridThumb_wrapper">

@@ -37,7 +37,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 	<div class="orderView_imageList_thumb">
 
 		<?php 
-		$img_file = $image_dir.'thumb/'.$legId.'.jpg';
+		$img_file = $image_dir.$legId.'.jpg';
 		
 		if (checkRemoteFile($img_file)) {
 			$img_file = $img_file;

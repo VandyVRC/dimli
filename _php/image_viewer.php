@@ -16,7 +16,7 @@ $imageViewer_imageNum = $_GET['imageNum'];
 	<div id="imagePort-holder">
 
 		<?php
-		$imagePort_file = $image_dir.'medium/'.$imageViewer_imageNum.'.jpg';
+		$imagePort_file = $image_dir.$imageViewer_imageNum.'.jpg';
 
 		?>
 

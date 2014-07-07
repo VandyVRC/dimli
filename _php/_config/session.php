@@ -20,3 +20,4 @@ function confirm_logged_in() {
 		header('Location: login.php');
 	}
 }
+?>

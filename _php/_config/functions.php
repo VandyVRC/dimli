@@ -1,5 +1,4 @@
 <?php
-
 function check_required_fields($required_array) {
   $post_array = (isset($_POST['json'])) 
     ? $_POST['json'] 
@@ -251,17 +250,16 @@ function notEmpty($var) {
 //-----------------------------------------------------
 //  CSV export function, from Ninsuo on Stack Overflow
 //-----------------------------------------------------
-function array2csv(&$array) {
-   ob_start();
-   $df = fopen("php://output", 'w');
-   fputcsv($df, array_keys($array[0]));
-   foreach ($array as $row) {
-    fputcsv($df, $row);
-   }
-   fclose($df);
-   return ob_get_clean();
+function array2csv($array) {
+  ob_start();
+  $df = fopen("php://output", 'w');
+  fputcsv($df, array_keys($array[0]));
+  foreach ($array as $row){
+  fputcsv($df, $row);
+  }
+  fclose($df);
+  return ob_get_clean();
 }
- 
 //---------------------------------
 //  Returns duplicate array values
 //---------------------------------
@@ -828,7 +826,6 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAM
     echo $title_arr[0];
     
   ?></div><?php
-
   // Display additional titles if they contain a search term
   $title_done = false;
   foreach ($searches_arr as $search)
@@ -848,7 +845,7 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAM
           if (stristr($title, $term) && !$title_done)
           {
           ?><div class="highlightable" style="margin-bottom: 2px; padding-left: 15px; text-indent: -15px;"><?php
-           
+  
             echo $title;
             
           ?></div><?php
@@ -960,24 +957,19 @@ function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 
 	foreach ($rel_images as $img) { 
 
-    		  $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$img.".jpg&amp;h=42&amp;w=42&amp;q=60";?>
+    		  $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$img.".jpg&amp;h=42&amp;q=60";?>
 
         <img src="<?php echo $src; ?>"
+            style="max-width: 42px;"
             class="related_thumb"
             title="Click to preview"
-            data-image="<?php echo $img; ?>">
-
-	<?php
+            data-image="<?php echo $img;?>"><?php
 	}
-
 }
-
 function print_r_pre($array)
 {
   echo '<pre>';
   print_r($array);
   echo '</pre>';
 }
-
-
 ?>

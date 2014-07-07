@@ -146,7 +146,7 @@ foreach ($searches_arr as $search)
 
 <div class="grid_dropdown_imgWrapper">
 
-	<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $legId; ?>.jpg&amp;h=300&amp;q=80">
+	<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $legId; ?>.jpg&amp;h=300&amp;q=80">
 
 </div>
 
