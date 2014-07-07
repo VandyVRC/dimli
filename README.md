@@ -160,6 +160,16 @@ As you complete/deliver orders, manually add a PowerPoint file for each order to
 
 username/password: `admin`/`admin`
 
+#### Accessing and Utilizing the Getty Vocabularies
+
+As a result of git file size constraints, we are unable to include the SQL files for the data to fill the Getty Vocabularies tables. We have made these SQL files available via a public Dropbox. 
+
+https://dl.dropboxusercontent.com/u/104573827/Getty%20Vocabularies.zip
+
+We have also included a copy of our repositories data, in case anyone might like to utilize them. 
+
+These Getty Vocabularies are too large to import via phpMyAdmin. However, they can be imported via the MySQL command line.   
+
 
 Export CSV Fields Explained
 ---------------------------

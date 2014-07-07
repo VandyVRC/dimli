@@ -1292,7 +1292,7 @@ while ($row = $result->fetch_assoc())
 			}
 		}		
 	}	
-		
+
 		//-------------------------
 		//		Order
 		//-------------------------
@@ -1317,8 +1317,9 @@ while ($row = $result->fetch_assoc())
 		}
 		else
 		{
+
 		// Query found no order for this image record
-		
+
 			$order_string = 'None ( !! CONTACT ADMIN !! )';
 		
 		}

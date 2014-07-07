@@ -580,6 +580,7 @@ function userProfile_readPriv(wrapper, userId, priv) {
     success: function (response) {
 
       if (response == '1') 
+
       {
         $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
         $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
@@ -2715,7 +2716,7 @@ function export_flagged(format) {
   console.log(fields);
 
   // REVISIT
-payphone
+
   if (format == 'csv')
   {  
   window.location.href ='_php/_export/export_csv.php?type='+type+'&fields='+fields;
