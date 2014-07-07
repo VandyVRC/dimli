@@ -122,7 +122,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
 
 #### Prepare Image Directory
 
-Whichever directory you chose to be your main image repository should be divided into three folders named as follows: full/, medium/ and thumb/. The size of the JPG files placed in the 'thumb/' directory should be exactly 96 pixels wide x 72 pixels high at 72 ppi. You may choose the dimensions for the 'medium/' and 'full/' JPG files as you wish. DIMLI will look in these directory locations for image files used throughout the application.
+Wherever you choose to store your images, either within the application or externally (as defined in _php/_config/constants.php), Dimli currently requires jpg images. DIMLI will look in this directory location for image files used throughout the application.
 
 
 #### Note On External Image Sources and the timthumb Plugin

@@ -579,7 +579,7 @@ function userProfile_readPriv(wrapper, userId, priv) {
     url: '_php/_user/userProfile_readPriv.php',
     success: function (response) {
 
-      if (response == 'true') 
+      if (response == '1') 
       {
         $(wrapper).find('div.priv_left').css({ 'background-color': '#669' }).text('ON');
         $(wrapper).find('div.priv_right').css({'background-color': '#EEE' }).text('');
@@ -2634,7 +2634,7 @@ function query_export(format){
   // Insert hidden module for script supporting query
     $('div#control_panel_wide').hide();
     var ef_mod = $('<div id="exportForm_module" class="module">');
-    $('div#module_tier5 p.clear_module').before(ef_mod);
+    $('div#module_tier2 p.clear_module').before(ef_mod);
     $(ef_mod).hide();
 
     $.ajax({
@@ -2715,7 +2715,7 @@ function export_flagged(format) {
   console.log(fields);
 
   // REVISIT
-
+payphone
   if (format == 'csv')
   {  
   window.location.href ='_php/_export/export_csv.php?type='+type+'&fields='+fields;
@@ -3132,7 +3132,7 @@ function add_to_cart(images) {
     var thumb = document.createElement('img');
     thumb.className = 'thumb';
     thumb.setAttribute('data-image', images[i]);
-    thumb.setAttribute('src', 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/' + images[i] + '.jpg&h=30&w=30&q=60');
+    thumb.setAttribute('src', '<?php echo $webroot;?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src;?>' + images[i] + '.jpg&h=30&w=30&q=60');
 
     $basket.append(thumb);
     added++;
