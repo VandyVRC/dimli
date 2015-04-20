@@ -20,10 +20,10 @@ Examples:
 	"../MyImageFiles/"
 	"http://hosted.image.repository.edu/images/" */
 
-define("IMAGE_DIR", "http://dimli.library.vanderbilt.edu/mdidimages/HoAC/full/");
+define("IMAGE_DIR", "http://yourdomain.org/dimli/images/");
 $image_dir = IMAGE_DIR;
 
-define("IMAGE_SRC', 'http://dimli.library.vanderbilt.edu/mdidimages/HoAC/thumb/");
+define('IMAGE_SRC', 'images/');
 $image_src = IMAGE_SRC;
 
 /* 
@@ -32,7 +32,7 @@ DEFINE ENCRYPTION SALT
 Define a salt parameter to pass into the crypt function
 	Example: "gobly76gook13" */
 
-define("SALT", "316fish");
+define("SALT", "19ReXiNSuLaRuM23");
 
 /*
 OTHER CONSTANTS */
@@ -40,9 +40,8 @@ define("DIR", dirname(__DIR__)."/");
 
 
 
-define('webroot','http://129.59.153.15/dimli');
+define('webroot','http://yourdomain.org');
 $webroot = webroot;
 
 define('site_title', 'dimli');
 $site_title = site_title;
-?>
