@@ -419,6 +419,11 @@ function editDate_form(orderNum, dateNeeded){
   });
 }
 
+//----------------------------------------------------
+// User Functions
+//----------------------------------------------------
+
+
 function usersBrowse_load() {
 
   $('div[id$=_module]').remove();
@@ -446,8 +451,35 @@ function usersBrowse_load() {
   });
 }
 
-function userProfile_load(userId) {
+function userProfile_manage(userName) {
 
+  $('div[id$=_module]').remove();
+
+  $('div#control_panel_wide').hide();
+
+  var upm_mod = $('<div id="userProfile_module" class="module">');
+  var upm_header = $('<h1>').text('Edit Profile');
+
+  $(upm_mod)
+    .append(upm_header)
+    .append('<div class="loading_gif">');
+
+  $('div#module_tier1a').prepend($(upm_mod));
+
+  $.ajax({
+    type: 'POST',
+    data: 'userName='+userName,
+    url: '_php/_user/userProfile_manage.php',
+    success: function (response) {
+      load_module(upm_mod, response);
+    },
+    error: function () {
+      console.error('AJAX ERROR: userProfile_load.php');
+    }
+  });
+}
+
+function userProfile_load(userId) {
   $('div[id$=_module]')
     .not('div#usersBrowse_module')
     .remove();
@@ -613,6 +645,128 @@ function userProfile_togglePriv(wrapper, userId, priv) {
 }
 
 function registerNewUser_submit(formId) {
+
+  var jsonData = {};
+  var formAsJQuerySelector = 'form#' + formId;
+
+  $(formAsJQuerySelector + ' input:not([type=button], [type=submit], [type=checkbox])').each(function () {
+    var name = $(this).attr('name');
+    jsonData[name] = $('input[name='+name+']').val();
+  });
+  
+  var user_type = $(formAsJQuerySelector + ' select[name=user_type]').val();
+  jsonData.user_type = user_type;
+
+  var department = $(formAsJQuerySelector + ' select[name=department]').val();
+  jsonData.department = department;
+
+  $.ajax({
+    type: 'POST',
+    data: { jsonData: jsonData },
+    url: '_php/_user/registerNewUser_submit.php',
+    success: function (response) {
+      $(body).prepend(response);
+
+        if ($('form#createOrder_form select')
+          .length > 0)
+        {
+          createOrder_submit(); 
+          $('div#registerUser_module').remove();
+          $('div.suggestion_text').remove();
+        }
+
+        else  
+        {
+          $('div#registerUser_module').remove();
+          usersBrowse_load();
+          console.log('File successfully loaded: registerNewUser_submit.php');
+        }
+          
+      }, error: function() {
+        console.error("Failed to load file: registerNewUser_submit.php");
+    }
+  });
+}
+function registerNewPatron_inuse(formId) {
+  
+    $("#usernamefield").val("Success");
+
+     $.ajax({
+      type: 'POST',
+      data: { jsonData: jsonData },
+      url: '_php/_user/registerNewPatron_load.php',
+      success: function (response) {
+        $(body).prepend(response);
+
+          if ($('form#createOrder_form select')
+            .length > 0)
+          {
+            createOrder_submit(); 
+            $('div#registerUser_module').remove();
+            $('div.suggestion_text').remove();
+          }
+
+          else  
+          {
+            $('div#registerUser_module').remove();
+            createOrder_load_form();
+            console.log('File successfully loaded: registerNewPatron_load.php');
+          }
+            
+        }, error: function() {
+          console.error("Failed to load file: registerNewPatron_load.php");
+      }
+    });
+
+   
+}
+
+function registerNewPatron_submit(formId) {
+
+  var jsonData = {};
+  var formAsJQuerySelector = 'form#' + formId;
+
+  $(formAsJQuerySelector + ' input:not([type=button], [type=submit], [type=checkbox])').each(function () {
+    var name = $(this).attr('name');
+    jsonData[name] = $('input[name='+name+']').val();
+  });
+  
+  var user_type = $(formAsJQuerySelector + ' select[name=user_type]').val();
+  jsonData.user_type = user_type;
+
+  var department = $(formAsJQuerySelector + ' select[name=department]').val();
+  jsonData.department = department;
+
+    $.ajax({
+      type: 'POST',
+      data: { jsonData: jsonData },
+      url: '_php/_user/registerNewPatron_submit.php',
+      success: function (response) {
+        $(body).prepend(response);
+
+          if ($('form#createOrder_form select')
+            .length > 0)
+          {
+            createOrder_submit(); 
+            $('div#registerUser_module').remove();
+            $('div.suggestion_text').remove();
+          }
+
+          else  
+          {
+            $('div#registerUser_module').remove();
+            createOrder_load_form();
+            console.log('File successfully loaded: registerNewPatron_submit.php');
+          }
+            
+        }, error: function() {
+          console.error("Failed to load file: registerNewPatron_submit.php");
+      }
+    });
+}
+
+
+function registerNewUserOrder_submit(formId) {
 
   var jsonData = {};
   var formAsJQuerySelector = 'form#' + formId;
@@ -2109,6 +2263,39 @@ function registerNewUser_load() {
   });
 }
 
+function registerNewPatron_load() {
+
+  // Remove existing modules
+  $('div[id$=_module]').remove();
+
+  // Hide control panel
+  $('div#control_panel_wide').hide();
+
+  // Construct the module
+  var $newUserModule = $('<div id="registerUser_module" class="module">');
+  var $newUserHeader = $('<h1>').text('Register New Patron');
+  $newUserModule.prepend($newUserHeader);
+  $newUserModule.append('<div class="loading_gif">');
+
+  // Insert the module into the DOM
+  $('div#module_tier4 p.clear_module').before($newUserModule);
+
+  // Add a close button the module's header
+  closeModule_button($('div#registerUser_module'));
+
+  $.ajax({
+    type: 'GET',
+    url: '_php/_user/registerNewPatron_load.php',
+    success: function(response) {
+      load_module($newUserModule, response);
+      $(document).scrollTop($('body').offset().top);
+    },
+    error: function() {
+      console.error('AJAX error: registerNewPatron_load.php');
+    }
+  });
+}
+
 function createRepository() {
   var xmlhttp;
   if (window.XMLHttpRequest) { // Modern browsers
@@ -2303,6 +2490,7 @@ function createOrder_load_form() {
 
   // Hide control panel
   $('div#control_panel_wide').hide();
+  $('div#register_new_user').hide();
 
   var co_mod = $('<div id="createOrder_module" class="module">');
   var co_header = $('<h1>').text('New Order');

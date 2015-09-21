@@ -8,13 +8,13 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_users_read');
 
-$userId = $_POST['userId'];
+$userName = $_POST['userName'];
 
 
 
 $sql = "SELECT *
 			FROM $DB_NAME.user
-			WHERE id = '{$userId}'
+			WHERE username = '{$userName}'
 			LIMIT 1 ";
 
 $result = db_query($mysqli, $sql);
@@ -56,7 +56,7 @@ endwhile; ?>
 
 	<p id="userProf_name" 
 		class="mediumWeight">
-		<?php echo $firstname.' '.$lastname; ?>
+		<?php echo $username; ?>
 
 	</p>
 

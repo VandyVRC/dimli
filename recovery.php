@@ -18,19 +18,15 @@ if (logged_in()) {
 
 //  The below script runs when a user attempts to log in
 
-if (isset($_POST['login'])) {
+if (isset($_POST['recovery'])) {
 
 	// Validate required fields
-	$required_fields = array('username','password');
+	$required_fields = array('email');
 	$errors = array_merge($errors, check_required_fields($required_fields));
 	
-	// Validate field lengths
-	$fields_with_lengths = array('username' => 15, 'password' => 15);
-	$errors = array_merge($errors, check_max_field_lengths($fields_with_lengths));
 	
 	// Sanitize data
-	$username = trim($mysqli->real_escape_string($_POST['username']));
-	$password = crypt(trim($mysqli->real_escape_string($_POST['password'])), SALT);
+	$email = trim($mysqli->real_escape_string($_POST['email']));
 
 	if (empty($errors)) { //  User-submitted data is valid, so continue
 			
@@ -39,8 +35,7 @@ if (isset($_POST['login'])) {
 		//-----------------------------------------------
 
 		$sql = "SELECT * FROM $DB_NAME.user 
-					WHERE username = '{$username}' 
-						AND crypted_password = '{$password}' ";
+					WHERE email = '{$email}' ";
 
 		$result = db_query($mysqli, $sql);
 		
@@ -123,24 +118,15 @@ require("_php/header.php"); ?>
 	
 <div class="module">
 
-	<h1>Log in</h1>
+	<h1>Password Recovery</h1>
 
-	<form action="login.php" method="post">
-		<input type="text" 
-			id="username" 
-			name="username" 
-			placeholder="username"
-			value="<?php echo htmlentities($username); ?>" 
-			maxlength="15">
-
-		<br>
-
-		<input type="password" 
-			id="password" 
-			name="password"
-			placeholder="password" 
-			value="" 
-			maxlength="15">
+	<form action="recovery.php" method="post">
+		
+		<input type="email" 
+			id="email" 
+			name="email"
+			placeholder="email" 
+			value="">
 
 		<br>
 		
@@ -167,14 +153,14 @@ require("_php/header.php"); ?>
 
 		input_error($('input#username, input#password'));
 		msg(['Incorrect username & password combination'], 'error');
-		$('div#recovery').show('slow');
+		$('div#recovery').show();
 	<?php
 	elseif ($status == 'invalidentry'):
 
 		if (in_array('username', $errors)): ?>
 
 			input_error($('input#username'));
-				
+
 		<?php 
 		endif;
 
@@ -186,7 +172,7 @@ require("_php/header.php"); ?>
 		endif; ?>
 
 		msg(['Both username and password must be between','six and fifteen charcters in length'], 'error');
-		$('div#recovery').show('slow');
+		$('div#recovery').show();
 	<?php
 	endif; ?>
 
