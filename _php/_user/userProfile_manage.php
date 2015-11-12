@@ -54,11 +54,9 @@ endwhile; ?>
 <div id="userProf_wrapper" 
 	style="padding: 0;">
 
-	<p id="userProf_name" 
-		class="mediumWeight">
-		<?php echo $username; ?>
+		<h1 id="userProf_name" class="mediumWeight"><?php echo $username; ?></h1>
 
-	</p>
+	
 
 	<hr>
 

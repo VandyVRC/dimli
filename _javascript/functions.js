@@ -56,6 +56,39 @@ function showThisDropdown(event) {
 }
 
 /**
+ * Functions which can check to see if items that
+ * are in the database which need to be unique are already 
+ * present. Returns a boolean value.
+ *
+ * For now there will be a function per db item to be checked.
+ * Will be re-written to be more universal and efficient in the future.
+ */
+
+ function duplicateUsernameCheck(all_users, new_user) {
+  var i = 0;
+  var l = all_users.length;
+  while (i < l) {
+        if (new_user === all_users[i]){
+        return false;
+        }
+      i++;
+    }
+    return true;
+}
+
+ function duplicateEmailCheck(all_email, new_email) {
+  var i = 0;
+  var l = all_email.length;
+  while (i < l) {
+        if (new_email === all_email[i]){
+        return false;
+        }
+      i++;
+    }
+    return true;
+}
+
+/**
  * Checks that an input element does not contains special
  * characters when the form is submitted
  * 
@@ -424,6 +457,16 @@ function editDate_form(orderNum, dateNeeded){
 //----------------------------------------------------
 
 
+
+function newPatron() {
+   
+ 
+  $('div[id$=_module]').remove();
+
+  $('div#control_panel_wide').hide();
+
+}
+
 function usersBrowse_load() {
 
   $('div[id$=_module]').remove();
@@ -686,39 +729,6 @@ function registerNewUser_submit(formId) {
         console.error("Failed to load file: registerNewUser_submit.php");
     }
   });
-}
-function registerNewPatron_inuse(formId) {
-  
-    $("#usernamefield").val("Success");
-
-     $.ajax({
-      type: 'POST',
-      data: { jsonData: jsonData },
-      url: '_php/_user/registerNewPatron_load.php',
-      success: function (response) {
-        $(body).prepend(response);
-
-          if ($('form#createOrder_form select')
-            .length > 0)
-          {
-            createOrder_submit(); 
-            $('div#registerUser_module').remove();
-            $('div.suggestion_text').remove();
-          }
-
-          else  
-          {
-            $('div#registerUser_module').remove();
-            createOrder_load_form();
-            console.log('File successfully loaded: registerNewPatron_load.php');
-          }
-            
-        }, error: function() {
-          console.error("Failed to load file: registerNewPatron_load.php");
-      }
-    });
-
-   
 }
 
 function registerNewPatron_submit(formId) {

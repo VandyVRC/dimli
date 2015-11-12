@@ -41,6 +41,8 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 
 		$fill_arr[$patron] = array('department'=>$user['department'], 'email'=> $user['email']);
 	}
+
+//print_r($_SESSION);
 ?>
 
 <div>
@@ -58,36 +60,14 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 			value="<?php echoValue($_SESSION['newOrderDetails']['patron']); ?>">
 			<div id="suggestedPatrons" class="pointer" style="margin-left: 32%; width: 236px"></div>
 
-		<br>
-
-		<div class="inline label">Email:</div>
-		<input type="text"
+		<input type="hidden"
 			name="email"
-			style="width: 220px;"
 			value="<?php echoValue($_SESSION['newOrderDetails']['email']); ?>">
 
-		<br>
+		<input type="hidden" 
+			name="department"
+			value="<?php echoValue($_SESSION['newOrderDetails']['department']); ?>">
 
-		<div class="inline label">Department:</div>
-
-		<select name="department" id="department">
-
-			<option value=""></option>
-
-			<option value="History of Art"
-				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'History of Art'); ?>
-				>History of Art</option>
-
-			<option value="Classical Studies"
-				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'Classical Studies'); ?>
-				>Classical Studies</option>
-
-			<option value="Other"
-				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'Other'); ?>
-				>Other</option>
-
-		</select>
-		<br>
 		<p class="instructions center_text">&#8212;OR&#8212;</p>
 		<p class="instructions center_text"><a id="newPatron" href="#">Register a New Patron</a></p>
 		<hr>
