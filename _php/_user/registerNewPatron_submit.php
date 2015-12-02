@@ -4,6 +4,9 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/PHPMailerAutoload.php');
+//require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/class.phpmailer.php');
+//require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/class.smtp.php');
 
 confirm_logged_in();
 
@@ -81,13 +84,26 @@ if ($result) {
 //MAILING INSTRUCTIONS TO PATRON
 //--------------------------------------------------------------------------------------------------
 
-$to = $email;
-$subject = "My subject";
-$message = "Hello world!";
-$headers = "From: william.b.sealy@vanderbilt.edu" . "\r\n" .
-"CC: william.b.sealy@vanderbilt.edu";
+$mail = new PHPMailer();
+$mail->IsSMTP();
+$mail->SMTPDebug = 0;
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = 'tls';
+$mail->Host = 'smtp.gmail.com';
+$mail->Port = 587;
+$mail->IsHTML(true);
+$mail->Username = 'VanderbiltVRC@gmail.com';
+$mail->Password = 'Poussin12';
+$mail->SetFrom('VanderbiltVRC@gmail.com');
+$mail->Subject = 'Hello from dimli!';
+$mail->Body = 'This is the first mail sent from dimli';
+$mail->AddAddress($email);
 
-mail($to,$subject,$message,$headers);
+if(!$mail->Send()) {
+	echo 'Mail Error:' . $mail->ErrorInfo;
+} else {
+	echo 'Message has been sent';
+}
 
 //END MAILING INSTRUCTIONS TO PATRON
 
