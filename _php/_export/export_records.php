@@ -1,12 +1,12 @@
 <?php
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
-require_once(MAIN_DIR.'/../../_php/_config/session.php');
-require_once(MAIN_DIR.'/../../_php/_config/connection.php');
-require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+require_once(MAIN_DIR.'/_php/_config/session.php');
+require_once(MAIN_DIR.'/_php/_config/connection.php');
+require_once(MAIN_DIR.'/_php/_config/functions.php');
 
-confirm_logged_in();
+confirm_logged_in(); 
 require_priv('priv_csv_export');
-set_time_limit(0);
+
 // print_r($_POST); // Debugging
 // print_r($_SESSION); // Debugging
 
@@ -49,7 +49,7 @@ $end = $_GET['last'];
 
 	// Define filename for the CSV to be output.
 	// Will be used below.
-	$filename = "dimli_exportToMdid__". $start ."-". $end ."__". date('Y.m.d') .".csv";
+	$filename = "dimli_exportToMdid__". $start ."-". $end ."__". date('Y.m.d');
 
 }
 elseif (isset($_GET['type']) && $_GET['type'] == 'flagged')
@@ -813,6 +813,132 @@ while ($row = $result->fetch_assoc())
 	
 	}
 	
+
+	//---------------------------
+	//		Specific Location
+	//---------------------------
+		
+	$specific_location_array = array();
+
+	$sql = "SELECT * FROM $DB_NAME.specific_location 
+				WHERE related_images = '{$imageId}' ";
+	
+	// Select locations from work record as well, if this image record has an associated work
+	if ($workId != 'None') { 
+		$sql.= " || related_works = '{$workId}' ";
+	}
+	
+	$result_specific = db_query($mysqli, $sql);
+	
+	if ($result_specific->num_rows > 0) {
+	// Query found at least one specific location for this image or work record
+
+		while ($specific_location = $result_specific->fetch_assoc()) {
+		// Iterate through each specific location row
+
+			if (!empty($specific_location['specific_location_type']) || $specific_location['specific_location_type'] !== '') {
+
+				if ($specific_location['specific_location_type'] == 'Address'){
+
+					$specific_location_temp = $specific_location['specific_location_address'].', '.$specific_location['specific_location_zip'].' ('.$specific_location['specific_location_type'].')';
+				}
+			
+				if ($specific_location['specific_location_type'] == 'LatLng'){	
+				
+					$specific_location_temp = $specific_location['specific_location_lat'].', '.$specific_location['specific_location_long'].' ('.$specific_location['specific_location_type'].')';
+				}
+
+				if ($specific_location['specific_location_type'] == 'Note'){	
+				
+					$specific_location_temp =$specific_location['specific_location_note'];
+				}
+			}
+
+			else{
+				$specific_location_temp = '';
+			}	
+			
+			$specific_location_array[] = $specific_location_temp;	
+			
+		}	
+
+		$result_specific->free();
+
+		$specific_location_array = array_filter($specific_location_array, 'notEmpty');
+		$specific_location_string = preg_replace('/; $/', '', implode('; ', $specific_location_array));
+
+		if (trim($specific_location_string) == '') { 
+			$specific_location_string = 'None'; 
+		}
+
+		
+	}
+	else{
+
+		$specific_location_string = 'None';
+	}
+
+	//---------------------------
+	// 	Relation
+	//---------------------------
+
+	$relation_array = array();
+
+	$sql = "SELECT * FROM $DB_NAME.relation
+			WHERE related_works = '{$workId}' ";
+
+	$result_relation = db_query($mysqli, $sql);
+	
+	if ($result_relation->num_rows > 0){
+
+		while ($relation = $result_relation->fetch_assoc()){
+
+			if (!empty($relation['relation_type']) || $relation['relation_type'] !== ''){
+
+				$getRelated = $relation['relation_id'];
+
+				$relation_temp = $relation['relation_type'].' '.$relation['relation_id'];
+
+				$sql = "SELECT title_text
+						FROM $DB_NAME.title
+						WHERE related_works = '{$getRelated}'
+						LIMIT 1 " ;
+
+				$result_getTitle = db_query($mysqli, $sql); 	
+
+					while ($getRelatedTitle = $result_getTitle->fetch_assoc()) {
+
+						if (!empty($getRelatedTitle['title_text']) || $getRelatedTitle['title_text'] !==''){
+
+							$relation_temp.=' (id for '.$getRelatedTitle['title_text'].')'; 	
+						}	
+					}
+				}
+
+				else{
+				$relation_temp = '';
+			}	
+
+			$relation_array[] = $relation_temp;
+		}
+
+			$result_relation->free();
+			$result_getTitle->free();
+
+			$relation_array = array_filter($relation_array, 'notEmpty');
+			$relation_string = preg_replace('/; $/', '', implode('; ', $relation_array));
+
+			if (trim($relation_string) == '') { 
+				$relation_string = 'None'; 
+			}
+
+	}		
+	
+	else{
+
+		$relation_string = 'None';
+	}		
+	
 	//----------------------------
 	//		Cultural Context
 	//----------------------------
@@ -1112,7 +1238,6 @@ while ($row = $result->fetch_assoc())
 	
 	}
 	
-
 	
 	//-------------------------
 	//		Order
@@ -1147,7 +1272,7 @@ while ($row = $result->fetch_assoc())
 	// Write each row of the csv array
 	$csvArray[$i] = array(
 	
-		'Identifier' => $legacyId,
+		'identifier' => $legacyId,
 		'resource' => $legacyId . $fileFormat,
 		'vra.title' => $workTitle_string,
 		'vra.imagetitle' => $imageTitle_string,
@@ -1155,7 +1280,7 @@ while ($row = $result->fetch_assoc())
 		'agentALT' => $super_nonprefAgent_string,
 		'vra.date' => $date_string,
 		'vra.technique' => $technique_string,
-		'techniqueALT' => $super_technique_string,
+		'techniqueALT' => $superchnique_string,
 		'vra.worktype' => $worktype_string,
 		'worktypeALT' => $super_worktype_string,
 		'vra.material' => $material_string,
@@ -1164,6 +1289,8 @@ while ($row = $result->fetch_assoc())
 		'vra.measurementsIMAGE' => $imageMeasure_string,
 		'vra.location' => $location_string,
 		'locationALT' => $super_location_string,
+		'specifcLocation'=>$specific_location_string,
+		'vra.relation'=>$relation_string,
 		'vra.culturalcontext' => $culture_string,
 		'culturalcontextALT' => $super_culture_string,
 		'vra.styleperiod' => $culture_string,
@@ -1180,13 +1307,16 @@ while ($row = $result->fetch_assoc())
 	$i++;
 	
 }
-header("Content-type: text/csv;");
-header("Content-Disposition: attachment; filename={$filename}");
+
+header('Content-type: text/csv; charset=UTF-8');
+header("Content-Disposition: attachment; filename={$filename}.csv");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");
 header("Expires: 0");
-echo "\xEF\xBB\xBF"; // To export with BOM (Byte Order Mark)
+echo "\xEF\xBB\xBF"; // UTF-8 BOM
+
 echo array2csv($csvArray); // Defined in _php/_config/functions.php
+
 ?>
 <?php
 //---------------------------------------------------------

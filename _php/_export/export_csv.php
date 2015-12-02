@@ -6,6 +6,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 
 confirm_logged_in();
 require_priv('priv_csv_export');
+set_time_limit(0);
 
 // print_r($_POST); // Debugging
 // print_r($_SESSION); // Debugging
@@ -1291,8 +1292,7 @@ while ($row = $result->fetch_assoc())
 			
 			}
 		}		
-	}	
-
+	}
 		//-------------------------
 		//		Order
 		//-------------------------
@@ -1317,9 +1317,8 @@ while ($row = $result->fetch_assoc())
 		}
 		else
 		{
-
-		// Query found no order for this image record
-
+		// Query found no lecture tags for this image record
+		
 			$order_string = 'None ( !! CONTACT ADMIN !! )';
 		
 		}
@@ -1473,6 +1472,11 @@ while ($row = $result->fetch_assoc())
 			$csvArray[$i]['tags.tags'] = $subject_string;
 		}
 
+		if (!empty($lectureTag_string))
+		{	
+			$csvArray[$i]['vu.courselecture'] = $lectureTag_string;
+		}
+		
 		if (!empty($order_string))
 		{	
 			$csvArray[$i]['order'] = $order_string;
@@ -1481,25 +1485,7 @@ while ($row = $result->fetch_assoc())
 	$i++;	
 }
 
-function encode_items($csvArray)
-{
-    foreach($csvArray as $key => $value)
-    {
-        if(is_array($value))
-        {
-            $csvArray[$key] = encode_items($value);
-        }
-
-        else
-        {
-            $csvArray[$key] = mb_convert_encoding($value, 'UTF-16LE', 'UTF-8');
-        }
-    }
-
-    return $csvArray;
-}
-
-header("Content-type: text/csv; charset=UTF-8 ");
+header("Content-type: text/csv; charset=utf-8");
 header("Content-Disposition: attachment; filename={$filename}");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");
