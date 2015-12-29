@@ -4,9 +4,8 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+require_once(MAIN_DIR.'/../../_php/_config/constants.inc.php');
 require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/PHPMailerAutoload.php');
-//require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/class.phpmailer.php');
-//require_once(MAIN_DIR.'/../../_php/_includes/PHPMailer/class.smtp.php');
 
 confirm_logged_in();
 
