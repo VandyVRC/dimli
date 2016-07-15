@@ -48,6 +48,10 @@ header('Content-type: text/html; charset=utf-8'); ?>
       </a>
 
  <?php 
+
+
+
+
  if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) 
  { 
       
@@ -289,11 +293,22 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
       <li class="defaultCursor">
 
-        <?php if (logged_in() == true) {
+      <?php if (logged_in()) { ?>
+        <div id="user_name" hidden><?php echo $_SESSION['username']; ?></div>
+        <a id="profile" href="#"><?php echo $_SESSION['display_name']; ?></a>
 
-          echo $_SESSION['display_name'];
+      
+       <script type="text/javascript">
 
-        } ?>
+       $('a#profile').click(function()
+    {
+      event.preventDefault();
+      var userName = $('div#user_name').text();
+      userProfile_manage(userName);
+    });
+
+       </script>
+       <?php } ?>
       </li>
 
     </ul>
@@ -304,7 +319,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 <div id="header_spacer"></div>
 
-<!-- <div id="control_panel_wide"> 
+<div id="control_panel_wide"> 
 <div id="control_panel"> 
     // if (logged_in()) {
 
@@ -313,7 +328,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
     // }
   </div>
-</div> -->
+</div>
 
 <div id="body_wide">
 

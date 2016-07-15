@@ -6,7 +6,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 
 confirm_logged_in();
 require_priv('priv_csv_export');
-
+set_time_limit(0);
 // print_r($_POST); // Debugging
 // print_r($_SESSION); // Debugging
 
@@ -1111,7 +1111,9 @@ while ($row = $result->fetch_assoc())
 		$subject_string = '';
 	
 	}
+	
 
+	
 	//-------------------------
 	//		Order
 	//-------------------------
@@ -1136,7 +1138,7 @@ while ($row = $result->fetch_assoc())
 	}
 	else
 	{
-	// Query found no order id for this image record
+	// Query found no lecture tags for this image record
 	
 		$order_string = 'None ( !! CONTACT ADMIN !! )';
 	
@@ -1144,6 +1146,7 @@ while ($row = $result->fetch_assoc())
 	
 	// Write each row of the csv array
 	$csvArray[$i] = array(
+	
 		'Identifier' => $legacyId,
 		'resource' => $legacyId . $fileFormat,
 		'vra.title' => $workTitle_string,
@@ -1169,8 +1172,11 @@ while ($row = $result->fetch_assoc())
 		'vra.descriptionIMAGE' => $imageDescription_string,
 		'vra.source' => $source_string,
 		'tags.tags' => $subject_string,
+		'vu.courselecture' => $lectureTag_string,
 		'order' => $order_string
+		
 	);
+	
 	$i++;
 	
 }
@@ -1186,6 +1192,7 @@ echo array2csv($csvArray); // Defined in _php/_config/functions.php
 //---------------------------------------------------------
 //		Update the images' "last_exported" timestamp
 //---------------------------------------------------------
+
 $timestamp = date('Y-m-d H:i:s');
 $sql = "UPDATE $DB_NAME.image
 			SET last_exported = '{$timestamp}',

@@ -5,9 +5,13 @@
 // Must be called BEFORE session_start();
 // To retrieve this value: ini_get('session.cookie_lifetime');
 //-------------------------------------------------------------
-session_set_cookie_params(31536000);
 
+//session_set_cookie_params(31536000);
+//session_start();
+
+$lifetime=10800;
 session_start();
+setcookie(session_name(), session_id(), time()+$lifetime);
 
 // Verify that the current session is logged in
 function logged_in() {

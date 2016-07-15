@@ -35,7 +35,7 @@ if ($result) { ?>
 
 	<script>
 
-		msg(["User successfully created"], 'success');
+		msg(["Register New User Submit"], 'success');
 
 	</script>
 
