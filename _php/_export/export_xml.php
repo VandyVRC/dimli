@@ -3,7 +3,7 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');
-set_time_limit(0);
+
 $records = array(); 
 $workIds = array();
 
@@ -2025,3 +2025,4 @@ $sql = "UPDATE $DB_NAME.image
 $result_lastExported = db_query($mysqli, $sql);
 
 ?>
+

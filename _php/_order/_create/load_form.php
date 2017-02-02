@@ -1,6 +1,5 @@
 <?php
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
-require_once(MAIN_DIR.'/../../../_php/_config/session.php'); 
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}require_once(MAIN_DIR.'/../../../_php/_config/session.php'); 
 require_once(MAIN_DIR.'/../../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../../_php/_config/functions.php');
 
@@ -41,17 +40,15 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 
 		$fill_arr[$patron] = array('department'=>$user['department'], 'email'=> $user['email']);
 	}
-
-//print_r($_SESSION);
 ?>
 
 <div>
 
-	<p class="instructions center_text">Search for an existing patron of the order.</p>
+	<p class="instructions center_text">Enter general information about the order.</p>
 
 	<form id="createOrder_form">
 
-		<div class="inline label">Search Patron:</div>
+		<div class="inline label">Patron:</div>
 
 		<input type="text"
 			name="patron"
@@ -60,90 +57,38 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 			value="<?php echoValue($_SESSION['newOrderDetails']['patron']); ?>">
 			<div id="suggestedPatrons" class="pointer" style="margin-left: 32%; width: 236px"></div>
 
-		<input type="hidden"
-			name="email"
-			value="<?php echoValue($_SESSION['newOrderDetails']['email']); ?>">
+		<br>
 
-		<input type="hidden" 
-			name="department"
-			value="<?php echoValue($_SESSION['newOrderDetails']['department']); ?>">
+		<div class="inline label">Department:</div>
 
-		<p class="instructions center_text">&#8212;OR&#8212;</p>
-		<p class="instructions center_text"><a id="newPatron" href="#">Register a New Patron</a></p>
-		<hr>
-		<p class="instructions center_text">Enter information about the source of your order. Fields with an asterisk are enabled with quick search.</p>
+		<select name="department" id="department">
 
-		<div class="inline label">Source:</div>
-
-		<select name="sourceNameType">
-							
 			<option value=""></option>
 
-			<option value="Book" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Book'); ?>
-				>Book</option>
+			<option value="History of Art"
+				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'History of Art'); ?>
+				>History of Art</option>
 
-			<option value="Catalogue" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Catalogue'); ?>
-				>Catalogue</option>
+			<option value="Classical Studies"
+				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'Classical Studies'); ?>
+				>Classical Studies</option>
 
-			<option value="Corpus" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Corpus'); ?>
-				>Corpus</option>
-
-			<option value="Serial" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Serial'); ?>
-				>Serial</option>
-
-			<option value="Donor" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Donor'); ?>
-				>Donor</option>
-
-			<option value="Electronic" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Electronic'); ?>
-				>Electronic</option>
-
-			<option value="Vendor" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Vendor'); ?>
-				>Vendor</option>
-
-			<option value="Other" 
-				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Other'); ?>
+			<option value="Other"
+				<?php selectedOption($_SESSION['newOrderDetails']['department'], 'Other'); ?>
 				>Other</option>
-		
+
 		</select>
+
 		<br>
 
-		<div class="inline label">Source name:</div>
+		<div class="inline label">Email address:</div>
 
 		<input type="text"
-			name="sourceName"
+			name="email"
 			style="width: 220px;"
-			value="<?php echoValue($_SESSION['newOrderDetails']['sourceName']); ?>">
-
-		
-		<br>
-
-
-		<div id="createOrder_otherInfo_text" style="display: none;">
-
-			<div class="inline label"></div>
-
-			<input type="text"
-				name="source"
-				style="width: 200px;"
-				value="<?php echoValue($_SESSION['newOrderDetails']['source']); ?>">
-
-			<br>
-
-		</div>
+			value="<?php echoValue($_SESSION['newOrderDetails']['email']); ?>">
 
 		<br>
-
-		<hr>
-
-		<br>
-		
 
 		<div style="position: relative;">
 
@@ -161,7 +106,138 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 			</div>
 
 		</div>
-	
+
+		<br>
+
+		<div class="inline label">Source name:</div>
+
+		<input type="text"
+			name="sourceName"
+			style="width: 220px;"
+			value="<?php echoValue($_SESSION['newOrderDetails']['sourceName']); ?>">
+
+		<br>
+
+		<div class="inline label">Source type:</div>
+
+		<select name="sourceNameType">
+							
+			<option value=""></option>
+
+			<option value="Book" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Book'); ?>
+				>Book</option>
+
+			<option value="Catalogue" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Catalogue'); ?>
+				>Catalogue</option>
+
+			<option value="Corpus" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Corpus'); ?>
+				>Corpus</option>
+
+			<option value="Donor" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Donor'); ?>
+				>Donor</option>
+
+			<option value="Electronic" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Electronic'); ?>
+				>Electronic</option>
+
+			<option value="Serial" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Serial'); ?>
+				>Serial</option>
+
+			<option value="Vendor" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Vendor'); ?>
+				>Vendor</option>
+
+			<option value="Other" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceNameType'], 'Other'); ?>
+				>Other</option>
+		
+		</select>
+
+		<br>
+
+		<div id="createOrder_imageCount_div"
+			style="position: relative;">
+
+			<div class="inline label">Image count:</div>
+
+			<input type="text"
+				name="imageCount"
+				maxlength="3"
+				style="width: 3em;"
+				value="<?php echoValue($_SESSION['newOrderDetails']['imageCount']); ?>">
+
+			<span style="font-size: 0.8em; font-style: italic;">Max: 200</span>
+
+			<br>
+
+		</div>
+
+		<div class="inline label">Source info:</div>
+
+		<select name="sourceType">
+							
+			<option value=""></option>
+
+			<option value="Citation" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'Citation'); ?>
+				>Citation</option>
+
+			<option value="ISBN" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'ISBN'); ?>
+				>ISBN</option>
+
+			<option value="ISSN" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'ISSN'); ?>
+				>ISSN</option>
+
+			<option value="ASIN" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'ASIN'); ?>
+				>ASIN</option>
+
+			<option value="Open URL" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'Open URL'); ?>
+				>Open URL</option>
+
+			<option value="URI" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'URI'); ?>
+				>URI</option>
+
+			<option value="Vendor" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'Vendor'); ?>
+				>Vendor</option>
+
+			<option value="Other" 
+				<?php selectedOption($_SESSION['newOrderDetails']['sourceType'], 'Other'); ?>
+				>Other</option>
+		
+		</select>
+
+		<br>
+
+		<div id="createOrder_otherInfo_text" style="display: none;">
+
+			<div class="inline label"></div>
+
+			<input type="text"
+				name="source"
+				style="width: 200px;"
+				value="<?php echoValue($_SESSION['newOrderDetails']['source']); ?>">
+
+			<br>
+
+		</div>
+
+		<div class="legacy_wrap">
+
+			<input type="checkbox" id="legacyIds" name="legacyIds">
+			<label for="legacyIds">I would like to specify an existing identifier for each image record</label>
+
+		</div>
 
 		<button type="button"
 			id="createOrder_continue_button"
@@ -183,18 +259,8 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 		{
 			$('div#createOrderFigs_module').remove();
 		});
-	//--------------------------------------------------------
-	//	Load New Patron Module
-	//--------------------------------------------------------
 
-	// $('a#newPatron').click(registerNewPatron_load);
-
-	 $('a#newPatron').click(function(e) {
-    	e.preventDefault();
-    	registerNewPatron_load();
-		});
-
-	//--------------------------------------------------------
+//--------------------------------------------------------
 	//  Prepare suggest_input function with arrays of users
 	//--------------------------------------------------------
 
@@ -233,10 +299,10 @@ $sql = "SELECT DISTINCT(display_name), (department), (email)
 
 	//  Display text input field when "Source info" has been selected
 
-	$('select[name=sourceNameType]').change(
+	$('select[name=sourceType]').change(
 		function()
 		{
-			var selected = $('select[name=sourceNameType] option:selected').val();
+			var selected = $('select[name=sourceType] option:selected').val();
 
 			if (selected != '')
 			{

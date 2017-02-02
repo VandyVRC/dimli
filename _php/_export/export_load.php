@@ -230,7 +230,7 @@ $('button#deselectAll').click(function()
 			query_export('mdid');
 		});
 
-	$('button#exportMdid_allFlagged')
+	$('button#exportmdid_allFlagged')
 		.click(promptToConfirm)
 		.click(
 			function()

@@ -17,6 +17,7 @@ while ($row = $refresh_r->fetch_assoc()) { ?>
 	<!-- Image ID -->
 	<div class="imageList_imageNum purple" 
 		style="display: inline-block; width: 70px;">
+
 		<?php 
 		$imageId = create_six_digits($row['id']);
 		$legId = $row['legacy_id'];

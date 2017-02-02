@@ -149,17 +149,10 @@ require("_php/header.php"); ?>
 			value="Submit">
 
 	</form>
-	<div id="recovery">
-		<hr>
-		<br>
-		<a href="recovery.php">Forgotten Username or Password?</a>
-		<br>
-	</div>
 
 </div>
 
 <script>
-	$('div#recovery').hide();
 
 	<?php
 	if ($status == 'badcombo'):
@@ -167,14 +160,14 @@ require("_php/header.php"); ?>
 
 		input_error($('input#username, input#password'));
 		msg(['Incorrect username & password combination'], 'error');
-		$('div#recovery').show('slow');
+
 	<?php
 	elseif ($status == 'invalidentry'):
 
 		if (in_array('username', $errors)): ?>
 
 			input_error($('input#username'));
-				
+
 		<?php 
 		endif;
 
@@ -186,12 +179,11 @@ require("_php/header.php"); ?>
 		endif; ?>
 
 		msg(['Both username and password must be between','six and fifteen charcters in length'], 'error');
-		$('div#recovery').show('slow');
+
 	<?php
 	endif; ?>
 
 	$(document).ready(
-
 		function()
 		{
 			if ($('div#message_text').text() == '') {

@@ -10,8 +10,6 @@ require_priv('priv_users_read');
 
 $userId = $_POST['userId'];
 
-
-
 $sql = "SELECT *
 			FROM $DB_NAME.user
 			WHERE id = '{$userId}'
@@ -56,6 +54,7 @@ endwhile; ?>
 
 	<p id="userProf_name" 
 		class="mediumWeight">
+
 		<?php echo $firstname.' '.$lastname; ?>
 
 	</p>
