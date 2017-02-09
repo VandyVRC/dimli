@@ -1,5 +1,6 @@
 <?php
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
+if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
@@ -66,11 +67,10 @@ require("_php/header.php"); ?>
 
 				<!-- 
 						Download Your Orders (Faculty & Patrons)
-						View Your Image Downloads (Faculty & Patrons)
 				 -->
 				<div class="floatLeft">
 					<?php include('_php/_homepage/your_orders.php'); ?>
-					<?php include('_php/_homepage/your_downloads.php'); ?>
+						<?php include('_php/_homepage/your_downloads.php'); ?>
 				</div>
 
 			<?php endif; ?>

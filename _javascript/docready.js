@@ -156,28 +156,11 @@ $(document).ready(function () {
   // Batch Download Cart
   //---------------------
 
-
   var $cart = $('#cart');
   var $heading = $cart.find('h2');
   var $removeSelected = $cart.find('div.footer span.selected');
   var $emptyCart = $cart.find('div.footer span.all');
   var $download = $cart.find('div.footer div.download');
-  var $cartNav = $('li#nav_cart');
-  var imageList = $cart.find('div.basket input[id=basket]').val();
-
-  $cartNav.click(function() {
-    if ($('div#catalog_highlights').length){  
-      
-      var images = [];
-      
-      $(imageList).each(function (index, value) {
-        images.push(value); 
-      });
-
-     add_to_cart(images); 
-     console.log(images);
-   }
-  });
 
   $removeSelected.click(function () {
     $('#cart div.basket img.thumb.selected').remove();
@@ -196,7 +179,6 @@ $(document).ready(function () {
     $('#cart h2').text('Your cart is empty');
     $(this).addClass('hidden');
     $download.addClass('hidden');
-    store_cart('remove', images);
   });
 
   // Selection toggling

@@ -97,7 +97,8 @@ while ($row = $result->fetch_assoc()) {
 	
 }
 
-//--------------------- 
+
+//---------------------
 //  Fetch image info
 //--------------------- 
 
@@ -273,21 +274,22 @@ $privEdit = $_SESSION['priv_orders_create'];
 			<!-- Image or Legacy ID -->
 			<div class="imageList_imageNum purple" 
 
-				style="display: inline-block; cursor: pointer;"><?php echo $truncLeg;?>
+				style="display: inline-block; width: 70px; cursor: pointer;"><?php echo $truncLeg;?>
 
 			<!-- Hidden Image ID -->
 			<div class="imageList_imageNum_hidden" hidden><?php echo $imageId;?></div>
-			<div class="imageList_imageView_hidden" hidden><?php echo $legId;?></div>
 			</div>
 
 			<!-- Thumbnail -->
+			<div class="imageList_imageView_hidden" hidden><?php echo $legId;?></div>
+		
 			<div class="orderView_imageList_thumb" style="cursor: pointer;">
 
 				<?php 
 				// Define filepath for thumbnail
 
-				$img_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$legId.".jpg&amp;h=40&amp;q=60&amp;a=tl;";
-
+				$img_file = $image_dir.'/thumb/'.$legId.$fileFormat;
+				
 				if ($i == 0) { 
 				// Perform only for first image in the order
 					$thumbs_available = checkRemoteFile($img_file);
@@ -296,12 +298,12 @@ $privEdit = $_SESSION['priv_orders_create'];
 				if ($thumbs_available) { 
 				// If imagepath of first image was found ?>
 
-					<img style="max-width: 60px; position: relative;display: block; margin-left: auto; margin-right: auto;"
+					<img style="vertical-align: top; height: 100%;"
 						src="<?php echo $img_file; ?>">
 
 				<?php } else { ?>
 
-					<img style="max-width: 60px; position: relative; top: 50%; transform: translateY(-50%); display: block; margin-left: auto; margin-right: auto;"
+					<img style="vertical-align: top; height: 100%;" 
 						src="_assets/_images/_missing.jpg">
 
 				<?php } ?>
@@ -458,6 +460,15 @@ $privEdit = $_SESSION['priv_orders_create'];
 	// CLICK ON THUMBNAIL TO VIEW IMAGE
 
 	$('div.orderView_imageList_thumb')
+		.hover(
+			function() 
+			{
+				$(this).addClass('glow');
+			},
+			function() 
+			{
+				$(this).removeClass('glow');
+			})
 		.click(
 			function() 
 			{

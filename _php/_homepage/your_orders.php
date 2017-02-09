@@ -99,7 +99,7 @@ confirm_logged_in(); ?>
 
 					<?php foreach ($images as $image): ?>
 
-						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
+						<img src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>thumb/<?php echo $image; ?>.jpg&amp;h=28&amp;w=35&amp;q=80">
 
 					<?php endforeach; ?>
 
@@ -169,17 +169,16 @@ confirm_logged_in(); ?>
 
 						<img src="_assets/_images/zip.png">
 						<span class="label">Medium ZIP</span><br>
-					</a>
-					<?php 
+				<?php 
 
 						if (isset($_POST['limit']) &&  $_POST['limit']== 'none'){
 
-							$file = MAIN_DIR.'/../../_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+						$file = MAIN_DIR.'/../../_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
 						}
 
-						else{	
+						else{
 
-							$file = MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
+						$file = MAIN_DIR.'/_ppts/'.str_pad($row['id'], 4, '0', STR_PAD_LEFT).'.pptx';
 						}
 			
 					if (file_exists($file)): ?>

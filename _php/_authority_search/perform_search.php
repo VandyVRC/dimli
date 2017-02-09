@@ -458,7 +458,7 @@ if (!empty($fieldVal)) {
 
 			$builtWorkIds_filteredOnce = array();
 
-// Initilize array of work types that can appropriately be called "built works"
+		// Initilize array of work types that can appropriately be called "built works"
 		$acceptableWorkTypes = array(
 			'buildings (structures)',
 			'churches (buildings)',

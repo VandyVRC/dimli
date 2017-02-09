@@ -7,7 +7,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 confirm_logged_in();
 
 $imageNum = $_GET['imageNum'];
-$file = $image_dir.$_GET['imageNum'].'.jpg';
+$file = $image_dir.'full/'.$_GET['imageNum'].'.jpg';
 
 header("Pragma: public");
 header("Expires: 0");

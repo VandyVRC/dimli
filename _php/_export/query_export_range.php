@@ -1,9 +1,8 @@
 <?php
-$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
-if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
-require_once(MAIN_DIR.'/_php/_config/session.php');
-require_once(MAIN_DIR.'/_php/_config/connection.php');
-require_once(MAIN_DIR.'/_php/_config/functions.php');
+if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+require_once(MAIN_DIR.'/../../_php/_config/session.php');
+require_once(MAIN_DIR.'/../../_php/_config/connection.php');
+require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 confirm_logged_in();
 require_priv('priv_csv_export');
 
@@ -39,8 +38,7 @@ $format = $_GET['format'];
 
 				$last = 0;
 			}
-?> 
-
+?>
 <script>
 var first = '<?php echo $first;?>';
 var last = '<?php echo $last;?>';
@@ -65,4 +63,3 @@ else{
 	export_range(first, last, format);
 	}
 	</script>	 	
-	

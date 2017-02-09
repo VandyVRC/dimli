@@ -3,8 +3,10 @@ if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../../_php/_config/session.php');
 require_once(MAIN_DIR.'/../../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../../_php/_config/functions.php');
+
 confirm_logged_in();
 require_priv('priv_users_create');
+
 
 $userId = $_POST['userId'];
 $priv = $_POST['priv'];
@@ -59,4 +61,4 @@ $result = db_query($mysqli, $sql); ?>
 
 	msg(['Privilege updated'], 'success');
 
-</script> 
+</script>

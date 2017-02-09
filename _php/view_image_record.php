@@ -7,7 +7,6 @@ require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 confirm_logged_in();
 
-
 if (isset($_GET['imageRecord']))
 {
 	$_SESSION['imageNum'] = $_GET['imageRecord'];
@@ -592,9 +591,9 @@ include('../_php/_order/query_image.php');?>
 
 		<?php 
 
-		$imageFile = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$_SESSION['image']['legacyId'].".jpg&amp;h=90&amp;q=60&amp;a=tl;";?>
+		$imageFile = IMAGE_DIR.'thumb/'.$_SESSION['image']['legacyId'].$_SESSION['image']['fileFormat']; ?>
 
-		<img class="catThumb" style="float: right; max-width: 240px;"
+		<img class="catThumb"
 			src="<?php echo $imageFile; ?>">
 
 	</div>
@@ -949,7 +948,7 @@ include('../_php/_order/query_image.php');?>
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($imageRights)) { foreach ($imageRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -963,7 +962,7 @@ include('../_php/_order/query_image.php');?>
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($imageSources)) { foreach ($imageSources as $source) { echo $source . '<br>'; } }
 		?></div>
 

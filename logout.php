@@ -1,6 +1,6 @@
 <?php
-
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
+if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 
@@ -18,5 +18,4 @@ if (isset($_COOKIE[session_name()])) {
 session_destroy();
 
 header('Location: login.php');
-
 die();

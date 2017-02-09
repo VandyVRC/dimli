@@ -989,6 +989,7 @@ while ($i < countCatRows($_SESSION['specificLocationArray'][$recordType])) {
 	$i ++;
 }
 
+
 //---------------------
 //	 BUILT WORK
 //---------------------

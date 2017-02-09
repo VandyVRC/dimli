@@ -763,8 +763,6 @@ if (!isset($_SESSION['createNewWork']))
 			
 		</div> <!-- catSectionWrapper -->
 		
-		
-		
 	<!-- Measurements -->
 		
 		<div class="catSectionWrapper workSection">
@@ -908,7 +906,7 @@ if (!isset($_SESSION['createNewWork']))
 									style="width: 2em;">
 								
 							</div>
-
+							
 						</div>
 
 						<div id="NWareaMeasurement<?php echo $i; ?>" 
@@ -997,7 +995,7 @@ if (!isset($_SESSION['createNewWork']))
 
 								<option id="gb" value="gb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'gb') ? 'selected="selected"' : ''; ?>>GB</option>
 
-								<option id="tb" value="tb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'tb') ? 'selected="selected"' : ''; ?>>TB (terabyte)</option>
+								<option id="tb" value="tb" <?php echo (isset($_SESSION['createNewWork']['fileSize'.$i]) && $_SESSION['createNewWork']['fileSize'.$i] == 'tb') ? 'selected="selected"' : ''; ?>>TB</option>
 							
 							</select>
 						
@@ -1878,7 +1876,7 @@ if (!isset($_SESSION['createNewWork']))
 								Preview thumbnail
 								-->
 								<?php 
-								$relatedImageSrc = $image_src.$_SESSION['createNewWork']['relationImage'.$i].'.jpg';	
+								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['createNewWork']['relationImage'.$i].'.jpg';	
 								?>"	
 								
 							<div class="workAssoc_results_col1">

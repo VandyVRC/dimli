@@ -4,7 +4,7 @@ require_priv('priv_catalog');
 $timestamp = date('Y-m-d H:i:s');
 
 $recordType = 'createNewWork'; // Used to differentiate between 'work' and 'createNewWork' arrays in included "update_db.php"
-$workDescription = mysqli_real_escape_string($connection, $_SESSION['descriptionArray']['createNewWork']['NWdescription0']);
+$workDescription = $_SESSION['descriptionArray']['createNewWork']['NWdescription0'];
 
 
 // Create the new work record

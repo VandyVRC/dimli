@@ -276,7 +276,7 @@ div#confirm_wrapper_temp {
 }
 
 div.record_thumbnail {
-  height: 90px;
+  height: 70px;
   width: 90px;
   border: 1px dashed #CCC;
   font-size: 0.8em;
@@ -1404,9 +1404,8 @@ div#orderView_imageList div {
 div.orderView_imageList_thumb {
   display: inline-block;
   height: 40px;
-  width: 60px;
+  width: 53px;
   position: relative;
-  background-color: #DDDDDD;
 }
 
 div.flagRecord_button {
@@ -1788,7 +1787,7 @@ div.catRowTitle {
   /*display: none;*/
   display: inline-block;
   position: relative;
-  width: 7.65em;
+  width: 7.75em;
   text-transform: capitalize;
 }
 

@@ -38,7 +38,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
         $sql = "SELECT legacy_id 
               FROM $DB_NAME.image 
               WHERE id = '{$prefImage}' ";
- 
+
         $result = db_query($mysqli, $sql);
 
           while ($row = $result->fetch_assoc()) {      
@@ -72,7 +72,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
     // If the image id of the preferred thumbnail is NOT blank, display a result row
     if (!empty($prefImage)) {
 
-      $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
+      $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$img_id.".jpg&amp;h=80&amp;w=80&amp;q=90";
     ?>
 
       <div class="lanternResults_list_row defaultCursor">
@@ -84,7 +84,6 @@ if (($page*$rpp)-$rpp <= count($results)) {
             title="Click to preview"
             data="<?php echo ($arr['type'] == 'work') ? $prefImage : create_six_digits($id); ?>"
             data-image="<?php echo $img_id; ?>">
-
 
           <span class="view_catalog pointer"
             title="Jump to catalog record">view catalog</span>
@@ -334,7 +333,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
     // ADD IMAGE TO CART
 
-    $('span.add_image_to_cart').click( 
+    $('span.add_image_to_cart').click(
       function () {
         
         var images = [];
@@ -342,7 +341,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
         $.each($related.find('img.related_thumb'), function () {
           images.push($(this).attr('data-image'));
-        });         
+        }); 
         add_to_cart(images);
       });
 

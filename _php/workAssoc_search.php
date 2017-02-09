@@ -203,7 +203,7 @@ if (!empty($matchingWorks)) {
 
 				$legacyId = $leg_id['legacy_id'];
 
-				$prefImage_file = $image_dir.$legacyId.'.jpg';
+				$prefImage_file = $image_dir.'thumb/'.$legacyId.'.jpg';
 			}
 
 			$sql = "SELECT title_text 
@@ -232,18 +232,7 @@ if (!empty($matchingWorks)) {
 
 			$i=0;
 
-				if ($relation == 'yes' && empty($prefImage)) 
-				{ ?>
-
-					<div>
-
-					Your search yielded no matching work records.
-
-					</div><?php	
-			 	}
-			 	
-			 	else 
-			 	{?>
+				?>
 					<div class="workAssoc_results_row">
 				
 						<input type="hidden" 
@@ -380,7 +369,7 @@ if (!empty($matchingWorks)) {
 						</div>
 						
 					</div> <!-- workAssoc_results_row -->
-		<?php	}
+		<?php	
 	}	
 }
 

@@ -6,7 +6,7 @@ require_once(MAIN_DIR.'/../_php/_config/connection.php');
 require_once(MAIN_DIR.'/../_php/_config/functions.php');
 
 confirm_logged_in();
-require_priv('priv_orders_read');
+
 
 // Use Image number passed from ajax request to find the associated work
 
@@ -585,6 +585,7 @@ if ($workNum != 'None') {
 			}
 	}
 
+	
 	//--------------------
 	//	 Query Relation
 	//--------------------
@@ -628,9 +629,9 @@ if ($workNum != 'None') {
 					$legacyId = $getLegacy['legacy_id'];
 					$imageView = '
 					<img class="relatedWork_image"
-					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.$legacyId.'.jpg&amp;h=40&amp;h=40&amp;q=90"
+					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.'medium/'.$legacyId.'.jpg&amp;h=40&amp;w=53&amp;q=90"
 					title="Click to preview"
-						style="max-width: 53px;">
+						style="max-height: 40px; max-width: 53px;">
 						<input type="hidden" id="imageView" value="'.$legacyId.'">
 						<input type="hidden" id="imageNum" value="'.$preferredImage.'">';
 				}
@@ -680,7 +681,6 @@ if ($workNum != 'None') {
 			
 		$workRelation[] = array($display_temp=>$relation['display']);	
 	}
-	
 	
 	//----------------------
 	//	 Query State/Edition
@@ -906,11 +906,8 @@ if ($workNum != 'None') {
 
 				while ($row = $result_prefLegId->fetch_assoc()){
 				$prefLegId = $row['legacy_id'];
-				$work_thumb_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$prefLegId.".jpg&amp;h=96&amp;q=60&amp;a=tl;";
+				$work_thumb_file = $image_dir.'/thumb/'.$prefLegId.'.jpg';
 				}
-
-
-
 	}
 
 	//-------------------------
@@ -978,18 +975,19 @@ elseif ($workNum == 'None')
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.$prefLegId.'.jpg')) 
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
 		{
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" style="max-width: 240px;"src="<?php echo $work_thumb_file; ?>"
+		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
 			onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 		<?php
 		}
 
-		else if ($workNum != 'None' && $workNum != '')
+		else if ($workNum != 'None' &&
+ -			$workNum != '')
 		{
 		?>
 
@@ -1376,7 +1374,7 @@ elseif ($workNum == 'None')
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($workRights)) { foreach ($workRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -1390,7 +1388,7 @@ elseif ($workNum == 'None')
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($workSources)) { foreach ($workSources as $source) { echo $source . '<br>'; } }
 		?></div>
 
@@ -1406,6 +1404,5 @@ elseif ($workNum == 'None')
 	// console.log(workNum+' added to the header of the work record'); // Debug
 
 	$('div#relation_work_module h1').append('<div class="floatRight" style="margin-right: 10px;">' + workNum + '</div>');
-
 
 </script>

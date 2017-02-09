@@ -851,7 +851,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							</div>
 							
 						</div>
-
+						
 						<div id="WareaMeasurement<?php echo $i; ?>" 
 							class="catCell">
 						
@@ -896,7 +896,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 									placeholder="Hrs"
 									value="<?php echo($_SESSION['work']['hours'.$i]!='0')?$_SESSION['work']['hours'.$i]:'';?>" 
 									maxlength="10" 
-								style="width: 1.7em;">
+									style="width: 1.7em;">
 							
 							</div>
 							
@@ -1058,11 +1058,11 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 							</select>
 						
 						</div>
-
+					
 					</div>		
 			
 				</div>		
-			
+
 			</div>
 			
 			<?php $i++; } ?>
@@ -1824,7 +1824,7 @@ $dependentImages_c = $dependentImages->fetch_assoc();
 								Preview thumbnail
 								-->
 								<?php 
-								$relatedImageSrc = $image_src.$_SESSION['work']['relationImage'.$i].'.jpg';	
+								$relatedImageSrc = $image_dir.'/thumb/'.$_SESSION['work']['relationImage'.$i].'.jpg';	
 								?>
 								
 								<div class="workAssoc_results_col1">

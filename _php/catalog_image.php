@@ -1363,7 +1363,7 @@ require_priv('priv_catalog'); ?>
 					<div class="addButton"><img src="_assets/_images/plus.png"></div>
 				
 				</div> <!-- catRowWrapper -->
-			
+
 				<div class ="catRowWrapper">
 
 					<div class ="catCellWrapper">
@@ -1431,7 +1431,7 @@ require_priv('priv_catalog'); ?>
 							
 					</div> <!-- catRowWrapper -->
 
-				</div>
+			</div>
 			
 			<?php $i++; } ?>
 		

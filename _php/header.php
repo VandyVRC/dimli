@@ -4,6 +4,7 @@
 <head>
 
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 
 header('Content-type: text/html; charset=utf-8'); ?>
@@ -47,11 +48,9 @@ header('Content-type: text/html; charset=utf-8'); ?>
         
       </a>
 
- <?php 
- if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) 
- { 
-      
-      if ($_SESSION['priv_users_read']=='1') { ?>
+    <?php if (logged_in() && strpos($_SERVER['REQUEST_URI'], 'import') === false) { ?>
+
+      <?php if ($_SESSION['priv_users_read']=='1') { ?>
 
       <!-- 
         ADMIN
@@ -231,19 +230,15 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
       </li>
 
-      
       <!--
         BATCH DOWNLOAD
        -->
 
-      <li id ="nav_cart" class="nav_item">cart
+      <li class="nav_item">cart
         <div class="nav_dropdown">
           <div id="cart">
             <h2>Your cart is empty</h2>
-            <div class="basket">
-            <input type='hidden' id="basket" 
-            value ="<?php echo $_SESSION['cart']?>">
-            </div>
+            <div class="basket"></div>
             <div class="footer">
               <span class="selected hidden">Remove selected</span>
               <span class="all hidden">Empty cart</span>
@@ -254,20 +249,18 @@ header('Content-type: text/html; charset=utf-8'); ?>
             </div>
           </div>
         </div>
-      </li>     
+      </li>
+
       <script>
-      
       var downloadCartLink = document.querySelector('#cart div.download a');
       downloadCartLink.addEventListener('click', function () {
         window.location = downloadCartLink.href;
       });
-
       </script>
+        
+      
 
-
-  <?php 
-  }
-   // If logged in ?>
+    <?php } // If logged in ?>
 
     </ul>
 
@@ -294,6 +287,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
           echo $_SESSION['display_name'];
 
         } ?>
+
       </li>
 
     </ul>
@@ -304,16 +298,16 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
 <div id="header_spacer"></div>
 
-<!-- <div id="control_panel_wide"> 
-<div id="control_panel"> 
-    // if (logged_in()) {
+<!-- <div id="control_panel_wide"> -->
+  <!-- <div id="control_panel"> -->
+    <?php // if (logged_in()) {
 
       // TEMP Reactivate if we want to use the lantern-search filters
       // include('_php/_lantern/lantern_control_panel.php');
 
-    // }
-  </div>
-</div> -->
+    // } ?>
+  <!-- </div> -->
+<!-- </div> -->
 
 <div id="body_wide">
 

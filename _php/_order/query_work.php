@@ -604,9 +604,9 @@ if ($_SESSION['workNum'] != 'None') {
 					$legacyId = $getLegacy['legacy_id'];
 					$imageView = '
 					<img class="relatedWork_image"
-					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.$legacyId.'.jpg&amp;h=40&amp;q=60"
+					src="'.$webroot.'/_plugins/timthumb/timthumb.php?src='.$image_src.'medium/'.$legacyId.'.jpg&amp;h=40&amp;w=53&amp;q=90"
 					title="Click to preview"
-						style="max-width: 53px;">
+						style="max-height: 40px; max-width: 53px;">
 						<input type="hidden" id="imageView" value="'.$legacyId.'">
 						<input type="hidden" id="imageNum" value="'.$preferredImage.'">';
 				
@@ -882,10 +882,7 @@ if ($_SESSION['workNum'] != 'None') {
 
 				while ($row = $result_prefLegId->fetch_assoc()){
 				$prefLegId = $row['legacy_id'];
-				$work_thumb_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$prefLegId.".jpg&amp;h=96&amp;q=60&amp;a=tl;";
-
-
-
+				$work_thumb_file = $image_dir.'/thumb/'.$prefLegId.'.jpg';
 				}
 	}
 

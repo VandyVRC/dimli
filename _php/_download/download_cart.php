@@ -21,7 +21,7 @@ chdir(MAIN_DIR.'/../../temp');
 
 if (preg_match('/http:/i', $image_dir)){    
   foreach ($images as $image){
-    $url = IMAGE_DIR.$image.'.jpg';
+    $url = IMAGE_DIR.'full/'.$image.'.jpg';
     $ch = curl_init();
     $fh = fopen($image.".jpg", 'wb');
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -37,7 +37,7 @@ if (preg_match('/http:/i', $image_dir)){
 }
 else {
  foreach ($images as $image){ 
-  $file = IMAGE_DIR.$image.'.jpg'; 
+  $file = IMAGE_DIR.'full/'.$image.'.jpg'; 
   $files[] = $file; 
   }
 }
@@ -114,6 +114,3 @@ function create_zip($files = array(), $destination ='') {
 
   return $archive;
 }
-
-
-

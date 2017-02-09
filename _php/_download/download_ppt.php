@@ -13,8 +13,7 @@ if (isset($_GET['order'])) {
 	$order = $_GET['order'];
 
 	// Define filepath/name of archive file
-
-	$file = $webroot.'/_ppts/'.$order.'.pptx';
+$file = MAIN_DIR.'/../../_ppts/'.$order.'.pptx';
 
 	if (file_exists($file)): // File EXISTS
 

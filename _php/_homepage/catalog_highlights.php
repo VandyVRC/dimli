@@ -58,13 +58,13 @@ if ($result->num_rows > 0):
 
 		<div class="inner_wrapper">
 
-			<img class="highlight_image" src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; echo $filename; ?>.jpg&amp;h=400&amp;q=90">
+			<img class="highlight_image" src="<?php echo $webroot; ?>/_plugins/timthumb/timthumb.php?src=<?php echo $image_src; ?>medium/<?php echo $filename; ?>.jpg&amp;h=400&amp;q=90">
 
 			<div class="banner">
 
 				<div class="banner_text">
 					<span class="title"><?php echo ($title); ?></span><br>
-					<span class="agent"><?php echo($agent); ?></span>
+					<span class="agent"><?php echo ($agent); ?></span>
 				</div>
 
 			</div>

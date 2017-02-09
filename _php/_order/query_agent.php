@@ -60,7 +60,6 @@ if ($result_work->num_rows > 0) {
 if ($assoc_work != 'Work not found') {
 // If an associated work was found
 
-
 	//------------------------------------------------------------
 	//  Retrieve the agent information associated with this work
 	//------------------------------------------------------------
@@ -91,7 +90,6 @@ if ($assoc_work != 'Work not found') {
 		$agent_display_array[] = $agent_display_temp;
 	
 	}
-
 	
 	if (!empty($agent_display_array)) {
 
@@ -102,6 +100,7 @@ if ($assoc_work != 'Work not found') {
 
 	}
 
+}
 else
 {
 	// Define display value for this agent
@@ -109,10 +108,8 @@ else
 	
 }
 
-echo ($imageAgent != '') 
+echo ($imageAgent == 'none') 
 	? $agent_display_short 
 	: $imageAgent;
 
-
-	}
-
+$agent_display_short = '';

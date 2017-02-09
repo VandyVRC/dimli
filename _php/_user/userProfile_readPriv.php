@@ -23,4 +23,4 @@ while ($row = $result->fetch_assoc()):
 
 	echo $priv;
 
-endwhile; 
+endwhile;

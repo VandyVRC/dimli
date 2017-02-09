@@ -209,13 +209,13 @@
 				.val(term);
 
 			// Find authority id of the selected term
-			var authorityId = $(this).next('span.authorityId').text();
+			var authorityId = $.trim($(this).next('span.authorityId').text());
 
 			// Put authority id in the hidden field
 			$(this).parents('div.resultsWrapper')
 				.prev('div.catRowWrapper')
 				.find('input[type=hidden]:not(.cat_display)')
-				.val(authorityId);
+				.val($.trim(authorityId));
 
 				// Update the selected term's popularity
 			catalogUI_incrementPopularity(authorityId, 'getty_tgn');

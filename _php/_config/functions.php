@@ -1,4 +1,5 @@
 <?php
+
 function check_required_fields($required_array) {
   $post_array = (isset($_POST['json'])) 
     ? $_POST['json'] 
@@ -250,16 +251,17 @@ function notEmpty($var) {
 //-----------------------------------------------------
 //  CSV export function, from Ninsuo on Stack Overflow
 //-----------------------------------------------------
-function array2csv($array) {
-  ob_start();
-  $df = fopen("php://output", 'w');
-  fputcsv($df, array_keys($array[0]));
-  foreach ($array as $row){
-  fputcsv($df, $row);
-  }
-  fclose($df);
-  return ob_get_clean();
+function array2csv(&$array) {
+   ob_start();
+   $df = fopen("php://output", 'w');
+   fputcsv($df, array_keys($array[0]));
+   foreach ($array as $row) {
+    fputcsv($df, $row);
+   }
+   fclose($df);
+   return ob_get_clean();
 }
+
 //---------------------------------
 //  Returns duplicate array values
 //---------------------------------
@@ -706,12 +708,12 @@ function lantern_list_display_location($mysqli, $recordType, $recordNum, $DB_NAM
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_specific_location($mysqli, $recordType, $recordNum, $DB_NAME)
+function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
   $sql = "SELECT * 
-        FROM $DB_NAME.specific_location 
+        FROM $DB_NAME.subject 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -719,14 +721,14 @@ function lantern_list_display_specific_location($mysqli, $recordType, $recordNum
   while ($row = $res->fetch_assoc())
   {
     $str = '';
-    $str .= (!empty($row['specific_location_type'])) ? $row['specific_location_type'] . ': ' : '';
-    $str .= (!empty($row['specific_location_address'])) ? $row['specific_location_address'] : '';
-    $str .= (!empty($row['specific_location_note'])) ? ' (' . $row['specific_location_note'] . ')' : '';
+    $str .= (!empty($row['subject_text'])) ? $row['subject_text'] : '';
+    $str .= (!empty($row['subject_type'])) ? ' (' . $row['subject_type'] . ')' : '';
     
     $arr[] = $str;
   }
   echo trim(implode(', ', $arr), ', ');
 }
+
 function lantern_list_display_inscription($mysqli, $recordType, $recordNum, $DB_NAME)
 {
 
@@ -745,27 +747,6 @@ function lantern_list_display_inscription($mysqli, $recordType, $recordNum, $DB_
     $str .= (!empty($row['inscription_text'])) ? '"' . $row['inscription_text'] . '"' : '';
     $str .= (!empty($row['inscription_author'])) ? ' by ' . $row['inscription_author'] : '';
     $str .= (!empty($row['inscription_location'])) ? '; Location: ' . $row['inscription_location'] : '';
-    
-    $arr[] = $str;
-  }
-  echo trim(implode(', ', $arr), ', ');
-}
-
-function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME)
-{
-  $arr = array();
-
-  $sql = "SELECT * 
-        FROM $DB_NAME.subject 
-        WHERE related_".$recordType."s = '{$recordNum}' ";
-
-  $res = db_query($mysqli, $sql);
-  
-  while ($row = $res->fetch_assoc())
-  {
-    $str = '';
-    $str .= (!empty($row['subject_text'])) ? $row['subject_text'] : '';
-    $str .= (!empty($row['subject_type'])) ? ' (' . $row['subject_type'] . ')' : '';
     
     $arr[] = $str;
   }
@@ -826,6 +807,7 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAM
     echo $title_arr[0];
     
   ?></div><?php
+
   // Display additional titles if they contain a search term
   $title_done = false;
   foreach ($searches_arr as $search)
@@ -845,7 +827,7 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAM
           if (stristr($title, $term) && !$title_done)
           {
           ?><div class="highlightable" style="margin-bottom: 2px; padding-left: 15px; text-indent: -15px;"><?php
-  
+           
             echo $title;
             
           ?></div><?php
@@ -957,15 +939,18 @@ function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 
 	foreach ($rel_images as $img) { 
 
-    		  $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$img.".jpg&amp;h=42&amp;q=60";?>
+    		  $src = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."thumb/".$img.".jpg&amp;h=42&amp;w=42&amp;q=60";?>
 
         <img src="<?php echo $src; ?>"
-            style="max-width: 42px;"
             class="related_thumb"
             title="Click to preview"
-            data-image="<?php echo $img;?>"><?php
+            data-image="<?php echo $img; ?>">
+
+	<?php
 	}
+
 }
+
 function print_r_pre($array)
 {
   echo '<pre>';

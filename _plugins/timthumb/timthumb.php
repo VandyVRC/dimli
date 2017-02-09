@@ -23,14 +23,14 @@
 define ('VERSION', '2.8.11'); // Version of this script 
 //Load a config file if it exists. Otherwise, use the values below
 if( file_exists(dirname(__FILE__) . '/timthumb-config.php'))   require_once('timthumb-config.php');
-if(! defined('DEBUG_ON') )             define ('DEBUG_ON', FALSE);                        // Enable debug logging to web server error log (STDERR)
+if(! defined('DEBUG_ON') )             define ('DEBUG_ON', false);                        // Enable debug logging to web server error log (STDERR)
 if(! defined('DEBUG_LEVEL') )          define ('DEBUG_LEVEL', 1);                      // Debug level 1 is less noisy and 3 is the most noisy
 if(! defined('MEMORY_LIMIT') )            define ('MEMORY_LIMIT', '30M');                    // Set PHP memory limit
 if(! defined('BLOCK_EXTERNAL_LEECHERS') )    define ('BLOCK_EXTERNAL_LEECHERS', false);            // If the image or webshot is being loaded on an external site, display a red "No Hotlinking" gif.
 
 //Image fetching and caching
 if(! defined('ALLOW_EXTERNAL') )       define ('ALLOW_EXTERNAL', TRUE);                // Allow image fetching from external websites. Will check against ALLOWED_SITES if ALLOW_ALL_EXTERNAL_SITES is false
-if(! defined('ALLOW_ALL_EXTERNAL_SITES') )   define ('ALLOW_ALL_EXTERNAL_SITES', FALSE);           // Less secure. 
+if(! defined('ALLOW_ALL_EXTERNAL_SITES') )   define ('ALLOW_ALL_EXTERNAL_SITES', false);           // Less secure. 
 if(! defined('FILE_CACHE_ENABLED') )      define ('FILE_CACHE_ENABLED', TRUE);               // Should we store resized/modified images on disk to speed things up?
 if(! defined('FILE_CACHE_TIME_BETWEEN_CLEANS')) define ('FILE_CACHE_TIME_BETWEEN_CLEANS', 86400);  // How often the cache is cleaned 
 
@@ -133,7 +133,6 @@ if(! isset($ALLOWED_SITES)){
       'imgur.com',
       'imageshack.us',
       'tinypic.com',
-      'dimli.library.vanderbilt.edu'
    );
 }
 // -------------------------------------------------------------

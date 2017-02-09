@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
 require_once(MAIN_DIR.'/../_php/_config/session.php');
 require_once(MAIN_DIR.'/../_php/_config/connection.php');
@@ -25,7 +26,7 @@ while ($row = $workToLoad_r->fetch_assoc())
 			: 'None';
 }
 
- 
+
 // Initialize SESSION work array and variables for cataloging input elements
 
 $_SESSION['work'] = array();
@@ -650,7 +651,7 @@ include('../_php/_order/query_work.php'); ?>
 					class="mediumWeight" 
 					style="text-align: center; margin: 35px 0 35px 0; font-size: 1.5em; color: #CCC;"
 					>No associated work record<br>Ask a cataloger to help rectify this!</p>
-n
+
 			</div>
 
 		<?php
@@ -711,18 +712,19 @@ n
 
 		<?php
 		
-		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.$prefLegId.'.jpg')) 
+		if (isset($prefLegId) && !in_array($work_thumb_id, array('','0'))) //&& checkRemoteFile($image_dir.'thumb/'.$prefLegId.'.jpg')) 
 		{
 		// IF a preferred image is assigned for this work record
 		?>
 
-		<img class="catThumb" style= "max-width: 240px;" src="<?php echo $work_thumb_file; ?>"
+		<img class="catThumb" src="<?php echo $work_thumb_file; ?>"
 			onclick="image_viewer('<?php echo $prefLegId; ?>');">
 
 		<?php
 		}
 
-		else if ($_SESSION['workNum'] != 'None' && $_SESSION['workNum'] != '')
+		else if ($_SESSION['workNum'] != 'None' &&
+ -			$_SESSION['workNum'] != '')
 		{
 		?>
 
@@ -1109,7 +1111,7 @@ n
 
 		<div class="content_lineTitle">Rights:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($workRights)) { foreach ($workRights as $rights) { echo $rights . '<br>'; } }
 		?></div>
 
@@ -1123,7 +1125,7 @@ n
 
 		<div class="content_lineTitle">Source:</div>
 
-		<div class="content_lineText" style="word-wrap: break-word;"><?php
+		<div class="content_lineText" style ="word-wrap: break-word;"><?php
 			if (!empty($workSources)) { foreach ($workSources as $source) { echo $source . '<br>'; } }
 		?></div>
 
@@ -1170,7 +1172,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
     				? substr($assocImg_legId, 0, 6) . '...' 
    				: $assocImg_legId;
 
-			$assocImg_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src.$assocImg_legId.".jpg&amp;h=35&amp;q=60&amp;a=tl;";
+			$assocImg_file = $webroot."/_plugins/timthumb/timthumb.php?src=".$image_src."medium/".$assocImg_legId.".jpg&amp;h=40&amp;w=53&amp;q=90";
 
 
 			$sql = "SELECT order_id 
@@ -1209,23 +1211,23 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 					style="display: none;"><?php echo $assocImg_legId; ?></div>	
 				
 				<div class="purple mediumWeight"
-					style="width: 50px;">
+					style="width: 50px; padding-right: 5px;">
 
 					<a class="assocImage_open"
 						title="Jump to record"><?php echo $truncView; ?></a>
 
 				</div>
 
-				<div style="width: 56px; height: 36px; background-color: #669;">
+				<div style="padding-right: 5px;">
 
 					<img class="assocImage_preview"
 						src="<?php echo $assocImg_file; ?>"
 						title="Click to preview"
-						style="max-width: 56px; position: relative; display: block; margin-left: auto; margin-right: auto;">
+						style="max-height: 40px; max-width: 53px;">
 
 				</div>
 
-				<div style="display: inline-block; width: 290px;">
+				<div style="display: inline-block; width: 290px; padding-right: 5px;">
 
 					<?php foreach ($assocImg_title_arr as $title){
 						echo '<div class="assocImage_title">'.(strlen($title) <= 46) 
@@ -1350,7 +1352,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			event.preventDefault();
 		});
 
-	var catPriv = '<?php echo $_SESSION['priv_catalog']?>';
+		var catPriv = '<?php echo $_SESSION['priv_catalog']?>';
 
 	// JUMP TO ASSOCIATED IMAGE RECORD
 
@@ -1360,6 +1362,9 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			var order = $(this).parents('div.work_assocImage_row')
 								.find('div.assocImage_order')
 								.text();
+		
+			
+			
 			if (catPriv == true){
 
 				open_order(order);
@@ -1407,23 +1412,24 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 	$('div.assocImage_pref').each(
 		function()
 		{
-			var image = $(this).parents('div.work_assocImage_row')
-								.find('div.assocImage_jump')
-								.text();
-			var pref_image = '<?php echo $work_thumb_id;?>';
-			if (image == pref_image)
-			{
-				$(this).addClass('pref');
-			}
-		});
 
+				var image = $(this).parents('div.work_assocImage_row')
+									.find('div.assocImage_jump')
+									.text();
+				var pref_image = '<?php echo $work_thumb_id;?>';
+				if (image == pref_image)
+				{
+					$(this).addClass('pref');
+				}
+		});
 
 	// ASSIGN NEW PREFERRED ASSOCIATED IMAGE
 
 	$('div.assocImage_pref:not(.pref)').click(
 		function()
 		{
-if (catPriv == true){
+
+			if (catPriv == true){
 				var image = $(this).parents('div.work_assocImage_row')
 									.find('div.assocImage_jump')
 									.text();
@@ -1433,7 +1439,7 @@ if (catPriv == true){
 					);
 				$('div.assocImage_pref').removeClass('pref');
 				$(this).addClass('pref');
-		};
+		}
 		});
 
 </script>

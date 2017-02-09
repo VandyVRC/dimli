@@ -1,6 +1,6 @@
 <?php
-
-if(!defined('MAIN_DIR')){define('MAIN_DIR',dirname('__FILENAME__'));}
+$urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
+if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php'); ?>
@@ -30,7 +30,7 @@ require_once(MAIN_DIR.'/_php/_config/functions.php'); ?>
 
 <script>
 
-var urlBase = '<?php echo $image_src; ?>';
+var urlBase = 'http://dimli.library.vanderbilt.edu/mdidimages/HoAC/';
 var portY = window.innerHeight;
 var portX = window.innerWidth;
 var wrapper = document.getElementById('slideshow_wrap');
@@ -49,7 +49,7 @@ function queueSlide(hopperArray) {
 		while (imgNum.length < 6) {
 			imgNum = '0' + imgNum;
 		}
-		if (UrlExists(urlBase+imgNum+'.jpg') === true) {
+		if (UrlExists(urlBase+'thumb/'+imgNum+'.jpg') === true) {
 			hopperArray.push(imgNum);
 			console.log("Added "+imgNum+" to the hopper: "+hopperArray);
 		} else {
@@ -72,7 +72,7 @@ function nextSlidePlease(hopperArray) {
 		}
 
 		var nextImgNum = hopperArray.splice(0, 1);
-		var imageFilepath = urlBase+nextImgNum+'.jpg';
+		var imageFilepath = urlBase+'full/'+nextImgNum+'.jpg';
 
 		loadImage(
 			imageFilepath,
