@@ -15,7 +15,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
   <title><?php echo $site_title; ?></title>
 
 <!-- Roboto font -->
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' 
+<link href='//fonts.googleapis.com/css?family=Roboto:400,300' 
   rel='stylesheet' type='text/css'>
 
 <!-- Favicon -->
@@ -25,7 +25,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
 <link href="_stylesheets/hobblet.css" rel="stylesheet" type="text/css">
 
 <!-- jQuery -->
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
