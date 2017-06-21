@@ -6,7 +6,6 @@
 _php/_config/constants.inc.php
 _jquery/*
 _plugins/timthumb/cache/*
-legacyReader.php
 sandbox.php
 
 # Compiled source #
