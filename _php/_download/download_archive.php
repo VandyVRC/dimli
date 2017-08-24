@@ -29,7 +29,7 @@ if (isset($_GET['order']) && isset($_GET['size'])) {
         $image = $row['legacy_id'].".jpg";
         $images[] =$image; 
     }
-        if (preg_match('/http:/i', $image_dir)){ 
+        if (preg_match('/https:/i', $image_dir)){ 
 
             chdir(MAIN_DIR.'/../../temp');
 
