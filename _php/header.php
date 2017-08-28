@@ -198,7 +198,7 @@ header('Content-type: text/html; charset=utf-8'); ?>
         LANTERN
        -->
 
-      <li id="nav_lantern">lantern
+      <li id="nav_lantern">search
         
         <div class="nav_dropdown defaultPointer"
           style="margin-left: -100px; padding: 15px;">

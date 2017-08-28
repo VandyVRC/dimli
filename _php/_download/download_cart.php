@@ -17,9 +17,11 @@ $saveDownload = $_GET['new'] === 'true';
 // Construct an array of filepaths to be added to the zip archive
 $images = explode(',', $_GET['images']);
 $files = array(); 
+
+
 chdir(MAIN_DIR.'/../../temp');
 
-if (preg_match('/http:/i', $image_dir)){    
+if (preg_match('/https:/i', $image_dir)){    
   foreach ($images as $image){
     $url = IMAGE_DIR.'full/'.$image.'.jpg';
     $ch = curl_init();

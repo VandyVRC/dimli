@@ -3134,7 +3134,7 @@ function add_to_cart(images) {
     var thumb = document.createElement('img');
     thumb.className = 'thumb';
     thumb.setAttribute('data-image', images[i]);
-    thumb.setAttribute('src', 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=mdidimages/HoAC/thumb/' + images[i] + '.jpg&h=30&w=30&q=60');
+    thumb.setAttribute('src', 'https://dimli.app.vanderbilt.edu/_plugins/timthumb/timthumb.php?src=hartstor/HoAC/thumb/' + images[i] + '.jpg&h=30&w=30&q=60');
 
     $basket.append(thumb);
     added++;
