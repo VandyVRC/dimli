@@ -190,10 +190,9 @@ require("_php/header.php"); ?>
 
 	<div class="pane">
 
-	<div class="floatRight" 
-		style="right: 40px; top: 40px; maxheight: 80px;">
+	<div class="floatRight" style="right: 40px; top: 40px; maxheight: 80px; margin-top: 15px;">
 
-		<img src="mdidimages/HoAC/medium/<?php echo $_SESSION['legReader_currentRecord']; ?>.jpg" 
+		<img src="hartstor/HoAC/medium/<?php echo $_SESSION['legReader_currentRecord']; ?>.jpg" 
 			style="max-height: 150px;">
 
 	</div>
