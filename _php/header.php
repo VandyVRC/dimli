@@ -211,14 +211,14 @@ header('Content-type: text/html; charset=utf-8'); ?>
 
           <div style="margin: 20px 0 8px 0; font-size: 0.75em; color: #E6E6FA; position: relative;"
             title="Feature not yet available">
-
+            <!--
             <input type="checkbox"
               id="lantern_gettyToggle"
               style="margin: 0; vertical-align: bottom;"
               disabled class="fadedMore">
-
-            <span class="fadedMore" style="font-size: 1.0em;">Extra kerosene! (takes much longer)</span>
-
+            -->
+            <span class="fadedMore" style="font-size: 1.0em;">&nbsp;</span>
+            
             <button type="button"
               style="position: absolute; right: 0; margin: 0; padding: 2px 25px; margin-top: -7px; border-radius: 3px; font-size: 1.3em; font-weight: 400;"
               id="lantern_submit"
