@@ -26,7 +26,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
       $short_id = ltrim($id, '0');
 
       $sql = "SELECT preferred_image 
-            FROM $DB_NAME.work 
+            FROM DB_NAME.work 
             WHERE id = {$short_id} ";
 
       $res = db_query($mysqli, $sql);
@@ -36,7 +36,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
         $prefImage = $work['preferred_image'];
         
         $sql = "SELECT legacy_id 
-              FROM $DB_NAME.image 
+              FROM DB_NAME.image 
               WHERE id = '{$prefImage}' ";
 
         $result = db_query($mysqli, $sql);
@@ -53,7 +53,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
     elseif ($arr['type']=='image'){
       
       $sql = "SELECT legacy_id, related_works 
-              FROM $DB_NAME.image 
+              FROM DB_NAME.image 
               WHERE id = {$id} ";   
 
       $result = db_query($mysqli, $sql);
@@ -108,7 +108,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
             <?php
             $sql = "SELECT * 
-                  FROM $DB_NAME.title 
+                  FROM DB_NAME.title 
                   WHERE related_{$arr['type']}s = {$id} ";
 
             $res = db_query($mysqli, $sql);
@@ -125,7 +125,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
               : $title_arr;
 
             // Display appropriate titles
-            lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAME); ?>
+            lantern_list_display_titles($mysqli, $title_arr, $searches_arr, DB_NAME); ?>
 
           </div>
 
@@ -135,7 +135,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             style="margin-bottom: 1px; font-size: 0.9em;">
 
             <?php
-            lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent, $DB_NAME);
+            lantern_list_display_agents($mysqli, $arr['type'], create_six_digits($id), $searches_arr, $parent, DB_NAME);
             ?>
 
           </div>
@@ -163,7 +163,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             <span class="highlightable">
 
               <?php
-              lantern_list_display_date($mysqli, $arr['type'], $id, $parent, $DB_NAME);
+              lantern_list_display_date($mysqli, $arr['type'], $id, $parent, DB_NAME);
                 // eg. func('work', '062261', 'none/000261')
               ?>
 
@@ -195,7 +195,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
                 <span class="highlightable"><?php
 
                   // Call appropriate function to display this field
-                  $func($mysqli, $arr['type'], $id, $DB_NAME); 
+                  $func($mysqli, $arr['type'], $id, DB_NAME); 
                     // eg. func(mysqli connection, 'work', '000261')
               
                 ?></span>
@@ -209,7 +209,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
             if (in_array($search, array('work_description','image_description'))) {
 
               $sql = "SELECT description 
-                    FROM $DB_NAME.{$arr['type']} 
+                    FROM DB_NAME.{$arr['type']} 
                     WHERE lpad(id, 6, '0') = {$id} ";
 
               $res = db_query($mysqli, $sql);
@@ -240,7 +240,7 @@ if (($page*$rpp)-$rpp <= count($results)) {
 
           <?php
           if ($arr['type']=='work') {
-            get_related_images($mysqli, $id, $DB_NAME, $webroot, $image_src);
+            get_related_images($mysqli, $id, DB_NAME, $webroot, $image_src);
           } ?>
 
         </div>

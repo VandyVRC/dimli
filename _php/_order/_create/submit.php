@@ -56,7 +56,7 @@ while ($i <= $imageCount) {
 		$fig = trim($mysqli->real_escape_string($_POST['image'.$i]['fig']));
 		$fileFormat = ($_POST['image'.$i]['fileFormat']);
 
-		$sql = "INSERT INTO $DB_NAME.image
+		$sql = "INSERT INTO DB_NAME.image
 					SET
 						legacy_id = '{$legacyId}',
 						page = '{$page}',
@@ -74,7 +74,7 @@ while ($i <= $imageCount) {
 
 		if ($legacyId == ''){
 
-		$sql = "UPDATE $DB_NAME.image
+		$sql = "UPDATE DB_NAME.image
 					SET legacy_id = '{$thisImage}'
 					WHERE id = '{$thisId}'";
 		
@@ -83,7 +83,7 @@ while ($i <= $imageCount) {
 
 		}
 	
-	$sql = "INSERT INTO $DB_NAME.source
+	$sql = "INSERT INTO DB_NAME.source
 					SET related_images = '{$thisImage}',
 						source_name_type = '{$source_name_type}',
 						source_name_text = '{$source_name_text}',
@@ -103,7 +103,7 @@ while ($i <= $imageCount) {
 //--------------------------------------=-
 
 //$sql = "SELECT id
-		//	FROM $DB_NAME.user
+		//	FROM DB_NAME.user
 	//		WHERE display_name ='{$requestor}'";
 
 //	$result = db_query($mysqli, $sql);
@@ -122,7 +122,7 @@ while ($i <= $imageCount) {
 
 $today = date('Y-m-d H:i:s');
 
-$sql = "INSERT INTO $DB_NAME.order
+$sql = "INSERT INTO DB_NAME.order
 			SET requestor = '{$requestor}',
 				department = '{$department}',
 				email = '{$email}',
@@ -144,7 +144,7 @@ $result = db_query($mysqli, $sql);
 
 $newOrderId = $mysqli->insert_id;
 
-$sql = "UPDATE $DB_NAME.image 
+$sql = "UPDATE DB_NAME.image 
 			SET order_id = '{$newOrderId}' 
 			WHERE order_id = '0' ";
 
@@ -157,7 +157,7 @@ $result = db_query($mysqli, $sql);
 
 $UnixTime = time(TRUE);
 
-$sql = "INSERT INTO $DB_NAME.activity
+$sql = "INSERT INTO DB_NAME.activity
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = {$newOrderId},

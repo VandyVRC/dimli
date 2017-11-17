@@ -53,7 +53,7 @@ $_SESSION['findOrders_showComplete'] =
 //---------------------------------------------------------
 
 $sql = "SELECT DISTINCT(requestor) 
-			FROM $DB_NAME.order ";
+			FROM DB_NAME.order ";
 
 $result = db_query($mysqli, $sql);
 
@@ -67,7 +67,7 @@ while ($patron = $result->fetch_assoc()) {
 //--------------------------------------------------------
 
 $sql = "SELECT DISTINCT(display_name) 
-			FROM $DB_NAME.user ";
+			FROM DB_NAME.user ";
 
 $result = db_query($mysqli, $sql);
 

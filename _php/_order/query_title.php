@@ -4,7 +4,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 
 
 $sql = "SELECT title_text 
-			FROM $DB_NAME.title 
+			FROM DB_NAME.title 
 			WHERE related_images = '{$imageId}' 
 			ORDER BY id ASC 
 			LIMIT 1 ";

@@ -17,7 +17,7 @@ $_SESSION['order'] = $_GET['order'];
 
 // Log this visit
 $UnixTime = time(TRUE);
-$sql = "INSERT INTO $DB_NAME.activity 
+$sql = "INSERT INTO DB_NAME.activity 
 			SET UserID = '{$_SESSION['user_id']}',
 				RecordType = 'Order',
 				RecordNumber = '{$_SESSION['order']}',
@@ -31,7 +31,7 @@ $result = db_query($mysqli, $sql);
 //-----------------------------
 
 $sql = "SELECT * 
-			FROM $DB_NAME.order 
+			FROM DB_NAME.order 
 			WHERE id = '{$_SESSION['order']}' ";
 
 $result = db_query($mysqli, $sql);
@@ -45,7 +45,7 @@ while ($row = $result->fetch_assoc()) {
 	$createdBy = 	$row['created_by'];
 
 		$sql = "SELECT * 
-					FROM $DB_NAME.user 
+					FROM DB_NAME.user 
 					WHERE username = '{$createdBy}' ";
 
 		$result = db_query($mysqli, $sql);
@@ -62,7 +62,7 @@ while ($row = $result->fetch_assoc()) {
 	$lastUpdateBy = 	$row['last_update_by'];
 
 		$sql = "SELECT * 
-					FROM $DB_NAME.user 
+					FROM DB_NAME.user 
 					WHERE username = '{$lastUpdateBy}' ";
 
 		$result = db_query($mysqli, $sql);
@@ -103,7 +103,7 @@ while ($row = $result->fetch_assoc()) {
 //--------------------- 
 
 $sql = "SELECT * 
-			FROM $DB_NAME.image 
+			FROM DB_NAME.image 
 			WHERE order_id = '{$_SESSION['order']}' ";
 
 $result_orderHQ_images = db_query($mysqli, $sql);
@@ -113,7 +113,7 @@ $result_orderHQ_images = db_query($mysqli, $sql);
 //---------------------------------------------------------
 
 $sql = "SELECT * 
-			FROM $DB_NAME.order 
+			FROM DB_NAME.order 
 			WHERE id = '{$_SESSION['order']}' ";
 
 $statusResult = db_query($mysqli, $sql);
@@ -170,7 +170,7 @@ if ($imagesEdited == 1 && $imagesExported == 1 && $imagesDelivered == 1 && $imag
 //  Update the "complete" status of the current order
 //------------------------------------------------------
 
-$sql = "UPDATE $DB_NAME.order 
+$sql = "UPDATE DB_NAME.order 
 			SET complete = '{$orderComplete}' 
 			WHERE id = '{$_SESSION['order']}' ";
 
@@ -195,7 +195,7 @@ $privEdit = $_SESSION['priv_orders_create'];
 		<option data-id="0">- Unassigned -</option>
 
 		<?php $sql = "SELECT * 
-							FROM $DB_NAME.user 
+							FROM DB_NAME.user 
 							WHERE pref_user_type = 'cataloger' 
 							ORDER BY id";
 

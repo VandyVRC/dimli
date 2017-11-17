@@ -34,7 +34,7 @@ if (isset($_POST['recovery'])) {
 		//  Check user credentials against the database
 		//-----------------------------------------------
 
-		$sql = "SELECT * FROM $DB_NAME.user 
+		$sql = "SELECT * FROM DB_NAME.user 
 					WHERE email = '{$email}' ";
 
 		$result = db_query($mysqli, $sql);

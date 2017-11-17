@@ -55,7 +55,7 @@ All data created by, and imported into, DIMLI will reside within these tables an
     define('DB_PASS', '{yourDatabasePassword}');
     define('DB_NAME', '{yourDatabaseName}');
 
-    $DB_NAME = DB_NAME;
+    DB_NAME = DB_NAME;
 
     
     ROOT DOMAIN OF YOUR DIMLI DIRECTORY 

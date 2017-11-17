@@ -28,7 +28,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'range')
     $start = $_GET['first'];
     $end = $_GET['last'];
 
-    $sql = "SELECT legacy_id, related_works FROM $DB_NAME.image 
+    $sql = "SELECT legacy_id, related_works FROM DB_NAME.image 
                 WHERE id BETWEEN {$start} AND {$end} ";
     // Establish query fragment to be used below 
     // to update images records after export is complete
@@ -41,7 +41,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'range')
 elseif (isset($_GET['type']) && $_GET['type'] == 'flagged')
 {
     // User exported all flagged and approved images
-    $sql = "SELECT legacy_id, related_works FROM $DB_NAME.image 
+    $sql = "SELECT legacy_id, related_works FROM DB_NAME.image 
                 WHERE id IN({$flaggedImages_str}) ";
     // Establish query fragment to be used below 
     // to update images records after export is complete
@@ -117,7 +117,7 @@ foreach ($records as $record)
         $recordId = str_replace('image_', '', $record);
         
         $sql = "SELECT id
-                FROM $DB_NAME.image
+                FROM DB_NAME.image
                 WHERE legacy_id = '{$recordId}'";
 
             $idResult = $mysqli->query($sql);   
@@ -156,7 +156,7 @@ foreach ($records as $record)
         if ($elementSet == 'agentSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.agent 
+                    FROM DB_NAME.agent 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $agentResult = $mysqli->query($sql);   
@@ -212,7 +212,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql= " SELECT * 
-                FROM $DB_NAME.agent 
+                FROM DB_NAME.agent 
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $agentAgain = $mysqli->query($sql);   
@@ -320,7 +320,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'culturalContextSet')
         {    
             $sql="SELECT *
-                    FROM $DB_NAME.culture 
+                    FROM DB_NAME.culture 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $cultureResult = $mysqli->query($sql);   
@@ -338,7 +338,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);    
 
                 $sql="SELECT *
-                    FROM $DB_NAME.culture 
+                    FROM DB_NAME.culture 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $cultureAgain = $mysqli->query($sql);   
@@ -403,7 +403,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'dateSet')
         {
             $sql= " SELECT * 
-                    FROM $DB_NAME.date
+                    FROM DB_NAME.date
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $dateResult = $mysqli->query($sql);   
@@ -442,7 +442,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);
 
                 $sql= " SELECT * 
-                    FROM $DB_NAME.date
+                    FROM DB_NAME.date
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $dateAgain = $mysqli->query($sql);   
@@ -519,14 +519,14 @@ foreach ($records as $record)
             if (preg_match('/work/', $record))
             {    
                 $sql= " SELECT description
-                        FROM $DB_NAME.work
+                        FROM DB_NAME.work
                         WHERE id = '{$recordId}'";
             }
             
             else
             {
                 $sql= " SELECT description
-                        FROM $DB_NAME.image
+                        FROM DB_NAME.image
                         WHERE legacy_id = '{$recordId}'";
             }            
 
@@ -547,14 +547,14 @@ foreach ($records as $record)
             if (preg_match('/work/', $record))
             {    
                 $sql= " SELECT description
-                        FROM $DB_NAME.work
+                        FROM DB_NAME.work
                         WHERE id = '{$refNum}'";
             }
             
             else
             {
                 $sql= " SELECT description
-                        FROM $DB_NAME.image
+                        FROM DB_NAME.image
                         WHERE legacy_id = '{$refNum}'";
             }            
 
@@ -599,7 +599,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'inscriptionSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.inscription
+                    FROM DB_NAME.inscription
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $inscriptionResult = $mysqli->query($sql);   
@@ -627,7 +627,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql = " SELECT * 
-                FROM $DB_NAME.inscription
+                FROM DB_NAME.inscription
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $inscriptionAgain = $mysqli->query($sql);   
@@ -691,7 +691,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'locationSet')
         {
             $sql= " SELECT * 
-                    FROM $DB_NAME.location
+                    FROM DB_NAME.location
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $locationResult = $mysqli->query($sql);   
@@ -719,7 +719,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);
 
             $sql= " SELECT * 
-                FROM $DB_NAME.location
+                FROM DB_NAME.location
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $locationAgain = $mysqli->query($sql);   
@@ -797,7 +797,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'materialSet')
         {    
             $sql= "SELECT *
-                    FROM $DB_NAME.material 
+                    FROM DB_NAME.material 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $materialResult = $mysqli->query($sql);   
@@ -825,7 +825,7 @@ foreach ($records as $record)
                 $displayThis = implode(' ', $displayTexts);    
 
                 $sql="SELECT * 
-                    FROM $DB_NAME.material 
+                    FROM DB_NAME.material 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $materialAgain = $mysqli->query($sql);   
@@ -892,7 +892,7 @@ foreach ($records as $record)
             $basicUnitMeasurements = array('circumference','depth','diameter','distance between','height','length','width');
           
             $sql="SELECT *
-                FROM $DB_NAME.measurements 
+                FROM DB_NAME.measurements 
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $measurementsResult = $mysqli->query($sql);  
@@ -964,7 +964,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);    
 
             $sql = "SELECT * 
-                FROM $DB_NAME.measurements 
+                FROM DB_NAME.measurements 
                 WHERE related_".$type."s = '{$refNum}'";
 
             $measurementsAgain = $mysqli->query($sql);   
@@ -1084,7 +1084,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'relationSet' && $type == 'work')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.relation 
+                    FROM DB_NAME.relation 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $relationResult = $mysqli->query($sql);   
@@ -1097,7 +1097,7 @@ foreach ($records as $record)
                     if (!empty($relatedTo))
                      {   
                         $sql = "SELECT title_text 
-                            FROM $DB_NAME.title 
+                            FROM DB_NAME.title 
                             WHERE related_works = '{$relatedTo}'";
                           
                             $resultRelationTitle = $mysqli->query($sql);   
@@ -1122,7 +1122,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);
 
                 $sql= " SELECT *
-                        FROM $DB_NAME.relation 
+                        FROM DB_NAME.relation 
                         WHERE related_".$type."s = '{$refNum}'";
 
                     $relationAgain = $mysqli->query($sql);   
@@ -1134,7 +1134,7 @@ foreach ($records as $record)
                         //$relId = 'w_'.$row['relation_id'];
                         
                         $sql = "SELECT title_text 
-                            FROM $DB_NAME.title 
+                            FROM DB_NAME.title 
                             WHERE related_works = '{$relatedTo}'";
                           
                             $relationTitleAgain = $mysqli->query($sql);   
@@ -1180,7 +1180,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'rightsSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.rights
+                    FROM DB_NAME.rights
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $rightsResult = $mysqli->query($sql);   
@@ -1203,7 +1203,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql = " SELECT * 
-                FROM $DB_NAME.rights
+                FROM DB_NAME.rights
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $rightsAgain = $mysqli->query($sql);   
@@ -1258,7 +1258,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'sourceSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.source
+                    FROM DB_NAME.source
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $sourceResult = $mysqli->query($sql);   
@@ -1282,7 +1282,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql = " SELECT * 
-                FROM $DB_NAME.source
+                FROM DB_NAME.source
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $sourceAgain = $mysqli->query($sql);   
@@ -1355,7 +1355,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'stateEditionSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.edition
+                    FROM DB_NAME.edition
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $editionResult = $mysqli->query($sql);   
@@ -1379,7 +1379,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql = " SELECT * 
-                FROM $DB_NAME.edition
+                FROM DB_NAME.edition
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $editionAgain = $mysqli->query($sql);   
@@ -1432,7 +1432,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'stylePeriodSet')
         {    
             $sql="SELECT *
-                    FROM $DB_NAME.style_period 
+                    FROM DB_NAME.style_period 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $style_periodResult = $mysqli->query($sql);   
@@ -1450,7 +1450,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);    
 
                 $sql="SELECT *
-                    FROM $DB_NAME.style_period 
+                    FROM DB_NAME.style_period 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $style_periodAgain = $mysqli->query($sql);   
@@ -1514,7 +1514,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'subjectSet')
         {    
             $sql="SELECT *
-                    FROM $DB_NAME.subject 
+                    FROM DB_NAME.subject 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $subjectResult = $mysqli->query($sql);   
@@ -1532,7 +1532,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);    
 
                 $sql="SELECT *
-                    FROM $DB_NAME.subject 
+                    FROM DB_NAME.subject 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $subjectAgain = $mysqli->query($sql);   
@@ -1651,7 +1651,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'techniqueSet')
         {    
             $sql="SELECT *
-                    FROM $DB_NAME.technique 
+                    FROM DB_NAME.technique 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $techniqueResult = $mysqli->query($sql);   
@@ -1669,7 +1669,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);    
 
                 $sql="SELECT *
-                    FROM $DB_NAME.technique 
+                    FROM DB_NAME.technique 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $techniqueAgain = $mysqli->query($sql);   
@@ -1734,7 +1734,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'titleSet')
         {
             $sql= " SELECT *
-                    FROM $DB_NAME.title
+                    FROM DB_NAME.title
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $titleResult = $mysqli->query($sql);   
@@ -1758,7 +1758,7 @@ foreach ($records as $record)
             $displayThis = implode('; ', $displayTexts);
 
             $sql = " SELECT * 
-                FROM $DB_NAME.title
+                FROM DB_NAME.title
                 WHERE related_".$type."s = '{$refNum}'";
 
                 $titleAgain = $mysqli->query($sql);   
@@ -1808,7 +1808,7 @@ foreach ($records as $record)
         elseif ($elementSet == 'worktypeSet')
         {    
             $sql="SELECT *
-                    FROM $DB_NAME.work_type 
+                    FROM DB_NAME.work_type 
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $work_typeResult = $mysqli->query($sql);   
@@ -1826,7 +1826,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);    
 
                 $sql="SELECT *
-                    FROM $DB_NAME.work_type
+                    FROM DB_NAME.work_type
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $work_typeAgain = $mysqli->query($sql);   
@@ -1892,7 +1892,7 @@ foreach ($records as $record)
         {    
 
             $sql="SELECT *
-                    FROM $DB_NAME.specific_location
+                    FROM DB_NAME.specific_location
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $specific_locationResult = $mysqli->query($sql);   
@@ -1935,7 +1935,7 @@ foreach ($records as $record)
                 $displayThis = implode('; ', $displayTexts);        
 
             $sql="SELECT *
-                    FROM $DB_NAME.specific_location
+                    FROM DB_NAME.specific_location
                     WHERE related_".$type."s = '{$refNum}'";
 
                 $specific_locationAgain = $mysqli->query($sql);   
@@ -2017,7 +2017,7 @@ return ob_get_clean();
 //---------------------------------------------------------
 
 $timestamp = date('Y-m-d H:i:s');
-$sql = "UPDATE $DB_NAME.image
+$sql = "UPDATE DB_NAME.image
             SET last_exported = '{$timestamp}',
                 flagged_for_export = '0'
             WHERE {$updateThese} ";

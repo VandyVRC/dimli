@@ -10,7 +10,7 @@ $first = $_GET['firstExportRecord'];
 $last = $_GET['lastExportRecord'];
 $format = $_GET['format'];
 
-	$sql = "SELECT id FROM $DB_NAME.image 
+	$sql = "SELECT id FROM DB_NAME.image 
 				WHERE legacy_id = '{$first}'"
 				;
 		$result = db_query($mysqli, $sql);	
@@ -25,7 +25,7 @@ $format = $_GET['format'];
 				$first = 0;
 			}
 
-		$sql = "SELECT id FROM $DB_NAME.image 
+		$sql = "SELECT id FROM DB_NAME.image 
 				WHERE legacy_id = '{$last}'";	
 			$result = db_query($mysqli, $sql);	
 			

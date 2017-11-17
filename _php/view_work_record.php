@@ -11,7 +11,7 @@ confirm_logged_in();
 // Use Image number passed from ajax request to find the associated work
 
 $sql = "SELECT related_works 
-			FROM $DB_NAME.image 
+			FROM DB_NAME.image 
 			WHERE id = '{$_GET['imageRecord']}' LIMIT 1 ";
 
 $workToLoad_r = db_query($mysqli, $sql);
@@ -122,7 +122,7 @@ if ($_SESSION['workNum'] != 'None')
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO $DB_NAME.activity 
+	$sql = "INSERT INTO DB_NAME.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Work', 
 					RecordNumber = {$_SESSION['workNum']}, 
@@ -136,7 +136,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -150,7 +150,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.title 
+				FROM DB_NAME.title 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -168,7 +168,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.agent 
+				FROM DB_NAME.agent 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -189,7 +189,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.date 
+				FROM DB_NAME.date 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -212,7 +212,7 @@ if ($_SESSION['workNum'] != 'None')
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.material 
+				FROM DB_NAME.material 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -231,7 +231,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.technique 
+				FROM DB_NAME.technique 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -249,7 +249,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.work_type 
+				FROM DB_NAME.work_type 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -267,7 +267,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.measurements 
+				FROM DB_NAME.measurements 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -299,7 +299,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ----------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.culture 
+				FROM DB_NAME.culture 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -317,7 +317,7 @@ if ($_SESSION['workNum'] != 'None')
 	// ------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.style_period 
+				FROM DB_NAME.style_period 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -335,7 +335,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_works = '{$_SESSION['workNum']}' 
 				AND NOT location_getty_id REGEXP 'work' ";
 
@@ -356,7 +356,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -------------
 
 	$sql = "SELECT * 
-				FROM $DB_NAME.specific_location 
+				FROM DB_NAME.specific_location 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -378,7 +378,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -------------
 
 	$sql = "SELECT *
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_works = '{$_SESSION['workNum']}' 
 				AND location_getty_id REGEXP 'work' ";
 
@@ -398,7 +398,7 @@ if ($_SESSION['workNum'] != 'None')
 	//	Related Work
 	// ------------
 	$sql = "SELECT * 
-				FROM $DB_NAME.relation 
+				FROM DB_NAME.relation 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -414,7 +414,7 @@ if ($_SESSION['workNum'] != 'None')
 		if(!empty($row['relation_id'])){
 
 			$sql = "SELECT preferred_image 
-							FROM $DB_NAME.work
+							FROM DB_NAME.work
 							WHERE id = '{$getRelated}' 
 							LIMIT 1 " ;
 
@@ -429,7 +429,7 @@ if ($_SESSION['workNum'] != 'None')
 			if (!empty($preferredImage)) {	
 
 			$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image
+						FROM DB_NAME.image
 						WHERE id = '{$preferredImage}' ";	
 
 				$result_getLeg	= db_query($mysqli, $sql); 
@@ -443,7 +443,7 @@ if ($_SESSION['workNum'] != 'None')
 										
 
 			$sql = "SELECT title_text
-					FROM $DB_NAME.title
+					FROM DB_NAME.title
 					WHERE related_works = '{$getRelated}'
 					LIMIT 1 " ;
 
@@ -455,7 +455,7 @@ if ($_SESSION['workNum'] != 'None')
 				}
 
 			$sql = "SELECT agent_text
-					FROM $DB_NAME.agent
+					FROM DB_NAME.agent
 					WHERE related_works = '{$getRelated}'
 					LIMIT 1 ";	
 
@@ -473,7 +473,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.edition 
+				FROM DB_NAME.edition 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -490,7 +490,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.inscription 
+				FROM DB_NAME.inscription 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -510,7 +510,7 @@ if ($_SESSION['workNum'] != 'None')
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.subject 
+				FROM DB_NAME.subject 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -529,7 +529,7 @@ if ($_SESSION['workNum'] != 'None')
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -543,7 +543,7 @@ if ($_SESSION['workNum'] != 'None')
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.rights 
+				FROM DB_NAME.rights 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -561,7 +561,7 @@ if ($_SESSION['workNum'] != 'None')
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.source 
+				FROM DB_NAME.source 
 				WHERE related_works = '{$_SESSION['workNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -1176,7 +1176,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 
 
 			$sql = "SELECT order_id 
-						FROM $DB_NAME.image 
+						FROM DB_NAME.image 
 						WHERE id = '{$row['id']}' ";
 
 			$assocImg_order_res = db_query($mysqli, $sql);
@@ -1187,7 +1187,7 @@ if (isset($associatedImages_ct) && $associatedImages_ct > 0)
 			}
 
 			$sql = "SELECT title_text 
-						FROM $DB_NAME.title 
+						FROM DB_NAME.title 
 						WHERE related_images = '{$assocImg_id}' ";
 
 			$assocImg_title_res = db_query($mysqli, $sql);

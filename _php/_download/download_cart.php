@@ -53,7 +53,7 @@ $result = create_zip($files, $filename);
 if ($result && $saveDownload) {
 
   $time = Time();
-  $sql = "INSERT INTO $DB_NAME.download
+  $sql = "INSERT INTO DB_NAME.download
           SET user_id = '{$_SESSION['user_id']}',
               images = '{$_GET['images']}',
               UnixTime = '{$time}'

@@ -11,7 +11,7 @@ confirm_logged_in();
 // Use Image number passed from ajax request to find the associated work
 
 $sql = "SELECT related_works 
-			FROM $DB_NAME.image 
+			FROM DB_NAME.image 
 			WHERE id = '{$_GET['imageRecord']}' LIMIT 1 ";
 
 $workToLoad_r = db_query($mysqli, $sql);
@@ -35,7 +35,7 @@ if ($workNum != 'None') {
 	//-----------------
 
 	$sql = "SELECT * 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = '{$workNum}' ";
 
 	$result_workUpdates = db_query($mysqli, $sql);
@@ -54,7 +54,7 @@ if ($workNum != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.title 
+				FROM DB_NAME.title 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workTitles = db_query($mysqli, $sql);
@@ -84,7 +84,7 @@ if ($workNum != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.agent 
+				FROM DB_NAME.agent 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workAgents = db_query($mysqli, $sql);
@@ -130,7 +130,7 @@ if ($workNum != 'None') {
 	//---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.date 
+				FROM DB_NAME.date 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workDates = db_query($mysqli, $sql);
@@ -178,7 +178,7 @@ if ($workNum != 'None') {
 	//------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.material 
+				FROM DB_NAME.material 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workMaterials = db_query($mysqli, $sql);
@@ -216,7 +216,7 @@ if ($workNum != 'None') {
 	//-------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.technique 
+				FROM DB_NAME.technique 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workTechniques = db_query($mysqli, $sql);
@@ -250,7 +250,7 @@ if ($workNum != 'None') {
 	//-------------------
 	
 	$sql = "SELECT *
-				FROM $DB_NAME.work_type 
+				FROM DB_NAME.work_type 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workWorkTypes = db_query($mysqli, $sql);
@@ -284,7 +284,7 @@ if ($workNum != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.measurements 
+				FROM DB_NAME.measurements 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workMeasurements = db_query($mysqli, $sql);
@@ -388,7 +388,7 @@ if ($workNum != 'None') {
 	//--------------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.culture 
+				FROM DB_NAME.culture 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workCultures = db_query($mysqli, $sql);
@@ -422,7 +422,7 @@ if ($workNum != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.style_period 
+				FROM DB_NAME.style_period 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workStylePeriods = db_query($mysqli, $sql);
@@ -456,7 +456,7 @@ if ($workNum != 'None') {
 	//------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_works = '{$workNum}' 
 				AND location_getty_id NOT REGEXP 'work' ";
 
@@ -499,7 +499,7 @@ if ($workNum != 'None') {
 	//---------------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.specific_location 
+				FROM DB_NAME.specific_location 
 				WHERE related_works = '{$workNum}' ";
 	
 	$result_specificLocation = db_query($mysqli, $sql);
@@ -542,7 +542,7 @@ if ($workNum != 'None') {
 	//---------------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_works = '{$workNum}'
 				AND location_getty_id REGEXP 'work' ";
 
@@ -591,7 +591,7 @@ if ($workNum != 'None') {
 	//--------------------
 
 	$sql = "SELECT  relation_id, display
-				FROM $DB_NAME.relation 
+				FROM DB_NAME.relation 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_relation = db_query($mysqli, $sql);
@@ -605,7 +605,7 @@ if ($workNum != 'None') {
 			$getRelated = $relation['relation_id'];					
 
 		$sql = "SELECT preferred_image 
-							FROM $DB_NAME.work
+							FROM DB_NAME.work
 							WHERE id = '{$getRelated}' 
 							LIMIT 1 " ;
 
@@ -619,7 +619,7 @@ if ($workNum != 'None') {
 			if (!empty($preferredImage)) {	
 
 			$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image
+						FROM DB_NAME.image
 						WHERE id = '{$preferredImage}' ";	
 
 				$result_getLeg	= db_query($mysqli, $sql); 
@@ -638,7 +638,7 @@ if ($workNum != 'None') {
 			}						
 
 			$sql = "SELECT title_text
-					FROM $DB_NAME.title
+					FROM DB_NAME.title
 					WHERE related_works = '{$getRelated}'
 					LIMIT 1 " ;
 
@@ -650,7 +650,7 @@ if ($workNum != 'None') {
 				}
 
 			$sql = "SELECT agent_text
-					FROM $DB_NAME.agent
+					FROM DB_NAME.agent
 					WHERE related_works = '{$getRelated}'
 					LIMIT 1 ";	
 
@@ -687,7 +687,7 @@ if ($workNum != 'None') {
 	//----------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.edition 
+				FROM DB_NAME.edition 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workEditions = db_query($mysqli, $sql);
@@ -718,7 +718,7 @@ if ($workNum != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.inscription 
+				FROM DB_NAME.inscription 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workInscriptions = db_query($mysqli, $sql);
@@ -757,7 +757,7 @@ if ($workNum != 'None') {
 	//-----------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.subject 
+				FROM DB_NAME.subject 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workSubjects = db_query($mysqli, $sql);
@@ -797,7 +797,7 @@ if ($workNum != 'None') {
 	$trimmed_id = ltrim($workNum, '0');
 
 	$sql = "SELECT description 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = '{$trimmed_id}' ";
 
 	$result_workDescription = db_query($mysqli, $sql);
@@ -815,7 +815,7 @@ if ($workNum != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.rights 
+				FROM DB_NAME.rights 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workRights = db_query($mysqli, $sql);
@@ -850,7 +850,7 @@ if ($workNum != 'None') {
 	//--------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.source 
+				FROM DB_NAME.source 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_workSources = db_query($mysqli, $sql);
@@ -889,7 +889,7 @@ if ($workNum != 'None') {
 	//-------------------------
 
 	$sql = "SELECT preferred_image 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = '{$workNum}' ";
 
 	$result_prefImage = db_query($mysqli, $sql);
@@ -899,7 +899,7 @@ if ($workNum != 'None') {
 		$work_thumb_id = $row['preferred_image'];
 
 		$sql ="SELECT legacy_id 
-					FROM $DB_NAME.image 
+					FROM DB_NAME.image 
 					WHERE id ='{$work_thumb_id}'";
 
 					$result_prefLegId = db_query($mysqli, $sql);
@@ -915,7 +915,7 @@ if ($workNum != 'None') {
 	//-------------------------
 
 	$sql = "SELECT * 
-				FROM $DB_NAME.image 
+				FROM DB_NAME.image 
 				WHERE related_works = '{$workNum}' ";
 
 	$result_assocImages = db_query($mysqli, $sql);

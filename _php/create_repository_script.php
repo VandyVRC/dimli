@@ -18,7 +18,7 @@ $phone = 	$mysqli->real_escape_string(trim($_POST['data']['phone']));
 $website = 	$mysqli->real_escape_string(trim($_POST['data']['website']));
 $images = 	$mysqli->real_escape_string(trim($_POST['data']['images']));
 
-$sql = "INSERT INTO $DB_NAME.repository
+$sql = "INSERT INTO DB_NAME.repository
 			SET museum = 	'{$museum}',
 				address = 	'{$address}',
 				city = 		'{$city}',

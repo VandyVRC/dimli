@@ -42,7 +42,7 @@ if ($_POST['title'] != '') {
 	
 	// Begin building query
 	$titleQuery = "SELECT * 
-						FROM $DB_NAME.title 
+						FROM DB_NAME.title 
 						WHERE related_works <> '' && ( ";
 
 	foreach ($titleArray as $term) {
@@ -89,7 +89,7 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 
 		// Begin building query
 		$agentQuery = "SELECT * 
-							FROM $DB_NAME.agent 
+							FROM DB_NAME.agent 
 							WHERE related_works = '{$row['related_works']}' && ( ";
 
 		foreach ($agentArray as $term) {
@@ -118,7 +118,7 @@ if ($_POST['title'] != '' && $_POST['agent'] != '') {
 
 	// Begin building query
 	$agentQuery = "SELECT * 
-						FROM $DB_NAME.agent 
+						FROM DB_NAME.agent 
 						WHERE related_works <> '' && ( ";
 
 	foreach ($agentArray as $term) {
@@ -183,7 +183,7 @@ if (!empty($matchingWorks)) {
 	{ 
 			
 		$sql = "SELECT preferred_image 
-					FROM $DB_NAME.work 
+					FROM DB_NAME.work 
 					WHERE id = {$workId} ";
 
 		$result = db_query($mysqli, $sql);
@@ -194,7 +194,7 @@ if (!empty($matchingWorks)) {
 			}
 
 			$sql = "SELECT legacy_id
-						FROM $DB_NAME.image
+						FROM DB_NAME.image
 						WHERE id = '{$prefImage}' ";
 
 			$leg_id_res = db_query($mysqli, $sql);
@@ -207,25 +207,25 @@ if (!empty($matchingWorks)) {
 			}
 
 			$sql = "SELECT title_text 
-						FROM $DB_NAME.title 
+						FROM DB_NAME.title 
 						WHERE related_works = '{$workId}' ";
 
 			$title_result = db_query($mysqli, $sql);
 
 			$sql = "SELECT agent_text 
-						FROM $DB_NAME.agent 
+						FROM DB_NAME.agent 
 						WHERE related_works = '{$workId}' ";
 
 			$agent_result = db_query($mysqli, $sql);
 
 			$sql = "SELECT * 
-						FROM $DB_NAME.date 
+						FROM DB_NAME.date 
 						WHERE related_works = '{$workId}' LIMIT 2 ";
 
 			$date_result = db_query($mysqli, $sql);
 
 			$sql = "SELECT culture_text 
-						FROM $DB_NAME.culture 
+						FROM DB_NAME.culture 
 						WHERE related_works = '{$workId}' LIMIT 2 ";
 
 			$culture_result = db_query($mysqli, $sql); 

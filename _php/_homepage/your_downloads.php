@@ -10,7 +10,7 @@ $thumb_path = 'http://dimli.library.vanderbilt.edu/_plugins/timthumb/timthumb.ph
 
 // Grab download history for the current user
 $sql = "SELECT * 
-        FROM $DB_NAME.download 
+        FROM DB_NAME.download 
         WHERE user_id = '{$_SESSION['user_id']}' ";
 $downloads = db_query($mysqli, $sql);
 

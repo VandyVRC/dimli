@@ -7,7 +7,7 @@ require_once(MAIN_DIR.'/../../_php/_config/functions.php');
 confirm_logged_in();
 
 $sql = "SELECT * 
-			FROM $DB_NAME.image 
+			FROM DB_NAME.image 
 			WHERE id = '{$_GET['image']}' ";
 
 $refresh_r = db_query($mysqli, $sql);

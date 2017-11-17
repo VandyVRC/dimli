@@ -26,7 +26,7 @@ if (isset($_POST['table'])) {
 
 	if (in_array($table, array('getty_aat','getty_tgn','getty_ulan','repository')))
 	{
-		$sql = " UPDATE $DB_NAME.".$table." SET popularity = popularity + 1 WHERE ".$db_field." = '".$db_id."' ";
+		$sql = " UPDATE DB_NAME.".$table." SET popularity = popularity + 1 WHERE ".$db_field." = '".$db_id."' ";
 
 		$result = db_query($mysqli, $sql);
 

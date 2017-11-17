@@ -12,7 +12,7 @@ if (isset($_GET['imageRecord']))
 	$_SESSION['imageNum'] = $_GET['imageRecord'];
 
 	$sql = "SELECT related_works, order_id 
-				FROM $DB_NAME.image 
+				FROM DB_NAME.image 
 				WHERE id = {$_SESSION['imageNum']} ";
 
 	$result = db_query($mysqli, $sql);
@@ -29,7 +29,7 @@ if (isset($_GET['imageRecord']))
 
 	$UnixTime = time(TRUE);
 
-	$sql = "INSERT INTO $DB_NAME.activity 
+	$sql = "INSERT INTO DB_NAME.activity 
 				SET UserID = '{$_SESSION['user_id']}', 
 					RecordType = 'Image', 
 					RecordNumber = {$_SESSION['imageNum']}, 
@@ -122,7 +122,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.image 
+				FROM DB_NAME.image 
 				WHERE id = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -140,7 +140,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.title 
+				FROM DB_NAME.title 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -158,7 +158,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.agent 
+				FROM DB_NAME.agent 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -179,7 +179,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ----------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.date 
+				FROM DB_NAME.date 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -202,7 +202,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.material 
+				FROM DB_NAME.material 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -221,7 +221,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.technique 
+				FROM DB_NAME.technique 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -239,7 +239,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ---------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.work_type 
+				FROM DB_NAME.work_type 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -257,7 +257,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.measurements 
+				FROM DB_NAME.measurements 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -289,7 +289,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ----------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.culture 
+				FROM DB_NAME.culture 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -307,7 +307,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// ------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.style_period 
+				FROM DB_NAME.style_period 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -325,7 +325,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_images = '{$_SESSION['imageNum']}' 
 				AND NOT location_getty_id REGEXP 'work' ";
 
@@ -346,7 +346,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------
 
 	$sql = "SELECT * 
-				FROM $DB_NAME.specific_location 
+				FROM DB_NAME.specific_location 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -368,7 +368,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------
 
 	$sql = "SELECT * 
-				FROM $DB_NAME.location 
+				FROM DB_NAME.location 
 				WHERE related_images = '{$_SESSION['imageNum']}' 
 				AND location_getty_id REGEXP 'work' ";
 
@@ -389,7 +389,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -------------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.edition 
+				FROM DB_NAME.edition 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -407,7 +407,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.inscription 
+				FROM DB_NAME.inscription 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -427,7 +427,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.subject 
+				FROM DB_NAME.subject 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -446,7 +446,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// -----------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.image 
+				FROM DB_NAME.image 
 				WHERE id = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -460,7 +460,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.rights 
+				FROM DB_NAME.rights 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -478,7 +478,7 @@ $_SESSION['image']['titleType0'] = $Ititle[0]['titleType'] =
 	// --------------
 	
 	$sql = "SELECT * 
-				FROM $DB_NAME.source 
+				FROM DB_NAME.source 
 				WHERE related_images = '{$_SESSION['imageNum']}' ";
 
 	$result = db_query($mysqli, $sql);

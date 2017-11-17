@@ -16,7 +16,7 @@ $imageNum_trim = ltrim($imageNum, '0');
 
 if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 {
-	$sql = "UPDATE $DB_NAME.image
+	$sql = "UPDATE DB_NAME.image
 				SET related_works = ''
 				WHERE id = {$imageNum_trim} ";
 
@@ -25,7 +25,7 @@ if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 
 
 	$sql = "SELECT preferred_image 
-				FROM $DB_NAME.work 
+				FROM DB_NAME.work 
 				WHERE id = {$workNum_trim} ";
 
 	$res = db_query($mysqli, $sql);
@@ -35,7 +35,7 @@ if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 	}
 
 
-	$sql = "UPDATE $DB_NAME.work
+	$sql = "UPDATE DB_NAME.work
 				SET related_images = REPLACE(related_images, '{$imageNum}', '')";
 	$sql .= ($imageNum == $pref) ? ", preferred_image = ''" : '';
 	$sql .= " WHERE id = {$workNum_trim} ";
@@ -43,14 +43,14 @@ if (strlen($workNum) >= 6 && strlen($imageNum) >= 6)
 	$result_killImageAssoc = db_query($mysqli, $sql);
 	// Remove this image number from the related_images field in the work record
 
-	$sql = "UPDATE $DB_NAME.work
+	$sql = "UPDATE DB_NAME.work
 				SET related_images = REPLACE(related_images, ',,', ',')
 				WHERE id = {$workNum_trim} ";
 
 	$result_stripDupCommas = db_query($mysqli, $sql);
 	// Remove the left over commas where image number was removed from a list
 
-	$sql = "UPDATE $DB_NAME.work
+	$sql = "UPDATE DB_NAME.work
 				SET related_images = TRIM(BOTH ',' FROM related_images)
 				WHERE id = {$workNum_trim} "; 
 

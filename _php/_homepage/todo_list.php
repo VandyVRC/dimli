@@ -19,7 +19,7 @@ confirm_logged_in();
 	<div id="todo_list" class="defaultCursor">
 
 	<?php $sql = "SELECT * 
-						FROM $DB_NAME.order 
+						FROM DB_NAME.order 
 						WHERE assigned_to = '{$_SESSION['user_id']}' 
 						AND (images_catalogued = false 
 							OR images_catalogued IS NULL)
@@ -38,7 +38,7 @@ confirm_logged_in();
 
 			// Fetch export status of this order
 			$sql = "SELECT images_exported 
-						FROM $DB_NAME.order 
+						FROM DB_NAME.order 
 						WHERE id = {$row['id']} ";
 
 			$imgs_ava_res = db_query($mysqli, $sql);
@@ -51,7 +51,7 @@ confirm_logged_in();
 
 			// Fetch all image ids associated with this order
 			$sql = "SELECT legacy_id 
-						FROM $DB_NAME.image 
+						FROM DB_NAME.image 
 						WHERE order_id = {$row['id']} 
 						LIMIT 3 ";
 
