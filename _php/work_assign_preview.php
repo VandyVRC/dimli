@@ -11,7 +11,7 @@ require_priv('priv_catalog');
 $image = $_POST['image'];
 $work = $_POST['work'];
 
-$sql = "UPDATE DB_NAME.work 
+$sql = "UPDATE $DB_NAME.work 
 			SET preferred_image = '{$image}'
 			WHERE id = '{$work}' ";
 
@@ -19,7 +19,7 @@ $result = db_query($mysqli, $sql);
 
 		
 		$sql ="SELECT legacy_id 
-					FROM DB_NAME.image 
+					FROM $DB_NAME.image 
 					WHERE id ='{$image}'";
 
 					$result_prefLegId = db_query($mysqli, $sql);

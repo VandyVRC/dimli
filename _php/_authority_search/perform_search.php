@@ -52,7 +52,7 @@ if (!empty($fieldVal)) {
 		// Explode the string into an array
 		
 		$sql = "SELECT * 
-					FROM DB_NAME.getty_ulan 
+					FROM $DB_NAME.getty_ulan 
 					WHERE id != '0' ";
 		
 		if (!empty($namesArray)) {
@@ -105,7 +105,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = "SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'Materials Facet' 
 						OR hierarchy REGEXP 'Components' 
 						OR hierarchy REGEXP 'image-making equipment' ) ";
@@ -156,7 +156,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = " SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE hierarchy REGEXP 'Processes and Techniques' ";
 		
 		if (!empty($techniqueArray)) {
@@ -207,7 +207,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = "SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'Visual Works' 
 						OR  hierarchy REGEXP 'Built Environment' 
 						OR hierarchy REGEXP 'Objects Facet' ) ";
@@ -258,7 +258,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = " SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'styles and periods by general era'
 						OR hierarchy REGEXP 'styles and periods by region' ) ";
 		
@@ -309,7 +309,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = " SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'styles and periods by region'
 						OR hierarchy REGEXP 'generic styles and periods'
 						OR hierarchy REGEXP 'styles and periods by general era' ) ";
@@ -364,7 +364,7 @@ if (!empty($fieldVal)) {
 		//---------------------------
 		
 		$sql = "SELECT * 
-					FROM DB_NAME.getty_tgn 
+					FROM $DB_NAME.getty_tgn 
 					WHERE ( hierarchy != 'Extraterrestrial Places' ) ";
 		
 		if (!empty($locationArray)) {
@@ -390,7 +390,7 @@ if (!empty($fieldVal)) {
 		//---------------------------------
 		
 		$sql = "SELECT * 
-					FROM DB_NAME.repository 
+					FROM $DB_NAME.repository 
 					WHERE (id > 0) ";
 		
 		foreach ($locationArray as $location) {
@@ -435,7 +435,7 @@ if (!empty($fieldVal)) {
 		//---------------------------
 
 		$sql = "SELECT * 
-					FROM DB_NAME.title 
+					FROM $DB_NAME.title 
 					WHERE ( related_works != '' ) ";
 
 		foreach ($builtWorkArray as $builtWork) {
@@ -490,7 +490,7 @@ if (!empty($fieldVal)) {
 
 
 		$sql = "SELECT  pref_term_text
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( hierarchy REGEXP 'Built Environment' ) ";
 
 		$result_acceptableWorkTypes = $mysqli->query($sql);
@@ -506,7 +506,7 @@ if (!empty($fieldVal)) {
 		foreach ($builtWorkIds as $id):
 		
 			// Find its "work type" attributes
-			$sql = " SELECT * FROM DB_NAME.work_type WHERE related_works = '{$id}' ";
+			$sql = " SELECT * FROM $DB_NAME.work_type WHERE related_works = '{$id}' ";
 			$result_workTypeText = $mysqli->query($sql);
 
 			// For each "work type"
@@ -557,7 +557,7 @@ if (!empty($fieldVal)) {
 
 		// Build SQL query
 		$sql = " SELECT * 
-					FROM DB_NAME.getty_aat 
+					FROM $DB_NAME.getty_aat 
 					WHERE ( id > 1 ) ";
 		
 		if (!empty($subjectArray)) {

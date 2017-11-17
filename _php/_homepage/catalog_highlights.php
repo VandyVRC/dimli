@@ -5,7 +5,7 @@ require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
 confirm_logged_in();
 
-$sql = "SELECT * FROM DB_NAME.image 
+$sql = "SELECT * FROM $DB_NAME.image 
             WHERE catalogued = 1 ";
 $result = db_query($mysqli, $sql);
 if ($result->num_rows > 0):
@@ -24,11 +24,11 @@ if ($result->num_rows > 0):
                 title.title_text, 
                 agent.related_works, 
                 agent.agent_text 
-                FROM DB_NAME.image 
-                INNER JOIN DB_NAME.title 
+                FROM $DB_NAME.image 
+                INNER JOIN $DB_NAME.title 
                 ON image.id = {$id}
                     AND image.related_works = title.related_works 
-                INNER JOIN DB_NAME.agent 
+                INNER JOIN $DB_NAME.agent 
                 ON image.id = {$id} 
                     AND image.related_works = agent.related_works
                 LIMIT 1 ";

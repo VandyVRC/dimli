@@ -9,7 +9,7 @@ require_priv('priv_users_create');
 
 $userId = $_POST['userId'];
 
-$sql = "DELETE FROM DB_NAME.user
+$sql = "DELETE FROM $DB_NAME.user
 			WHERE id = {$userId} ";
 
 $result = db_query($mysqli, $sql);

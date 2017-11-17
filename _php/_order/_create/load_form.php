@@ -27,7 +27,7 @@ if (!isset($_SESSION['newOrderDetails']) || empty($_SESSION['newOrderDetails']))
 //---------------------------------------------------------
 
 $sql = "SELECT DISTINCT(display_name), (department), (email) 
-		FROM DB_NAME.user ";
+		FROM $DB_NAME.user ";
 
 	$result = db_query($mysqli, $sql);
 

@@ -11,12 +11,12 @@ $image = $_POST['image'];
 
 if ($work != 'None') {
 	$sql = "SELECT * 
-				FROM DB_NAME.title 
+				FROM $DB_NAME.title 
 				WHERE related_works = {$work} LIMIT 1 ";
 
 } elseif ($work = 'None') {
 	$sql = "SELECT title_text 
-				FROM DB_NAME.title 
+				FROM $DB_NAME.title 
 				WHERE related_images = {$image} LIMIT 1 ";
 }
 

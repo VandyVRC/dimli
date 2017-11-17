@@ -15,7 +15,7 @@ if ($_SESSION['workNum'] == 'None' || $_SESSION['workNum'] == '')
 // An associated work DOES NOT already EXIST
 // So CREATE NEW work record
 {
-	$sql = "INSERT INTO DB_NAME.work
+	$sql = "INSERT INTO $DB_NAME.work
 			SET related_images = '{$_SESSION['imageNum']}',
 				preferred_image = '{$_SESSION['imageNum']}',
 				description = '{$workDescription}',
@@ -38,7 +38,7 @@ if ($_SESSION['workNum'] == 'None' || $_SESSION['workNum'] == '')
 
 	$ts = date('Y m d H:i:s');
 
-	$sql = "INSERT INTO DB_NAME.activity
+	$sql = "INSERT INTO $DB_NAME.activity
 				SET UserID = '{$_SESSION['user_id']}',
 					RecordType = 'Work',
 					RecordNumber = {$_SESSION['shortWorkNum']},
@@ -55,7 +55,7 @@ elseif (strlen($_SESSION['workNum']) == 6)
 	$_SESSION['shortWorkNum'] = ltrim($_SESSION['workNum'], '0');
 
 	$sql = "SELECT related_images 
-				FROM DB_NAME.work 
+				FROM $DB_NAME.work 
 				WHERE id = '{$_SESSION['shortWorkNum']}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -81,7 +81,7 @@ elseif (strlen($_SESSION['workNum']) == 6)
 		{
 			// Add new image to list of associated images in work record
 
-			$sql = "UPDATE DB_NAME.work 
+			$sql = "UPDATE $DB_NAME.work 
 						SET related_images = IFNULL(CONCAT(related_images, ',{$_SESSION['imageNum']}'), '{$_SESSION['imageNum']}') 
 						WHERE id = '{$_SESSION['shortWorkNum']}' ";
 
@@ -92,7 +92,7 @@ elseif (strlen($_SESSION['workNum']) == 6)
 	// Use existing associated work number for new insert statements
 	$recordNum = $_SESSION['workNum'];
 	
-	$sql = "UPDATE DB_NAME.work
+	$sql = "UPDATE $DB_NAME.work
 				SET description = '{$workDescription}',
 					last_update = '{$timestamp}',
 					last_update_by = '{$_SESSION['username']}'
@@ -104,7 +104,7 @@ elseif (strlen($_SESSION['workNum']) == 6)
 	//  Log action
 	//--------------
 	
-	$sql = "INSERT INTO DB_NAME.activity
+	$sql = "INSERT INTO $DB_NAME.activity
 				SET UserID = '{$_SESSION['user_id']}',
 					RecordType = 'Work',
 					RecordNumber = {$_SESSION['shortWorkNum']},

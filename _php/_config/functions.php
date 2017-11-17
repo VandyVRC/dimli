@@ -472,7 +472,7 @@ function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent, DB
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.date 
+        FROM $DB_NAME.date 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -533,7 +533,7 @@ function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent, DB
     $arr = array();
 
     $sql = "SELECT * 
-          FROM DB_NAME.date 
+          FROM $DB_NAME.date 
           WHERE related_works = '{$parent}' ";
 
     $res = db_query($mysqli, $sql);
@@ -590,7 +590,7 @@ function lantern_list_display_material($mysqli, $recordType, $recordNum, DB_NAME
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.material 
+        FROM $DB_NAME.material 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -611,7 +611,7 @@ function lantern_list_display_technique($mysqli, $recordType, $recordNum, DB_NAM
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.technique 
+        FROM $DB_NAME.technique 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -631,7 +631,7 @@ function lantern_list_display_work_type($mysqli, $recordType, $recordNum, DB_NAM
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.work_type 
+        FROM $DB_NAME.work_type 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -651,7 +651,7 @@ function lantern_list_display_cultural_context($mysqli, $recordType, $recordNum,
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.culture 
+        FROM $DB_NAME.culture 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -671,7 +671,7 @@ function lantern_list_display_style_period($mysqli, $recordType, $recordNum, DB_
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.style_period 
+        FROM $DB_NAME.style_period 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -691,7 +691,7 @@ function lantern_list_display_location($mysqli, $recordType, $recordNum, DB_NAME
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.location 
+        FROM $DB_NAME.location 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -713,7 +713,7 @@ function lantern_list_display_subject($mysqli, $recordType, $recordNum, DB_NAME)
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.subject 
+        FROM $DB_NAME.subject 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -735,7 +735,7 @@ function lantern_list_display_inscription($mysqli, $recordType, $recordNum, DB_N
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.inscription 
+        FROM $DB_NAME.inscription 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -758,7 +758,7 @@ function lantern_list_display_rights($mysqli, $recordType, $recordNum, DB_NAME)
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.rights 
+        FROM $DB_NAME.rights 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -780,7 +780,7 @@ function lantern_list_display_source($mysqli, $recordType, $recordNum, DB_NAME)
   $arr = array();
 
   $sql = "SELECT * 
-        FROM DB_NAME.source 
+        FROM $DB_NAME.source 
         WHERE related_".$recordType."s = '{$recordNum}' ";
 
   $res = db_query($mysqli, $sql);
@@ -845,7 +845,7 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
 	$agent_arr = array();
 
 	$sql = "SELECT agent_text 
-				FROM DB_NAME.agent 
+				FROM $DB_NAME.agent 
 				WHERE related_".$recordType."s = '{$recordNum}' ";
 
 	$res = db_query($mysqli, $sql);
@@ -872,7 +872,7 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
 				$agent_arr = array();
 
 				$sql = "SELECT agent_text 
-							FROM DB_NAME.agent 
+							FROM $DB_NAME.agent 
 							WHERE related_works = {$parent} ";
 
 				$res2 = db_query($mysqli, $sql);
@@ -927,7 +927,7 @@ function get_related_images($mysqli, $workNum, DB_NAME, $webroot, $image_src)
   $rel_images = array();
 
 	$sql = "SELECT legacy_id 
-				FROM DB_NAME.image 
+				FROM $DB_NAME.image 
 				WHERE related_works = '{$workNum}' ";
 
   $res = db_query($mysqli, $sql);

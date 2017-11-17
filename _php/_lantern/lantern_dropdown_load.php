@@ -129,7 +129,7 @@ foreach ($searches_arr as $search)
 		$recordNum = ${$recordType.'Num'};
 
 		$sql = "SELECT * 
-					FROM DB_NAME.".$search['table']." 
+					FROM $DB_NAME.".$search['table']." 
 					WHERE related_".$recordType."s = {$recordNum} ";
 
 		$result = db_query($mysqli, $sql);

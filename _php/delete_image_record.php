@@ -27,7 +27,7 @@ if (isset($_GET['deadImage']))
 	// - order instead of a single image.
 
 	$sql = "SELECT id 
-				FROM DB_NAME.image 
+				FROM $DB_NAME.image 
 				WHERE order_id = '{$associatedOrderId}' ";
 
 	$result = db_query($mysqli, $sql);
@@ -43,13 +43,13 @@ if (isset($_GET['deadImage']))
 		$imageId_six = create_six_digits($deadImageId);
 
 		// Delete the image from the IMAGE table
-		$sql = "DELETE FROM DB_NAME.image 
+		$sql = "DELETE FROM $DB_NAME.image 
 					WHERE id = '{$deadImageId}' ";
 
 		$result = db_query($mysqli, $sql);
 		
 		// Determine the order's new image count, after the deletion
-		$sql = "SELECT * FROM DB_NAME.image 
+		$sql = "SELECT * FROM $DB_NAME.image 
 					WHERE order_id = '{$associatedOrderId}' ";
 
 		$result = db_query($mysqli, $sql);
@@ -57,7 +57,7 @@ if (isset($_GET['deadImage']))
 		$newImageCount = $result->num_rows;
 
 		// Update the order's image count
-		$sql = "UPDATE DB_NAME.order 
+		$sql = "UPDATE $DB_NAME.order 
 					SET image_count = '{$newImageCount}' 
 					WHERE id = '{$associatedOrderId}' ";
 
@@ -71,7 +71,7 @@ if (isset($_GET['deadImage']))
 
 		foreach ($tables as $table) {
 
-			$sql = "DELETE FROM DB_NAME.{$table} 
+			$sql = "DELETE FROM $DB_NAME.{$table} 
 						WHERE related_images = {$imageId_six} ";
 						
 			$res = db_query($mysqli, $sql);
@@ -83,7 +83,7 @@ if (isset($_GET['deadImage']))
 		
 		$UnixTime = time(TRUE);
 
-		$sql = "INSERT INTO DB_NAME.activity
+		$sql = "INSERT INTO $DB_NAME.activity
 					SET UserID = '{$_SESSION['user_id']}',
 						RecordType = 'Image',
 						RecordNumber = {$deadImageId},

@@ -42,7 +42,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'range')
 $start = $_GET['first'];
 $end = $_GET['last'];
 
-	$sql = "SELECT * FROM DB_NAME.image 
+	$sql = "SELECT * FROM $DB_NAME.image 
 				WHERE id BETWEEN {$start} AND {$end} ";
 
 	// Establish query fragment to be used below 
@@ -58,7 +58,7 @@ elseif (isset($_GET['type']) && $_GET['type'] == 'flagged')
 {
 // User exported all flagged and approved images
 
-	$sql = "SELECT * FROM DB_NAME.image 
+	$sql = "SELECT * FROM $DB_NAME.image 
 				WHERE id IN({$flaggedImages_str}) ";
 
 	// Establish query fragment to be used below 
@@ -103,7 +103,7 @@ while ($row = $result->fetch_assoc())
 			//-------------------------
 
 			$imageTitle_array = array(); // Initalize array for image titles
-			$sql = "SELECT * FROM DB_NAME.title 
+			$sql = "SELECT * FROM $DB_NAME.title 
 						WHERE related_images = '{$imageId}' ";
 			$result_imageTitle = db_query($mysqli, $sql);
 			
@@ -139,7 +139,7 @@ while ($row = $result->fetch_assoc())
 			// This image record has an associated work that is not blank
 			
 			$workTitle_array = array(); // Initalize array for work titles
-			$sql = "SELECT * FROM DB_NAME.title 
+			$sql = "SELECT * FROM $DB_NAME.title 
 						WHERE related_works = '{$workId}' ";
 			$result_workTitle = db_query($mysqli, $sql);
 			
@@ -182,7 +182,7 @@ while ($row = $result->fetch_assoc())
 
 			$agent_array = array(); // Initilize array for agents
 
-			$sql = "SELECT * FROM DB_NAME.agent 
+			$sql = "SELECT * FROM $DB_NAME.agent 
 						WHERE related_images = '{$imageId}' ";
 
 			// If this image has an associated work
@@ -237,7 +237,7 @@ while ($row = $result->fetch_assoc())
 						// This agent record has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term
-									FROM DB_NAME.getty_ulan
+									FROM $DB_NAME.getty_ulan
 									WHERE getty_id = '{$agent['agent_getty_id']}' ";
 						$result_altAgents = db_query($mysqli, $sql);
 						
@@ -291,7 +291,7 @@ while ($row = $result->fetch_assoc())
 
 			$date_array = array(); // Initilize array for dates
 
-			$sql = "SELECT * FROM DB_NAME.date 
+			$sql = "SELECT * FROM $DB_NAME.date 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select work agents as well, if this image record has an associated work
@@ -364,7 +364,7 @@ while ($row = $result->fetch_assoc())
 			
 			$technique_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.technique 
+			$sql = "SELECT * FROM $DB_NAME.technique 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select work techniques as well, if this image record has an associated work
@@ -388,7 +388,7 @@ while ($row = $result->fetch_assoc())
 					// This technique row has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term_text
-									FROM DB_NAME.getty_aat
+									FROM $DB_NAME.getty_aat
 									WHERE getty_id = '{$technique['technique_getty_id']}' 
 									";
 						$result_altTechniques = db_query($mysqli, $sql);
@@ -437,7 +437,7 @@ while ($row = $result->fetch_assoc())
 			
 			$worktype_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.work_type 
+			$sql = "SELECT * FROM $DB_NAME.work_type 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select work_types from work record as well, if this image record has an associated work
@@ -461,7 +461,7 @@ while ($row = $result->fetch_assoc())
 					// This work_type row has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term_text
-									FROM DB_NAME.getty_aat
+									FROM $DB_NAME.getty_aat
 									WHERE getty_id = '{$worktype['work_type_getty_id']}' ";
 
 						$result_altWorktypes = db_query($mysqli, $sql);
@@ -510,7 +510,7 @@ while ($row = $result->fetch_assoc())
 			
 			$material_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.material 
+			$sql = "SELECT * FROM $DB_NAME.material 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select materials from work record as well, if this image record has an associated work
@@ -534,7 +534,7 @@ while ($row = $result->fetch_assoc())
 					// This material row has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term_text
-									FROM DB_NAME.getty_aat
+									FROM $DB_NAME.getty_aat
 									WHERE getty_id = '{$material['material_getty_id']}' ";
 
 						$result_altMaterials = db_query($mysqli, $sql);
@@ -588,7 +588,7 @@ while ($row = $result->fetch_assoc())
 
 			$basicUnitMeasurements = array('Circumference','Depth','Diameter','Distance between','Height','Length','Width');
 
-			$sql = "SELECT * FROM DB_NAME.measurements 
+			$sql = "SELECT * FROM $DB_NAME.measurements 
 						WHERE related_works = '{$workId}' ";
 
 			$result_workMeasure = db_query($mysqli, $sql);
@@ -682,7 +682,7 @@ while ($row = $result->fetch_assoc())
 
 			$basicUnitMeasurements = array('Circumference','Depth','Diameter','Distance between','Height','Length','Width');
 
-			$sql = "SELECT * FROM DB_NAME.measurements 
+			$sql = "SELECT * FROM $DB_NAME.measurements 
 						WHERE related_images = '{$imageId}' ";
 
 			$result_imageMeasure = db_query($mysqli, $sql);
@@ -774,7 +774,7 @@ while ($row = $result->fetch_assoc())
 			
 			$location_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.location 
+			$sql = "SELECT * FROM $DB_NAME.location 
 						WHERE related_images = '{$imageId}' ";
 			
 			// Select locations from work record as well, if this image record has an associated work
@@ -800,7 +800,7 @@ while ($row = $result->fetch_assoc())
 					// This location row has a Getty id (that is NOT a local repository id)
 					
 						$sql = "SELECT english_pref_term, nonpref_term
-									FROM DB_NAME.getty_tgn
+									FROM $DB_NAME.getty_tgn
 									WHERE getty_id = '{$location['location_getty_id']}' ";
 
 						$result_altLocations = db_query($mysqli, $sql);
@@ -849,7 +849,7 @@ while ($row = $result->fetch_assoc())
 			
 			$specific_location_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.specific_location 
+			$sql = "SELECT * FROM $DB_NAME.specific_location 
 						WHERE related_images = '{$imageId}' ";
 			
 			// Select locations from work record as well, if this image record has an associated work
@@ -911,7 +911,7 @@ while ($row = $result->fetch_assoc())
 		
 			$relation_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.relation 
+			$sql = "SELECT * FROM $DB_NAME.relation 
 						WHERE related_works = '{$workId}' ";
 
 			// Select cultures from work record as well, if this image record has an associated work
@@ -932,7 +932,7 @@ while ($row = $result->fetch_assoc())
 					{
 
 						$sql ="SELECT title_text 
-							FROM DB_NAME.title
+							FROM $DB_NAME.title
 							WHERE related_works = '{$relation['relation_id']}'";
 
 						$resultRelationTitle = $mysqli->query($sql);   
@@ -942,7 +942,7 @@ while ($row = $result->fetch_assoc())
                      $relatedTitle = $row['title_text'];
 
 								$sql ="SELECT agent_text 
-								FROM DB_NAME.agent
+								FROM $DB_NAME.agent
 								WHERE related_works = '{$relation['relation_id']}'";
 
 								$resultRelationAgent = $mysqli->query($sql);   
@@ -991,7 +991,7 @@ while ($row = $result->fetch_assoc())
 			
 			$culture_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.culture 
+			$sql = "SELECT * FROM $DB_NAME.culture 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select cultures from work record as well, if this image record has an associated work
@@ -1017,7 +1017,7 @@ while ($row = $result->fetch_assoc())
 					// This culture row has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term_text
-									FROM DB_NAME.getty_aat
+									FROM $DB_NAME.getty_aat
 									WHERE getty_id = '{$culture['culture_getty_id']}' ";
 
 						$result_altCultures = db_query($mysqli, $sql);
@@ -1065,7 +1065,7 @@ while ($row = $result->fetch_assoc())
 			
 			$style_period_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.style_period 
+			$sql = "SELECT * FROM $DB_NAME.style_period 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select styleperiods from work record as well, if this image record has an associated work
@@ -1091,7 +1091,7 @@ while ($row = $result->fetch_assoc())
 					// This styleperiod row has a Getty id
 					
 						$sql = "SELECT english_pref_term, nonpref_term_text
-									FROM DB_NAME.getty_aat
+									FROM $DB_NAME.getty_aat
 									WHERE getty_id = '{$style_period['style_period_getty_id']}' ";
 
 						$result_altStyle_periods = db_query($mysqli, $sql);
@@ -1137,7 +1137,7 @@ while ($row = $result->fetch_assoc())
 			//		Work Description
 			//----------------------------
 			
-			$sql = "SELECT description FROM DB_NAME.work WHERE id = '{$workId}' ";
+			$sql = "SELECT description FROM $DB_NAME.work WHERE id = '{$workId}' ";
 
 			$result_workDescription = db_query($mysqli, $sql);
 
@@ -1169,7 +1169,7 @@ while ($row = $result->fetch_assoc())
 
 			$source_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.source 
+			$sql = "SELECT * FROM $DB_NAME.source 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select sources from work record as well, if this image record has an associated work
@@ -1240,7 +1240,7 @@ while ($row = $result->fetch_assoc())
 
 			$subject_array = array();
 
-			$sql = "SELECT * FROM DB_NAME.subject 
+			$sql = "SELECT * FROM $DB_NAME.subject 
 						WHERE related_images = '{$imageId}' ";
 
 			// Select subjects from work record as well, if this image record has an associated work
@@ -1259,7 +1259,7 @@ while ($row = $result->fetch_assoc())
 					$subject_array[] = $subject['subject_text'];
 					
 					$sql = "SELECT english_pref_term, nonpref_term_text
-								FROM DB_NAME.getty_aat
+								FROM $DB_NAME.getty_aat
 								WHERE getty_id = '{$subject['subject_getty_id']}' ";
 
 					$result_nonprefSubject = db_query($mysqli, $sql);
@@ -1299,7 +1299,7 @@ while ($row = $result->fetch_assoc())
 
 		$lectureTag_array = array();
 
-		$sql = "SELECT * FROM DB_NAME.lecture_tag 
+		$sql = "SELECT * FROM $DB_NAME.lecture_tag 
 					WHERE related_image = '{$imageId}' ";
 
 		$result_lectureTag = db_query($mysqli, $sql);
@@ -1335,7 +1335,7 @@ while ($row = $result->fetch_assoc())
 		//		Order
 		//-------------------------
 
-		$sql = "SELECT order_id FROM DB_NAME.image 
+		$sql = "SELECT order_id FROM $DB_NAME.image 
 					WHERE id = '{$imageId}' ";
 
 		$result_order = db_query($mysqli, $sql);
@@ -1538,7 +1538,7 @@ echo array2csv($csvArray); // Defined in _php/_config/functions.php
 //---------------------------------------------------------
 
 $timestamp = date('Y-m-d H:i:s');
-$sql = "UPDATE DB_NAME.image
+$sql = "UPDATE $DB_NAME.image
 			SET last_exported = '{$timestamp}',
 				flagged_for_export = '0'
 			WHERE {$updateThese} ";

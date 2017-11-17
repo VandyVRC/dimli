@@ -16,7 +16,7 @@ $department = $mysqli->real_escape_string(trim($_POST['data']['userProf_departme
 $userType = $mysqli->real_escape_string(trim($_POST['data']['userProf_userType']));
 
 $sql = "SELECT * 
-			FROM DB_NAME.user 
+			FROM $DB_NAME.user 
 			WHERE username = '{$username}' 
 				AND id != '{$userId}' ";
 
@@ -36,7 +36,7 @@ if ($username_conflicts > 0):
 <?php
 else:
 
-	$sql = "UPDATE DB_NAME.user 
+	$sql = "UPDATE $DB_NAME.user 
 				SET first_name = '{$fName}', 
 					last_name = '{$lName}', 
 					username = '{$username}', 

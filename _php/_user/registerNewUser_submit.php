@@ -18,7 +18,7 @@ $password = crypt(trim($mysqli->real_escape_string($_POST['jsonData']['password'
 $display_name = $first_name." ".$last_name;
 $created = date('Y-m-d H:i:s');
 
-$sql = "INSERT INTO DB_NAME.user
+$sql = "INSERT INTO $DB_NAME.user
 			SET username = '{$username}',
 				crypted_password = '{$password}',
 				first_name = '{$first_name}',

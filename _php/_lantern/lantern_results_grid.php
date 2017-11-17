@@ -28,7 +28,7 @@ if (($page*$rpp)-$rpp <= count($results))
 			$short_id = ltrim($id, '0');
 
 			$sql = "SELECT preferred_image 
-            FROM DB_NAME.work 
+            FROM $DB_NAME.work 
             WHERE id = {$short_id} ";
 
       $res = db_query($mysqli, $sql);
@@ -38,7 +38,7 @@ if (($page*$rpp)-$rpp <= count($results))
       	$prefImage = $work['preferred_image'];
         
         $sql = "SELECT legacy_id 
-              FROM DB_NAME.image 
+              FROM $DB_NAME.image 
               WHERE id = '{$work['preferred_image']}' ";
 
         $result = db_query($mysqli, $sql);
@@ -54,7 +54,7 @@ if (($page*$rpp)-$rpp <= count($results))
     elseif ($arr['type']=='image'){
       
       $sql = "SELECT legacy_id, related_works 
-              FROM DB_NAME.image 
+              FROM $DB_NAME.image 
               WHERE id = {$id} ";   
 
       $result = db_query($mysqli, $sql);

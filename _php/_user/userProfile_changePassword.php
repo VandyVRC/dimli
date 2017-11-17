@@ -19,7 +19,7 @@ $npw = crypt(trim($mysqli->real_escape_string($_POST['data']['userProf_newPass']
 //---------------------------------
 
 $sql = "SELECT crypted_password 
-			FROM DB_NAME.user 
+			FROM $DB_NAME.user 
 			WHERE id = '{$userId}' 
 			LIMIT 1 ";
 
@@ -35,7 +35,7 @@ if ($opw === $existing_pw):
 	if (strlen($npw_raw) >= 6 && strlen($npw_raw) <= 15):
 	// New password is a valid length
 	
-		$sql = "UPDATE DB_NAME.user 
+		$sql = "UPDATE $DB_NAME.user 
 					SET crypted_password = '{$npw}' 
 					WHERE id = '{$userId}' ";
 

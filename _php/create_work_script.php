@@ -9,7 +9,7 @@ $workDescription = $_SESSION['descriptionArray']['createNewWork']['NWdescription
 
 // Create the new work record
 
-$sql = "INSERT INTO DB_NAME.work
+$sql = "INSERT INTO $DB_NAME.work
 				SET description = '{$workDescription}',
 					last_update = '{$timestamp}',
 					last_update_by = '{$_SESSION['username']}',

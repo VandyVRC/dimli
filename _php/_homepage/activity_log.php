@@ -12,7 +12,7 @@ $sql = "SELECT UserID,
 				RecordType, 
 				ActivityType, 
 				MAX(UnixTime) AS UnixTime
-			FROM DB_NAME.activity 
+			FROM $DB_NAME.activity 
 			WHERE UserID = {$_SESSION['user_id']}
 			AND (ActivityType != 'viewed' 
 				OR (ActivityType = 'viewed' AND RecordType = 'Order') )
@@ -58,7 +58,7 @@ else {
 		$recNo = str_pad($row['RecordNumber'], 4, '0', STR_PAD_LEFT);
 	
 
-			$sql = "SELECT * FROM DB_NAME.order 
+			$sql = "SELECT * FROM $DB_NAME.order 
 								WHERE id = {$row['RecordNumber']} ";
 			
 			$result_order = db_query($mysqli, $sql); 
@@ -82,7 +82,7 @@ else {
 		$recNo = str_pad($row['RecordNumber'], 6, '0', STR_PAD_LEFT);
 			
 			$sql = "SELECT preferred_image 
-									FROM DB_NAME.work 
+									FROM $DB_NAME.work 
 									WHERE id = {$row['RecordNumber']} ";
 				
 			$result_work = db_query($mysqli, $sql);
@@ -94,7 +94,7 @@ else {
 	 		if (!empty($pref_image)) {
 
 	 		$sql = "SELECT legacy_id 
-							FROM DB_NAME.image 
+							FROM $DB_NAME.image 
 							WHERE id = '{$pref_image}'";
 
 			$result_prefLeg = db_query($mysqli, $sql);
@@ -114,7 +114,7 @@ else {
 				// Action was performed on an Work 
 					
 			$sql = "SELECT legacy_id 
-							FROM DB_NAME.image 
+							FROM $DB_NAME.image 
 							WHERE id = {$row['RecordNumber']} ";
 
 						$result_image = db_query($mysqli, $sql);
