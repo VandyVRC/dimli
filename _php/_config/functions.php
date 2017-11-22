@@ -466,7 +466,7 @@ function checkRemoteFile($url)
   }
 }
 
-function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent, DB_NAME)
+function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent, $DB_NAME)
 {
 
   $arr = array();
@@ -585,7 +585,7 @@ function lantern_list_display_date($mysqli, $recordType, $recordNum, $parent, DB
   }
 }
 
-function lantern_list_display_material($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_material($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -606,7 +606,7 @@ function lantern_list_display_material($mysqli, $recordType, $recordNum, DB_NAME
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_technique($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_technique($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -626,7 +626,7 @@ function lantern_list_display_technique($mysqli, $recordType, $recordNum, DB_NAM
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_work_type($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_work_type($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -646,7 +646,7 @@ function lantern_list_display_work_type($mysqli, $recordType, $recordNum, DB_NAM
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_cultural_context($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_cultural_context($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -666,7 +666,7 @@ function lantern_list_display_cultural_context($mysqli, $recordType, $recordNum,
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_style_period($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_style_period($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -686,7 +686,7 @@ function lantern_list_display_style_period($mysqli, $recordType, $recordNum, DB_
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_location($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_location($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -708,7 +708,7 @@ function lantern_list_display_location($mysqli, $recordType, $recordNum, DB_NAME
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_subject($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_subject($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -729,7 +729,7 @@ function lantern_list_display_subject($mysqli, $recordType, $recordNum, DB_NAME)
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_inscription($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_inscription($mysqli, $recordType, $recordNum, $DB_NAME)
 {
 
   $arr = array();
@@ -753,7 +753,7 @@ function lantern_list_display_inscription($mysqli, $recordType, $recordNum, DB_N
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_rights($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_rights($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -775,7 +775,7 @@ function lantern_list_display_rights($mysqli, $recordType, $recordNum, DB_NAME)
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_source($mysqli, $recordType, $recordNum, DB_NAME)
+function lantern_list_display_source($mysqli, $recordType, $recordNum, $DB_NAME)
 {
   $arr = array();
 
@@ -798,7 +798,7 @@ function lantern_list_display_source($mysqli, $recordType, $recordNum, DB_NAME)
   echo trim(implode(', ', $arr), ', ');
 }
 
-function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, DB_NAME)
+function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, $DB_NAME)
 {
 
   ?><div class="highlightable" style="margin-bottom: 2px; padding-left: 15px; text-indent: -15px;"><?php
@@ -840,7 +840,7 @@ function lantern_list_display_titles($mysqli, $title_arr, $searches_arr, DB_NAME
   }
 }
 
-function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches_arr, $parent, DB_NAME)
+function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches_arr, $parent, $DB_NAME)
 {
 	$agent_arr = array();
 
@@ -921,7 +921,7 @@ function lantern_list_display_agents($mysqli, $recordType, $recordNum, $searches
 	}
 }
 
-function get_related_images($mysqli, $workNum, DB_NAME, $webroot, $image_src)
+function get_related_images($mysqli, $workNum, $DB_NAME, $webroot, $image_src)
 {
   $workNum = str_pad((string)$workNum,6,'0',STR_PAD_LEFT);
   $rel_images = array();
