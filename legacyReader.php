@@ -13,7 +13,7 @@ if (!isset($_SESSION['legReader_currentRecord'])) {
 // User has not yet visited a legReader record this session
 
         $sql = "SELECT last_legReader 
-                                FROM dimli.user 
+                                FROM $DB_NAME.user 
                                 WHERE id = '{$_SESSION['user_id']}' ";
 
         $result6 = db_query($mysqli, $sql);
@@ -36,7 +36,7 @@ if (!isset($_SESSION['legReader_currentRecord'])) {
         }
 
         $sql = "SELECT * 
-                                FROM dimli.legacy 
+                                FROM $DB_NAME.legacy 
                                 WHERE resource = '{$_SESSION['legReader_currentRecord']}' ";
 
         $result = db_query($mysqli, $sql);
@@ -53,7 +53,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
                 $_SESSION['legReader_currentRecord'] = create_six_digits($_SESSION['legReader_currentRecord']);
 
                 $sql = "SELECT * 
-                                        FROM dimli.legacy 
+                                        FROM $DB_NAME.legacy 
                                         WHERE resource = '{$_SESSION['legReader_currentRecord']}' ";
 
                 $result = db_query($mysqli, $sql);
@@ -64,7 +64,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
 
 
  $sql = "SELECT * 
-                                        FROM dimli.legacy 
+                                        FROM $DB_NAME.legacy 
                                         WHERE resource = '{$_SESSION['legReader_currentRecord']}' ";
 
                 $result = db_query($mysqli, $sql);
@@ -78,7 +78,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
         $_SESSION['legReader_currentRecord'] = create_six_digits($_SESSION['legReader_currentRecord']);
 
         $sql = "SELECT * 
-                                FROM dimli.legacy 
+                                FROM $DB_NAME.legacy 
                                 WHERE resource = '{$_SESSION['legReader_currentRecord']}' ";
 
         $result = db_query($mysqli, $sql);
@@ -87,7 +87,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
 // User performed a manual record search
 
         $sql = "SELECT * 
-                                FROM dimli.legacy 
+                                FROM $DB_NAME.legacy 
                                 WHERE resource = '{$_POST['legacyReader-recordNum']}' ";
 
         $result = db_query($mysqli, $sql);
@@ -97,7 +97,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
 } else {
 
         $sql = "SELECT * 
-                                FROM dimli.legacy 
+                                FROM $DB_NAME.legacy 
                                 WHERE resource = '{$_SESSION['legReader_currentRecord']}' ";
 
         $result = db_query($mysqli, $sql);
@@ -108,7 +108,7 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
 //              Update User's 'last_legReader' number
 //------------------------------------------------
 
-$sql = "UPDATE dimli.user 
+$sql = "UPDATE $DB_NAME.user 
                         SET last_legReader = '{$_SESSION['legReader_currentRecord']}' 
                         WHERE id = '{$_SESSION['user_id']}' ";
 
@@ -125,7 +125,7 @@ if (isset($_POST['submit-lectureTag']) && $_POST['submit-lectureTag'] == 'Update
         $errors = array_merge($errors, check_max_field_lengths($fieldsWithMaxLengths));
         // Validate max field length
 
-        $sql = "DELETE FROM dimli.lecture_tag 
+        $sql = "DELETE FROM $DB_NAME.lecture_tag 
                                 WHERE related_image = '{$_SESSION['legReader_currentRecord']}' ";
 
         $result2 = db_query($mysqli, $sql);
@@ -139,7 +139,7 @@ if (isset($_POST['submit-lectureTag']) && $_POST['submit-lectureTag'] == 'Update
 
                 $tag = trim($tag, ' ,');
 
-                $sql = " INSERT INTO dimli.lecture_tag
+                $sql = " INSERT INTO $DB_NAME.lecture_tag
                                                 SET related_image = '{$_SESSION['legReader_currentRecord']}',
                                                         text = '{$tag}',
                                                         last_update_by = '{$_SESSION['username']}',
@@ -157,7 +157,7 @@ if (isset($_POST['submit-lectureTag']) && $_POST['submit-lectureTag'] == 'Update
 //------------------------------------------
 
 $sql = "SELECT text 
-                        FROM dimli.lecture_tag 
+                        FROM $DB_NAME.lecture_tag 
                         WHERE related_image = '{$_SESSION['legReader_currentRecord']}' ";
 
 $result4 = db_query($mysqli, $sql);
@@ -173,7 +173,7 @@ $currentTags = trim($currentTags, ' ,');
 //-----------------------------------------
 
 $query_recentOrder = "SELECT last_order 
-                                                                FROM dimli.user 
+                                                                FROM $DB_NAME.user 
                                                                 WHERE username = '{$_SESSION['username']}' ";
 
 $result_recentOrder = db_query($mysqli, $query_recentOrder);
