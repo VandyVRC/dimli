@@ -1,13 +1,16 @@
 <?php
+
+
 $urlpatch = (strpos($_SERVER['DOCUMENT_ROOT'], 'xampp') == true)?'/dimli':'';
 if(!defined('MAIN_DIR')){define('MAIN_DIR',$_SERVER['DOCUMENT_ROOT'].$urlpatch);}
 require_once(MAIN_DIR.'/_php/_config/session.php');
 require_once(MAIN_DIR.'/_php/_config/connection.php');
 require_once(MAIN_DIR.'/_php/_config/functions.php');
-//confirm_logged_in();
-//require_priv('priv_catalog');
+confirm_logged_in();
+require_priv('priv_catalog');
 
 $errors = array(); $message = '';
+
 
 if (!isset($_SESSION['legReader_currentRecord'])) {
 // User has not yet visited a legReader record this session
@@ -42,6 +45,7 @@ if (!isset($_SESSION['legReader_currentRecord'])) {
         $result = db_query($mysqli, $sql);
 
 }
+
 
 if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev') {
 // User clicked previous
@@ -104,6 +108,8 @@ if (isset($_POST['legacyReader-prev']) && $_POST['legacyReader-prev'] == 'Prev')
 
 }
 
+
+
 //------------------------------------------------
 //              Update User's 'last_legReader' number
 //------------------------------------------------
@@ -113,6 +119,8 @@ $sql = "UPDATE $DB_NAME.user
                         WHERE id = '{$_SESSION['user_id']}' ";
 
 $result5 = db_query($mysqli, $sql);
+
+
 // Update current user's 'last_legReader' number for quick navigation
 
 //------------------------------
@@ -152,6 +160,8 @@ if (isset($_POST['submit-lectureTag']) && $_POST['submit-lectureTag'] == 'Update
 
 }
 
+
+
 //------------------------------------------
 //              Retrieve Current Lecture Tag(s)
 //------------------------------------------
@@ -168,6 +178,7 @@ while ($row = $result4->fetch_assoc()) {
 }
 $currentTags = trim($currentTags, ' ,');
 
+
 //-----------------------------------------
 //              Find recently visited order
 //-----------------------------------------
@@ -182,10 +193,12 @@ while ($recent_order = $result_recentOrder->fetch_assoc()) {
         $lastOrder = create_four_digits($recent_order['last_order']);
 }
 
+
+
 #################################################################
 #####################  BEGIN CLIENT-SIDE  #######################
 #################################################################
-
+require("_php/header.php"); ?>
 
 <!-- Pane container -->
 <div id="paneContainer">
@@ -676,3 +689,4 @@ while ($recent_order = $result_recentOrder->fetch_assoc()) {
 </div> <!-- paneContainer -->
 
 <?php require("_php/footer.php"); ?>
+
